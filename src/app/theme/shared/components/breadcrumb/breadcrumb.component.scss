@@ -1,0 +1,122 @@
+@import '/src/scss/settings/preset-variables';
+@import 'node_modules/bootstrap/scss/functions';
+@import 'node_modules/bootstrap/scss/variables';
+$pc-body-bg: map-get($preset-colors, 'preset-1', 'body');
+$pc-blue: map-get($preset-colors, 'preset-1', 'primary');
+$pc-secondary: map-get($preset-colors, 'preset-1', 'secondary');
+@import '/src/scss/settings/custom-variables';
+@import '/src/scss/settings/theme-variables';
+
+.h_40{
+    height: 40px;
+}
+.bread-center{
+    height: 60px;
+    background: white;
+    padding: 20px 20px;
+    margin-bottom: 31px;
+}
+.page-header-title{
+    display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+padding: 10px 0px;
+gap: 1px;
+
+width: 188px;
+height: 69px;
+}
+
+.video_titlebar {
+    width: 100% !important;
+    height: auto !important;
+    justify-content: space-between !important;
+    padding: 0 15px !important;
+    flex-wrap: wrap;
+    h2{
+        font-size: 24px;
+        font-family: 'Inter', sans-serif;
+    }
+    small{
+        font-size: $theme-font-size;
+        color: $secondary;
+        display: block;
+        font-weight: 500;
+    }
+    input{
+        height: 40px;
+    }
+    .btn-group{
+        .btn{
+            height: 40px;
+            margin-left: 1rem;
+            &.btn-light{
+                width: 216px;
+                background-color: #ffffff;
+                text-align: right;
+            }
+        }
+
+    }
+    button{
+        &.text-primary{
+            border: none;
+            margin-right: 1rem;
+            font-size: 20px;
+        }
+    }
+}
+
+@media (max-width: 991px) {
+.video_titlebar{
+    h2{
+        margin-bottom: 1rem !important;
+    }
+}
+.w-sm-100{
+    width: 100%;
+}
+
+}
+@media (max-width: 768px) {
+
+.video_titlebar {
+    position: relative;
+    button{
+        &.text-primary {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin-right: 0;
+        }
+    }
+}
+}
+@media (max-width: 767px) {
+
+.video_titlebar {
+            .btn-group {
+                .btn{
+                    &.btn-light{
+                        width: 150px;
+                    }
+                }
+            }
+}
+}
+@media (max-width: 575.98px) {
+.video_titlebar{
+    padding: 0 !important;
+}
+    .alignment-on-mobile {
+        flex-wrap: wrap;
+        .btn-group{
+            width: 100%;
+            margin-top: 0.5rem;
+            .btn{
+                margin-left: 0;
+            }
+        }
+    }
+}

@@ -1,0 +1,30 @@
+<div class="card user-activity-card card-height ">
+  <div class="card-header header-bg d-flex align-items-center justify-content-between">
+    <h5>Popular Shows</h5>
+    <a class="link-primary">View all</a>
+  </div>
+  <div class="card-body scroll">
+    <div class="row mb-3 align-items-center" *ngFor="let show of trendingShows" >
+      <div class="col-auto p-r-0">
+        <div class="u-img" >
+          <img *ngIf="show.thumbnail" [src]="show?.thumbnail" height="50px" class="cover-img" />
+          <img *ngIf="!show.thumbnail" src="https://placehold.co/400" height="50px" class="cover-img" />
+          <span class="profile-img"></span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="d-flex align-items-center justify-content-between">
+          <a href="javascript:!">
+            <h5 class="mb-0">{{show?.title}}</h5>
+          </a>
+          <div class="text-end">
+            <div class="d-flex align-items-center">
+              <p class="text-muted text-sm mb-0">{{show?.adLikes}}</p>
+              <i class="text-muted fa fa-heart ms-1 fs-10"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

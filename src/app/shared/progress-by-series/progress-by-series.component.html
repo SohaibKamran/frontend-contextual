@@ -1,0 +1,21 @@
+    <div class="card {{cardHeight}}"  >
+        <div class="card-header header-bg d-flex align-items-center justify-content-between">
+          <h5>{{title}}</h5>
+          <a class="link-primary" (click)="routeToVideoCatalog()">View all</a>
+        </div>
+      <div class="card-body" style="max-height: 335px; overflow-y: scroll;" scrollTracker (scrolled)="onScrollEnd($event)">
+        <div class="row align-items-center my-2 mb-3" *ngFor="let list of series" >
+          <div class="col-5">
+            <p class="mb-0" (click)="setSeriesFilter(list)" style="cursor: pointer;">{{ list.title }}</p>
+          </div>
+          <div class="col">
+            <ngb-progressbar class="progress {{ list?.percentage && list?.percentage<20 ? 'progress-danger':'progress-primary'}}" type="progress-bar" height="8px" [value]="list.percentage"></ngb-progressbar>
+          </div>
+          <div class="col-auto">
+            <p class="mb-0 text-sm text-muted">{{ list.percentage+'%' }}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  <!-- </div> -->

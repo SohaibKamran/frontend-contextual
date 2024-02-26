@@ -1,0 +1,113 @@
+@import "../../../assets/scss/variables.scss";
+
+.modal-body {
+  background-color: $bg-light-tag;
+  padding-left: 2rem;
+  padding-right: 2rem;
+
+  @media (min-width: 1200px) {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+
+  .episode-detail {
+    img {
+      width: 75px;
+      object-fit: cover;
+      height: 100px;
+      border-radius: 4px;
+    }
+  }
+
+  .position-relative {
+    i {
+      position: absolute;
+      right: 14px;
+      top: 8px;
+      z-index: 1;
+    }
+  }
+
+  .card {
+    .card-body {
+      .advertiser-img-wrapper {
+        img {
+          height: 48px;
+          width: 48px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+
+      .bg-table-head {
+        background-color: $bg-light-tag;
+        border-bottom: 1px solid $table-border-color;
+        margin-right: 0px;
+        margin-left: 0;
+        padding: 0.5rem;
+
+        .ad-queue-col {
+          padding-left: 7.5rem;
+
+          @media (min-width: 1200px) {
+            padding-left: 8.5rem;
+          }
+        }
+      }
+
+      .ad-queue-row {
+        padding-left: 6.5rem;
+
+        @media (min-width: 1200px) {
+          padding-left: 7.5rem;
+        }
+      }
+
+      .preview-img-wrapper {
+        position: relative;
+
+        img {
+          height: 100px;
+          // width: 100%;
+          object-fit: cover;
+          border-radius: 4px;
+          width: 178px;
+          transition: all 0.5s;
+
+          &:hover+ {
+            i {
+              background-color: $hover-play-btn;
+              border-radius: 4px;
+              padding: 3px 8px;
+              transition: all 0.5s;
+            }
+          }
+        }
+
+        i {
+          position: absolute;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          bottom: initial;
+          padding: 3px 8px;
+          transition: all 0.5s;
+
+          &:hover {
+            background-color: $hover-play-btn;
+            border-radius: 4px;
+            padding: 3px 8px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.showPlayButton {
+
+  display: none;
+}

@@ -1,0 +1,49 @@
+<div class="row gx-3" data-masonry='{"percentPosition": true }'>
+    <div *ngFor="let item of wishlistData" class="col-sm-6 col-xl-4 col-xxl-3">
+        <div class="card">
+            <div class="position-relative">
+                <img src={{item?.matchedImageUrl}} class="card-img-top img-fluid"
+                    style="cursor:pointer" alt="..."
+                    (click)="openItemDetailsModal(item?.Product?.id,item?.ProductImage?.id,item?.Scene,item?.Retailer?.name, item?.matchedImageUrl)">
+                <i *ngIf="!item?.heart" role="button" class="bi bi-heart" (click)="add(item)"></i>
+                <i *ngIf="item?.heart" role="button" class="bi bi-heart-fill" (click)="remove(item)"></i>
+                <i class="bi bi-badge-ad-fill"></i>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="mb-0 fs-lg ellipsis w-65" style="cursor: pointer;"
+                            (click)="openItemDetailsModal(item?.Product?.id,item?.ProductImage?.id, item?.Scene,item?.Retailer?.name,item?.matchedImageUrl)">
+                            {{item?.Retailer?.name}}</p>
+                        <p class="mb-0 fs-lg ms-3">{{item?.ProductImage?.prices?.actualPrice || item?.ProductImage?.prices?.salePrice}}</p>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="d-flex align-items-center">
+                        <div class="featured-img">
+                            <img (click)="setVideoData(item?.Scene, item?.Show?.id, true)" src={{item.Scene?.thumbnail}}
+                                class="img-fluid cursor">
+                        </div>
+                        <div class="ms-3 w-50" (click)="routeToMyFavShows(item?.Show)">
+                            <p class="fs-md text-decoration-underline mb-0 cursor">{{item?.Show?.Series?.title}}</p>
+                            <p *ngIf="item?.Show?.seasonNo" class="fs-md text-decoration-underline mb-0 cursor">
+                                {{item?.Show?.seasonNo | modifyInt:"S"}} {{" "}} {{item?.Show?.episodeNo |
+                                modifyInt:"E"}}</p>
+                        </div>
+                    </div>
+                </li>
+                <li *ngIf="item?.ProxyCoordinate?.Actor?.name" class="list-group-item">
+                    <div class="d-flex align-items-center" (click)="routeToFavActors(item?.ProxyCoordinate?.Actor)"
+                        style="cursor: pointer;">
+                        <div class="linked-img">
+                            <img src={{item?.ProxyCoordinate?.Actor?.imageUrl}}>
+                        </div>
+                        <div class="ms-2">
+                            <p class="fs-md mb-0">by <u>{{item?.ProxyCoordinate?.Actor?.name}}</u></p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

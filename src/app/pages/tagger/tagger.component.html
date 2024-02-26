@@ -1,0 +1,575 @@
+<app-pagetitle title="Annotator" [breadcrumbItems]="breadCrumbItems">
+  <p></p>
+</app-pagetitle>
+
+<div (click)="toggleMainSection()" *ngIf="mainSection && noShow===false"
+  class="d-flex align-items-center cursor position-header">
+  <p class="mb-0 text-primary fs-lg fw-bold">Hide Top</p>
+  <i class="bi bi-box-arrow-up text-primary ms-2"></i>
+</div>
+<div (click)="toggleMainSection()" *ngIf="!mainSection && noShow===false"
+  class="d-flex align-items-center cursor position-header">
+  <p class="mb-0 text-primary fs-lg fw-bold">Show Top</p>
+  <i class="bi bi-box-arrow-up text-primary ms-2"></i>
+</div>
+<section [hidden]="noShow===true" class="tagger">
+  <div [hidden]="mainSection===false" class="row gx-3">
+    <div class="col-md-6 col-lg-5 col-xl-4">
+      <cdk-card>
+        <div class="d-flex align-items-center">
+          <div class="img-wrapper">
+            <img height="156px" width="118px" src="{{showInfo?.thumbnail}}">
+          </div>
+          <div class="content-wrapper" *ngIf="showInfo?.title!==''">
+            <h6 class="text-black" *ngIf="showInfo?.Series?.title; else movieTitle" title="{{showInfo?.Series?.title}}">
+              {{showInfo?.Series?.title}}</h6>
+            <ng-template #movieTitle>
+              <h6 class="text-black d-block" *ngIf="showInfo?.title" title="{{showInfo?.title }}">{{showInfo?.title }}
+              </h6>
+            </ng-template>
+            <p *ngIf="showInfo?.seasonNo">Season {{showInfo?.seasonNo}}</p>
+            <p *ngIf="showInfo?.episodeNo">Episode {{showInfo?.episodeNo}}</p>
+            <p *ngIf="showInfo?.createdAt != {}">{{showInfo?.createdAt | date: 'd MMMM, y'}}</p>
+            <p *ngIf="showInfo?.Series?.title">Title: {{showInfo?.title}}</p>
+            <p *ngIf="showInfo?.updatedAt != {}">Last Updated: {{showInfo?.updatedAt | date: 'dd/MM/yyyy'}}</p>
+            <p>{{showInfo?.percentage!==null ? showInfo?.percentage : '0'}}% Indexed</p>
+            <button *ngIf="showInfo?.Series?.title" type="button" class="btn btn-secondary btn-sm mt-2 fs-10"
+              (click)="episodeModalOpen()">More
+              Episodes</button>
+          </div>
+        </div>
+      </cdk-card>
+    </div>
+    <div class="col-md-6 col-lg-7 col-xl-8">
+      <div class="card" style="height: 189px">
+        <div class="card-body">
+          <div class="select-scene">
+            <div class="align-items-center d-flex justify-content-between mb-3">
+              <div>
+                <div class="d-flex">
+                  <h6 (click)="setScenesList()" [ngStyle]="proxyScenes && {'color':'#A1A1A2'}" class=" cursor-pointer">
+                    Select Scene </h6>
+                  <div class="popover-icon">
+                    <i class="bi bi-info-circle text-light fs-md tooltip-icon-mgn ms-1"></i>
+                    <div class="card popover-card-tag">
+                      <div class="card-body text-center">
+                        <i class="bi bi-info-circle text-primary fs-xl"></i>
+                        <p class="text-black fs-xl ">Select Scene</p>
+                        <p class="text-muted fs-lg text-start">Select a scene to tag by scrolling left and right
+                          below.
+                          Filter scenes by number of proxies and ads by clicking the filter icon. </p>
+                      </div>
+                    </div>
+                  </div>
+                  <h6 class="text-light  ms-2">|</h6>
+                  <h6 (click)="setProxyScenes()" [ngStyle]="scenesList && {'color':'#A1A1A2'}"
+                    class="  ms-2 cursor-pointer">Recent Product Records</h6>
+                  <div class="popover-icon">
+                    <i class="bi bi-info-circle text-light fs-md tooltip-icon-mgn ms-1"></i>
+                    <div class="card popover-card-proxy">
+                      <div class="card-body text-center">
+                        <i class="bi bi-info-circle text-primary fs-xl"></i>
+                        <p class="text-black fs-xl ">Recent Product Records</p>
+                        <p class="text-muted fs-lg">Drag Recent Product Records into similar scenes. This duplicates the
+                          following PR data: Proxy, Super-Proxy, Gender, Actor, Attributes, and Custom Threshold into
+                          new scenes, and eliminates the need to repeat the 4 annotation steps.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="!proxyScenes" class="justify-content-end" (click)="open()">
+                <i class="fas fa-sliders-h text-primary cursor-pointer"></i>
+              </div>
+            </div>
+
+          </div>
+          <div class="slick-wrapper" [ngStyle]="!scenesList && {'display':'none'}">
+            <div id="scenes-slider" (mousedown)="scrollSceneStart($event)" (mouseup)="scrollSceneEnd($event)"
+              (mousemove)="scrollSceneMove($event)" (mouseleave)="scrollSceneEnd($event)"
+              (scroll)="handleScroll($event)" class="d-flex slider-proxy">
+              <div *ngIf="scenesCount===0" class="product-img assign-actor cursor">
+                <span class="d-flex fs-sm p-1 text-center text-light">
+                  No Scene Data
+                </span>
+              </div>
+              <div class="slide" *ngFor="let scene of allScenes;let i=index">
+                <img *ngIf="scene.id !== currentSceneId" src={{scene.thumbnail}} (mousedown)="onMouseDown($event)"
+                  (click)="sendImg($event,scene)" class="zoom " />
+                <img *ngIf="scene.id === currentSceneId" src={{scene.thumbnail}} (mousedown)="onMouseDown($event)"
+                  (click)="sendImg($event,scene)" class="zoom active-scene-border" />
+                <div class="d-flex justify-content-between">
+                  <span class="fst-italic">Scene {{scene.relativeSceneNo}}</span>
+                  <span class="fst-italic">{{scene?.productRecordsCount}} Product Records</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- recent proxies array comes here -->
+          <cdk-slider-proxy [allowDrag]="sliderEnabled" (dragStart)="recentProxyDragStart($event)"
+            (dragEnd)="dragend($event)" currentSceneId="currentSceneId" [recentProxies]="recentProxies"
+            *ngIf="proxyScenes">
+          </cdk-slider-proxy>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <cdk-card>
+        <div class="row gx-5">
+          <div class="col-md-6">
+            <div class="tag-scene mb-2">
+              <div class="d-flex align-items-center mb-1 flex-wrap justify-content-between">
+                <div class="d-flex d-flex align-items-center">
+                  <div class="d-flex align-items-center">
+                    <h6 class="text-black">Scene</h6>
+                    <ngx-spinner name="active-scene" bdColor="rgba(51,51,51,0.5)" size="medium" [fullScreen]="false"
+                      color="#fff" type="ball-scale-multiple">
+                    </ngx-spinner>
+                    <div class="popover-icon">
+                      <i class="bi bi-info-circle text-light fs-md tooltip-icon-mgn ms-1"></i>
+                      <div class="card popover-card-active">
+                        <div class="card-body text-center">
+                          <i class="bi bi-info-circle text-primary fs-xl"></i>
+                          <p class="text-black fs-xl ">Index the scene thumbnail</p>
+                          <p class="text-muted fs-lg text-start">To index these scene thumbnail follow these steps:
+                          </p>
+                          <p class="text-muted fs-lg text-start">1- Use the proxy search below to search for a
+                            matching
+                            proxy image for the most prominent (key) products in the scene. Use one proxy image per
+                            key
+                            product in the scene.</p>
+                          <p class="text-muted fs-lg text-start">2- Drag the most visually similar Proxy Image
+                            directly on
+                            top of each key product in the scene.</p>
+                          <p class="text-muted fs-lg text-start">3- Alternatively, click on the key product in the
+                            scene
+                            to
+                            upload a proxy image from your drive. </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <i [ngClass]="{'disabled': relativeSceneNo === 1}"
+                      class="bi bi-chevron-left ms-2 text-primary arrows"
+                      (click)="relativeSceneNo !== 1 && toggleSceneLeft()"></i>
+                    <span class="ms-2">{{relativeSceneNo}}</span>
+                    <i [ngClass]="{'disabled': relativeSceneNo == totalScenesCount }"
+                      class="bi bi-chevron-right ms-2 text-primary arrows" (click)="toggleSceneRight()"></i>
+
+                  </div>
+                </div>
+
+                <div class="d-flex align-items-center">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="dropup mr-2" ngbDropdown placement="top-start">
+                      <i class="bi bi-eye text-light dropdown-toggle fs-4 cursor-pointer icon-hover"
+                        ngbDropdownToggle></i>
+                      <ul class="dropdown-menu vieweditdrop p-0" ngbDropdownMenu>
+                        <p class="btn-light-secondary m-0 p-2 ps-3 rounded-top text-black fs-lg">View or edit in:</p>
+                        <a [ngClass]="{'isDisabled':proxyProducts?.length === 0}" class="dropdown-item"
+                          (click)="openTagSummaryModal()">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler me-1 icon-tabler-tag"
+                            width="20" height="20" viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <circle cx="8.5" cy="8.5" r="1" fill="currentColor" />
+                            <path
+                              d="M4 7v3.859c0 .537 .213 1.052 .593 1.432l8.116 8.116a2.025 2.025 0 0 0 2.864 0l4.834 -4.834a2.025 2.025 0 0 0 0 -2.864l-8.117 -8.116a2.025 2.025 0 0 0 -1.431 -.593h-3.859a3 3 0 0 0 -3 3z" />
+                          </svg>
+                          PR Summary
+                        </a>
+                        <a class="dropdown-item" (click)="EpisodePreview()">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler me-1 icon-tabler-video-plus"
+                            width="20" height="20" viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path
+                              d="M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z" />
+                            <rect x="3" y="6" width="12" height="12" rx="2" />
+                            <line x1="7" y1="12" x2="11" y2="12" />
+                            <line x1="9" y1="10" x2="9" y2="14" />
+                          </svg>
+                          Video Preview
+                        </a>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="d-flex justify-content-between">
+                    <button type="button" class="btn btn-link text-primary" (click)="openSceneNotesmodal()">
+                      <i class="far fa-list-alt text-primary"></i>
+                      <span class="notification-badge" *ngIf="notesNotifications > 0">{{ notesNotifications }}</span>
+                    </button>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div style="height: 360px;">
+              <div style="height: 280px; " (click)="staticModal(uploadProxyImageModal,$event)" id="canvasCon"
+                *ngIf="constructCanvasVar" class="tag-scene active-scene" ngxUiLoaderBlurred [blur]="0" opacity="0"
+                [loaderId]="'active-scene'">
+                <canvas class="canvas-img" id="canvas"></canvas>
+
+              </div>
+              <div style="height: 80px;" class="align-items-center d-flex justify-content-between mt-2">
+                <label class="text-muted">Scene Status:
+                  <span *ngIf="selectedObj?.taggingStatusId==1" class="todo">Todo</span>
+                  <span *ngIf="selectedObj?.taggingStatusId==2" class="inprogress">In Progress</span>
+                  <span *ngIf="selectedObj?.taggingStatusId==3" class="review">Review</span>
+                  <span *ngIf="selectedObj?.taggingStatusId==4" class="returned">Returned</span>
+                  <span *ngIf="selectedObj?.taggingStatusId==5" class="approved">Approved</span>
+                </label>
+                <div class="d-flex justify-content-between">
+                  <button type="button" class="btn btn-outline-secondary outline-light"
+                    (click)="openEpisodePreview()">Preview</button>
+                  &nbsp;
+                  <button (click)="staticsModal()" type="button"
+                    class="btn btn-primary ms-2">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 position-relative" style="height: 400px;">
+            <div class="d-flex justify-content-between align-items-center mb-3 pr-vertical">
+              <p class="text-light  fs-10 mb-0 ">ACTOR</p>
+              <p class="text-light  fs-10 mb-0 ">SUPER PROXY</p>
+              <p class="text-light  fs-10 mb-0 ">PROXY</p>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mb-3 mt-2">
+              <h6 class="text-black  fs-lg mb-0">Product Records (PRs)</h6>
+              <p class="text-muted  fs-md mb-0">{{count}} Product Records</p>
+              <p *ngIf="proxyProducts.legnth === 0" class="text-muted  fs-md mb-0">0 Product Records</p>
+            </div>
+            <div class="product-records-scroll" style="height: auto">
+
+              <div class="d-flex align-items-center overflow-ai">
+                <div *ngFor="let proxyProduct of proxyProducts;let i=index">
+                  <div class="bg-strip pr-border" *ngIf="i%2 === 0">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                      <p class="mb-0 fs-10">PR {{i+1}}</p>
+                      <!-- <span class="badge text-bg-warning fw-bold">{{proxyProduct?.topVzotScore}}</span>
+                      <i class="icon-Edit text-light" (click)="openTagSummaryModal(proxyProduct)"></i> -->
+                      <i *ngIf="i > 0" class="cursor-pointer fa-solid fa-angle-left" (click)="orderProductRecords('-', i)"></i>
+                      <i *ngIf="i < proxyProducts.length - 1" class="cursor-pointer fa-solid fa-angle-right" (click)="orderProductRecords('+', i)"></i>
+                    </div>
+                    <div class="proxy-product">
+                      <div class="product-img cursor">
+                        <img (click)="openTagSummaryModal(proxyProduct)" src={{proxyProduct?.proxyImageUrl}}>
+                      </div>
+                      <div class="d-flex align-items-center cursor">
+                        <span class="circle me-2" [style.background-color]="proxyProduct.color"></span>
+                        <span class="fs-sm text-gray ellipsis">#{{transform(proxyProduct.id,9)}}</span>
+                      </div>
+                      <span class="bi bi-x-lg icon-close text-light fs-md cursor"
+                        (click)="removeProxyProduct(proxyProduct)"></span>
+                    </div>
+                  </div>
+                  <div class="bg-white pr-border" *ngIf="i%2 !== 0">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                      <p class="mb-0 fs-10">PR {{i+1}}</p>
+                      <i *ngIf="i > 0" class="cursor-pointer fa-solid fa-angle-left"
+                        (click)="orderProductRecords('-', i)"></i>
+                      <i *ngIf="i < proxyProducts.length - 1" class="cursor-pointer fa-solid fa-angle-right"
+                        (click)="orderProductRecords('+', i)"></i>
+                    </div>
+                    <div class="proxy-product">
+                      <div class="product-img cursor">
+                        <img (click)="openTagSummaryModal(proxyProduct)" src={{proxyProduct?.proxyImageUrl}}>
+                      </div>
+                      <div class="d-flex align-items-center cursor">
+                        <span class="circle me-2" [style.background-color]="proxyProduct.color"></span>
+                        <span class="fs-sm text-gray ellipsis">#{{transform(proxyProduct.id,9)}}</span>
+                      </div>
+                      <span class="bi bi-x-lg icon-close text-light fs-md cursor"
+                        (click)="removeProxyProduct(proxyProduct)"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center overflow-ai">
+                <div *ngFor="let proxyProduct of proxyProducts;let i=index">
+                  <div class="bg-strip pr-border" *ngIf="i%2 ===0">
+                    <div class="proxy-product">
+                      <div class="product-img cursor" [hidden]="!proxyProduct?.cordinateProd?.image">
+                        <img (click)="openTagSummaryModal(proxyProduct)" src="{{proxyProduct?.cordinateProd?.image}}">
+                      </div>
+                      <div class="d-flex align-items-center cursor" [hidden]="!proxyProduct?.cordinateProd?.image">
+                        <span class="fs-sm text-gray ellipsis"
+                          [hidden]="!proxyProduct?.cordinateProd?.image">{{proxyProduct?.CoordinateHasProducts?.[0]?.Product?.Retailer?.name}}</span>
+                      </div>
+                      <span class="bi bi-x-lg icon-close text-light fs-md cursor"
+                        (click)="removeSuperProxy(proxyProduct)" [hidden]="!proxyProduct?.cordinateProd?.image"></span>
+                      <span class="badge badge-ad border border-white text-bg-secondary"
+                        [hidden]="!proxyProduct?.cordinateProd?.image">{{proxyProduct?.CoordinateHasProducts?.[0]?.vzotScore}}</span>
+
+                      <span class="feather icon-lock text-primary"
+                        [hidden]="!proxyProduct?.cordinateProd?.image"></span>
+
+                      <div *ngIf="!proxyProduct?.cordinateProd?.image" (click)="openTagSummaryModal(proxyProduct)"
+                        class="product-img assign-actor cursor">
+                        <span class="d-flex fs-sm p-1 text-center text-light">Click to
+                          Assign SuperProxy</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bg-white pr-border" *ngIf="i%2 !==0">
+                    <div class="proxy-product">
+                      <div class="product-img cursor" [hidden]="!proxyProduct?.cordinateProd?.image">
+                        <img (click)="openTagSummaryModal(proxyProduct)" src={{proxyProduct?.cordinateProd?.image}}>
+                      </div>
+                      <div class="d-flex align-items-center cursor" [hidden]="!proxyProduct?.cordinateProd?.image">
+                        <span class="fs-sm text-gray ellipsis"
+                          [hidden]="!proxyProduct?.cordinateProd?.image">{{proxyProduct?.CoordinateHasProducts?.[0]?.Product?.Retailer?.name}}</span>
+                      </div>
+                      <span class="bi bi-x-lg icon-close text-light fs-md cursor"
+                        (click)="removeSuperProxy(proxyProduct)" [hidden]="!proxyProduct?.cordinateProd?.image"></span>
+                      <span class="badge badge-ad border border-white text-bg-secondary"
+                        [hidden]="!proxyProduct?.cordinateProd?.image">{{proxyProduct?.CoordinateHasProducts?.[0]?.vzotScore}}</span>
+                      <span class="feather icon-lock text-primary"
+                        [hidden]="!proxyProduct?.cordinateProd?.image"></span>
+                      <div *ngIf="!proxyProduct?.cordinateProd?.image" (click)="openTagSummaryModal(proxyProduct)"
+                        class="product-img assign-actor cursor">
+                        <span class="d-flex fs-sm p-1 text-center text-light">Click to
+                          Assign SuperProxy</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex align-items-center overflow-ai">
+                <div *ngFor="let proxyProduct of proxyProducts;let i=index">
+                  <div class="bg-strip pr-border" *ngIf="i%2 ===0">
+                    <div class="proxy-product">
+                      <div class="product-img cursor" [hidden]="!proxyProduct?.Actor">
+                        <img (click)="openTagSummaryModal(proxyProduct)" src={{proxyProduct?.Actor?.imageUrl}}>
+                      </div>
+                      <div class="d-flex align-items-center cursor" *ngIf="proxyProduct?.Actor">
+                        <span class="fs-sm text-gray ellipsis">
+                          {{proxyProduct?.Actor?.name}}
+                        </span>
+                      </div>
+                      <div *ngIf="proxyProduct?.actorId==null" (click)="openTagSummaryModal(proxyProduct)"
+                        class="product-img assign-actor cursor">
+                        <span class="d-flex fs-sm p-1 text-center text-light">Click to
+                          Assign Actor</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bg-white pr-border" *ngIf="i%2 !==0">
+                    <div class="proxy-product">
+                      <div class="product-img cursor" [hidden]="!proxyProduct?.Actor">
+                        <img (click)="openTagSummaryModal(proxyProduct)" src={{proxyProduct?.Actor?.imageUrl}}>
+                      </div>
+                      <div class="d-flex align-items-center cursor" *ngIf="proxyProduct?.Actor">
+                        <span class="fs-sm text-gray ellipsis">
+                          {{proxyProduct?.Actor?.name}}
+                        </span>
+                      </div>
+                      <div *ngIf="proxyProduct?.actorId==null" (click)="openTagSummaryModal(proxyProduct)"
+                        class="product-img assign-actor cursor">
+                        <span class="d-flex fs-sm p-1 text-center text-light">Click to
+                          Assign Actor</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ng-container *ngIf="!proxyProducts || proxyProducts.length===0">
+              <ngx-ui-loader [loaderId]="'loader-10'"></ngx-ui-loader>
+              <tr class="no_results">
+                <td colspan="12"> No Product Found</td>
+              </tr>
+            </ng-container>
+          </div>
+        </div>
+      </cdk-card>
+    </div>
+  </div>
+  <!-- search -->
+  <div class="row proxy-search">
+    <div class="col-12">
+      <cdk-card-i>
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+          <div class="d-flex align-items-center flex-wrap">
+            <h6 class="text-black  fs-lg mb-0">Proxy Image Search</h6>
+            <div class="popover-icon">
+              <i class="bi bi-info-circle text-light fs-md tooltip-icon-mgn ms-1"></i>
+              <div class="card popover-card-search">
+                <div class="card-body text-center">
+                  <i class="bi bi-info-circle text-primary fs-xl"></i>
+                  <p class="text-black fs-xl ">Proxy Search</p>
+                  <p class="text-muted fs-lg text-start">To search for a proxy follow these steps:</p>
+                  <p class="text-muted fs-lg text-start">1- Select SUBCATEGORY</p>
+                  <p class="text-muted fs-lg text-start">2- Drag SUBCATEGORY KEYWORDS into the search bar. You can
+                    preview SUBCATEGORY KEYWORDS by quick-clicking on them.</p>
+                  <p class="text-muted fs-lg text-start">2- Key-in additional descriptive text to create a compound
+                    search string. </p>
+                  <p class="text-muted fs-lg text-start">3- Hit return on your keyboard when you have a complete
+                    search string.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- tags level 1  -->
+          <div class="d-flex align-items-center sub-category-tags">
+            <p class="text-muted fs-md mb-0">SUBCATEGORIES:</p>
+            <div *ngFor="let item of category1List; let i = index" class="sub-cat-list">
+              <p *ngIf="i <= 1" class="text-muted fs-md ms-2 mb-0 cursor fw-bold"
+                [ngClass]="{'color-change':selectedTag==item?.name}" (click)="changeTag(item)">{{item?.name}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-2">
+          <span class="input-group-text cursor-pointer" id="inputGroup-sizing-default" (click)="openAiModal()">
+            <img src="../../../assets/images/cgpt.svg" class="img-fluid me-2">
+            Ask AI
+          </span>
+          <div class="d-flex justify-content-between align-items-center search-box" ondragover="event.preventDefault()"
+            (drop)="dropOnSearchDiv()">
+            <div class="d-flex align-items-center flex-grow-1">
+              <i class="bi bi-search text-icon me-3"></i>
+              <div class="d-flex ask-ai-search">
+                <!-- current selected tag -->
+                <button class="text-dark  btn btn-gray btn-sm  me-2" type="button"
+                  *ngFor="let currentTag of currentTagSelected;let i=index">
+                  {{currentTag}}
+                  <!-- remove selected tag -->
+                  <i class="bi bi-x-lg text-light fs-md cursor" (click)="removeTagFromSearchBar(currentTag)">
+                  </i>
+                </button>
+              </div>
+
+              <input (keyup.enter)="searchFunction()" class="mb-0 fs-md input-search flex-grow-1" placeholder="Search"
+                [(ngModel)]="searchString" />
+            </div>
+            <div class="d-flex align-items-center">
+              <i class="bi bi-x-circle text-icon me-2 cursor" (click)="clearSearch()"></i>
+              <button type="button" class="btn btn-primary" (click)="searchFunction()">Proxy Search</button>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="tab-content" id="pills-tabContent">
+          <div (mousedown)="scrollTagStart($event)" (mouseup)="scrollTagEnd($event)" (mousemove)="scrollTagMove($event)"
+            (mouseleave)="scrollTagEnd($event)" class="tab-pane fade show active" id="pills-home" role="tabpanel"
+            name="tagscroll1" aria-labelledby="pills-home-tab" tabindex="0">
+            <button class="btn btn-gray btn-sm fs-md me-2 text-black" *ngFor="let tag of category3List"
+              (drag)="tagSelectionForDrop=tag" draggable="true"
+              (click)="singleTagSearchFunction(tag)">{{tag?.name}}</button>
+          </div>
+        </div>
+
+      </cdk-card-i>
+      <!-- level 2 tags -->
+      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li *ngFor="let item of category2List; let indexOfelement = index;" class="nav-item" role="presentation">
+          <button *ngIf="item?.name==='Colors'" class="nav-link color-pill" id="pills-home-tab" data-bs-toggle="pill"
+            data-bs-target="#pills-home" type="button"
+            (click)="setCategory3List(item); activeItemIndex = indexOfelement;" role="tab" aria-controls="pills-colors"
+            aria-selected="false">
+            <img src="../../assets/icons/colors.svg">
+          </button>
+          <button *ngIf="item?.name!=='Colors'" class="nav-link" [class.active]="indexOfelement === activeItemIndex"
+            id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button"
+            (click)="setCategory3List(item); activeItemIndex = indexOfelement;" role="tab"
+            [attr.aria-controls]="'pills-home-' + indexOfelement"
+            [attr.aria-selected]="indexOfelement === activeItemIndex">
+            {{item?.name}}
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <cdk-card class="mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+          <div class="d-flex align-items-center flex-wrap">
+            <h6 class="text-black  me-2 fs-lg mb-0">Proxy Image Search Results</h6>
+            <p class="text-muted fs-md mb-0"> <em>Drag the closest matching proxy image and drop it on top of the
+                target
+                item in
+                the scene above.</em></p>
+          </div>
+        </div>
+        <div ngxUiLoaderBlurred name="searchResults" (scroll)="onScrollSearch($event)" class="row prodcuts-result gx-3">
+
+          <ngx-ui-loader loaderId="searchLoader"></ngx-ui-loader>
+          <div *ngFor="let imageURL of tempProductImages;let i= index" class="col-sm-4 col-md-3 col-lg-2">
+            <img draggable="true" (dragend)="dragend($event)" (dragstart)="dragstart($event)" id="{{'draggable'+i}}"
+              style="position: relative;" src="{{imageURL}}" name="wow">
+          </div>
+          <p class="text-gray text-center" *ngIf="searchNumber>200">Looks like you've reached the end</p>
+          <p *ngIf="tempProductImages.length==0">No Product Found</p>
+        </div>
+      </cdk-card>
+    </div>
+  </div>
+</section>
+<ng-template #sceneSubmittedModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Scene Submitted!</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+  </div>
+
+  <div class="modal-body">
+    <p class="text-muted">
+      A quality control person will review your index record.
+    </p>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="continueScene(); modal.dismiss('close')">Continue to next
+      scene</button>
+  </div>
+</ng-template>
+
+<ng-template #uploadProxyImageModal let-modal>
+  <div class="modal-body text-center">
+    <h6 class="align-items-center fw-medium mt-2 fs-xl">Upload a proxy image</h6>
+    <label class="d-flex justify-content-center" for="inputFile">
+      <i [ngClass]="{'z-index-icon':dragtrue}" class="bi bi-cloud-upload fs-1 text-primary z-point-icon mt-icon"></i>
+    </label>
+    <label *ngIf="file!==null" class="d-flex justify-content-center">
+      <p class=" fs-5 text-secondary z-point-text"> {{file?.name}}</p>
+    </label>
+    <input class="input-content-space" (dragenter)="checkForImage($event)" (dragleave)="removeCheck()"
+      (mouseup)="removeCheck()" type="file" accept="image/*" id="inputFile" (change)="onChange($event)" />
+    <p class="text-muted z-point-text mt-5">
+      Select image to upload or drag and drop image file here. (Less than 2GB)
+    </p>
+  </div>
+  <p *ngIf="error" class="text-danger text-center mt-2">
+    This file format is not allowed
+  </p>
+  <div class="modal-footer justify-content-between">
+    <button class="mb-0 text-danger btn btn-transparent border-0" data-bs-dismiss="modal"
+      (click)="onProxyModalClose()">Cancel</button>
+    <button (click)="onUpload($event)" [disabled]="file===null || error || isSubmitting? true: false" type="button"
+      class="btn btn-primary">Select
+      File</button>
+  </div>
+</ng-template>
+
+
+<ng-container *ngIf="!currentSceneId || currentSceneId===null">
+
+  <div *ngIf="!showId" class="margin-top">
+    <p class="text-center">Go to <a type="button" class="text-decoration-underline text-primary"
+        [routerLink]="['/indexer']">Dashboard</a> to select a
+      scene.</p>
+  </div>
+</ng-container>
+
+<ngx-ui-loader [loaderId]="'loader-03'"></ngx-ui-loader>
+<ngx-ui-loader [loaderId]="'loader-recent'"></ngx-ui-loader>

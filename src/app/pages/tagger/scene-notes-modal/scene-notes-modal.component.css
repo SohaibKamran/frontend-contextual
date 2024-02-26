@@ -1,0 +1,17 @@
+.btn-close {
+  top: 15px;
+  right: 15px;
+}
+
+.card {
+  background-color: rgb(247, 244, 244);
+}
+
+.notesbody {
+  background: #FAFAFA;
+}
+
+.modal-body {
+  max-height: 400px;
+  overflow: auto;
+}/*# sourceMappingURL=scene-notes-modal.component.css.map */

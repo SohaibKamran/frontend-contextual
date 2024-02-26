@@ -1,0 +1,52 @@
+.table thead th {
+  white-space: normal !important;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: capitalize;
+  border-right: 1px solid #e6ebf1;
+}
+.table thead th:last-child .d-flex {
+  justify-content: center;
+}
+
+.table td.text-muted.td_heading {
+  max-width: initial !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.username-wrapper {
+  min-width: 180px;
+}
+
+.table-hover tbody tr.child-form:hover {
+  background-color: #fff;
+}
+
+.annotator-user-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.user-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  -o-object-fit: fill;
+     object-fit: fill;
+  background-color: black;
+}
+
+.position-relative i {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+}
+.position-relative input {
+  padding-left: 35px !important;
+  padding: 6px 12px;
+}/*# sourceMappingURL=user-records.component.css.map */

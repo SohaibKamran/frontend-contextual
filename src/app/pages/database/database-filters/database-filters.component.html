@@ -1,0 +1,313 @@
+<div class="card">
+  <div class="card-header d-flex align-items-center justify-content-between">
+    <h5>Filter</h5>
+    <button type="button" class="btn-close text-light" data-bs-dismiss="modal" aria-label="Close"
+      (click)="setToggled(!isToggled)"></button>
+  </div>
+  <div class="card-body database filterform">
+    <form [formGroup]="filterForm">
+      <div class="row">
+        <div class="col-12">
+          <h6 class="fs-xl fw-medium mb-3"> Active Filters</h6>
+          <div class="row align-items-center">
+            <div class="col-lg-3">
+              <label for="example-text-input" class="col-form-label">Series</label>
+            </div>
+            <div class="col-lg-9">
+              <!-- <div class="btn-group w-100 position-relative" ngbDropdown id="example-text-input">
+                <input formControlName="series"
+                  class="btn btn-outline-secondary d-flex dropdown-toggle justify-content-between" ngbDropdownToggle
+                  type="button" id="dropdownBasic1">
+                <i class="bi bi-caret-down-fill ms-2 fs-md text-gray"></i>
+                <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic1"  class="scroll" scrollTracker (scrolled)="onSeriesScrollEnd($event)">
+                  <a class="dropdown-item" *ngFor="let series of seriesNames;let i= index"
+                    (click)="selectSeries(series)">{{series.title}}
+                  </a>
+                </div>
+              </div> -->
+              <ng-select formControlName="series" placeholder="Select Series" [items]="seriesNames" bindLabel="title"
+                [closeOnSelect]="true" (scrollToEnd)="onSeriesScrollEnd($event)" [clearable]="false"
+                (change)="selectSeries($event)" (search)="searchSeries($event)"[loading]="seriesLoader" ></ng-select>
+            </div>
+            <div class="col-12">
+              <div class="d-flex align-items-center flex-wrap justify-content-end mb-3">
+                <div class="d-flex align-items-center justify-content-end ms-3">
+                  <div class="d-flex align-items-center" *ngFor="let series of selectedSeries">
+                    <p class="fs-lg text-light mb-0">{{series.title}}</p>
+                    <span class="bi bi-x-lg icon-close text-light fs-md cursor ms-2"
+                      (click)="removeSeries(series.id)"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-lg-3">
+              <label for="example-text-input" class="col-form-label">Season</label>
+            </div>
+            <div class="col-lg-9">
+              <!-- <input formControlName="series" placeholder="Select Series" class="form-control" type="text"
+                id="example-text-input"> -->
+              <!-- <ng-multiselect-dropdown formControlName="seasons" class="dropdown-select mb-3" [placeholder]="'season'"
+                [settings]="dropdownSettings" [data]="seasons" (onSelect)="selectSeason($event)"
+                (onSelectAll)="selectAllSeason($event)" (onDeSelect)="removeSeason($event)"
+                (onDeSelectAll)="onUnSelectAll($event)">
+              </ng-multiselect-dropdown> -->
+              <ng-select formControlName="seasons" placeholder="Season(s)" [items]="seasons" bindLabel="text"
+                [clearable]="false" [multiple]="true" [closeOnSelect]="false" (change)="selectSeason($event)"
+                (scrollToEnd)="onSeasonScrollEnd($event)">
+                <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index" let-search="searchTerm">
+                  <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" />
+                  {{item.text }}
+                </ng-template>
+                <ng-template ng-multi-label-tmp let-items="items">
+                  <div class="ng-value" *ngFor="let item of items | slice:0:1">
+                    {{item['text']}}
+                  </div>
+                  <div class="ng-value" *ngIf="items.length > 1">
+                    <span class="ng-value-label">+{{items.length - 1}} </span>
+                  </div>
+                </ng-template>
+              </ng-select>
+            </div>
+            <div class="col-12">
+              <div class="d-flex align-items-center flex-wrap justify-content-end mb-3">
+                <div *ngFor="let season of filterForm.value.seasons"
+                  class="d-flex align-items-center justify-content-end ms-3">
+                  <p class="fs-lg text-light mb-0">S{{season.id}}</p>
+                  <span (click)="removeSeason(season)"
+                    class="bi bi-x-lg icon-close text-light fs-md cursor ms-2"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-lg-3">
+              <label for="example-text-input" class="col-form-label">Episodes</label>
+            </div>
+            <div class="col-lg-9">
+              <!-- <input formControlName="series" placeholder="Select Series" class="form-control" type="text"
+                id="example-text-input"> -->
+              <!-- <ng-multiselect-dropdown formControlName="episodes" class="dropdown-select mb-3" [placeholder]="'episode'"
+                [settings]="dropdownSettings" [data]="episodes" (onSelect)="selectEpisode($event)"
+                (onSelectAll)="selectAll($event)" (onDeSelect)="removeEpisode($event)"
+                (onDeSelectAll)="UnSelectAllEpisodes($event)">
+              </ng-multiselect-dropdown> -->
+              <ng-select formControlName="episodes" [clearable]="false" placeholder="Episode(s)" [items]="episodes"
+                bindLabel="text" [multiple]="true" [closeOnSelect]="false" (change)="selectEpisode($event)"
+                (scrollToEnd)="onEpisodeScrollEnd($event)">
+                <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index" let-search="searchTerm">
+                  <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" />
+                  {{item.text }}
+                </ng-template>
+                <ng-template ng-multi-label-tmp let-items="items">
+                  <div class="ng-value" *ngFor="let item of items | slice:0:1">
+                    {{item['text']}}
+                  </div>
+                  <div class="ng-value" *ngIf="items.length > 1">
+                    <span class="ng-value-label">+{{items.length - 1}} </span>
+                  </div>
+                </ng-template>
+              </ng-select>
+            </div>
+            <div class="col-12">
+              <div class="d-flex align-items-center flex-wrap justify-content-end mb-3">
+                <div *ngFor="let episode of filterForm?.value?.episodes"
+                  class="d-flex align-items-center justify-content-end ms-3">
+                  <p class="fs-lg text-light mb-0">E{{modifyEpisode(episode?.text)}}</p>
+                  <span (click)="removeEpisode(episode)"
+                    class="bi bi-x-lg icon-close text-light fs-md cursor ms-2"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-lg-3">
+              <label for="example-text-input" class="col-form-label">Status</label>
+            </div>
+            <div class="col-lg-9">
+              <!-- <input formControlName="series" placeholder="Select Series" class="form-control" type="text"
+                id="example-text-input"> -->
+              <!-- <select formControlName="tagStatus" class="form-select mb-3">
+                <option disabled value="">PR Status</option>
+                <option value="3" [style.color]="">PR In Review </option>
+                <option value="4" [style.color]="">PR Returned </option>
+                <option value="5" [style.color]="">PR Approved </option>
+              </select> -->
+              <!-- <ng-multiselect-dropdown formControlName="tagStatus" class="multi-status-dropdown dropdown-select mb-3"
+                [placeholder]="'PR Status'" [settings]="PRdropdownSettings" [data]="PRStatuses"
+                (onSelect)="onSelectStatus($event)" (onSelectAll)="selectAllStatus($event)"
+                (onDeSelect)="removeStatus($event)" (onDeSelectAll)="unSelectAllStatuses($event)">
+              </ng-multiselect-dropdown> -->
+              <ng-select placeholder="PR Status" [clearable]="false" formControlName="tagStatus" [items]="PRStatuses"
+                bindLabel="title" [closeOnSelect]="true" (change)="onSelectStatus($event)" [multiple]="true"
+                [closeOnSelect]="true" [clearable]="false" [searchable]="false">
+                <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                  <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" />
+                  <span class="{{item.class}}"> {{item.title }} </span>
+                </ng-template>
+                <ng-template ng-multi-label-tmp let-items="items">
+                  <div class="ng-value" *ngFor="let item of items.slice(0,1)">
+                    <span class="{{item.class}}"> {{item.title}}</span>
+                  </div>
+                  <div class="ng-value" *ngIf="items.length > 1">
+                    <span class="ng-value-label">+{{items.length - 1}} </span>
+                  </div>
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                  <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" />
+                  <span class="{{item.class}}"> {{item.title }} </span>
+                </ng-template>
+              </ng-select>
+            </div>
+            <div class="col-12">
+              <div class="d-flex align-items-center flex-wrap justify-content-end mb-3">
+                <div *ngFor="let status of filterForm.value.tagStatus"
+                  class="d-flex align-items-center justify-content-end ms-3">
+                  <p class="fs-lg text-light mb-0">{{status.title}}</p>
+                  <span (click)="removeStatus(status)"
+                    class="bi bi-x-lg icon-close text-light fs-md cursor ms-2"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mb-3">
+          <div class="row">
+            <div class="col-xl-12 mb-3">
+              <label for="example-text-input" class="fw-medium">VZoT Score</label>
+            </div>
+            <div class="col-xl-6 mb-3">
+              <label for="example-text-input">Min</label>
+              <input formControlName='min' class="form-control form-control-sm" type="number" id="example-text-input"
+                value={{filterForm.value.min}} (keyup.enter)="selectVZoT()">
+            </div>
+            <div class="col-xl-6 mb-3">
+              <label for="example-text-input">Max</label>
+              <input formControlName='max' class="form-control form-control-sm" type="number" id="example-text-input"
+                value={{filterForm.value.max}} (keyup.enter)="selectVZoT()">
+            </div>
+            <div class="col-lg-12 custom-slider">
+              <ngx-slider [(value)]="filterForm.value.min" (userChangeEnd)="selectVZoT($event)"
+                [(highValue)]="filterForm.value.max" [options]="options"></ngx-slider>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-12 mb-3">
+          <div class="row">
+            <div class="col-xl-12 mb-3">
+              <label for="example-text-input" class="fw-medium">Series Completeness</label>
+            </div>
+            <div class="col-xl-6 mb-3">
+              <label for="example-text-input">Min</label>
+              <input formControlName="minimum" value={{filterForm.value.minimum}} class="form-control form-control-sm"
+                type="number" id="example-text-input" value={{filterForm.value.minimum}} (keyup.enter)="selectSeriesCompleteness()">
+            </div>
+            <div class="col-xl-6 mb-3">-
+              <label for="example-text-input">Max</label>
+              <input formControlName="maximum"value={{filterForm.value.maximum}} class="form-control form-control-sm"
+                type="number" id="example-text-input" value={{filterForm.value.maximum}} (keyup.enter)="selectSeriesCompleteness()">
+            </div>
+            <div class="col-lg-12 custom-slider">
+              <ngx-slider [(value)]="filterForm.value.minimum" (userChangeEnd)="selectSeriesCompleteness($event)" [(highValue)]="filterForm.value.maximum" [options]="options1"></ngx-slider>
+            </div>
+          </div>
+        </div> -->
+        <div class="col-12">
+          <div class="row align-items-center">
+            <div class="col-lg-3">
+              <label for="example-text-input" class="col-form-label">Annotator</label>
+            </div>
+            <div class="col-lg-9">
+              <!-- <input formControlName="series" placeholder="Select Series" class="form-control" type="text"
+                id="example-text-input"> -->
+              <!-- <ng-select formControlName="tagger" placeholder="Annotator(s)" [items]="tagger" bindLabel="text"
+                [multiple]="true" [closeOnSelect]="false" (change)="selectTagger($event)" >
+                <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index" let-search="searchTerm">
+                  <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" />
+                  {{item.fullName }}
+                </ng-template>
+                <ng-template ng-multi-label-tmp let-items="items">
+                  <div class="ng-value" *ngFor="let item of items | slice:0:1">
+                    {{item['fullName']}}
+                  </div>
+                  <div class="ng-value" *ngIf="items.length > 1">
+                    <span class="ng-value-label">+{{items.length - 1}} </span>
+                  </div>
+                </ng-template>
+              </ng-select> -->
+              <ng-select formControlName="tagger" [clearable]="false" placeholder="Annotator(s)" [items]="tagger"
+                bindLabel="fullName" [multiple]="true" [closeOnSelect]="false" (change)="selectTagger($event)"
+                (scrollToEnd)="onTaggerScrollEnd($event)" (search)="searchTagger($event)" [loading]="annotatorLoader" >
+                <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index" let-search="searchTerm">
+                  <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" />
+                  {{item.fullName }}
+                </ng-template>
+                <ng-template ng-multi-label-tmp let-items="items">
+                  <div class="ng-value" *ngFor="let item of items.slice(0,1)">
+                    {{item.fullName}}
+                  </div>
+                  <div class="ng-value" *ngIf="items.length > 1">
+                    <span class="ng-value-label">+{{items.length - 1}} </span>
+                  </div>
+                </ng-template>
+              </ng-select>
+            </div>
+            <div class="col-12">
+              <div class="d-flex align-items-center flex-wrap justify-content-end mb-3">
+                <div *ngFor="let tagger of filterForm.value.tagger"
+                  class="d-flex align-items-center justify-content-end ms-3">
+                  <p class="fs-lg text-light mb-0">{{tagger.fullName}}</p>
+                  <span (click)="removeTagger(tagger)"
+                    class="bi bi-x-lg icon-close text-light fs-md cursor ms-2"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-lg-3">
+              <label for="example-text-input" class="col-form-label">Actor</label>
+            </div>
+            <div class="col-lg-9">
+              <!-- <input formControlName="series" placeholder="Select Series" class="form-control" type="text"
+                id="example-text-input"> -->
+              <ng-select formControlName="actor" [clearable]="false" placeholder="Actors(s)" [items]="actors"
+                bindLabel="text" [multiple]="true" [closeOnSelect]="false" (change)="selectActor($event)" (search)="searchActor($event)" [loading]="actorLoader"
+                (scrollToEnd)="getActors(actorPagination.pageNo+1)">
+
+                <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index" let-search="searchTerm">
+                  <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" />
+                  {{item.text}}
+                </ng-template>
+                <ng-template ng-multi-label-tmp let-items="items">
+                  <div class="ng-value" *ngFor="let item of items | slice:0:1">
+                    {{item['text']}}
+                  </div>
+                  <div class="ng-value" *ngIf="items.length > 1">
+                    <span class="ng-value-label">+{{items.length - 1}} </span>
+                  </div>
+                </ng-template>
+              </ng-select>
+            </div>
+            <div class="col-12">
+              <div class="d-flex align-items-center flex-wrap justify-content-end mb-3">
+                <div class="d-flex align-items-center justify-content-end ms-3"
+                  *ngFor="let actor of filterForm.value.actor">
+                  <p class="fs-lg text-light mb-0">{{actor?.text}}</p>
+                  <span (click)="removeActor(actor)" class="bi bi-x-lg icon-close text-light fs-md cursor ms-2"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="card-footer">
+    <div class="row">
+      <div class="col-12">
+        <p class="fs-xl text-primary mb-0" style="cursor:pointer" (click)="resetFilters()">Reset all filters</p>
+      </div>
+    </div>
+  </div>
+</div>

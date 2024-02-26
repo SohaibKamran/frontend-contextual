@@ -1,0 +1,306 @@
+<section class="register-login mx-3">
+  <app-offcanvas-login></app-offcanvas-login>
+  <form [formGroup]="registrationForm" (ngSubmit)="register()">
+    <div class="container">
+      <div class="row text-dark mt-10">
+        <div class="col-9 mx-auto">
+          <div class="row">
+            <div class="col-12 text-center mb-4">
+              <h2 class="fw-bold text-black">Register as an Annotator</h2>
+              <p class="fs-xl">Already have an account? <span [routerLink]="['/auth/tagger-login']"
+                  routerLinkActive="router-link-active" class="text-primary cursor">Sign in here.</span></p>
+            </div>
+            <div class="col-12">
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label fs-lg text-dark fw-medium">First
+                      Name</label>
+                    <input type="text" formControlName="firstName" class="form-control" id="exampleFormControlInput1"
+                      placeholder="Enter your first name">
+                    <label *ngIf="registrationForm.controls['firstName'].touched &&
+                          registrationForm.controls['firstName'].invalid" class="text-danger">
+                      First Name is required
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label fs-lg text-dark fw-medium">Bank
+                      Country</label>
+                    <!-- <input type="text" formControlName="bankCountry" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Enter your bank country"> -->
+                    <select class="form-select" (change)="selectBankCountry($event)">
+                      <option disabled="true" value="null" selected>Select country</option>
+                      <option *ngFor="let country of countries" [value]="country.id">{{country.name}}</option>
+                    </select>
+                    <label *ngIf="registrationForm.controls['bankCountry'].touched &&
+                          registrationForm.controls['bankCountry'].invalid" class="text-danger">
+                      Bank Country is required
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label fs-lg text-dark fw-medium">Last Name</label>
+                    <input type="text" formControlName="lastName" class="form-control" id="exampleFormControlInput1"
+                      placeholder="Enter your last name">
+                    <label *ngIf="registrationForm.controls['lastName'].touched &&
+                          registrationForm.controls['lastName'].invalid" class="text-danger">
+                      Last Name is required
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label fs-lg text-dark fw-medium">Bank routing
+                      number (ABA/US SWIFT)</label>
+                    <input type="text" formControlName="bankRoutingNumber" class="form-control"
+                      id="exampleFormControlInput1" placeholder="Enter Bank Routing Number">
+                    <label *ngIf="registrationForm.controls['bankRoutingNumber'].touched &&
+                          registrationForm.controls['bankRoutingNumber'].invalid" class="text-danger">
+                      Bank Routing Number is required
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label fs-lg text-dark fw-medium">E-mail</label>
+                    <input type="email" formControlName="email" class="form-control" id="exampleFormControlInput1"
+                      placeholder="Enter your E-mail">
+                    <label *ngIf="registrationForm.controls['email'].touched &&
+                          registrationForm.controls['email'].invalid" class="text-danger">
+                      Email is required
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label fs-lg text-dark fw-medium">Recipient account
+                      number</label>
+                    <input type="text" formControlName="recipientAccountNumber" class="form-control"
+                      id="exampleFormControlInput1" placeholder="Enter Recipient Account Number">
+                    <label *ngIf="registrationForm.controls['recipientAccountNumber'].touched &&
+                          registrationForm.controls['recipientAccountNumber'].invalid" class="text-danger">
+                      Recipient Account Number is required
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label fs-lg text-dark fw-medium">Address</label>
+                    <input type="text" formControlName="address" class="form-control" id="exampleFormControlInput1"
+                      placeholder="Enter your Address">
+                    <label *ngIf="registrationForm.controls['address'].touched &&
+                          registrationForm.controls['address'].hasError('required')" class="text-danger">
+                      Address is required
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label fs-lg text-dark fw-medium">Verify recipient
+                      account number</label>
+                    <input type="text" formControlName="verifyRecipientAccountNumber" class="form-control"
+                      id="exampleFormControlInput1" placeholder="Verify Recipient Account Number">
+                    <label *ngIf="registrationForm.controls['verifyRecipientAccountNumber'].touched &&
+                      registrationForm.controls['verifyRecipientAccountNumber'].invalid" class="text-danger">
+                      Incorrect Recipient Account Number
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label fs-lg text-dark fw-medium">City</label>
+                    <input type="text" formControlName="city" class="form-control" id="exampleFormControlInput1"
+                      placeholder="Enter City">
+                    <label *ngIf="registrationForm.controls['city'].touched &&
+                          registrationForm.controls['city'].invalid" class="text-danger">
+                      City is required
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label fs-lg text-dark fw-medium">Recipient Tax ID
+                      or identification number</label>
+                    <input type="text" formControlName="recipientTaxId" class="form-control"
+                      id="exampleFormControlInput1" placeholder="Enter Recipient Tax ID or Identification Number">
+                    <label *ngIf="registrationForm.controls['recipientTaxId'].touched &&
+                          registrationForm.controls['recipientTaxId'].invalid" class="text-danger">
+                      Recipient Tax ID or Identification number is required
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1"
+                      class="form-label fs-lg text-dark fw-medium">Province/Region</label>
+                    <input type="text" formControlName="province" class="form-control" id="exampleFormControlInput1"
+                      placeholder="Enter Province/Region">
+                    <label *ngIf="registrationForm.controls['province'].touched &&
+                          registrationForm.controls['province'].invalid" class="text-danger">
+                      Province/Region is required
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label fs-lg text-dark fw-medium">Create
+                      Password</label>
+                    <input type="password" formControlName="password" autocomplete="new-password" class="form-control"
+                      id="exampleFormControlInput1" placeholder="Type your password">
+                    <label *ngIf="registrationForm.controls['password'].touched &&
+                          registrationForm.controls['password'].invalid" class="text-danger">
+                      Password is required
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label fs-lg text-dark fw-medium">Country</label>
+                    <select class="form-select" (change)="selectCountry($event)">
+                      <option disabled="true" value="null" selected>Select country</option>
+                      <option *ngFor="let country of countries" [value]="country.id">{{country.name}}</option>
+                    </select>
+                    <!-- <input type="text" formControlName="country" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Enter Country"> -->
+                    <label *ngIf="registrationForm.controls['country'].touched &&
+                          registrationForm.controls['country'].invalid" class="text-danger">
+                      Country is required
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6 align-self-center">
+                  <div>
+                    <div class="form-check">
+                      <input class="form-check-input mt-3" (change)="toggleTermsCheckbox()" type="checkbox"
+                        [checked]="acceptTerms === true" id="flexCheckDefault" />
+                      <label class="form-check-label fs-lg fw-medium ms-2">
+                        By creating an account means you agree to the <span (click)="openScrollableContent(content1)"
+                          class="text-primary">Terms and Conditions,
+                        </span> and our <a href="https://contxtual.tv/privacy-policy/" target="_blank"
+                          class="text-primary"> Privacy
+                          Policy.</a>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mx-auto text-center">
+                  <label *ngIf="isError" class="fs-xl fw-bold mb-3 text-danger"> {{errorMessage}} </label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mx-auto">
+                  <button type="submit" [disabled]="!registrationForm.valid? true: acceptTerms === false? true: false"
+                    class="btn btn-primary w-100 mb-5">Register</button>
+                  <!-- <button type="submit" class="btn btn-primary w-100 mb-5">Register</button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
+
+<ng-template #content1 let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLongTitle">Terms and Conditions</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      (click)="modal.close('Close click')"></button>
+  </div>
+  <div class="modal-body">
+    <!-- <p>
+            <object data="../../../assets/pdfs/Contxtual Disclaimer for Demo.pdf" type="application/pdf" width="100%"
+              height="325px"></object>
+          </p> -->
+    <div class="row">
+      <div class="col-12 text-center">
+        <img src="../../../assets/images/logo.svg" class="mb-3" style="width: 50%">
+        <p class="fs-md fw-bold">CONTXTUAL DISCLAIMER FOR DEMO </p>
+      </div>
+      <div class="col-12 text-justify">
+        <h6 class="fs-lg fw-medium">Disclaimer for Online Technology Demo</h6>
+        <p class="fs-md">This disclaimer governs the use of the online technology demo platform, Contxtual. By accessing
+          and using this
+          platform, you agree to be bound by the terms of this disclaimer. Please read these terms carefully before
+          accessing
+          or using the platform. If you do not agree to these terms, you must not use this platform.</p>
+        <h6 class="fs-lg fw-medium">Copyrighted Materials</h6>
+        <p class="fs-md">The platform will demonstrate its functionality using copyrighted materials, but it is only for
+          demonstration purposes
+          only. We acknowledge that all materials used in the demo are owned by their respective owners and are used
+          solely
+          for demonstration purposes. The use of these materials does not indicate any endorsement, affiliation or
+          association
+          with any third party.</p>
+        <h6 class="fs-lg fw-medium">Management of Copyrighted Data Forms</h6>
+        <p class="fs-md">The technology used in the platform is an engine for managing various copyrighted data forms,
+          including images
+          and text. It tracks the attribution of all of those assets so that appropriate licensing can be put in place
+          by the
+          operator of the technology. The use of third-party copyright licenses is not part of the license to use
+          Contxtual.</p>
+        <h6 class="fs-lg fw-medium">Tracking of Training Data</h6>
+        <p class="fs-md">The use of all training data retail training data is tracked at each ad level, such that ads
+          being served by a service
+          incorporating this engine can directly keep track of the attribution of the specific training images. This
+          feature
+          enables advertisers to easily define and quantify a compensational unit for their license. In other examples,
+          specific
+          actors are tracked to every ad in the same way, so the attribution could be compensated if necessary.</p>
+        <h6 class="fs-lg fw-medium">Implications and Responsibilities</h6>
+        <p class="fs-md">As a user of the platform, you are responsible for ensuring that you comply with all applicable
+          laws, rules and
+          regulations. You agree to indemnify and hold harmless the platform, its affiliates, and their respective
+          directors,
+          officers, employees, agents and representatives from and against any and all claims, damages, liabilities,
+          costs and
+          expenses arising out of your use of the platform.</p>
+        <h6 class="fs-lg fw-medium">Data Protection Laws</h6>
+        <p class="fs-md">Contxtual complies with Local and Worldwide Data Protection Laws, including the General Data
+          Protection
+          Regulation (GDPR) and the California Consumer Privacy Act (CCPA). We collect and process personal data in
+          accordance with these laws, and we are committed to protecting the privacy and security of your personal
+          information.</p>
+        <h6 class="fs-lg fw-medium">Limitation of Liability</h6>
+        <p class="fs-md">To the fullest extent permitted by law, the platform, its affiliates, and their respective
+          directors, officers, employees,
+          agents and representatives shall not be liable for any indirect, incidental, special, consequential, punitive
+          or
+          exemplary damages, including but not limited to, damages for loss of profits, goodwill, use, data or other
+          intangible
+          losses (even if we have been advised of the possibility of such damages), arising out of or in connection with
+          the use
+          or inability to use the platform.</p>
+        <h6 class="fs-lg fw-medium">Disclaimer of Warranties</h6>
+        <p class="fs-md">The platform is provided on an "as is" and "as available" basis without warranties of any kind,
+          either express or
+          implied, including but not limited to, warranties of merchantability, fitness for a particular purpose, or
+          noninfringement.
+          We do not warrant that the platform will meet your requirements or be available on an uninterrupted,
+          secure, or error-free basis.</p>
+        <h6 class="fs-lg fw-medium">Governing Law</h6>
+        <p class="fs-md">This disclaimer and your use of the platform shall be governed by and construed in accordance
+          with the laws of the
+          jurisdiction in which the platform is hosted. Any dispute arising out of or in connection with this disclaimer
+          or your
+          use of the platform shall be resolved through arbitration in accordance with the rules of the jurisdiction in
+          which the
+          platform is hosted.</p>
+        <h6 class="fs-lg fw-medium">Modifications to the Disclaimer</h6>
+        <p class="fs-md">We reserve the right to modify this disclaimer at any time without prior notice. Any changes to
+          this disclaimer will be
+          posted on the platform. Your continued use of the platform after any such changes will constitute your
+          acceptance
+          of such changes.</p>
+      </div>
+    </div>
+  </div>
+</ng-template>

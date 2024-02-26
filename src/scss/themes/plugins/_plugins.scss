@@ -1,0 +1,133 @@
+@import 'sweatalert';
+@import 'lightbox';
+@import 'notification';
+@import 'bar-rating';
+@import 'modal';
+@import 'rangeslider';
+@import 'daterange';
+@import 'tags-input';
+@import 'maxlength';
+@import 'wizard';
+@import 'select2';
+@import 'slider';
+@import 'switches';
+@import 'data-tables';
+@import 'peitychart';
+@import 'ngx-chips';
+@import 'angular-datatables';
+
+// component pages scss use
+.pc-component {
+  position: relative;
+  padding: 25px;
+  border: 1px solid rgba(215, 223, 233, 0.5);
+}
+
+.component-page {
+  &.mantis-rtl {
+    .component-content {
+      padding-right: 24px;
+      padding-left: 0px;
+      margin-left: 0px;
+      margin-right: 260px;
+    }
+
+    .navbar-collapse {
+      flex-grow: 0;
+    }
+  }
+}
+
+// basic modal component need but all other component in use modal in not use this css
+.component-page.modal-open {
+  .modal.fade .modal-dialog {
+    .modal-content {
+      top: 80px;
+    }
+  }
+}
+
+.component-page {
+  .offcanvas {
+    top: 80px;
+
+    &.offcanvas-bottom {
+      top: auto;
+    }
+  }
+}
+
+// calender page use this scss
+dp-day-calendar .dp-weekdays {
+  font-size: 13px !important;
+}
+
+dp-day-calendar.dp-material .dp-current-day {
+  border: none !important;
+}
+
+//
+app-breadcrumb .page-block {
+  padding: 13px 15px;
+}
+
+// landing page
+app-landing {
+  .img-comp-container {
+    position: relative;
+
+    .img-comp-slider {
+      position: absolute;
+      z-index: 9;
+      cursor: ew-resize;
+      width: 50px;
+      height: 50px;
+      opacity: 1;
+      top: 464px !important;
+      border-radius: 50%;
+      font-size: 27px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $header-background;
+      background: $header-background;
+      border: 2px solid $header-background;
+      box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.3);
+
+      &.ti-separator-vertical:before {
+        color: #222;
+      }
+    }
+  }
+
+  @media (min-width: 1600px) {
+    .container {
+      max-width: 1200px;
+    }
+  }
+}
+
+// apexChart page
+.mantis-rtl {
+  .apexcharts-canvas ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0);
+  }
+}
+
+// bootstrap switch page
+.switch.switch-medium {
+  margin: 0 0 10px 0 !important;
+}
+
+// quill-text-editor
+
+.mantis-dark {
+  .ql-editor.ql-blank::before {
+    color: $header-background;
+  }
+}
+
+// date picker
+dp-day-calendar.dp-material .dp-current-day {
+  border: none !important;
+}

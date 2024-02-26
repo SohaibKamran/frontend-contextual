@@ -1,0 +1,64 @@
+.img-thumbnail-tv {
+  width: 100%;
+  height: 85px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.upload-div {
+  background-color: #FAFAFA;
+  padding: 3rem;
+  display: block;
+  border: 2px dotted #D9D9D9;
+}
+
+.upload-div.btn {
+  border-radius: 0;
+}
+
+.media-div {
+  background-color: #FAFAFA;
+  padding: 1rem 1rem 0.5rem 1rem;
+  display: block;
+  border: 2px dotted #D9D9D9;
+}
+
+.position-relative i {
+  position: absolute;
+  right: 14px;
+  top: 8px;
+  z-index: 1;
+}
+
+.dropdown-menu {
+  max-height: 300px;
+  overflow: auto;
+}
+
+.btn-outline-secondary {
+  border-color: #ced4da;
+}
+
+.height-alert1 {
+  height: 3.5rem;
+}
+
+.height-alert2 {
+  height: 4rem;
+}
+
+.height-alert3 {
+  height: 3.5rem;
+}
+
+.height-alert4 {
+  height: 3rem;
+}
+
+.height-alert5 {
+  height: 10.5rem;
+}
+
+textarea {
+  resize: none;
+}/*# sourceMappingURL=add-new-movie.component.css.map */

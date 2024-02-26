@@ -1,0 +1,15 @@
+<div>
+  <!-- <div class="spacing">
+    <p class="title">{{ title }}</p>
+  </div> -->
+  <div class="text-center">
+    <div class="col-12">
+      <p class="fs-lg fw-medium text-dark" *ngIf="videos.length==0">
+        No Shows Found
+      </p>
+    </div>
+  </div>
+  <div class="spacing">
+    <cdk-slider [slides]="slides" [last]="last" [videos]="videos"></cdk-slider>
+  </div>
+</div>

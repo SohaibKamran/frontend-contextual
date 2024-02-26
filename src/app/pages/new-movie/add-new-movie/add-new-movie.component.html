@@ -1,0 +1,320 @@
+<app-pagetitle title="Add New Movie" [breadcrumbItems]="breadCrumbItems">
+  <p></p>
+</app-pagetitle>
+<div class="row movie-episode">
+  <div class="col-12">
+    <!-- <div class="row"> -->
+    <div class="progress" *ngIf="progress">
+      <div class="progress-bar" [style.width]="progress + '%'">{{progress}}%</div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <form [formGroup]="newMovieForm">
+          <div class="row" style="padding: 1px 24px 24px 24px;">
+            <div class="card col-lg-6 mt-3">
+              <div class="card-body">
+                <div class="col-lg-12 mb-3 height-alert1">
+                  <div class="row mt-3 align-items-center">
+                    <div class="col-lg-3">
+                      <label for="example-text-input">Movie Title</label>
+
+                    </div>
+
+                    <div class="col-lg-9">
+                      <input formControlName="movieTitle" (keyup)="trimSpaces($event)" name='movieTitle'
+                        placeholder="Add title" class="form-control" type="text" id="example-text-input">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <span
+                      *ngIf="newMovieForm.get('movieTitle')?.touched && newMovieForm.get('movieTitle').hasError('required')"
+                      style="color:red; font-size: 10px;" class="col-lg-9 d-block ms-auto mt-1">
+                      Movie Title is required
+                    </span>
+                  </div>
+                </div>
+                <div class="col-lg-12 mb-3 height-alert2">
+                  <div class="row align-items-center">
+                    <div class="col-lg-3">
+                      <label for="example-text-input">Year Released</label>
+                    </div>
+                    <div class="col-lg-3">
+                      <!-- <input formControlName="year" class="form-control" type="text" placeholder="Enter"
+                                                id="example-text-input"> -->
+                      <select formControlName="year" id="ddlYears" class="form-select">
+                        <option value="" disabled selected hidden>year</option>
+                      </select>
+                      <!-- <input type="date" placeholder="Year" #myDate (change)="onDateChange(myDate.value)"> -->
+                    </div>
+                  </div>
+                  <div class="row">
+                    <span *ngIf="newMovieForm.get('year')?.touched && newMovieForm.get('year').hasError('required')"
+                      style="color:red; font-size: 10px;" class="col-lg-9 d-block ms-auto mt-1 offset-lg-3">
+                      Year is required
+                    </span>
+                  </div>
+                </div>
+                <div class="col-lg-12 mb-3 height-alert3">
+                  <div class="row mt-3 align-items-center">
+                    <div class="col-lg-3">
+                      <label for="example-text-input">Director</label>
+                    </div>
+                    <div class="col-lg-9">
+                      <!-- <input formControlName="director" placeholder="Add Director" class="form-control"
+                                          type="text" id="example-text-input"> -->
+                      <!-- <div class="btn-group w-100 position-relative" ngbDropdown id="example-text-input">
+                        <input formControlName="director"
+                          class="btn btn-outline-secondary d-flex dropdown-toggle justify-content-between"
+                          ngbDropdownToggle type="button">
+                        <i class="bi bi-caret-down-fill ms-2 fs-md text-gray"></i>
+                        <div class="dropdown-menu" ngbDropdownMenu>
+                          <a class="dropdown-item text-success" (click)="openAddModal(1)">+Add Director</a>
+                          <a class="dropdown-item" *ngFor="let director of DirectorsData;let i= index"
+                            (click)="onChange(director)">{{director.name}}
+                          </a>
+                        </div>
+                      </div> -->
+                      <ng-select formControlName="director" placeholder="Select Director" [items]="DirectorsData"
+                        bindLabel="name" [closeOnSelect]="true" [searchable]="true"
+                        [clearable]="directorLoader?false:true" (change)="onChange($event)"
+                        (search)="searchDirector($event)" (scrollToEnd)="directorScrollEnd()" [loading]="directorLoader"
+                        (clear)="clearDirector($event)">
+                        <ng-template ng-header-tmp>
+                          <a (click)="openAddModal(1)" class="text-success">+ Add New Director</a>
+                        </ng-template>
+                      </ng-select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <span
+                      *ngIf="newMovieForm.get('director')?.touched && newMovieForm.get('director')?.value=='Add Director'"
+                      style="color:red; font-size: 10px;" class="col-lg-9 d-block ms-auto mt-1 offset-lg-3">
+                      Director is required
+                    </span>
+                  </div>
+                </div>
+                <div class="col-lg-12 mb-3 height-alert4">
+                  <div class="row align-items-center">
+                    <div class="col-lg-3">
+                      <label for="example-text-input">Writer</label>
+                    </div>
+                    <div class="col-lg-9">
+                      <!-- <input formControlName="writer" placeholder="Add Writer" class="form-control"
+                                          type="text" id="example-text-input"> -->
+                      <!-- <div class="btn-group w-100 position-relative" ngbDropdown id="example-text-input">
+                        <input formControlName="writer"
+                          class="btn btn-outline-secondary d-flex dropdown-toggle justify-content-between"
+                          ngbDropdownToggle type="button">
+                        <i class="bi bi-caret-down-fill ms-2 fs-md text-gray"></i>
+                        <div class="dropdown-menu" ngbDropdownMenu>
+                          <a class="dropdown-item text-success" (click)="openAddModal(2)">+Add Writer</a>
+                          <a class="dropdown-item" *ngFor="let writer of writersData;let i= index"
+                            (click)="onSubmit(writer)">{{writer.name}}
+                          </a>
+                        </div>
+                      </div> -->
+                      <ng-select formControlName="writer" placeholder="Select Writer" [items]="writersData"
+                        bindLabel="name" [closeOnSelect]="true"
+                        [clearable]="writerLoader?false:true"
+                        (search)="searchWriter($event)" (change)="onSubmit($event)" (scrollToEnd)="writerScrollEnd()"
+                        (clear)="clearDirector($event)">
+                        <ng-template ng-header-tmp>
+                          <a (click)="openAddModal(2)" class="text-success">+ Add New Writer</a>
+                        </ng-template>
+                      </ng-select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <span *ngIf="newMovieForm.get('writer')?.touched && newMovieForm.get('writer')?.value=='Add Writer'"
+                      style="color:red; font-size: 10px;" class="col-lg-9 d-block ms-auto mt-1 offset-lg-3">
+                      Writer is required
+                    </span>
+                  </div>
+                </div>
+                <div class="col-lg-12 mb-3 height-alert5">
+                  <div class="row">
+                    <div class="mb-2">
+                      <label for="example-text-input">Movie Description</label>
+                    </div>
+                    <div>
+                      <!-- <input formControlName="series" placeholder="Select or add name" class="form-control" type="text"
+                                                id="example-text-input"> -->
+                      <textarea formControlName="episodeDescription" name="episodeDescription"
+                        placeholder="Enter Description" (keyup)="trimSpaces($event)" class="form-control"
+                        rows="5"></textarea>
+                      <span
+                        *ngIf="newMovieForm.get('episodeDescription')?.touched && newMovieForm.get('episodeDescription').hasError('required')"
+                        style="color:red; font-size: 10px;" class="col-lg-9 d-block mt-1">
+                        Movie Description is required
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12 mb-3">
+                  <div class="row">
+                    <div class="mb-2">
+                      <label for="example-text-input">Assign Annotator</label>
+                    </div>
+                    <div class="col-lg-7">
+                      <!-- <input formControlName="assignTagger" placeholder="Enter Title" class="form-control" type="text"
+                                          id="example-text-input"> -->
+                      <!-- <select formControlName="aignTagger" class="form-select" (change)="selectTagger($event.target)">
+                        <option value="" disabled selected hidden>Assign Annotator(s)</option>
+                        <option *ngFor="let tag of tagger" [value]="tag?.id">{{tag?.fullName}}</option>
+                      </select> -->
+                      <ng-select formControlName="tagger" placeholder="Assign Annotator(s)" [items]="tagger"
+                        bindLabel="fullName" [multiple]="true" [closeOnSelect]="false" (change)="selectTagger($event)"
+                        (scrollToEnd)="onTaggerScrollEnd($event)" (search)="searchTagger($event)"
+                        [loading]="taggerLoader" (clear)="clearSearch()">
+                        <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index"
+                          let-search="searchTerm">
+                          <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" />
+                          {{item.fullName }}
+                        </ng-template>
+                        <ng-template ng-multi-label-tmp let-items="items">
+                          <div class="ng-value" *ngFor="let item of items.slice(0,1)">
+                            {{item.fullName}}
+                          </div>
+                          <div class="ng-value" *ngIf="items.length > 1">
+                            <span class="ng-value-label">+{{items.length - 1}} </span>
+                          </div>
+                        </ng-template>
+                      </ng-select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 mt-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row my-3 align-items-center">
+                    <div class="col-md-6">
+                      <h6 class="fs-lg fw-regular">Upload Movie Keyframe</h6>
+                      <p class="mb-0 text-light fs-lg fw-regular">(1920x1080)</p>
+                    </div>
+                    <div class="col-md-6">
+                      <label *ngIf="!keyFrame" for="keyFrame" class="btn upload-div">
+                        <i class="bi bi-plus-lg mb-2"></i>
+                        <p class="text-gray mb-0">Upload</p>
+                      </label>
+                      <label *ngIf="keyFrame" for="keyFrame" class="media-div">
+                        <img [src]="keyFrame" class="img-thumbnail-tv">
+                        <div class="delete-button fs-3 mt-1 text-center text-gray">
+                          <i class="bi bi-x-circle-fill" (click)="removeImage('keyFrame')"></i>
+                        </div>
+                      </label>
+                      <input type="file" style="visibility:hidden; display: none;" accept="image/jpeg,
+                      image/jpg,
+                      image/png,
+                      image/gif,
+                      image/svg+xml,
+                      image/svg,
+                      image/webp" id="keyFrame" #keyframe (change)="showImage($event,'keyFrame')" />
+                      <span *ngIf="keyFrame===null" style="color:red; font-size: 10px;"
+                        class="col-lg-9 d-block mt-1">Movie Keyframe is
+                        required</span>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row my-3 align-items-center">
+                    <div class="col-md-6">
+                      <h6 class="fs-lg fw-regular">Upload Movie Poster</h6>
+                      <p class="mb-0 text-light fs-lg fw-regular">(680x1080)</p>
+                    </div>
+                    <div class="col-md-6">
+
+                      <label *ngIf="!moviePoster" for="files" class="btn upload-div">
+                        <i class="bi bi-plus-lg mb-2"></i>
+                        <p class="text-gray mb-0">Upload</p>
+                      </label>
+                      <label *ngIf="moviePoster" for="files" class="media-div">
+                        <img [src]="moviePoster" class="img-thumbnail-tv">
+                        <div class="delete-button fs-3 mt-1 text-center text-gray">
+                          <i class="bi bi-x-circle-fill" (click)="removeImage('poster')"></i>
+                        </div>
+                      </label>
+                      <input type="file" style="visibility:hidden; display: none;" accept="image/jpeg,
+                      image/jpg,
+                      image/png,
+                      image/gif,
+                      image/svg+xml,
+                      image/svg," id="files" #files (change)="showImage($event,'poster')" />
+                      <span *ngIf="moviePoster===null" style="color:red; font-size: 10px;"
+                        class="col-lg-9 d-block mt-1">Movie Poster is
+                        required</span>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row my-3 align-items-center">
+                    <div class="col-md-6">
+                      <h6 class="fs-lg fw-regular">Upload Movie File</h6>
+                      <p class="mb-0 text-light fs-lg fw-regular">(.MOV, MPEG4, .MP4, .AVI)</p>
+                    </div>
+                    <div class="col-md-6">
+                      <label *ngIf="!movieThumbnail" for="video" class="btn upload-div">
+                        <i class="bi bi-plus-lg mb-2"></i>
+                        <p class="text-gray mb-0">Upload</p>
+                      </label>
+                      <label *ngIf="movieThumbnail" for="video" class="media-div">
+                        <img [src]="movieThumbnail" class="img-thumbnail-tv">
+                        <div class="delete-button fs-3 mt-1 text-center text-gray">
+                          <i class="bi bi-x-circle-fill" (click)="removeImage('video')"></i>
+                        </div>
+                      </label>
+                      <input type="file" style="visibility:hidden; display: none;" accept="video/mp4,
+                      video/ogg,
+                      video/webm,
+                      video/3gpp,
+                      video/3gpp2,
+                      video/quicktime,
+                      video/x-matroska,
+                      video/mkv,
+                      video/*" id="video" (change)="showImage($event,'video')" #video />
+                      <span *ngIf="movieThumbnail===null" style="color:red; font-size: 10px;"
+                        class="col-lg-9 d-block mt-1">Movie file is
+                        required</span>
+                    </div>
+                  </div>
+                  <hr>
+                </div>
+              </div>
+            </div>
+            <div style="text-align: right;">
+              <button type="button" routerLink="/videos" class="btn btn-outline-secondary">
+                Cancel
+              </button>
+              <!-- <button type="button" class="text-danger btn btn-light" routerLink="/videos" >Cancel</button> -->
+              &nbsp;
+              <button [disabled]="!newMovieForm.valid || formSubmitted" type="button" class="btn btn-primary text-center"
+                (click)="submitMovie()"> Add new Movie </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- </div> -->
+  </div>
+</div>
+
+
+<ng-template #addDirectorModal let-modal>
+  <div class="modal-header">
+    <h5 *ngIf="this.optionSelected === 1 " class="modal-title mt-0">Add Director</h5>
+    <h5 *ngIf="this.optionSelected === 2" class="modal-title mt-0">Add Writer</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="directorForm">
+      <input formControlName="addDirector" placeholder="Enter name" class="form-control" type="text"
+        id="example-text-input">
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="newCreate(); modal.dismiss('Modal Closed')">Submit</button>
+
+  </div>
+</ng-template>

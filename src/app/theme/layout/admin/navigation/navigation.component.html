@@ -1,0 +1,19 @@
+<div class="offcanvas-lg offcanvas-start" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
+  <div class="offcanvas-header pb-0">
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
+  </div>
+  <nav>
+    <div class="navbar-wrapper">
+      <div class="m-header">
+        <a href="index.html" class="b-brand">
+          <!-- ========   Change your logo from here   ============ -->
+          <!-- <img src="assets/images/logo-dark.svg" alt="theme-logo" class="logo logo-dark logo-lg" /> -->
+          <img src="assets/images/header-logo.svg" alt="theme-logo" class="header-logo logo-dark logo-lg d-none d-lg-block" />
+          <img src="assets/images/favicon.svg" alt="theme-logo-icon" class="logo-sm" />
+        </a>
+      </div>
+      <app-nav-content (NavCollapsedMob)="navCollapseMob()" (SubmenuCollapse)="navSubmenuCollapse()"
+        (NavCollapse)="navCollapse()" class="scroll-div w-100 compact"></app-nav-content>
+    </div>
+  </nav>
+</div>

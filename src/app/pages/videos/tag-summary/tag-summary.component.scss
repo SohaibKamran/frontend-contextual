@@ -1,0 +1,77 @@
+@import '../../../../assets/scss/variables.scss';
+
+
+.tag_summary_modal {
+  background-color: $bg-light-tag;
+
+  .details-tag {
+    .indexer-score {
+      .indexer-img-wrapper {
+        img {
+          height: 64px;
+          width: 64px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+
+        p {
+          max-width: 64px;
+        }
+      }
+
+      .score-wrapper {
+        padding: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    .attributes-tags {
+      max-height: 93px;
+      overflow: auto;
+    }
+  }
+
+  .optimize-accuracy {
+    .optimize-img-wrapper {
+      img {
+        height: 330px;
+        border-radius: 4px;
+      }
+    }
+
+    .ad-queue-scroll {
+      max-height: 275px;
+      overflow: auto;
+
+      .brand-img {
+        margin-top: 4px;
+        img {
+          height: 36px;
+          width: 36px;
+          border-radius: 50%;
+          border: 1px solid $border-color;
+          object-fit: cover;
+        }
+
+        span {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.overflow-ai .proxy-product {
+  margin-bottom: 0px;
+}
+
+.btn-outline-secondary {
+  border-color: $border-color;
+  color: $border-color;
+  background-color: $btn-gray-color;
+}

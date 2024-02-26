@@ -1,0 +1,102 @@
+<div *ngIf="userRole && userRole=='1'" class="fixed-top bg-black navbar-padding py-1 z-index-99">
+  <!-- Header always visible -->
+  
+  <div class="d-flex justify-content-between align-items-center w-100">
+    <a href="/user/player"><img *ngIf="userImage" [src]="userImage" class="streamer-logo d-lg-none"><h3 *ngIf="!userImage" class="streamer-text d-lg-none roboto-medium">STREAMER</h3></a>
+    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapseContent" aria-controls="navbarCollapseContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="bi bi-list"></span>
+    </button>
+  </div>
+
+    <!-- Navbar Content (collapsible for small screens) -->
+    <div class="collapse navbar-collapse" id="navbarCollapseContent">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0 justify-content-center">
+        <li class="nav-item"><a href="/user/player" class="nav-link roboto-regular">Browse Videos</a></li>
+        <li class="nav-item"><a href="/user/shopping" class="nav-link roboto-regular">User Shopping Screens</a></li>
+        <li class="nav-item"><a href="/user/my-emails" class="nav-link roboto-regular">User Email Screens</a></li>
+        <li class="nav-item"><a href="/user/media-buys" class="nav-link roboto-regular">Media Buys</a></li>
+        
+        <!-- My Account Menu -->
+        <!--li class="nav-item"><a class="nav-link roboto-regular" href="/profile">Profile</a></li-->
+        <li class="nav-item"><a class="nav-link roboto-regular" href="https://calendly.com/contxtual/discovery" target="_blank">Book Meeting</a></li>
+        <li class="nav-item"><a class="nav-link roboto-regular" href="user/feedback">Leave Feedback</a></li>
+        <li class="nav-item"><a class="nav-link roboto-regular" href="/auth/login" (click)="logout()">Logout</a></li>
+      </ul>
+    </div>
+
+    <!-- Content for larger screens -->
+    <div class="d-none d-lg-flex justify-content-between align-items-center w-100">
+      <a href="/user/player"><img *ngIf="userImage" [src]="userImage" class="streamer-logo"><h4 *ngIf="!userImage" class="streamer-text roboto-medium">STREAMER</h4></a>
+      <div class="d-flex align-items-center">
+      <a class="nav-link roboto-regular" href="/user/player" [class.active]="isActive('/user/player')">Browse Videos</a>
+        <a href="/user/shopping" class="nav-link roboto-regular" [class.active]="isActive('/user/shopping')">User Shopping Screens</a>
+        <a href="/user/my-emails" class="nav-link roboto-regular" [class.active]="isActive('/user/my-emails')">User Email Screen</a>
+        <a href="/user/media-buys" class="nav-link roboto-regular" [class.active]="isActive('/user/media-buys')">Media Buys</a>
+      </div>
+      <!-- User account dropdown for large screens -->
+      <div class="dropdown">
+        <a class="dropdown-toggle account-text-large roboto-regular" href="#" role="button" id="dropdownLargeScreen" data-bs-toggle="dropdown" aria-expanded="false">
+          <svg class="account-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="16" fill="#BFBFBF"/>
+            <path d="M22.9599 21.052C22.5809 20.1543 22.031 19.3389 21.3407 18.6513C20.6525 17.9616 19.8373 17.4118 18.94 17.0321C18.932 17.0281 18.9239 17.0261 18.9159 17.022C20.1675 16.118 20.9811 14.6455 20.9811 12.9841C20.9811 10.2319 18.7512 8.00195 15.9989 8.00195C13.2467 8.00195 11.0168 10.2319 11.0168 12.9841C11.0168 14.6455 11.8304 16.118 13.082 17.0241C13.0739 17.0281 13.0659 17.0301 13.0579 17.0341C12.1579 17.4138 11.3503 17.9582 10.6572 18.6533C9.96755 19.3415 9.41769 20.1567 9.038 21.054C8.66498 21.9324 8.46381 22.8741 8.44536 23.8283C8.44483 23.8497 8.44859 23.8711 8.45642 23.891C8.46426 23.911 8.47601 23.9292 8.49099 23.9445C8.50597 23.9599 8.52387 23.9721 8.54363 23.9804C8.5634 23.9887 8.58463 23.993 8.60608 23.993H9.81143C9.89983 23.993 9.97014 23.9227 9.97215 23.8363C10.0123 22.2854 10.6351 20.833 11.736 19.7321C12.8751 18.593 14.3878 17.9662 15.9989 17.9662C17.6101 17.9662 19.1228 18.593 20.2619 19.7321C21.3628 20.833 21.9855 22.2854 22.0257 23.8363C22.0277 23.9247 22.098 23.993 22.1864 23.993H23.3918C23.4132 23.993 23.4345 23.9887 23.4542 23.9804C23.474 23.9721 23.4919 23.9599 23.5069 23.9445C23.5219 23.9292 23.5336 23.911 23.5414 23.891C23.5493 23.8711 23.553 23.8497 23.5525 23.8283C23.5324 22.868 23.3335 21.9339 22.9599 21.052ZM15.9989 16.4395C15.0768 16.4395 14.209 16.0799 13.5561 15.427C12.9032 14.7741 12.5436 13.9062 12.5436 12.9841C12.5436 12.062 12.9032 11.1941 13.5561 10.5412C14.209 9.88834 15.0768 9.52874 15.9989 9.52874C16.921 9.52874 17.7889 9.88834 18.4418 10.5412C19.0947 11.1941 19.4543 12.062 19.4543 12.9841C19.4543 13.9062 19.0947 14.7741 18.4418 15.427C17.7889 16.0799 16.921 16.4395 15.9989 16.4395Z" fill="white"/>
+            
+            <defs>
+            <filter id="filter0_d_152_8606" x="24" y="0" width="8" height="8" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+            <feMorphology radius="1" operator="dilate" in="SourceAlpha" result="effect1_dropShadow_152_8606"/>
+            <feOffset/>
+            <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/>
+            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_152_8606"/>
+            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_152_8606" result="shape"/>
+            </filter>
+            </defs>
+            </svg>
+          My Account
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownLargeScreen">
+          <!--li><a class="dropdown-item roboto-regular" href="/profile">Profile</a></li!-->
+          <li><a class="dropdown-item roboto-regular" href="https://calendly.com/contxtual/discovery" target="_blank">Book a Meeting</a></li>
+          <li><a class="dropdown-item roboto-regular" href="user/feedback">Leave Feedback</a></li>
+          <li><a class="dropdown-item roboto-regular" (click)="logout()">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  
+</div>
+
+  
+<div *ngIf="userRole && userRole!='1' && lastLogin" class="page-header">
+  <div class="page-block">
+    <div class="row align-items-center">
+      <!-- <div class="col-md-12 bread-center">
+        <ul class="breadcrumb">
+          <ng-container *ngFor="let item of breadcrumbItems">
+            <li class="breadcrumb-item">
+              <a [routerLink]="item?.url">{{ item.label }}</a>
+            </li>
+          </ng-container>
+        </ul>
+      </div> -->
+      <div  class="col-12 p-0">
+        <div class="page-header-title d-flex flex-row video_titlebar">
+          <h2 class="mb-sm-0 font-size-18">{{ title }}
+            <small *ngIf="lastLogin!='[object Object]'">Last logged in on {{lastLogin}}</small>
+          </h2>
+
+          <div class="page-title-right">
+            <ng-content></ng-content>
+            <!-- <ol class="breadcrumb m-0">
+          <ng-container *ngFor="let item of breadcrumbItems">
+            <li class="breadcrumb-item" >
+              <a [routerLink]="item?.url">{{ item.label }}</a>
+            </li>
+          </ng-container>
+        </ol> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

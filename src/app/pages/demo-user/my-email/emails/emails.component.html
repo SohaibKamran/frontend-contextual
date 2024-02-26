@@ -1,0 +1,107 @@
+<app-pagetitle [breadcrumbItems]="breadCrumbItems">
+</app-pagetitle>
+ <div class="alerts-top email-alert">
+   <app-ad-alert [link]="link"></app-ad-alert>
+ </div>
+ <h1 class="text-center shopping-header roboto-medium">User Email Example</h1>
+ <div class="email-container">
+ <div class="row email-header mb-3">
+   <div class="col-12">
+     <div class="row justify-content-between align-items-center">
+       <div class="col-md-auto ps-0">
+         <div class="d-flex align-items-center">
+           <div class="email-img">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path d="M23.9998 2.66675H7.99984C5.05432 2.66675 2.6665 5.05456 2.6665 8.00008V24.0001C2.6665 26.9455 5.05432 29.3334 7.99984 29.3334H23.9998C26.9453 29.3334 29.3332 26.9455 29.3332 24.0001V8.00008C29.3332 5.05456 26.9453 2.66675 23.9998 2.66675Z" fill="#A6AFB6"/>
+              <path d="M11.55 2.66675L7.55029 10.6661H9.78292L13.7826 2.66675H22.2166L18.2169 10.6661H20.4496L24.4402 2.68468C27.1797 2.90863 29.3332 5.20287 29.3332 8.00008V10.6667H2.6665V8.00008C2.6665 5.05456 5.05432 2.66675 7.99984 2.66675H11.55Z" fill="white"/>
+            </svg>
+           </div>
+           <div>
+             <p class="fw-bold mb-0 ms-3 fs-lg">STREAMING</p>
+             <p class="mb-0 ms-3 fs-lg">Re: Your Liked Products</p>
+           </div>
+         </div>
+       </div>
+       <div class="col-md">
+         <div class="d-flex align-items-center justify-content-end text-gray">
+           <p class="mb-0 fs-lg">Wed, March 15, 8:07 AM (2 days ago)</p>
+           <i class="bi bi-star ms-3"></i>
+           <i class="bi bi-arrow-return-left ms-3"></i>
+           <i class="bi bi-three-dots-vertical ms-3"></i>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+ <div class="line-email"></div>
+
+   <div class="my-col-12">
+     <div class="mt-3">
+       <div class="card-body text-center p-4">
+         <h2 class="my-email-header roboto-medium">Products you saved</h2>
+         <h2 class="my-email-header roboto-medium">in the shows you’ve watched!</h2>
+         <hr class="line-color">
+         <p class="email-subheader roboto-light">Click to connect to the products that inspired you from your
+           favorite TV shows and movies.</p>
+       </div>
+     </div>
+   </div>
+
+   <ngx-masonry [ordered]="true"  class="cards-container">
+      <div *ngIf="wishlistData?.length === 0 && isWishlistLoaded" class="empty-wishlist-container">
+        <!--p class="fs-xl fw-medium text-center mt-5" style="color: white">No Favorite Actors Found</p-->
+        <h3 class="roboto-light empty-wishlist-header"> Hey your wishlist is empty!</h3>
+        <p class="roboto-light empty-wishlist-subheader">Start filling it up by watching  videos and saving products by clicking the “heart”!</p>
+        <img src="assets/images/customization/empty-wishlist.jpg" class="empty-wishlist-image">
+      </div>
+      <div ngxMasonryItem class="masonry-item" *ngFor="let item of wishlistData">
+      <div class="card">
+              <div class="position-relative">
+                  <span *ngIf="item?.Actor?.imageUrl" class="actor cursor-pointer">
+                      <img class= "actor-circle cursor-pointer" src={{item?.Actor?.imageUrl}}>
+                    </span>
+                  <img src={{item?.matchedImageUrl}} class="card-img-top img-fluid"
+                      style="cursor:pointer" alt="..."
+                      (click)="openItemDetailsModal(item?.Product?.id,item?.ProductImage?.id,item?.Scene,item?.Retailer?.name, item?.matchedImageUrl)">
+                      <i *ngIf="!item?.heart" role="button" class="bi bi-heart"></i>
+                      <i *ngIf="item?.heart" role="button" class="bi bi-heart-fill"></i>
+                      <i class="bi bi-badge-ad-fill"></i>
+              </div>
+              <li class="list-group-item">
+                  <div class="d-flex justify-content-between align-items-center">
+                      <p class="semi-bold retailer-name-color roboto-medium" style="cursor: pointer;"
+                          (click)="openItemDetailsModal(item?.Product?.id,item?.ProductImage?.id, item?.Scene,item?.Retailer?.name,item?.matchedImageUrl)">
+                          {{item?.Retailer?.name}}</p>
+                      <p class="price roboto-light">{{item?.ProductImage?.prices?.actualPrice || item?.ProductImage?.prices?.salePrice}}</p>
+                  </div>
+              </li>
+              <ul class="list-group">
+                  <li class="list-group-item-below">
+                      <div class="d-flex align-items-center">
+                          <div class="featured-img-container">
+                              <img (click)="setVideoData(item?.Scene, item?.Show?.id, item?.ProxyCoordinate?.id, item?.Retailer?.id, true)" src="{{item.Scene?.thumbnail}}" class="img-fluid">
+                          </div>
+                          <div class="text-container">
+                              <p class="mb-0 fs-lg semi-bold series-name-color roboto-medium">{{item?.Show?.Series?.title}}</p>
+                              <div class="series-episode-and-date">
+                              <p *ngIf="item?.Show?.seasonNo" class="paragraph-below roboto-light">
+                                  {{item?.Show?.seasonNo | modifyInt:"S"}} {{" "}} {{item?.Show?.episodeNo | modifyInt:"E"}}
+                              </p>
+                              <!--p *ngIf="item?.createdAt" class="paragraph-below roboto-light">on {{item.createdAt | date: 'MM/dd/yyyy'}}</p-->
+                              </div>
+                          </div>
+                      </div>
+                  </li>
+              </ul>
+          </div>
+      </div>
+</ngx-masonry>
+
+
+ <!--div class="row px-3 px-xxl-5">
+   <div class="my-col-12 text-center">
+     <div *ngIf="loader" class="spinner-border text-primary" role="status">
+     </div>
+   </div>
+ </div-->
+</div>

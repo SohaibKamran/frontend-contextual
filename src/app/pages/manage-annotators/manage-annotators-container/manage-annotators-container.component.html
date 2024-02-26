@@ -1,0 +1,77 @@
+<app-pagetitle title="Annotators" [breadcrumbItems]="breadCrumbItems">
+  <div class="row gx-2 align-items-center justify-content-end annotator-search-fields">
+    <div class="col-md-auto">
+      <button class="text-primary me-2" (click)="open()">
+        <i class="fas fa-sliders-h"></i>
+      </button>
+    </div>
+    <div class="col-md-auto">
+      <div class="position-relative">
+        <!-- <ng-multiselect-dropdown name="city" [placeholder]="'Select Annotator'" [settings]="dropdownSettings"
+                [data]="tagger"
+                (onSelect)="onItemSelect($event)"
+                (onDeSelect)="onDeSelect($event)"
+                (onSelectAll)="onSelectAll($event)"
+                (onDeSelectAll)="onDeSelectAll($event)">
+              </ng-multiselect-dropdown> -->
+        <ng-select [(ngModel)]="selectedTaggers" [clearable]="false" placeholder="Annotator(s)" [items]="tagger"
+          bindLabel="fullName" bindValue="item_id" [clearable]="true" (clear)="clearSearch()" [multiple]="true"
+          [closeOnSelect]="false" (change)="onItemSelect($event)" (scrollToEnd)="onTaggerScrollEnd($event)"
+          [loading]="taggerLoader" (search)="searchTagger($event)">
+          <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index" let-search="searchTerm">
+            <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" />
+            {{item.fullName }}
+          </ng-template>
+          <ng-template ng-multi-label-tmp let-items="items">
+            <div class="ng-value" *ngFor="let item of items.slice(0,1)">
+              {{item.fullName}}
+            </div>
+            <div class="ng-value" *ngIf="items.length > 1">
+              <span class="ng-value-label">+{{items.length - 1}} </span>
+            </div>
+          </ng-template>
+        </ng-select>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="position-relative">
+        <input type="text" class="form-control h_40" [(ngModel)]="nameSearch" (input)="searchByName()"
+          placeholder="Search" />
+        <i class="bi bi-search text-gray"></i>
+
+      </div>
+    </div>
+    <div class="col-md-auto">
+      <div ngbDropdown class="btn-group w-100">
+        <button type="button"
+          class="btn btn-light dropdown-toggle h_40 text-light d-flex justify-content-between align-items-center"
+          id="dropdownBasic" ngbDropdownToggle>
+          Last Month
+          <i class="bi bi-caret-down-fill ms-2 fs-md text-gray"></i>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic">
+          <a (click)="monthFilter()" ngbDropdownItem>Last Month</a>
+          <!-- <a ngbDropdownItem>Another action</a>
+                                        <a ngbDropdownItem>Something else here</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Separated link</a> -->
+        </div>
+      </div>
+    </div>
+    <div class="col-md-auto">
+      <button class="btn btn-primary w-100 h_40" (click)="openAddEditModal()">Add New Annotator</button>
+    </div>
+  </div>
+</app-pagetitle>
+<div class="row">
+  <div class="col-md-6 ">
+    <app-current-tagging-status></app-current-tagging-status>
+  </div>
+
+  <div class="col-md-6">
+    <app-progress-by-series [title]="seriesTitle" [cardHeight]="seriesCardHeight"></app-progress-by-series>
+  </div>
+  <div class="col-md-12">
+    <app-annotator-records [$annotatorFilter]='$annotatorFilter'></app-annotator-records>
+  </div>
+</div>

@@ -1,0 +1,118 @@
+<div class="slick-wrapper">
+  <ngx-slick-carousel class="carousel ai-bg" #slickModal="slick-carousel" [config]="slideConfig"
+    (afterChange)="afterChange($event)" (beforeChange)="beforeChange($event)">
+    <div ngxSlickItem *ngFor="let product of data">
+      <div class="proxy-product">
+        <div class="product-img">
+          <img src={{product?.Product?.Colors[0]?.ProductImage?.reuploadedImages?.images[0]}}>
+        </div>
+        <div class="d-flex align-items-center justify-content-between">
+          <span class="fs-sm text-gray fst-italic">{{product.Product.title}}</span>
+          <span class="fs-sm text-gray fst-italic">{{product.price}}</span>
+        </div>
+        <img src="../../../assets/icons/ad-badge-ai.svg" class="badge-ad"> 
+        <span class="icon-close text-light fs-md"></span>
+        <span class="icon-unlock text-light fs-lg"></span>
+      </div>
+    </div>
+    <!-- <div ngxSlickItem>
+      <div class="proxy-product">
+        <div class="product-img">
+          <img src="../../../assets/images/leather-jacket-2.jpg">
+        </div>
+        <div class="d-flex align-items-center justify-content-between">
+          <span class="fs-sm text-gray fst-italic">Macys 1255</span>
+          <span class="fs-sm text-gray fst-italic">99%</span>
+        </div>
+        <img src="../../../assets/icons/ad-badge-ai.svg" class="badge-ad">
+        <span class="icon-close text-light fs-md"></span>
+        <span class="icon-unlock text-light fs-lg"></span>
+      </div>
+    </div>
+    <div ngxSlickItem>
+      <div class="proxy-product">
+        <div class="product-img">
+          <img src="../../../assets/images/leather-jacket-3.jpg">
+        </div>
+        <div class="d-flex align-items-center justify-content-between">
+          <span class="fs-sm text-gray fst-italic">Macys 1255</span>
+          <span class="fs-sm text-gray fst-italic">99%</span>
+        </div>
+        <img src="../../../assets/icons/ad-badge-ai.svg" class="badge-ad">
+        <span class="icon-close text-light fs-md"></span>
+        <span class="icon-unlock text-light fs-lg"></span>
+      </div>
+    </div>
+    <div ngxSlickItem>
+      <div class="proxy-product">
+        <div class="product-img">
+          <img src="../../../assets/images/leather-jacket.jpg">
+        </div>
+        <div class="d-flex align-items-center justify-content-between">
+          <span class="fs-sm text-gray fst-italic">Macys 1255</span>
+          <span class="fs-sm text-gray fst-italic">99%</span>
+        </div>
+        <img src="../../../assets/icons/ad-badge-ai.svg" class="badge-ad">
+        <span class="icon-close text-light fs-md"></span>
+        <span class="icon-unlock text-light fs-lg"></span>
+      </div>
+    </div>
+    <div ngxSlickItem>
+      <div class="proxy-product">
+        <div class="product-img">
+          <img src="../../../assets/images/leather-jacket-3.jpg">
+        </div>
+        <div class="d-flex align-items-center justify-content-between">
+          <span class="fs-sm text-gray fst-italic">Macys 1255</span>
+          <span class="fs-sm text-gray fst-italic">99%</span>
+        </div>
+        <img src="../../../assets/icons/ad-badge-ai.svg" class="badge-ad">
+        <span class="icon-close text-light fs-md"></span>
+        <span class="icon-unlock text-light fs-lg"></span>
+      </div>
+    </div>
+    <div ngxSlickItem>
+      <div class="proxy-product">
+        <div class="product-img">
+          <img src="../../../assets/images/leather-jacket-2.jpg">
+        </div>
+        <div class="d-flex align-items-center justify-content-between">
+          <span class="fs-sm text-gray fst-italic">Macys 1255</span>
+          <span class="fs-sm text-gray fst-italic">99%</span>
+        </div>
+        <img src="../../../assets/icons/ad-badge-ai.svg" class="badge-ad">
+        <span class="icon-close text-light fs-md"></span>
+        <span class="icon-unlock text-light fs-lg"></span>
+      </div>
+    </div>
+    <div ngxSlickItem>
+      <div class="proxy-product">
+        <div class="product-img">
+          <img src="../../../assets/images/leather-jacket-1.jpg">
+        </div>
+        <div class="d-flex align-items-center justify-content-between">
+          <span class="fs-sm text-gray fst-italic">Macys 1255</span>
+          <span class="fs-sm text-gray fst-italic">99%</span>
+        </div>
+        <img src="../../../assets/icons/ad-badge-ai.svg" class="badge-ad">
+        <span class="icon-close text-light fs-md"></span>
+        <span class="icon-unlock text-light fs-lg"></span>
+      </div>
+    </div>
+    <div ngxSlickItem>
+      <div class="proxy-product">
+        <div class="product-img">
+          <img src="../../../assets/images/leather-jacket.jpg">
+        </div>
+        <div class="d-flex align-items-center justify-content-between">
+          <span class="fs-sm text-gray fst-italic">Macys 1255</span>
+          <span class="fs-sm text-gray fst-italic">99%</span>
+        </div>
+        <img src="../../../assets/icons/ad-badge-ai.svg" class="badge-ad">
+        <span class="icon-close text-light fs-md"></span>
+        <span class="icon-unlock text-light fs-lg"></span>
+      </div>
+    </div> -->
+  </ngx-slick-carousel>
+</div>
+ 

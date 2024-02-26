@@ -1,0 +1,42 @@
+<section class="register-login mx-3">
+  <app-offcanvas-login></app-offcanvas-login>
+  <div class="container">
+    <div class="row text-dark mt-10">
+      <div class="col-9 mx-auto">
+        <div class="row">
+          <div class="col-12 text-center mb-4">
+            <h2 class="fw-bold text-black">Recover your password.</h2>
+            <p class="fs-xl">Enter your email below and we’ll send you a link to reset your password.</p>
+          </div>
+          <form [formGroup]="sendResetEmailForm" (ngSubmit)="sendResetLink()">
+            <div class="col-md-6 mx-auto">
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label fs-lg text-dark fw-medium">Email</label>
+                <input formControlName="email" type="email" class="form-control" id="exampleFormControlInput1"
+                  placeholder="Type your e-mail">
+                <label *ngIf="sendResetEmailForm.controls['email'].touched &&
+                  sendResetEmailForm.controls['email'].invalid" class="text-danger">
+                  email is required.
+                </label>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mx-auto text-center">
+                  <label *ngIf="isError" class="fs-xl fw-bold mb-3 text-danger"> {{errorMessage}} </label>
+                </div>
+              </div>
+              <div class="mb-3">
+                <button type="submit" class="btn btn-primary w-100">Send reset link</button>
+              </div>
+              <div class="mb-3 text-center">
+                <label class="fs-lg fw-medium text-center">
+                  Remember password? <span routerLink="['/login']" routerLinkActive="router-link-active"
+                    class="cursor text-primary"> Sign in here. </span>
+                </label>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

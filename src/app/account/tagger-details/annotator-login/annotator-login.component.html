@@ -1,0 +1,162 @@
+<section class="register-login mx-3">
+  <app-offcanvas-login></app-offcanvas-login>
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <div class="container">
+      <div class="row text-dark mt-10">
+        <div class="col-9 mx-auto">
+          <div class="row">
+            <div class="col-12 text-center mb-4">
+              <h2 class="fw-bold text-black">Annotator Sign in</h2>
+              <p routerLinkActive="router-link-active" class="fs-xl">Not registered? <span
+                  routerLink="/auth/tagger-register" class="text-primary cursor">Register here.</span></p>
+            </div>
+            <div class="col-md-6 mx-auto">
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label fs-lg text-dark fw-medium">E-mail</label>
+                <input type="email" formControlName="email" class="form-control" id="exampleFormControlInput1"
+                  placeholder="Type your e-mail">
+                <label *ngIf="loginForm.controls['email'].touched &&
+                    loginForm.controls['email'].hasError('required')" class="text-danger">
+                  email is required.
+                </label>
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label fs-lg text-dark fw-medium">Password</label>
+                <input type="password" formControlName="password" class="form-control" id="exampleFormControlInput1"
+                  placeholder="Enter your Password">
+                <label *ngIf="loginForm.controls['password'].touched &&
+                    loginForm.controls['password'].hasError('required')" class="text-danger">
+                  password is required.
+                </label>
+              </div>
+              <div class="d-flex mt-1 justify-content-between">
+                <div class="form-check">
+                  <input class="form-check-input input-primary" type="checkbox" (change)="toggleTermsCheckbox()"
+                    [checked]="acceptTerms === true" id="flexCheckDefault">
+                  <label class="form-check-label fs-lg fw-medium ms-2" for="flexCheckDefault">
+                    By signing in you agree to the <span (click)="openScrollableContent(content1)"
+                      class="text-primary">Terms and Conditions,
+                    </span> and our <a href="https://contxtual.tv/privacy-policy/" target="_blank" class="text-primary">
+                      Privacy Policy.</a>
+                  </label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mx-auto text-center">
+                  <label *ngIf="isError" class="fs-xl fw-bold mb-3 text-danger"> {{errorMessage}} </label>
+                </div>
+              </div>
+              <div class="d-grid mt-4 mb-3">
+                <button type="submit"
+                  class="btn btn-primary w-100" [disabled]="acceptTerms === false">Login</button>
+              </div>
+              <div class="mb-3 text-center">
+                <label class="fs-lg fw-medium text-center">
+                  Forgot password? <span routerLink="/auth/tagger-login" class="cursor text-primary"> Recover
+                    it
+                    here. </span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
+
+<ng-template #content1 let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLongTitle">Terms and Conditions</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      (click)="modal.close('Close click')"></button>
+  </div>
+  <div class="modal-body">
+    <!-- <p>
+            <object data="../../../assets/pdfs/Contxtual Disclaimer for Demo.pdf" type="application/pdf" width="100%"
+              height="325px"></object>
+          </p> -->
+    <div class="row">
+      <div class="col-12 text-center">
+        <img src="../../../assets/images/logo.svg" class="mb-3" style="width: 50%">
+        <p class="fs-md fw-bold">CONTXTUAL DISCLAIMER FOR DEMO </p>
+      </div>
+      <div class="col-12 text-justify">
+        <h6 class="fs-lg fw-medium">Disclaimer for Online Technology Demo</h6>
+        <p class="fs-md">This disclaimer governs the use of the online technology demo platform, Contxtual. By accessing
+          and using this
+          platform, you agree to be bound by the terms of this disclaimer. Please read these terms carefully before
+          accessing
+          or using the platform. If you do not agree to these terms, you must not use this platform.</p>
+        <h6 class="fs-lg fw-medium">Copyrighted Materials</h6>
+        <p class="fs-md">The platform will demonstrate its functionality using copyrighted materials, but it is only for
+          demonstration purposes
+          only. We acknowledge that all materials used in the demo are owned by their respective owners and are used
+          solely
+          for demonstration purposes. The use of these materials does not indicate any endorsement, affiliation or
+          association
+          with any third party.</p>
+        <h6 class="fs-lg fw-medium">Management of Copyrighted Data Forms</h6>
+        <p class="fs-md">The technology used in the platform is an engine for managing various copyrighted data forms,
+          including images
+          and text. It tracks the attribution of all of those assets so that appropriate licensing can be put in place
+          by the
+          operator of the technology. The use of third-party copyright licenses is not part of the license to use
+          Contxtual.</p>
+        <h6 class="fs-lg fw-medium">Tracking of Training Data</h6>
+        <p class="fs-md">The use of all training data retail training data is tracked at each ad level, such that ads
+          being served by a service
+          incorporating this engine can directly keep track of the attribution of the specific training images. This
+          feature
+          enables advertisers to easily define and quantify a compensational unit for their license. In other examples,
+          specific
+          actors are tracked to every ad in the same way, so the attribution could be compensated if necessary.</p>
+        <h6 class="fs-lg fw-medium">Implications and Responsibilities</h6>
+        <p class="fs-md">As a user of the platform, you are responsible for ensuring that you comply with all applicable
+          laws, rules and
+          regulations. You agree to indemnify and hold harmless the platform, its affiliates, and their respective
+          directors,
+          officers, employees, agents and representatives from and against any and all claims, damages, liabilities,
+          costs and
+          expenses arising out of your use of the platform.</p>
+        <h6 class="fs-lg fw-medium">Data Protection Laws</h6>
+        <p class="fs-md">Contxtual complies with Local and Worldwide Data Protection Laws, including the General Data
+          Protection
+          Regulation (GDPR) and the California Consumer Privacy Act (CCPA). We collect and process personal data in
+          accordance with these laws, and we are committed to protecting the privacy and security of your personal
+          information.</p>
+        <h6 class="fs-lg fw-medium">Limitation of Liability</h6>
+        <p class="fs-md">To the fullest extent permitted by law, the platform, its affiliates, and their respective
+          directors, officers, employees,
+          agents and representatives shall not be liable for any indirect, incidental, special, consequential, punitive
+          or
+          exemplary damages, including but not limited to, damages for loss of profits, goodwill, use, data or other
+          intangible
+          losses (even if we have been advised of the possibility of such damages), arising out of or in connection with
+          the use
+          or inability to use the platform.</p>
+        <h6 class="fs-lg fw-medium">Disclaimer of Warranties</h6>
+        <p class="fs-md">The platform is provided on an "as is" and "as available" basis without warranties of any kind,
+          either express or
+          implied, including but not limited to, warranties of merchantability, fitness for a particular purpose, or
+          noninfringement.
+          We do not warrant that the platform will meet your requirements or be available on an uninterrupted,
+          secure, or error-free basis.</p>
+        <h6 class="fs-lg fw-medium">Governing Law</h6>
+        <p class="fs-md">This disclaimer and your use of the platform shall be governed by and construed in accordance
+          with the laws of the
+          jurisdiction in which the platform is hosted. Any dispute arising out of or in connection with this disclaimer
+          or your
+          use of the platform shall be resolved through arbitration in accordance with the rules of the jurisdiction in
+          which the
+          platform is hosted.</p>
+        <h6 class="fs-lg fw-medium">Modifications to the Disclaimer</h6>
+        <p class="fs-md">We reserve the right to modify this disclaimer at any time without prior notice. Any changes to
+          this disclaimer will be
+          posted on the platform. Your continued use of the platform after any such changes will constitute your
+          acceptance
+          of such changes.</p>
+      </div>
+    </div>
+  </div>
+</ng-template>

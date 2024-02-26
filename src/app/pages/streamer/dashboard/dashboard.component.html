@@ -1,0 +1,31 @@
+ <app-pagetitle title="Streamers Dashboard,">
+   <!-- <button class="btn btn-primary d-flex align-items-center">
+     <i class="bi bi-plus-lg me-2"></i> Create Key</button> -->
+   <div class="d-flex align-items-center">
+     <p *ngIf="showApiKey;else hiddenBalance" class="mb-0 me-2 text-dark"><span class="fw-medium">Api Key :</span>aaaaaaaaaaaaaaaaa</p>
+     <ng-template #hiddenBalance><p class="mb-0 me-2 text-dark"><span class="fw-medium">Api Key :</span>xxxxxxxxxxxxxxxxxx</p></ng-template>
+     <i class="bi bi-clipboard me-2"></i>
+     <i class="bi bi-eye" (click)="toggleText()" ></i>
+   </div>
+ </app-pagetitle>
+ <div class="row">
+   <div class="col-12">
+     <app-top-widget></app-top-widget>
+   </div>
+ </div>
+ <div class="row">
+   <div class="col-12">
+     <app-revenue-chart></app-revenue-chart>
+   </div>
+ </div>
+ <div class="row">
+   <div class="col-md-4">
+     <app-trending-series></app-trending-series>
+   </div>
+   <div class="col-md-4">
+     <app-top-shows></app-top-shows>
+   </div>
+   <div class="col-md-4">
+     <app-top-advertisers></app-top-advertisers>
+   </div>
+ </div>

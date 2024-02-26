@@ -1,0 +1,24 @@
+<video id="videoPlayerId" [ngClass]="player.isFullscreen()?'':''" #target class="video-js" controls
+  preload="none" (pause)="pauseFunctionCalled($event)" (play)="playFunctionCalled($event)" (timeupdate)="updateProgress()" [poster]="poster">
+  <source [src]="options.sources[0].src" type="video/mp4">
+</video>
+<ng-content></ng-content>
+<div [hidden]="!successMessage" id="success-message" class="add-popup">
+  <i class="bi bi-heart-fill text-heart mt-1"></i>
+  <p class="mb-0 text-white ms-2">Saved to your Wishlist</p>
+</div>
+
+<span #adsShown [hidden]="sceneProductsData?.length==0">
+  <cdk-ads-slider  *ngIf="currentEpisode" (showAddToWishlistPopup)="showAddToWishlistPopup($event)" [currentEpisode]="currentEpisode"
+    [sceneProductsData]="sceneProductsData" [isFullScreen]="isFullScreen" [isPlaying]="isPlaying" [showAdds]="showAdds" [verticalAds]="verticalAds" [proxyCoordinateId]="proxyCoordinateId">
+  </cdk-ads-slider>
+</span>
+
+<!-- <span id="sceneToolTip" [hidden]="!player.paused()">
+    Tool tip
+</span> -->
+<div class="vjs-time-tooltip scene-tooltip" #sceneToolTip [hidden]="!player.paused()" aria-hidden="true" style="right: -71px; z-index: 100000;display: none !important;"(mouseenter)="disabledSeekBar()" (mouseleave)="enableSeekBar()" (touchstart)="disabledSeekBar()">
+  <i id ="leftArrow"class="bi bi-caret-left-fill me-2 cursor-pointer" (click)="iterateScene('-', $event)" ></i>
+  Scene {{sceneNumber}}
+  <i class="bi bi-caret-right-fill ms-2 cursor-pointer" (click)="iterateScene('+', $event)"></i>
+</div>

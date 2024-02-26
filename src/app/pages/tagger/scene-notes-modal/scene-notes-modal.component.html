@@ -1,0 +1,46 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLiveLabel">Scene Notes
+        <div>
+            <p class="text-muted text-start mb-0">
+                Notes relating to this Scene.
+            </p>
+        </div>
+    </h5>
+    <button type="button" class="btn-close text-muted position-absolute" data-bs-dismiss="modal" aria-label="Close"
+        (click)="modalService.dismissAll('Close click')" style="top: 25px;right: 20px;">
+    </button>
+    
+</div>
+
+<div class="modal-body">
+    <div *ngFor="let data of staticData; let i = index">        
+        <div class="card notesbody">
+            <div class="card-body">
+                <span *ngIf="i!=0 || editOrNew=='edit'" class="text-muted">{{data.header}}</span>
+                <textarea [disabled]="(editOrNew!='edit' && i!=0) || (editOrNew=='edit')" [(ngModel)]="data.description" class="form-control mt-2 mb-3"></textarea>
+                <div style="display: flex" *ngIf="i!=0 || editOrNew=='edit'">
+                    <input [(ngModel)]="data.checked" class="form-check-input" type="checkbox" id="flexCheckChecked" />
+                    <label class="form-check-label text-muted ms-2" for="flexCheckChecked">Complete</label>
+                    <button type="button" *ngIf="editOrNew==='new'" class="btn btn-danger d-flex ms-auto" (click)="deleteNote(data)">Delete</button>
+                </div>
+                <button type="button" *ngIf="editOrNew!='edit' && i==0" class="btn btn-primary d-flex ms-auto" (click)="addSceneToDo()">Add</button>
+            </div>
+
+        </div>
+    </div>
+    <div *ngIf="staticData.length==0">
+        <div class="card notesbody">
+            <div class="card-body">
+                <span class="text-muted">No notes found for this scene.</span>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer justify-content-between ">
+    <button type="button" class="text-danger btn btn-transparent border-0"
+        (click)="modalService.dismissAll('Cancel Clicked')">Cancel</button>
+    &nbsp;
+    <button type="button" *ngIf="staticData.length>0" class="btn btn-primary" (click)="updateSceneToDo(); modalService.dismissAll('Save click')"> Update </button>    
+</div>

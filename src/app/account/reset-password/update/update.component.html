@@ -1,0 +1,47 @@
+<section class="register-login mx-3">
+  <app-offcanvas-login></app-offcanvas-login>
+  <div class="container">
+    <div class="row text-dark mt-10">
+      <div class="col-9 mx-auto">
+        <div class="row">
+          <div class="col-12 text-center mb-4">
+            <h2 class="fw-bold text-black">Update your password.</h2>
+            <p class="fs-xl">Enter your new password.</p>
+          </div>
+          <form [formGroup]="setPasswordForm" (ngSubmit)="updatePassword()">
+            <div class="col-md-6 mx-auto">
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label fs-lg text-dark fw-medium">New Password</label>
+                <input type="password" formControlName="newPassword" class="form-control" id="exampleFormControlInput1"
+                  placeholder="Enter your new password">
+                <label *ngIf="setPasswordForm.controls['newPassword'].touched &&
+                    setPasswordForm.controls['newPassword'].hasError('required')" class="text-danger">
+                  password must be valid and minimum of 8 characters.
+                </label>
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label fs-lg text-dark fw-medium">Confirm New
+                  Password</label>
+                <input type="password" formControlName="confirmPassword" class="form-control"
+                  id="exampleFormControlInput1" placeholder="Enter and Confirm your new password">
+                <label *ngIf="setPasswordForm.controls['confirmPassword'].touched &&
+                    setPasswordForm.controls['confirmPassword'].hasError('required')" class="text-danger">
+                  password must be valid and minimum of 8 characters.
+                </label>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mx-auto text-center">
+                  <label *ngIf="isError" class="fs-xl fw-bold mb-3 text-danger"> {{errorMessage}} </label>
+                </div>
+              </div>
+              <div class="mb-3">
+                <button type="submit" [disabled]="!setPasswordForm.valid" class="btn btn-primary w-100">Update
+                  password</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

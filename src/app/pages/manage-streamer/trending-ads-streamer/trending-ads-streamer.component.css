@@ -1,0 +1,21 @@
+.card-height {
+  height: 300px;
+}
+.card-height .header-bg {
+  background-color: #FAFAFA;
+}
+.card-height .card-body {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.card-height .card-body h5 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+
+.card .card-body {
+  margin: 1rem 0;
+  padding: 0 1rem !important;
+}/*# sourceMappingURL=trending-ads-streamer.component.css.map */

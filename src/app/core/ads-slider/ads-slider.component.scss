@@ -1,0 +1,623 @@
+@import '../../../assets/scss/player.scss';
+
+.carousel-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.vertical-container{
+  display: flex;
+  flex-direction: column;
+
+}
+
+/* Apply fade in animation to the active slide */
+.fade-in-left {
+  animation: fadeInFromLeft 1s ease forwards;
+}
+
+.fade-in-right {
+  animation: fadeInFromRight 1s ease forwards;
+}
+
+.fade-out-left {
+  animation: fadeOutToLeft 1s ease forwards;
+}
+
+.fade-out-right {
+  animation: fadeOutToRight 1s ease forwards;
+}
+
+
+.arrow {
+  cursor: pointer;
+  z-index: 100;
+}
+.arrow-left svg {
+  position: absolute;
+  top: 50%;
+}
+
+.arrow-right svg {
+  position: absolute;
+  top: 50%;
+}
+
+.transparent{
+  opacity: 0;
+  cursor:default;
+}
+
+.left-arrow {
+  margin: 5px;
+}
+
+.right-arrow {
+  margin: 5px;
+}
+
+.ad-card {
+  border-radius: 13px;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  width: 250px; /* Width of the card */
+  margin: auto; /* Center the card horizontally */
+  position: relative; /* For positioning the heart icon absolutely */
+  padding-top: 40px; /* Padding at the top inside the card */
+  padding-left: 20px; /* Padding on the left inside the card */
+  padding-right: 20px; /* Padding on the right inside the card */
+  //padding-bottom: 60px; /* Padding at the bottom inside the card */
+
+  img.shopping {
+    width: 200px; /* Make the image take up full width of the card */
+    height: 248px;
+    border-radius: 13px; /* Rounded corners for the image */
+    object-fit: cover; /* Ensure the image covers the card area */
+    background-color: white; /* White background for png images */
+  }
+  
+  .heart-icon-player {
+    position: absolute; /* Position the heart icon absolutely relative to the ad-card */
+    top: 45px; /* Adjust as needed, this moves the heart icon down from the top edge of the card */
+    right: 28px; /* Adjust as needed, this moves the heart icon in from the right edge of the card */
+    //color: #FF69B4; /* Pink color for the heart icon */
+    //font-size: 1.5rem; /* Size of the heart icon */
+    
+  }
+  
+  
+    .actor-circle-ad {
+      object-fit: cover;
+      position: absolute;
+      top: -30px; /* Position the actor's image above the card */
+      left: 15px; /* Adjust as needed */
+      border-radius: 50%;
+      width: 60px; /* Adjust as needed */
+      height: 60px; /* Adjust as needed */
+      //border: 3px solid rgba(191, 191, 191, 0.5); /* Semi-transparent border */
+    }
+    
+  
+    
+    /* Styling for the retailer info at the bottom */
+    .ad-icon {
+      width: 28px;
+      position: absolute;
+      top:260px;
+      right: 28px;
+      color: #FFF; /* White text */
+      border-radius: 7.087px;
+      border: 2.658px solid var(--WHITE, #FFF);
+      background: rgba(194, 194, 194, 0.50);
+      
+    }
+
+    .qr-box {
+      display: flex; 
+      justify-content: space-between;
+    }
+
+    .retailer-name {
+      color: #FFF;
+      font-size: 18px;
+      font-weight: 700;
+      padding-left: 7px;
+      margin: 0px;
+      padding-top: 0.1rem;
+      text-align: start;
+    }
+    
+    .price{
+      color: #FFF;
+      font-family: Inter;
+      font-size: 16.474px;
+      font-style: normal;
+      padding-left: 7px;
+    }
+  
+  
+
+
+  }
+
+
+.d-flex {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  align-items: flex-start; /* Align children to the start of the container */
+  justify-content: flex-start; /* Align children to the top of the container */
+}
+
+
+
+/* The title above the carousel */
+.shop-looks-title {
+  margin-bottom: 1rem;
+  //padding-right: 40px;
+  text-align: center;
+  color: #E5E5E5;
+  font-family: 'Roboto', sans-serif;
+  font-size: small;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 12px;
+}
+
+
+/* Container for the slides */
+.carousel-container {
+  display: flex;
+  overflow: visible;
+  width: calc(100% - 50px);
+  margin-bottom: 1rem; /* Space below the carousel before the dots */
+
+}
+
+/* Individual slide styling */
+.slide {
+  display: none; /* Hide slides by default */
+ // transition: opacity 1s ease; /* Smooth transition for fading */
+ transform: translate3d(0,0,0);
+ will-change: transform, opacity;
+  
+}
+
+/* Show the active slide */
+.slide.active {
+  display: block; /* Show the active slide */
+  opacity: 1; /* Fully visible */
+}
+
+/* Container for the dots indicators */
+.dots {
+  display: flex; /* Line up dots in a row */
+  justify-content: center; /* Center dots horizontally */
+  padding: 0; /* Remove padding if any */
+  list-style-type: none; /* Remove list styling */
+  
+}
+
+.heart-icon{
+  width: 27px;
+  height: 27px;
+}
+
+/* Individual dots */
+.dot {
+  cursor: pointer; /* Pointer cursor on hover */
+  height: 8px; /* Dot size */
+  width: 8px; /* Dot size */
+  margin: 0 5px; /* Space between dots */
+  background-color: #9B9B9B; /* Inactive dot color */
+  border-radius: 50%; /* Circular dots */
+  transition: background-color 0.6s ease; /* Smooth transition for color change */
+}
+
+/* Active dot styling */
+.dot.active {
+  background-color: #FFF; /* Active dot color */
+}
+
+
+//ANIMATIONS
+@keyframes fadeInFromLeft {
+  from { opacity: 0; transform: translate3d(-50%, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes fadeInFromRight {
+  from { opacity: 0; transform: translate3d(50%,0,0); }
+  to { opacity: 1; transform: translate3d(0,0,0); }
+}
+
+@keyframes fadeOutToLeft {
+  from { opacity: 1; transform: translate3d(0,0,0); }
+  to { opacity: 0; transform: translate3d(-50%,0,0); }
+}
+
+@keyframes fadeOutToRight {
+  from { opacity: 1; transform: translate3d(0,0,0); }
+  to { opacity: 0; transform: translate3d(50%,0,0); }
+}
+
+
+
+@media (max-width: 920px) {
+
+      .carousel-container{
+        width:  calc(100% - 20px);
+      }
+      .ad-card{
+        width: 150px;
+        padding-left: 5px;
+        padding-right: 5px;
+        margin: auto; /* Center the card horizontally */
+        position: relative; /* For positioning the heart icon absolutely */
+        padding-top: 10px; /* Padding at the top inside the card */
+    
+
+        img.shopping {
+          width: 100px; /* Make the image take up full width of the card */
+          height: 124px;
+          border-radius: 13px; /* Rounded corners for the image */
+          object-fit: cover; /* Ensure the image covers the card area */
+        }
+      
+        .actor-circle-ad {
+          object-fit: cover;
+          position: absolute;
+          top: -9px; /* Position the actor's image above the card */
+          left: 23px; /* Adjust as needed */
+          border-radius: 50%;
+          width: 30px; /* Adjust as needed */
+          height: 30px; /* Adjust as needed */
+          //border: 3px solid rgba(191, 191, 191, 0.5); /* Semi-transparent border */
+        }
+  
+        .retailer-name {
+          font-size: small;
+          padding-left: 2px;
+        }
+
+        .price{
+          font-size: smaller;
+          padding-left: 2px;
+        }
+
+        .qr-code{
+          width: 30px;
+          height: 30px;
+        }
+
+        .ad-icon {
+          width: 24px;
+          position: absolute;
+          top:114px;
+          right: 26px;
+          color: #FFF; /* White text */
+          border-radius: 7.087px;
+          border: 2.658px solid var(--WHITE, #FFF);
+          background: rgba(194, 194, 194, 0.50);
+          font-size: xx-small;
+        }
+      
+      
+        .heart-icon-player {
+          position: absolute; /* Position the heart icon absolutely relative to the ad-card */
+          top: 18px; 
+        }
+      }
+
+      
+
+      .heart-icon{
+        width: 20px;
+        height: 20px;
+      }
+
+      .dot {
+        
+        height: 5px; /* Dot size */
+        width: 5px; /* Dot size */
+        margin: 0 5px; /* Space between dots */
+        background-color: #9B9B9B; /* Inactive dot color */
+       
+      }
+
+      
+    
+      
+    }
+    
+
+//full screen card
+
+.fullscreen-mode {
+  .ad-card {
+    border-radius: 13px;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    width: 450px; /* Width of the card */
+    margin: auto; /* Center the card horizontally */
+    position: relative; /* For positioning the heart icon absolutely */
+    padding-top: 60px; /* Padding at the top inside the card */
+    //padding-left: 40px; /* Padding on the left inside the card */
+    //padding-right: 40px; /* Padding on the right inside the card */
+    //padding-bottom: 60px; /* Padding at the bottom inside the card */
+  
+    img.shopping {
+      width: 400px; /* Make the image take up full width of the card */
+      height: 550px;
+      border-radius: 13px; /* Rounded corners for the image */
+      object-fit: cover; /* Ensure the image covers the card area */
+    }
+
+    .heart-icon{
+      width: 40px;
+      height: 40px;
+    }
+    
+    
+    .heart-icon-player {
+      position: absolute; /* Position the heart icon absolutely relative to the ad-card */
+      top: 68px; /* Adjust as needed, this moves the heart icon down from the top edge of the card */
+      right: 28px; /* Adjust as needed, this moves the heart icon in from the right edge of the card */
+      //color: #FF69B4; /* Pink color for the heart icon */
+      //font-size: 1.5rem; /* Size of the heart icon */
+      
+    }
+    
+    
+      .actor-circle-ad {
+        object-fit: cover;
+        position: absolute;
+        top: -30px; /* Position the actor's image above the card */
+        left: 20px; /* Adjust as needed */
+        border-radius: 50%;
+        width: 100px; /* Adjust as needed */
+        height: 100px; /* Adjust as needed */
+        //border: 3px solid rgba(191, 191, 191, 0.5); /* Semi-transparent border */
+      }
+      
+    
+      
+      /* Styling for the retailer info at the bottom */
+      .ad-icon {
+        width: 45px;
+        position: absolute;
+        top: 575px;
+        right: 28px;
+        color: #FFF;
+        border-radius: 7.087px;
+        border: 4px solid var(--WHITE, #FFF);
+        background: rgba(194, 194, 194, 0.5);
+        font-size: medium;
+        
+      }
+
+      .qr-code{
+        width: 160px;
+        height: 160px;
+      }
+  
+      .qr-box {
+        display: flex; 
+        justify-content: space-between;
+      }
+  
+      .retailer-name {
+        color: #FFF;
+        font-size: xx-large;
+        padding-left: 7px;
+        margin: 0px;
+        padding-top: 0.1rem;
+        text-align: start;
+      }
+      
+      .price{
+        color: #FFF;
+        font-family: Inter;
+        font-size: x-large;
+        font-style: normal;
+        padding-left: 7px;
+      }
+
+     
+  }
+   /* The title above the carousel */
+   .shop-looks-title {
+    font-size: xx-large;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 1900px) {
+    .ad-card {
+     
+      width: 350px; /* Width of the card */
+      
+      padding-top: 30px; /* Padding at the top inside the card */
+      //padding-left: 40px; /* Padding on the left inside the card */
+      //padding-right: 40px; /* Padding on the right inside the card */
+      //padding-bottom: 60px; /* Padding at the bottom inside the card */
+    
+      img.shopping {
+        width: 300px; 
+        height: 400px;
+        
+      }
+  
+      .heart-icon{
+        width: 35px;
+        height: 35px;
+      }
+      
+      
+      .heart-icon-player {
+        
+        top: 38px; /* Adjust as needed, this moves the heart icon down from the top edge of the card */
+        
+        
+      }
+      
+      
+        .actor-circle-ad {
+          object-fit: cover;
+          position: absolute;
+          top: -18px; /* Position the actor's image above the card */
+          left: 20px; /* Adjust as needed */
+          border-radius: 50%;
+          width: 70px; /* Adjust as needed */
+          height: 70px; /* Adjust as needed */
+          //border: 3px solid rgba(191, 191, 191, 0.5); /* Semi-transparent border */
+        }
+        
+      
+        
+        /* Styling for the retailer info at the bottom */
+        .ad-icon {
+          width: 35px;
+          position: absolute;
+          top: 400px;
+          right: 28px;
+          color: #FFF;
+          border-radius: 7.087px;
+          border: 4px solid var(--WHITE, #FFF);
+          background: rgba(194, 194, 194, 0.5);
+          font-size: small;
+          
+        }
+  
+        .qr-code{
+          width: 110px;
+          height: 110px;
+        }
+    
+    
+        .retailer-name {
+          font-size: x-large;
+    
+        }
+        
+        .price{
+          font-size: x-large;
+        }
+  
+       
+    }
+     /* The title above the carousel */
+     .shop-looks-title {
+      font-size: large;
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+
+.vertical-padding{
+  padding-top: 10px;
+}
+
+.mobile-ad-card{
+  border-radius: 4px;
+  background: white;
+  width: 80px; /* Width of the card */
+  margin: auto; /* Center the card horizontally */
+  position: relative; /* For positioning the heart icon absolutely */
+  
+
+  img.shopping {
+    width: 80px; /* Make the image take up full width of the card */
+    height: 100px;
+    border-radius: 4px; /* Rounded corners for the image */
+    object-fit: cover; /* Ensure the image covers the card area */
+  }
+  
+  .heart-icon-player {
+    position: absolute; /* Position the heart icon absolutely relative to the ad-card */
+    top: 2px; /* Adjust as needed, this moves the heart icon down from the top edge of the card */
+    right: 4px; /* Adjust as needed, this moves the heart icon in from the right edge of the card */
+    //color: #FF69B4; /* Pink color for the heart icon */
+    //font-size: 1.5rem; /* Size of the heart icon */
+    
+  }
+  
+  .actor-circle-ad {
+    object-fit: cover;
+    position: absolute;
+    top: 3px;
+    left: 0px;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+
+  }
+  
+    
+  
+    
+    /* Styling for the retailer info at the bottom */
+    .ad-icon {
+      width: 10px;
+      position: absolute;
+      top:260px;
+      right: 28px;
+      color: #FFF; /* White text */
+      border-radius: 7.087px;
+      border: 2.658px solid var(--WHITE, #FFF);
+      background: rgba(194, 194, 194, 0.50);
+      
+    }
+
+    .retailer-name {
+      color: black;
+      font-size: x-small;
+      padding-left: 2px;
+      margin: 0px;
+      padding-top: 0.1rem;
+      text-align: start;
+    }
+    
+    .price{
+      color: black;
+      font-family: Inter;
+      font-size: xx-small;
+      font-style: normal;
+      padding-left: 2px;
+      margin: 2px;
+    }
+
+
+      
+    .heart-icon{
+      width: 15px;
+      height: 15px;
+    }
+
+  
+  
+}
+
+
+.vertical-ads-wrapper {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: row;
+  align-items: center; /* Center children horizontally */
+  justify-content: center; /* Center children vertically, if needed */
+  width: 100%; /* Full width of the container */
+  overflow-y:auto ;
+  padding-top: 10px;
+
+}
+
+.shop-looks-title-vertical{
+  margin-bottom: 1rem;
+  //padding-right: 40px;
+  text-align: center;
+  color: #E5E5E5;
+  font-family: Roboto;
+  font-size: x-small;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 2px;
+}
+

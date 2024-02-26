@@ -1,0 +1,25 @@
+@import "../../../../assets/scss/variables.scss";
+
+.img-thumbnail-tv {
+  width: 100%;
+  height: 162px;
+  object-fit: cover;
+}
+
+.upload-div {
+  background-color: $bg-light-ai;
+  padding: 4rem;
+  display: block;
+  border: 2px dotted #D9D9D9;
+}
+
+.upload-div.btn {
+  border-radius: 0;
+}
+
+.media-div {
+  background-color: #FAFAFA;
+  padding: 1rem 1rem 0.5rem 1rem;
+  display: block;
+  border: 2px dotted #D9D9D9;
+}

@@ -1,0 +1,413 @@
+@import '../../../../../assets/scss/player.scss';
+
+// @import 'src/assets/scss/variables.scss';
+
+// mat-icon:hover {
+//   cursor: pointer;
+// }
+
+// .adds-section {
+//   z-index: 100;
+//   position: absolute;
+//   right: 2em;
+//   color: white;
+//   display: flex;
+//   justify-content: center;
+//   flex-direction: column;
+
+//   .img {
+//     height: 162px;
+//     width: 140px;
+//     border-radius: 10px;
+//     border: 1px solid #8F92A1;
+//   }
+
+//   .ad-badge {
+//     position: absolute;
+//     right: 10px;
+//     bottom: 10px;
+//   }
+// }
+
+// .adds-section img {
+//   padding-top: 1em;
+//   object-fit: contain;
+// }
+
+// .full-screen-icon {
+//   position: absolute;
+//   right: 10px;
+// }
+
+// .vol-rep-for {
+//   color: white;
+//   font-size: 22px;
+// }
+
+// .pause {
+//   color: white;
+//   font-size: 36px;
+// }
+
+// .play {
+//   color: white;
+//   font-size: 36px;
+// }
+
+// .replay {
+//   color: white;
+//   font-size: 36px;
+// }
+
+// .form-range {
+//   display: none;
+//   position: absolute;
+//   left: 53px;
+// }
+
+// .volume-icon {
+//   transition: linear 10s;
+//   position: absolute;
+//   width: 8rem;
+// }
+
+// .full-screen-icon {
+//   position: absolute;
+//   right: 41px;
+// }
+
+// .advertisor-icon {
+//   position: absolute;
+//   right: 79px;
+// }
+
+// @media (min-width: 576px) {
+//   .volume-icon {
+//     &::before {
+//       transition: all 1s;
+//     }
+
+//     &:hover {
+//       .form-range {
+//         display: block;
+//         transition: all 1s;
+//       }
+//     }
+//   }
+// }
+
+// ::ng-deep vg-scrub-bar .scrubBar {
+//   background-color: #ffffff96;
+
+//   vg-scrub-bar-current-time {
+//     .background {
+//       background-color: $primary-color !important;
+//     }
+
+//     .slider {
+//       background: $white-color !important;
+//       box-shadow: none !important;
+//     }
+//   }
+// }
+
+
+
+// ::ng-deep vg-scrub-bar-buffering-time .background {
+//   background-color: transparent !important;
+// }
+
+// vg-controls {
+//   position: absolute;
+//   display: flex;
+//   height: 50px;
+//   z-index: 300;
+//   bottom: 22px;
+//   padding: 0 40px;
+//   background-color: rgba(0, 0, 0, 0.5);
+//   -webkit-transition: bottom 1s;
+//   -khtml-transition: bottom 1s;
+//   -moz-transition: bottom 1s;
+//   -ms-transition: bottom 1s;
+//   transition: bottom 1s;
+// }
+
+// vg-scrub-bar {
+//   -webkit-touch-callout: none;
+//   -webkit-user-select: none;
+//   -moz-user-select: none;
+//   -ms-user-select: none;
+//   user-select: none;
+//   position: absolute;
+//   width: 91%;
+//   height: 5px;
+//   margin-left: 40px;
+
+
+// }
+
+// vg-player {
+//   font-family: 'inter';
+//   height: 405px;
+//   border-radius: 4px;
+//   margin-bottom: 5rem;
+// }
+
+
+// .mat-icon {
+//   width: auto;
+//   height: 32px;
+// }
+
+// .img-icon {
+//   height: 28px;
+// }
+
+// .img-icon-s {
+//   height: 20px;
+// }
+
+// .ml-15 {
+//   margin-left: -15px;
+// }
+
+
+// .cards-content {
+//   li.player-gray {
+//     list-style-type: decimal;
+//   }
+
+//   .episode-detail {
+//     img {
+//       width: 75px;
+//       object-fit: cover;
+//       height: 100px;
+//       border-radius: 4px;
+//     }
+//   }
+// }
+
+// .btn-outline-secondary {
+//   border-color: $checkbox-color !important;
+// }
+
+
+// .progress {
+//   height: 24px;
+//   border-radius: 2px;
+
+//   .progress-bar {
+//     border-radius: 2px;
+//   }
+// }
+
+// .form-check-input {
+//   width: 1.05em;
+//   height: 1.05em;
+// }
+
+
+  .card {
+    height: 305px;
+
+    .ad-progress {
+      height: 160px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-right: 4px;
+
+      .w-15 {
+        width: 16px;
+        min-width: 16px;
+        height: 15px;
+      }
+
+      .progress {
+        background-color: $bg-light-tag;
+      }
+    }
+  }
+
+
+.video-container {
+  position: relative;
+}
+
+.custom-progress-bar {
+  position: absolute;
+  bottom: 80px;
+  left: 0;
+  height: 40px;
+  // width: 100%;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.4784313725);
+  cursor: pointer;
+  // margin-left: 42px;
+  // margin-right: 42px;
+  border-radius: 2px;
+}
+
+.progress-button {
+  position: absolute;
+  top: -4px;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  background-color: $white-color;
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.progress-bar-inner {
+  height: 100%;
+  width: 0;
+  background-color: $primary-color;
+  border-radius: 1.5px;
+}
+
+.time-display {
+  position: absolute;
+  color: white;
+  bottom: 18px;
+  font-size: 10px;
+}
+
+.form-check .form-check-input {
+  float: left;
+  margin-left: -1.5em !important;
+}
+
+.video-player-container {
+  //padding-left: 5%;
+  //padding-right: 5%;
+  padding-top:30px;
+  
+}
+
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+
+
+.left-column, .right-column {
+  flex-basis: 48%; /* Adjusts the base width of the columns */
+}
+
+
+.right-column {
+  display: flex;
+  padding: 20px 0px;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border-radius: 4px;
+  background: #F5F5F5;
+  height: 500px;
+  max-width: 500px;
+  overflow-y: auto; /* Enable scrolling */
+}
+
+.category {
+  color: #5D5D5D;
+
+font-family: Roboto;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 19px; /* 158.333% */
+}
+
+.advertiser-container{
+  display: flex;
+  padding: 0px 20px;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.retailers-layout {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Creates two columns */
+  grid-gap: 10px; /* Adjust the gap as needed */
+}
+
+.retailer-columns {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 0px;
+  gap:40px;
+}
+
+.retailer-column {
+  width: 48%;
+}
+
+.retailer-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; /* Adjust as needed */
+}
+
+.retailer-name {
+  margin-left: 8px; /* Space between checkbox and name */
+  flex-grow: 1; /* Allows the name to take up the remaining space */
+  color: #5D5D5D;
+}
+
+.retailer-number {
+  margin-left: 8px; /* Space between name and number */
+  color: #5D5D5D;
+}
+
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .left-column, .right-column {
+    flex-basis: 100%;
+  }
+}
+
+.contxtual-difference{
+  color: #B478E1;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.subheader{
+  color: white;
+  font-weight: 600;
+  font-size: 24px !important;
+}
+
+.paragraph-text{
+  color: #EBEBEB;
+  font-weight: 300;
+  margin-bottom: 20px;
+  font-size: 16px !important;
+}
+
+a {
+  //color: #0000EE; /* Traditional link color */
+  text-decoration: underline; /* Removes underline from links */
+}
+
+.select-advertiser-text{
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.line {
+  width: 82%;
+  border-top: 1px solid #D4D4D4; /* Creates a top border that looks like a line */
+  margin-bottom: 20px;
+}

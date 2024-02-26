@@ -1,0 +1,23 @@
+<ng-container *ngIf="!item.hidden">
+  <li class="nav-item coded-menu-caption">
+    <label>{{ item.title }}</label>
+  </li>
+  <ng-container *ngFor="let item of item.children">
+    <app-nav-group *ngIf="item.type === 'group'" [item]="item"></app-nav-group>
+    <app-nav-collapse *ngIf="item.type === 'collapse'" [item]="item"
+      (toggle)="subMenuCollapse($event)"></app-nav-collapse>
+    <app-nav-item *ngIf="item.type === 'item'" [item]="item"></app-nav-item>
+    <ng-container *ngIf="item.type === 'toggle'" >
+      <li [ngClass]="item.classes!" *ngIf="!item.external">
+        <a class="nav-link" [target]="item.target ? '_blank' : '_self'" (click)="navCollapse()">
+          <ng-container *ngTemplateOutlet="itemIcon"></ng-container>
+          <span class="coded-mtext" *ngIf="item.icon && !isCollapsed;">{{ item.title }}</span>
+          <span class="coded-mtext" *ngIf="item.icon && isCollapsed;"></span>
+        </a>
+      </li>
+      <ng-template #itemIcon>
+        <span *ngIf="item.icon" class="coded-micon"><i class="" [ngClass]="item.icon"></i></span>
+      </ng-template>
+    </ng-container>
+  </ng-container>
+</ng-container>

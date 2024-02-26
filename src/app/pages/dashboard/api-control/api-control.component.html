@@ -1,0 +1,68 @@
+<div class="card bg-white text-black card-height">
+  <div class="card-header d-flex justify-content-between align-items-center border-margin">
+    <div class="f-w-500">API Control</div>
+    <div class="btn-group" ngbDropdown>
+      <button class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center" type="button" ngbDropdownToggle> {{filterName}}
+        <i class="bi bi-caret-down-fill ms-2 fs-10"></i>  
+      </button>
+      <div class="dropdown-menu" ngbDropdownMenu>
+        <a class="dropdown-item" *ngFor="let filter of filters" (click)="filterData(filter)">{{filter}}
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div *ngFor="let api of ApiControl | keyvalue; let i=index">
+      <div *ngIf="api.key=='dev'||api.key=='prod'">
+      <div class="d-flex my-3 align-items-center justify-content-between">
+        <div class="w-25">
+          <div *ngIf="api.key==='dev'"class="apilistheading">AWS Dev</div>
+          <div *ngIf="api.key==='prod'"class="apilistheading">AWS Prod</div>
+          <div *ngIf="api.value===true" class="active">Active</div>
+          <div *ngIf="api.value===false" class="inactive">Inactive</div>
+        </div>
+        <div class="d-inline-block " ngbDropdown #myDrop="ngbDropdown">
+          <button type="button" class="btn btn-outline-secondary " id="dropdownManual" ngbDropdownAnchor
+            (focus)="myDrop.open()">
+            <span *ngIf="api.value===true" class="fs-10 text-black">On</span>
+            <span *ngIf="api.value===false" class="fs-10 text-black">Off</span>
+            <i class="bi bi-caret-down-fill ms-2 fs-10"></i>  
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownManual">
+            <button ngbDropdownItem data-bs-toggle="modal" data-bs-target="#exampleModalLive"
+              (click)="changeStatus(content,api)">
+              <span *ngIf="api.value===true " class="fs-10 text-black">Off</span>
+              <span *ngIf="api.value===false" class="fs-10 text-black">On</span>
+            </button>
+          </div>
+        </div>
+        <div class="pricetag">${{costs[i]?.toLocaleString("en-US")}}</div>
+
+      </div>
+      <hr>
+      </div>
+    </div>
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel">Confirmation Message</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="modal.close('Close click')"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to <b>{{toggleBody.operation}}</b> the <b>API?</b></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" (click)="modal.close('No click')"> No
+        </button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('yes')"> Yes </button>
+      </div>
+    </ng-template>
+
+  </div>
+  <div class="card-footer border-margin">
+    <div class="d-flex justify-content-between fw-bold">
+      <div>Total</div>
+      <div>${{totalCost}}</div>
+    </div>
+  </div>
+</div>

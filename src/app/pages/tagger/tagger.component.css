@@ -1,0 +1,209 @@
+.tagger h6 {
+  font-weight: 500;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+
+.notification-badge {
+  position: relative;
+  top: -4px; /* Adjust this value to position the badge above the icon */
+  right: 10px; /* Adjust this value to position the badge to the right of the icon */
+  margin-left: -15px; /* Negative margin to shift the badge to the end of the button */
+  background-color: red;
+  color: white;
+  border-radius: 50%; /* Circular shape */
+  width: 15px;
+  height: 15px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  transform: translate(100%, -50%); /* Adjust badge position */
+  z-index: 2; /* Ensure the badge is above other elements */
+  font-size: 12px; /* You can adjust this value as needed */
+  box-sizing: border-box;
+  flex-shrink: 0; /* Prevents flexbox from shrinking the item */
+}
+
+.btn-link:hover {
+  text-decoration: none;
+}
+
+.isDisabled {
+  color: currentColor;
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.5;
+  text-decoration: none;
+}
+
+.slick-slide {
+  padding: 10px;
+}
+
+.zoom:hover {
+  transform: scale(0.5);
+}
+
+.bottom-spacing {
+  margin-bottom: 6rem;
+}
+
+.input-search {
+  border: none;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #262626;
+}
+.input-search:focus-visible {
+  outline: none;
+  border-radius: 1rem;
+}
+
+.color-change {
+  color: #425466 !important;
+}
+
+.position-header {
+  position: absolute;
+  right: 38px;
+  top: 38px;
+}
+
+.pr-vertical {
+  position: absolute;
+  transform: rotate(270deg);
+  top: 224px;
+  width: 266px;
+  left: -125px;
+}
+.pr-vertical p {
+  letter-spacing: 0.05em;
+}
+
+.disabled {
+  opacity: 0.5;
+  /* Or any other styling you prefer */
+  pointer-events: none;
+}
+
+.margin-top {
+  margin-top: 6rem;
+}
+
+.outline-light {
+  color: #262626;
+  border-color: #D9D9D9;
+}
+
+.input-content-space::after {
+  content: "";
+  content: "";
+  background-color: #f1f7fd;
+  display: block;
+  position: absolute;
+  top: 70px;
+  left: 96px;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  z-index: 1050;
+  padding: 85px 153px;
+  border: 2px dotted #D9D9D9;
+  border-radius: 5px;
+}
+
+.z-point-icon {
+  z-index: 1070;
+}
+
+.z-index-icon {
+  z-index: 1049;
+}
+
+.z-point-text {
+  z-index: 1090;
+  position: relative;
+}
+
+label .z-point-text {
+  max-width: 280px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mt-icon {
+  margin-top: 4rem;
+}
+
+.todo {
+  color: #262626;
+}
+
+.review {
+  color: #DD9E42;
+}
+
+.returned {
+  color: #E51616;
+}
+
+.approved {
+  color: #2AA738;
+}
+
+.inprogress {
+  color: #1890FF;
+}
+
+.slick-wrapper .slide span {
+  font-size: 9px;
+  color: #A1A1A2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.slick-slide {
+  padding: 4px;
+}
+
+.slick-item-width {
+  width: 130px !important;
+}
+
+.zoom {
+  transition: all 0.5s;
+  width: 154px;
+  height: 88px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  cursor: pointer;
+  border: 2px solid #E2E5EB;
+  margin-bottom: 5px;
+  border-radius: 4px;
+}
+
+.zoom:hover {
+  transform: scale(1.1);
+  opacity: 0.7;
+}
+
+.bottom-spacing {
+  margin-bottom: 6rem;
+}
+
+.active-scene-border {
+  border: 3px solid #1890FF;
+}
+
+.slide {
+  margin-right: 8px;
+}
+
+.sub-category-tags p + .sub-cat-list p {
+  border-right: 1.5px solid #A1A1A2;
+  padding-right: 8px;
+}/*# sourceMappingURL=tagger.component.css.map */

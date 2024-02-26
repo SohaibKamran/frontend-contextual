@@ -1,0 +1,9 @@
+.position-relative i {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+}
+.position-relative input {
+  padding-left: 35px !important;
+  padding: 6px 12px;
+}/*# sourceMappingURL=user-accounts-container.component.css.map */

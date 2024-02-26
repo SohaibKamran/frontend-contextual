@@ -1,0 +1,399 @@
+<!-- <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLiveLabel">Video Series Details</h5>
+    <button type="button" class="btn-close text-muted" data-bs-dismiss="modal" aria-label="Close"
+      (click)="modalService.dismissAll('Close click')">
+    </button>
+  </div> -->
+<!-- <div class="modal-body addedit_user_modal"> -->
+<div *ngIf="loader && userId; else userForm">
+  <div class="spinner-border text-primary d-flex mx-auto" role="status">
+  </div>
+</div>
+
+<ng-template #userForm>
+  <form [formGroup]="userDetailsForm" class="bg-white">
+    <div class="container">
+      <!-- for modal - top image section start-->
+      <!-- <div *ngIf="!userId">
+        <div class="row mt-4 d-flex justify-content-center align-items-center text-center">
+          <div class="col-12">
+            <h6 class="fs-lg fw-regular">Upload Profile Picture</h6>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center align-items-center text-center">
+          <div class="col-12">
+            <label for="files" class="btn"><img [src]="imageURL" class="rounded-circle object-cover" height="64px"
+                width="64px"></label>
+            <input type="file" style="visibility:hidden; display: none;" accept="image/*" id="files"
+              (change)="showPreview($event)" />
+          </div>
+        </div>
+      </div> -->
+
+      <!-- for modal - top image section end-->
+
+      <!-- for table start  -->
+      <div class="row mt-3 px-2">
+        <!-- <div class="col-lg-5" *ngIf="userId"> -->
+        <div class="col-lg-5">
+          <div class="card">
+            <div class="card-body py-0">
+              <div class="row">
+                <div class="col-12 text-center my-2">
+
+                  <!-- Select File -->
+                  <!-- <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
+                          <img [src]="imageURL" [alt]="userDetailsForm.value.name">
+                        </div> -->
+                  <label for="files" class="btn"><img [src]="imageURL" class="rounded-circle object-cover border"
+                      height="64px" width="64px"></label>
+                  <input type="file" style="visibility:hidden; display: none;" accept="image/jpeg,
+                  image/jpg,
+                  image/png,
+                  image/gif,
+                  image/svg+xml,
+                  image/svg,
+                  image/webp" id="files" (change)="showPreview($event)" />
+                  <!-- Image Preview -->
+
+                  <!-- Assign Image Alt -->
+
+                </div>
+                <!-- <div class="col-12 text-center mb-3">
+                  <p for="user" class="fw-medium mb-2">{{userData?.firstName + ' ' +userData?.lastName }}</p>
+                  <p class="text-gray mb-1">User</p>
+                  <p class="text-muted average_score mb-0">{{userData?.title+', '+userData?.company}}</p>
+                </div> -->
+                <!-- <div class="col-12">
+                      <div class="d-flex align-items-center justify-content-center">
+                        <p class="text-muted average_score mb-0">Average TopVZot Score</p>
+                        <span class="badge text-bg-warning fw-bold fs-xxl ms-3">88</span>
+                      </div>
+                    </div> -->
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <label for="example-text-input" class="text-gray" class="text-gray">First Name</label>
+                  <input formControlName="firstName" (keyup)="trimSpaces($event)" name='firstName'
+                    placeholder="Enter first name" class="form-control no-outline" type="text" id="example-text-input">
+                  <div *ngIf="userDetailsForm.get('firstName')?.invalid && userDetailsForm.get('firstName')?.touched ">
+                    <p class="mb-0" style="color: red;font-size: 13px;"> <small>First Name is required.*</small></p>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <label for="example-text-input" class="text-gray" class="text-gray">Last Name</label>
+                  <input formControlName="lastName" (keyup)="trimSpaces($event)" name='lastName'
+                    placeholder="Enter last name" class="form-control no outline" type="text" id="example-text-input">
+                  <div *ngIf="userDetailsForm.get('lastName')?.invalid && userDetailsForm.get('lastName')?.touched ">
+                    <p class="mb-0" style="color: red;font-size: 13px;"> <small>Last Name is required.*</small></p>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="row align-items-center">
+                <div class="col-12">
+                  <label for="example-text-input" class="text-gray mb-2">Email/Username</label>
+                  <input formControlName="email" (keyup)="trimSpaces($event)" name='email' placeholder="Enter email"
+                    class="form-control no-outline form-control-sm" type="text" id="example-text-input">
+                  <div *ngIf="userDetailsForm.get('email')?.invalid && userDetailsForm.get('email')?.touched ">
+                    <p class="mb-0" style="color: red;font-size: 13px;"> <small>Email is invalid or empty.*</small></p>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="row align-items-center add-modal-form">
+                <!-- <div class="col-lg-4">
+                  <label for="example-text-input" class="text-gray d-block mb-2">Country Code</label>
+                  <ng-select placeholder="Select" (change)="selectCode($event)" [items]="countries" bindLabel="phone"
+                    [closeOnSelect]="true" [clearable]="false" formControlName="country">
+                    <ng-template ng-label-tmp let-item="item">
+                      <img height="15" width="15" [src]="item.flagUrl" />
+                      <b>{{item.phone}}</b>
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index">
+                      <img height="15" width="15" [src]="item.flagUrl" />
+                      <b>{{item.shortCode}}</b>
+                      <b>{{item.phone}}</b>
+                    </ng-template>
+                  </ng-select>
+                  <div *ngIf="countryInvalid && userDetailsForm.value.phoneNo">
+                    <p class="mb-0" style="color: red;font-size: 13px;">
+                      <small> Country Code is required.*</small>
+                    </p>
+                  </div>
+                </div> -->
+                <!-- <div class="col-lg-1 mt-2">
+                  <label for="example-text-input" class="text-gray d-block mb-2">Country Code</label>
+                  <ng-select placeholder="Select Country Code" (change)="selectCode($event)" [items]="countries"
+                    bindValue="phone"bindLabel="phone" [closeOnSelect]="true" [clearable]="false"
+                    formControlName="countryCode">
+                    <ng-template ng-label-tmp let-item="item">
+                      <img height="15" width="15" [src]="item.flagUrl" />
+                      <b>{{item.phone}}</b>
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index">
+                      <img height="15" width="15" [src]="item.flagUrl" />
+                      <b>{{item.phone}}</b>
+                    </ng-template>
+                  </ng-select>
+                </div> -->
+                <div class="col-12">
+
+                  <label for="example-text-input" class="text-gray mb-1">Telephone</label>
+                  <input formControlName="phoneNo" (keypress)="CheckNumber($event,true)"
+                    placeholder="Enter Telephone No." class="form-control no outline" type="text"
+                    id="example-text-input">
+                  <!-- <div *ngIf="phoneNumberInvalid">
+                    <p class="mb-0" style="color: red;font-size: 13px;"> <small> Phone Number is required.
+                        *</small></p>
+                  </div> -->
+
+                </div>
+              </div>
+              <hr>
+              <div class="row align-items-center" *ngIf="screen">
+                <div class="col-lg-6">
+                  <label for="example-text-input" class="text-gray">Title</label>
+                  <input formControlName="title" (keyup)="trimSpaces($event)" name='title' placeholder="Enter Title"
+                    class="form-control no-outline " type="text" id="example-text-input">
+                  <div *ngIf="userDetailsForm.get('title')?.invalid && userDetailsForm.get('title')?.touched ">
+                    <p class="mb-0" style="color: red;font-size: 13px;"> <small>Title is required.*</small></p>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+
+                  <label for="example-text-input" class="text-gray">Company</label>
+                  <input formControlName="company" placeholder="Enter Company." class="form-control no outline"
+                    type="text" id="example-text-input">
+                  <div *ngIf="userDetailsForm.get('company')?.invalid && userDetailsForm.get('company')?.touched ">
+                    <p class="mb-0" style="color: red;font-size: 13px;"> <small>Company is required.*</small></p>
+                  </div>
+
+                </div>
+              </div>
+              <!-- <hr> -->
+              <!-- <div class="row mt-3">
+                <div class="col-12">
+                  <label class="text-gray mb-3">Status</label>
+                </div>
+                <div class="col-lg-4 mb-3 status_field">
+                  <div ngbDropdown class="btn-group w-100 scene_dropdowns">
+                    <button type="button"
+                      class="btn btn-light dropdown-toggle h_40 text-light d-flex justify-content-between align-items-center"
+                      id="dropdownBasic1" ngbDropdownToggle>
+                      <div class="{{Statuses[userData?.userStatusId-1]?.class}}">
+                        {{Statuses[userData?.userStatusId-1]?.title}}
+                      </div>
+                      <i class="bi bi-caret-down-fill ms-2 fs-md text-gray"></i>
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                      <a *ngFor="let status of Statuses; let j=index" ngbDropdownItem class="{{status?.class}}"
+                        (click)="updateStatus(j+1)">
+                        {{status?.title}}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-8 mb-3 status_field">
+                  <button type="button" class="btn btn-primary btn-sm h_40 w-100"> View Tagging Activity</button>
+                </div>
+              </div> -->
+              <!-- <div class="row align-items-center px-3">
+                <div class="col-lg-2 mb-2">
+                  <i class="bi bi-envelope text-gray"></i>
+                </div>
+                <div class="col-lg-10 mb-2 text-end">
+                  <p>{{userData?.email}}</p>
+                </div>
+                <div class="col-lg-2 mb-2">
+                  <i class="bi bi-telephone text-gray"></i>
+                </div>
+                <div class="col-lg-10 mb-2 text-end">
+                  <p>{{userData?.phoneNo}}</p>
+                </div>
+                <div class="col-lg-2 mb-2">
+                  <i class="bi bi-geo-alt text-gray"></i>
+                </div>
+                <div class="col-lg-10 mb-2 text-end">
+                  <p>{{userData?.city}}</p>
+                </div>
+                <div class="col-lg-2 mb-2">
+                  <i class="bi bi-link-45deg text-gray fs-xxl"></i>
+                </div>
+                <div class="col-lg-10 mb-2 text-end">
+                  <a href="www.contxtual.com" target="_blank" [style.color]="onboardingColor">www.contxtual.com</a>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+
+        <!-- <div [ngClass]="userId ? 'col-lg-7':'col-lg-12'"> -->
+        <div class="col-lg-7">
+          <div class="row mt-3">
+            <div class="col-12">
+              <!-- <div *ngIf="userFlag" class="card-title mb-0 fw-meidum fs-xl">
+                Edit User Details
+              </div> -->
+              <div *ngIf="screen" class="card-title mb-0 fw-meidum fs-xl">
+                Add User Details
+              </div>
+              <div *ngIf="!screen" class="card-title mb-0 fw-meidum fs-xl">
+                Add Annotator Details
+              </div>
+            </div>
+          </div>
+          <hr>
+          <section class="user-details">
+            <div class="row">
+              <div class="col-lg-6">
+                <label for="example-text-input" class="text-gray">Address</label>
+                <input formControlName="address" (keyup)="trimSpaces($event)" name='address' placeholder="Enter address"
+                  class="form-control no-outline" type="text" id="example-text-input">
+                <div *ngIf="userDetailsForm.get('address')?.invalid && userDetailsForm.get('address')?.touched ">
+                  <p class="mb-0" style="color: red;font-size: 13px;"> <small>Address is required.*</small></p>
+                </div>
+              </div>
+              <div class="col-lg-6">
+
+                <label for="example-text-input" class="text-gray">City</label>
+                <input formControlName="city" (keyup)="trimSpaces($event)" name='city' placeholder="Enter city"
+                  class="form-control no outline" type="text" id="example-text-input">
+                <div *ngIf="userDetailsForm.get('city')?.invalid && userDetailsForm.get('city')?.touched ">
+                  <p class="mb-0" style="color: red;font-size: 13px;"> <small>City is required.*</small></p>
+                </div>
+
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-lg-6">
+                <label for="example-text-input" class="text-gray">State</label>
+                <input formControlName="state" (keyup)="trimSpaces($event)" name='state' placeholder="Enter state"
+                  class="form-control no-outline" type="text" id="example-text-input">
+                <div *ngIf="userDetailsForm.get('state')?.invalid && userDetailsForm.get('state')?.touched ">
+                  <p class="mb-0" style="color: red;font-size: 13px;"> <small>State is required.*</small></p>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <label for="example-text-input" class="text-gray">Zip Code</label>
+                <input formControlName="zipCode" placeholder="Enter zip-code" 
+                  class="form-control no outline" type="text" id="example-text-input">
+              </div>
+            </div>
+            <hr>
+            <div class="row align-items-center">
+              <div class="col-lg-6">
+                <label for="example-text-input" class="text-gray d-block mb-2">Country</label>
+                <!-- <input formControlName="country" placeholder="Enter country" class="form-control no-outline" type="text"
+                    id="example-text-input"> -->
+                <!-- <div class="btn-group w-100" ngbDropdown id="example-text-input">
+                <button class="btn btn-outline-secondary d-flex dropdown-toggle justify-content-between" type="button"
+                  ngbDropdownToggle>
+                  {{selectedCountry}}
+                  <i class="bi bi-caret-down-fill ms-2 fs-md"></i>
+                </button>
+                <div class="dropdown-menu w-100" ngbDropdownMenu>
+                  <a class="dropdown-item" *ngFor="let country of countries;let i= index"
+                    (click)="selectCountry(country)">{{country?.name}}
+                  </a>
+                </div>
+              </div> -->
+                <ng-select formControlName="countryId" placeholder="Select Country" [items]="countries"
+                  bindLabel="title" [closeOnSelect]="true" bindLabel="name" bindValue="id" [clearable]="false"
+                  (change)="selectCountry($event)"></ng-select>
+                <div *ngIf="userDetailsForm.get('countryId')?.invalid">
+                  <p class="mb-0" style="color: red;font-size: 13px;"> <small>Country is required.*</small></p>
+                </div>
+              </div>
+              <div class="col-lg-6">
+
+                <label for="example-text-input" class="text-gray mb-2">Date Started</label>
+                <input formControlName="dateStarted" class="form-control no outline form-control-sm ps-2" type="date"
+                  id="example-text-input">
+
+
+              </div>
+            </div>
+            <hr>
+            <div *ngIf="screen" class="row align-items-center">
+              <div class="col-lg-6">
+                <label for="example-text-input" class="text-gray">URL</label>
+                <input formControlName="url" placeholder="netflix.com" (keyup)="trimSpaces($event)" name='url'
+                  class="form-control no-outline" type="text" id="example-text-input">
+                <div *ngIf="userDetailsForm.get('url')?.invalid && userDetailsForm.get('url')?.touched ">
+                  <p class="mb-0" style="color: red;font-size: 13px;"> <small>URL is empty or invalid.*</small></p>
+                </div>
+              </div>
+              <div class="col-lg-6">
+
+                <label for="example-text-input" class="text-gray">Date Terminated</label>
+                <input formControlName="dateTerminated" class="form-control no outline" type="date"
+                  id="example-text-input">
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-12">
+                <p class="fw-medium mb-0">Notes</p>
+                <input formControlName="notes" class="form-control no outline" placeholder="Notes..">
+                <div *ngIf="userDetailsForm.get('notes')?.invalid && userDetailsForm.get('notes')?.touched ">
+                  <p class="mb-0" style="color: red;font-size: 13px;"> <small>Notes is required.*</small></p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- <div class="row notes">
+                <div class="col-12">
+                  <p class="fw-medium">Notes</p>
+                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                    when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                  </p>
+                </div>
+              </div> -->
+
+        </div>
+
+      </div>
+
+      <!-- for table end  -->
+
+
+
+      <!-- <div class="text-right justify-content-end mb-3">
+                          <button type="button" routerLink="/videos" class="btn" style="background-color: rgb(199, 196, 196);" > Cancel
+                          </button>
+                          &nbsp;
+                          <button type="button" class="btn btn-primary text-center"> Add new Movie </button>
+                      </div> -->
+      <!-- <div class="row notes">
+            <div class="col-12">
+              <p class="fw-medium">Notes</p>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+              </p>
+            </div>
+          </div> -->
+      <div class="row px-2">
+        <div class="col-12">
+          <div class="border-top mt-3 mb-3 pt-3 d-flex justify-content-end">
+            <button type="button" class="text-danger btn border-0 bg-transparent" (click)="cancel()">Cancel</button>
+            <button *ngIf="userFlag" type="button" [disabled]="!userDetailsForm.valid " class="btn btn-primary ms-3"
+              (click)="submit()">
+              Update </button>
+            <button *ngIf="!userFlag" type="button" [disabled]="!userDetailsForm.valid || formSubmitted"
+              class="btn btn-primary ms-3" (click)="submit()">
+              Add </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>
+<!-- </div> -->
+<!-- <div class="modal-footer "> -->
+
+<!-- </div> -->

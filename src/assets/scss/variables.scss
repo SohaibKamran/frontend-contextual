@@ -1,0 +1,110 @@
+$primary-font:'Inter';
+
+$font-sm:9px;
+$font-10:10px;
+$font-11:11px;
+$font-md:12px;
+$font-lg:14px;
+$font-xl:16px;
+$font-xxl:18px;
+$font-xxxl:24px;
+$font-32:32px;
+$font-40:40px;
+
+$font-bold:600;
+$font-medium:500;
+$font-regular:400;
+
+$primary-color:#1890FF; // for actions
+$secondary-color:#A0AEC0; // fot buttons icons
+$base-color:#F7FAFC; // for body bg
+
+
+$white-color:#fff; // for sidenav, card
+$black:#000; // for black player
+$black-color:#262626; // for black text
+$header-black:#27272E; // for black text
+
+
+$bg-light:#E9E9E9; // for light card and borders
+$bg-dark:#15273C; // for dark card
+$bg-gray:#E7EAED; // for gray card
+$bg-strip:#F3F3F3; // for gray strips of product cards
+$bg-light-ai:#FAFAFA; // for light AI CGPT card
+$bg-light-tag:#F2F2F2; // for light AI CGPT card
+
+
+$text-light:#A1A1A2; // for light gray text
+$text-dark:#425466; // for dark gray text - sidenav text
+$text-gray:#807E81; // for gray text
+$text-darkgray:#959595;
+$user-gray:#3C3C3C;
+$player-gray:#6F6F6F;
+$wishlist-gray:#8C8C8C;
+
+$bg-player:#F6F6F6;
+$player-color:#53595E;
+
+$slide-tagger:#E2E5EB;
+
+
+$btn-gray-color:#F5F5F5; // for gray buttons
+$btn-group-active:#d6d7da;
+$icon-tabler:#dddddd;
+
+
+$card-shadow:0px 0px 1px rgba(12, 26, 75, 0.24),
+0px 3px 8px -1px rgba(50, 50, 71, 0.05); // for card shadows
+$form-shadow:0px 1px 2px rgba(50, 50, 71, 0.08),
+0px 0px 1px rgba(50, 50, 71, 0.2); // for input 
+$popover-shadow:0px 0px 1px rgba(12, 26, 75, 0.2),
+0px 1px 3px rgba(50, 50, 71, 0.1); //for modal, popover on hover 
+
+
+$primary-nav-bg-color:#0046A3; // for right bg blue nav
+$select-color:#FFC403; // for slecting nav
+$primary-nav-color:#EEFBFAB2; //for right nav text
+
+$input-color:#EDF2F7; //for input
+$border-color:#ced4da; // for tagger
+$table-border-color:#e6ebf1; // for table border
+
+// $border-color:#D1D1D1; // for wishlist
+$heart-color:#FF808B;
+$danger-color:#E51616;
+$success-color:#2AA738;
+$warning-color:#FFD703;
+$yellow-color:#DD9E42;
+$green-color:#52C41A;
+$ask-color:#74AA9C;
+$progress-color:#13C2C2;
+$progress-ad:#324C7D;
+$bg-alert:#E6FFFB;
+$star-color:#FAAD14;
+$dim-color:#F0F0F0;
+$badge-color:#F6FFED;
+$bg-popup:#1890ffb3;
+$bg-tooltip:#BFBFBF;
+$badge-gray:#B2B3B9E5;
+
+
+$bg-less-opacity:#1f1e1fcc; // for gray text
+$bg-select-option:#F5F7FA;
+$checkbox-color:#D9D9D9; // for light borderx and checkbox
+$card-info-color:#E6F7FF;
+$popover-shadow-color: rgb(0 0 0 / 50%);
+$multi-select-bg:#ebf5ff;
+$multi-select-color:#333;
+$pointer-color: rgba(255, 255, 255, 0.75);
+$hover-play-btn: #2b333f;
+
+
+//player
+$player-width: 1280px;
+$player-height: 720px;
+
+//user demo colors
+$background-user-demo:  #161D33;
+$background-list-group-item: #F1F0EE;
+
+

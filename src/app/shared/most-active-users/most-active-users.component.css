@@ -1,0 +1,22 @@
+.header-bg {
+  background-color: #FAFAFA;
+}
+
+.card-body {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  margin: 1rem 0;
+  padding: 0 1rem !important;
+}
+
+.card-height {
+  height: 442px;
+}
+
+.user-series-card-height {
+  height: 300px;
+}
+
+.user-series-card-height-dashboard {
+  height: 442px;
+}/*# sourceMappingURL=most-active-users.component.css.map */

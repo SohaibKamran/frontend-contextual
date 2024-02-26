@@ -1,0 +1,16 @@
+<div class="modal-body text-center">
+  <h6 class="fs-lg fw-medium">Select User's Account</h6>
+  <p class="text-light fs-lg">You will be in God mode.</p>
+  <ng-select placeholder="Select User" [items]="users" bindValue="id" bindLabel="fullName" [closeOnSelect]="true"
+    (scrollToEnd)="onUserScrollEnd($event)" [clearable]="false" (change)="onChange($event)"></ng-select>
+</div>
+<div class="modal-footer d-flex align-items-center justify-content-between">
+  <button class="mb-0 text-danger btn btn-transparent border-0" data-bs-dismiss="modal" aria-label="Close"
+    (click)="CloseModal()">Cancel</button>
+  <button *ngIf="userId!==null" (click)="selectUser()" type="button" class="btn btn-primary">
+    Select User
+  </button>
+  <button *ngIf="userId===null" disabled type="button" class="btn btn-primary">
+    Select User
+  </button>
+</div>

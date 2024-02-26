@@ -1,0 +1,56 @@
+<!-- Vertical layout -->
+<ng-scrollbar *ngIf="this.config['layout'] === 'vertical'" style="height: calc(100vh - 70px)" id="nav-ps-mantis"
+  visibility="hover">
+  <div class="navbar-content">
+    <ul class="nav coded-inner-navbar" (clickOutside)="fireOutClick()" (mouseleave)="navMob()">
+      <ng-container *ngFor="let item of navigation; let i=index">
+        <hr *ngIf="i!==0">
+        <app-nav-group *ngIf="item.type === 'group'" [item]="item" (toggelMenu)="navCollapse($event)"></app-nav-group>
+        <app-nav-collapse *ngIf="item.type === 'collapse'" [item]="item"></app-nav-collapse>
+        <app-nav-item *ngIf="item.type === 'item'" [item]="item"></app-nav-item>
+      </ng-container>
+    </ul>
+    <div class="version">
+      <!-- <label disabled class="pe-auto">v{{ currentApplicationVersion }}</label> -->
+    </div>
+  </div>
+</ng-scrollbar>
+
+<!-- Horizontal layout -->
+<div *ngIf="this.config['layout'] === 'horizontal'" class="navbar-content sidenav-horizontal" id="layout-sidenav">
+  <a class="sidenav-horizontal-prev" [ngClass]="prevDisabled" (click)="scrollMinus()"></a>
+  <div #navbarWrapper class="sidenav-horizontal-wrapper">
+    <ul #navbarContent id="side-nav-horizontal" class="nav coded-inner-navbar sidenav-inner"
+      (clickOutside)="fireLeave()" (mouseleave)="fireLeave()">
+      <ng-container *ngFor="let item of navigation">
+        <app-nav-group *ngIf="item.type === 'group'" [item]="item"></app-nav-group>
+        <app-nav-collapse *ngIf="item.type === 'collapse'" [item]="item"></app-nav-collapse>
+        <app-nav-item *ngIf="item.type === 'item'" [item]="item"></app-nav-item>
+        <ng-container *ngIf="item.type === 'header'">
+          <hr>
+        </ng-container>
+      </ng-container>
+    </ul>
+  </div>
+  <a class="sidenav-horizontal-next" [ngClass]="nextDisabled" (click)="scrollPlus()"></a>
+</div>
+
+<!-- Compact Layout -->
+<div class="navbar-content">
+  <ng-scrollbar *ngIf="this.config['layout'] === 'compact'" style="height: calc(100vh - 70px)" id="nav-ps-mantis"
+    visibility="hover">
+    <ul class="nav coded-inner-navbar" (clickOutside)="fireOutClick()" (mouseleave)="navMob()">
+      <ng-container *ngFor="let item of navigation">
+        <app-nav-group *ngIf="item.type === 'group'" [item]="item" (toggle)="subMenuCollapse($event)"></app-nav-group>
+        <app-nav-collapse *ngIf="item.type === 'collapse'"></app-nav-collapse>
+        <app-nav-item *ngIf="item.type === 'item'" [item]="item"></app-nav-item>
+        <ng-container *ngIf="item.type === 'header'">
+          <hr>
+        </ng-container>
+      </ng-container>
+    </ul>
+  </ng-scrollbar>
+</div>
+<div class="pc-compact-submenu" *ngIf="this.config['layout'] === 'compact'">
+  <ng-scrollbar style="height: calc(100vh - 70px)" visibility="hover"> </ng-scrollbar>
+</div>

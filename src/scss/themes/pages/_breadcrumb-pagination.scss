@@ -1,0 +1,29 @@
+/**  =====================
+      Breadcrumbs & Pagination css start
+==========================  **/
+// Breadcrumbs
+$theme-background: #f4f7fa;
+
+.breadcrumb {
+  border-radius: 0;
+}
+.card .breadcrumb {
+  padding: 0.75rem 1rem;
+}
+
+.breadcrumb-item {
+  + .breadcrumb-item {
+    color: $primary;
+  }
+}
+
+// pagination
+
+.page-item {
+  &.active .page-link {
+    color: #fff;
+    background-color: $primary;
+    border-color: $primary;
+  }
+}
+/**====== Breadcrumbs & Pagination css end ======**/

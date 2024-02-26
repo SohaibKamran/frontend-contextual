@@ -1,0 +1,43 @@
+<style>
+  video {
+   position: relative;
+   
+  }
+  .fade-bottom {
+    height: 70px;
+    /* background-image:linear-gradient(0deg, rgba(20, 29, 53) 0%,  rgba(8,12,21,0) 100%); */
+    background-image: linear-gradient(0deg, rgba(22, 29, 53, 100) 20%,  rgba(22, 29, 53,0) 100%);
+    position: relative;
+  }
+  </style>
+  
+  <div style="position: relative; padding-top: 35px;">
+    <div class="carousel-container">
+      <div class="carousel-slide" [class.active]="currentItem == 0" [class.fade-in-right]="currentItem == 0" [class.fade-out-left]="currentItem!=0">
+        <video #videoElement width="100%" height="auto" autoplay (ended)="nextItem()" (click)="gotoPlayer($event)">
+          <source src={{this.carouselItems[0]}} type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div  class="carousel-slide" [class.active]="currentItem == 1"  [class.fade-in-right]="currentItem == 1" [class.fade-out-left]="currentItem!=1">
+        <img src={{this.carouselItems[1]}} width="100%" height="auto" (click)="gotoPlayer($event)">
+      </div>
+      <div class="carousel-slide" [class.active]="currentItem == 2"  [class.fade-in-right]="currentItem == 2" [class.fade-out-left]="currentItem!=2">
+        <img src={{this.carouselItems[2]}} width="100%" height="auto" (click)="gotoPlayer($event)">
+      </div>
+      <div class="carousel-slide" [class.active]="currentItem == 3"  [class.fade-in-right]="currentItem == 3" [class.fade-out-left]="currentItem!=3">
+        <img src={{this.carouselItems[3]}} width="100%" height="auto" (click)="gotoPlayer($event)">
+      </div>
+      <div class="carousel-slide" [class.active]="currentItem == 4"  [class.fade-in-right]="currentItem == 4" [class.fade-out-left]="currentItem!=4">
+        <img src={{this.carouselItems[4]}} width="100%" height="auto" (click)="gotoPlayer($event)">
+      </div>
+       <!--DOTS-->
+    <div class="dots">
+      <span *ngFor="let item of carouselItems; let i = index" class="dot" [class.active]="i === currentItem"></span>
+    </div>
+    <!--END DOTS-->
+    <div class="fade-bottom" style="position: absolute; bottom: 0; width: 100%;"></div>
+  </div>
+   
+  </div>
+  

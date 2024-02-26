@@ -1,0 +1,18 @@
+button.text-primary {
+  border: none;
+  margin-right: 1rem;
+  font-size: 20px;
+}
+
+.position-relative {
+  i {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+  }
+
+  input {
+    padding-left: 35px !important;
+    padding: 6px 12px;
+  }
+}

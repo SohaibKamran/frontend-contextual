@@ -1,0 +1,20 @@
+
+
+
+<ng-template #modalContent>
+    <div class="modal-header">
+      <h5 class="modal-title text-dark"> Animate Modal : fade-in-scale </h5>
+      <button type=" button" class="btn-close btn-close-daerk" (click)="closeMyModal($event)"></button>
+    </div>
+    <div class="modal-body">
+      <h5>This is a modal window</h5>
+      <p>You can do the following things with it:</p>
+      <p> <b>Read:</b> modal windows will probably tell you something important so don't forget to read what they say. </p>
+      <p> <b>Look:</b> a modal window enjoys a certain kind of attention; just look at it and appreciate its presence. </p>
+      <p><b>Close:</b> click on the button below to close the modal.</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" (click)="closeMyModal($event)"> Close </button>
+      <button type="button" class="btn btn-primary shadow-2" (click)="closeMyModal($event)"> Save changes </button>
+    </div>
+  </ng-template>

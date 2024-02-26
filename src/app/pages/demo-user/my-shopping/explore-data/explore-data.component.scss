@@ -1,0 +1,103 @@
+@import './../../../../../assets/scss/variables.scss';
+
+.card {
+  border-radius: 0;
+
+  .card-img-top {
+    border-radius: 0;
+    height: 280px;
+    object-fit: contain;
+  }
+
+  i.bi-heart {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 1rem;
+    color: $heart-color;
+  }
+
+  i.bi-heart-fill {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 1rem;
+    color: $heart-color;
+  }
+
+  i.bi-badge-ad-fill {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 18px;
+    color: $wishlist-gray;
+  }
+
+  .list-group-item {
+    color: $wishlist-gray;
+    padding: 12px 16px;
+
+    .featured-img {
+      img {
+        height: 65px;
+        width: 115px;
+        min-width: 115px;
+        object-fit: cover;
+      }
+    }
+
+    // p {
+    //   overflow: hidden;
+    //   text-overflow: ellipsis;
+    //   white-space: nowrap;
+    // }
+
+    .linked-img {
+      img {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+.input-group-text {
+  background-color: transparent;
+  border: 1px solid $border-color;
+  border-radius: 0.375rem;
+  border-right: none !important;
+
+  i {
+    color: $text-gray;
+  }
+}
+
+input.form-control {
+  background: transparent;
+  border-radius: 6px;
+  box-shadow: none;
+  border-left: none !important;
+  border: 1px solid $border-color;
+}
+
+hr {
+  margin: 1rem 0;
+  color: #B3B9BE;
+  opacity: 1;
+}
+
+@media (min-width: 1400px) {
+  .col-xxl-3 {
+    flex: 0 0 auto;
+    width: 33.33333333%;
+  }
+}
+
+@media (min-width: 1600px) {
+  .col-xxl-3 {
+    flex: 0 0 auto;
+    width: 25%;
+  }
+}

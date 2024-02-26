@@ -1,0 +1,37 @@
+@import '../../../../assets/scss/variables.scss';
+
+.third-widget-bg {
+
+  background-color: $bg-light-ai;
+}
+
+.third-widget-color {
+
+  color: $wishlist-gray;
+}
+
+.third-widget-border {
+
+  border: $border-color;
+}
+
+.third-widget-amount-background {
+
+  background-color: $warning-color;
+  display: inline-block;
+  width: 38px;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 16px;
+  height: 24px;
+  line-height: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.third-widget-header {
+
+  color: $header-black;
+}

@@ -1,0 +1,68 @@
+.table {
+  thead {
+    th {
+      white-space: normal !important;
+      font-size: 14px;
+      font-weight: 500;
+      text-transform: capitalize;
+      border-right: 1px solid #e6ebf1;
+      min-width: 95px;
+      &:last-child {
+        .d-flex {
+          justify-content: center;
+        }
+      }
+    }
+  }
+}
+
+// .table {
+//   thead {
+//     th:nth-child(2) {
+//       white-space: normal !important;
+//       min-width: 130px;
+//     }
+//   }
+// }
+
+.table td.text-muted.td_heading {
+  max-width: 200px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.username-wrapper {
+  min-width: 180px;
+}
+
+.table-hover tbody tr.child-form:hover {
+  background-color: #fff;
+}
+
+.annotator-user-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.todo {
+  color: #777E90;
+}
+
+.review {
+  color: #DD9E42;
+}
+
+.returned {
+  color: #E51616;
+}
+
+.approved {
+  color: #2AA738;
+}
+
+.inprogress {
+  color: #1890FF;
+}

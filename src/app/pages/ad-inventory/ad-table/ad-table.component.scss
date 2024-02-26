@@ -1,0 +1,93 @@
+@import "../../../../assets/scss/variables.scss";
+
+.table {
+  thead {
+    th {
+      white-space: nowrap !important;
+      font-size: 14px;
+      font-weight: 500;
+      text-transform: capitalize;
+      border-right: 1px solid #e6ebf1;
+
+      &:last-child {
+        .d-flex {
+          justify-content: center;
+        }
+      }
+    }
+    th:first-child > div {
+      justify-content: start !important;
+    }
+  }
+
+  tbody {
+    td {
+      .progress-bar {
+        background-color: $progress-color;
+      }
+    }
+  }
+
+  .imgbox {
+    i {
+      color: #A0AEC0;
+
+      &.active {
+        transform: rotate(180deg);
+      }
+    }
+
+    img {
+      width: 48px;
+      height: 70px;
+      margin: 0 1rem;
+    }
+  }
+}
+
+.table td.text-muted.td_heading {
+  max-width: initial !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.username-wrapper {
+  min-width: 180px;
+}
+
+.table-hover tbody tr.child-form:hover {
+  background-color: #fff;
+}
+
+.advertiser-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+td.space {
+  padding-left: 50px;
+  position: relative;
+
+  &::before {
+    content: "";
+    width: 30px;
+    height: 102%;
+    display: inline-block;
+    background: #f2f2f2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+  }
+
+  .dropup .dropdown-toggle::after {
+    content: none;
+  }
+}
+
+.child2 td{
+  padding: 32px 16px;
+}

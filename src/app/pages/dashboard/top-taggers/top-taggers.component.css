@@ -1,0 +1,29 @@
+.card-height {
+  height: 398px;
+  overflow-y: auto;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.card-body {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+h5 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #262626;
+}
+
+.card-body {
+  margin: 1rem 0;
+  padding: 0 1rem !important;
+}
+.card-body h5 {
+  color: #3C3C3C;
+  font-size: 14px;
+  font-weight: 400;
+}/*# sourceMappingURL=top-taggers.component.css.map */

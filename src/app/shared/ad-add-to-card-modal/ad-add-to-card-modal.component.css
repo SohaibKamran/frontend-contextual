@@ -1,0 +1,95 @@
+.modal-body .client-feedback img {
+  height: 460px;
+  width: 360px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 1px solid #F0F0F0;
+  border-radius: 3px;
+}
+.modal-body .client-feedback i {
+  font-size: 16px;
+  color: #8C8C8C;
+  border: 1px solid #F0F0F0;
+  position: absolute;
+  border-radius: 3px;
+  padding: 2px;
+  line-height: 14px;
+}
+
+.client-thumbnails img {
+  height: 90px;
+  width: 90px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 1px solid #F0F0F0;
+  border-radius: 4px;
+  margin: 1rem 0.5rem;
+  cursor: pointer;
+}
+.client-thumbnails .slick-current img {
+  border: 2px solid #F0F0F0 !important;
+}
+
+.zoom {
+  cursor: zoom-in;
+}
+
+.input-group .form-control {
+  border: 1px solid #F0F0F0 !important;
+}
+.input-group .input-group-text {
+  border: 1px solid #F0F0F0 !important;
+  background-color: transparent !important;
+  color: #8C8C8C;
+  padding: 6px;
+  font-size: 10px;
+}
+.input-group .input-group-text:hover {
+  background-color: #F0F0F0 !important;
+}
+
+.bi-chevron-up.input-group-text {
+  border-radius: 0 4px 0 0;
+}
+
+.bi-chevron-down.input-group-text {
+  border-radius: 0 0 4px 0;
+}
+
+.description-scroll {
+  max-height: 150px;
+  overflow: auto;
+}
+
+.btn-outline-secondary {
+  border-color: #D9D9D9 !important;
+}
+
+.bi-heart,
+.bi-heart-fill {
+  top: 20px;
+  right: 60px;
+  font-size: 22px !important;
+  padding: 2px 4px !important;
+  color: #D9D9D9 !important;
+}
+
+.bi-heart-fill {
+  color: #FF808B !important;
+  border: none !important;
+}
+
+.bi-zoom-in {
+  bottom: 10px;
+  right: 110px;
+}
+
+.bi-zoom-out {
+  bottom: 10px;
+  right: 80px;
+}
+
+.bi-arrow-clockwise {
+  bottom: 10px;
+  right: 50px;
+}/*# sourceMappingURL=ad-add-to-card-modal.component.css.map */

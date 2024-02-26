@@ -1,0 +1,113 @@
+[
+  {
+    "img": "assets/images/application/prod-img-1.png",
+    "name": "Apple Series 4 GPS A38 MM Space",
+    "brand": "Apple",
+    "price_sell": "$12.99",
+    "price": "$15.99",
+    "star": "fas fa-star-half-alt text-warning",
+    "rating": "(4.0)",
+    "buy": "Add to Cart",
+    "out_of_stock": "btn-primary"
+  },
+  {
+    "img": "assets/images/application/prod-img-2.png",
+    "name": "Boat On-Ear Wirelesses",
+    "brand": "Boat",
+    "price_sell": "$81.99",
+    "price": "$15.99",
+    "star": "far fa-star text-muted",
+    "rating": "(3.0)",
+    "type": "bg-light-success",
+    "discount": "30%",
+    "buy": "Add to Cart",
+    "out_of_stock": "btn-primary"
+  },
+  {
+    "img": "assets/images/application/prod-img-3.png",
+    "name": "FireBolt MX30 Smart Watch",
+    "brand": "FireBolt",
+    "price_sell": "$49.9",
+    "price": "$85",
+    "star": "far fa-star text-muted",
+    "rating": "(3.0)",
+    "type": "bg-light-danger",
+    "discount": "Sold out",
+    "stock": "opacity-25",
+    "buy": "Sold Out",
+    "out_of_stock": "btn-secondary disabled"
+  },
+  {
+    "img": "assets/images/application/prod-img-4.png",
+    "name": "Apple Series 4 GPS A38 MM Space",
+    "brand": "Apple",
+    "price_sell": "$12.99",
+    "price": "$15.99",
+    "star": "fas fa-star-half-alt text-warning",
+    "rating": "(4.0)",
+    "buy": "Add to Cart",
+    "out_of_stock": "btn-primary"
+  },
+  {
+    "img": "assets/images/application/prod-img-5.png",
+    "name": "Apple Series 4 GPS A38 MM Space",
+    "brand": "Apple",
+    "price_sell": "$12.99",
+    "price": "$15.99",
+    "star": "fas fa-star-half-alt text-warning",
+    "rating": "(4.0)",
+    "buy": "Add to Cart",
+    "out_of_stock": "btn-primary"
+  },
+  {
+    "img": "assets/images/application/prod-img-6.png",
+    "name": "Boat On-Ear Wirelesses",
+    "brand": "Boat",
+    "price_sell": "$81.99",
+    "price": "$15.99",
+    "star": "far fa-star text-muted",
+    "rating": "(3.0)",
+    "type": "bg-light-success",
+    "discount": "30%",
+    "buy": "Add to Cart",
+    "out_of_stock": "btn-primary"
+  },
+  {
+    "img": "assets/images/application/prod-img-7.png",
+    "name": "FireBolt MX30 Smart Watch",
+    "brand": "FireBolt",
+    "price_sell": "$49.9",
+    "price": "$85",
+    "star": "far fa-star text-muted",
+    "rating": "(3.0)",
+    "type": "bg-light-danger",
+    "discount": "Sold out",
+    "stock": "opacity-25",
+    "out_of_stock": "btn-secondary disabled",
+    "buy": "Sold Out"
+  },
+  {
+    "img": "assets/images/application/prod-img-8.png",
+    "name": "Apple Series 4 GPS A38 MM Space",
+    "brand": "Apple",
+    "price_sell": "$12.99",
+    "price": "$15.99",
+    "star": "fas fa-star-half-alt text-warning",
+    "rating": "(4.0)",
+    "buy": "Add to Cart",
+    "out_of_stock": "btn-primary"
+  },
+  {
+    "img": "assets/images/application/prod-img-9.png",
+    "name": "Boat On-Ear Wirelesses",
+    "brand": "Boat",
+    "price_sell": "$81.99",
+    "price": "$15.99",
+    "star": "far fa-star text-muted",
+    "rating": "(3.0)",
+    "type": "bg-light-success",
+    "discount": "30%",
+    "buy": "Add to Cart",
+    "out_of_stock": "btn-primary"
+  }
+]

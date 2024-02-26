@@ -1,0 +1,74 @@
+[
+  {
+    "src": "assets/images/user/avatar-1.jpg",
+    "status": "",
+    "background": "bg-success",
+    "name": "John Doe",
+    "time": "2h ago",
+    "position": "Technical Department",
+    "current_status": "bg-primary"
+  },
+  {
+    "src": "assets/images/user/avatar-2.jpg",
+    "status": "ti ti-circle-check",
+    "background": "bg-success",
+    "name": "Keefs",
+    "time": "3h ago",
+    "position": "Executive",
+    "current_status": "bg-primary"
+  },
+  {
+    "src": "assets/images/user/avatar-3.jpg",
+    "status": "ti ti-clock",
+    "background": "bg-warning",
+    "name": "Lazaro",
+    "time": "Yesterday",
+    "position": "Teamworks",
+    "current_status": "bg-primary"
+  },
+  {
+    "src": "assets/images/user/avatar-3.jpg",
+    "status": "ti ti-circle-minus",
+    "background": "bg-secondary",
+    "name": "Adeline",
+    "time": "4/25/2021",
+    "position": "Teamworks",
+    "current_status": "text-secondary ti ti-check"
+  },
+  {
+    "src": "assets/images/user/avatar-1.jpg",
+    "status": "ti ti-circle-check",
+    "background": "bg-success",
+    "name": "John Doe",
+    "time": "4/25/2021",
+    "position": "Technical Department",
+    "current_status": "text-secondary ti ti-check"
+  },
+  {
+    "src": "assets/images/user/avatar-2.jpg",
+    "status": "ti ti-circle-check",
+    "background": "bg-success",
+    "name": "Keefs",
+    "time": "4/25/2021",
+    "position": "Executive",
+    "current_status": "text-primary ti ti-check"
+  },
+  {
+    "src": "assets/images/user/avatar-3.jpg",
+    "status": "ti ti-clock",
+    "background": "bg-warning",
+    "name": "Lazaro",
+    "time": "4/25/2021",
+    "position": "Teamworks",
+    "current_status": "text-primary ti ti-check"
+  },
+  {
+    "src": "assets/images/user/avatar-3.jpg",
+    "status": "ti ti-circle-minus",
+    "background": "bg-secondary",
+    "name": "Adeline",
+    "time": "4/25/2021",
+    "position": "Teamworks",
+    "current_status": "text-primary ti ti-check"
+  }
+]

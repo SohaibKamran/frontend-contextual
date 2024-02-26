@@ -1,0 +1,22 @@
+.scroll-container .scroll-content {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+.scroll-container .scroll-content .zoom {
+  transition: all 0.5s;
+  width: 240px;
+  height: 360px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-right: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+@media (min-width: 992px) {
+  .scroll-container .scroll-content .zoom:hover {
+    transform: scale(1.009);
+    transition: all 0.5s;
+    opacity: 0.8;
+  }
+}/*# sourceMappingURL=slider.component.css.map */

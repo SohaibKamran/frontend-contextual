@@ -1,0 +1,9 @@
+.header-mob {
+  position: absolute;
+  width: 100%;
+  top: 10px;
+}
+.header-mob .logo-mob {
+  height: 20px;
+  width: 100%;
+}/*# sourceMappingURL=header-mob.component.css.map */

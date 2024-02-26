@@ -1,0 +1,24 @@
+.social-links i,
+.social-links svg {
+  font-size: 18px;
+}
+
+.logo-container {
+  padding-top: 2%;
+  margin-left: 5%;
+  margin-right: 5%;
+  padding-bottom: 2%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-subheader {
+  color: #A1ADB9;
+  text-align: center;
+  font-family: Roboto;
+  font-size: small;
+  font-weight: 200;
+  letter-spacing: -0.3px;
+}/*# sourceMappingURL=offcanvas-login.component.css.map */

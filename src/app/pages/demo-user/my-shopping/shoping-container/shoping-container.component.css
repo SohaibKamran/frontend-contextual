@@ -1,0 +1,163 @@
+.nav-tabs {
+  display: flex;
+  align-items: flex-start;
+  align-content: flex-start;
+  --bs-nav-tabs-border-width: 0px;
+  /* Media query for smartphones */
+}
+.nav-tabs .nav-item {
+  height: 20vh;
+  padding: 1vh;
+  justify-content: center;
+  flex: 1 0 0;
+  color: white;
+  align-items: center; /* Center vertically */
+  text-align: center;
+  line-height: 24px; /* 100% */
+  letter-spacing: -0.48px;
+}
+.nav-tabs .nav-item .nav-link {
+  display: flex; /* Use flexbox to center content */
+  justify-content: center; /* Center text horizontally */
+  align-items: center; /* Center text vertically */
+  height: 100%;
+  width: 100%;
+  border-radius: 4px;
+  background: var(--Button-Gradient, linear-gradient(180deg, #393E4C 0%, #171A22 100%));
+  /* drop-shadow / button-primary */
+  box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.04);
+  font-size: x-large;
+}
+.nav-tabs .nav-item .nav-link:hover {
+  color: white;
+  border: 1px solid var(--Light-Gold, #FAAD14);
+}
+.nav-tabs .nav-item .nav-link:focus {
+  color: white;
+  border: 1px solid var(--Light-Gold, #FAAD14);
+}
+.nav-tabs .nav-item .nav-link:focus-visible {
+  outline: 0;
+  color: white;
+  border: 1px solid var(--Light-Gold, #FAAD14);
+}
+.nav-tabs .nav-item .nav-link.active,
+.nav-tabs .nav-item .nav-item.show .nav-link {
+  border-radius: 4px;
+  border: 5px solid var(--Light-Gold, #FAAD14);
+  background: var(--Button-Gradient, linear-gradient(180deg, #393E4C 0%, #171A22 100%));
+  color: white;
+  /* drop-shadow / button-primary */
+  box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.04);
+}
+@media (max-width: 768px) {
+  .nav-tabs .nav-item {
+    height: 10vh;
+    padding: 0.2vh;
+    justify-content: center;
+    color: white;
+    align-items: center; /* Center vertically */
+    text-align: center;
+  }
+  .nav-tabs .nav-item .nav-link {
+    display: flex; /* Use flexbox to center content */
+    justify-content: center; /* Center text horizontally */
+    align-items: center; /* Center text vertically */
+    height: 100%;
+    width: 100%;
+    border-radius: 4px;
+    background: var(--Button-Gradient, linear-gradient(180deg, #393E4C 0%, #171A22 100%));
+    /* drop-shadow / button-primary */
+    box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.04);
+    font-size: smaller;
+  }
+  .nav-tabs .nav-item .nav-link:hover {
+    color: white;
+    border: 1px solid var(--Light-Gold, #FAAD14);
+  }
+  .nav-tabs .nav-item .nav-link:focus {
+    color: white;
+    border: 1px solid var(--Light-Gold, #FAAD14);
+  }
+  .nav-tabs .nav-item .nav-link:focus-visible {
+    outline: 0;
+    color: white;
+    border: 1px solid var(--Light-Gold, #FAAD14);
+  }
+  .nav-tabs .nav-item .nav-link.active,
+  .nav-tabs .nav-item .nav-item.show .nav-link {
+    border-radius: 4px;
+    border: 5px solid var(--Light-Gold, #FAAD14);
+    background: var(--Button-Gradient, linear-gradient(180deg, #393E4C 0%, #171A22 100%));
+    color: white;
+    /* drop-shadow / button-primary */
+    box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.04);
+  }
+}
+
+.wishlist-tabs {
+  margin-left: 10vw;
+  margin-right: 10vw;
+}
+
+.fav-actor-img {
+  height: 125px;
+  width: 125px;
+  min-width: 125px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+}
+
+.fav-brand-img {
+  height: 125px;
+  width: 125px;
+  min-width: 125px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 0%;
+}
+
+.fav-shows-img {
+  width: 110px;
+  min-width: 85px;
+  height: 150px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 4px;
+}
+
+.link-style {
+  font-size: 1rem; /* Adjust as needed */
+  color: #1890FF; /* Primary color */
+  padding-bottom: 5%;
+}
+
+.shopping-header {
+  color: var(--WHITE, #FFF);
+  align-items: center;
+  padding-top: 5%;
+  padding-bottom: 3.5%;
+  margin-top: 50px;
+}
+
+.disabled-link {
+  pointer-events: none; /* Disable clicking */
+  color: #ccc; /* Grayed-out color */
+  cursor: default; /* Standard cursor instead of pointer */
+}
+
+.menu-container {
+  display: flex;
+  padding: 20px 0px;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 20px;
+  align-self: stretch;
+  flex-wrap: wrap;
+}
+
+.custom-padding {
+  padding-top: 3%;
+  padding-bottom: 5%;
+}/*# sourceMappingURL=shoping-container.component.css.map */

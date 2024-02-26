@@ -1,0 +1,617 @@
+<div class="tag_summary_modal" ngxUiLoaderBlurred>
+  <div class="border-0 justify-content-between modal-header pb-0">
+    <div class="d-flex align-items-center">
+      <i class="bi bi-tag text-light fs-xl"></i>
+      <h5 class="modal-title mb-0 fs-lg fw-medium ms-2" id="exampleModalLiveLabel">
+        Product Record Summary
+      </h5>
+      <div ngbDropdown class="btn-group scene_dropdowns ms-2">
+        <button type="button"
+          class="btn btn-light dropdown-toggle h_40 text-light d-flex justify-content-between align-items-center"
+          id="dropdownBasic1" ngbDropdownToggle>
+          <div *ngIf="taggingStatusValue" [ngClass]="taggingStatusColor">
+            {{taggingStatusValue}}
+          </div>
+          <i class="bi bi-caret-down-fill ms-2 fs-md text-gray"></i>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <a *ngFor="let status of prTaggingStatuses; let i=index" ngbDropdownItem class={{status.class}}
+            (click)="updateTaggingStatus(3)">
+            {{status.title}}
+          </a>
+        </div>
+      </div>
+      <div class="dropup ms-2" ngbDropdown placement="top-start">
+        <i class="bi bi-eye text-light dropdown-toggle fs-4 cursor-pointer icon-hover" ngbDropdownToggle></i>
+        <ul class="dropdown-menu vieweditdrop p-0" ngbDropdownMenu>
+          <p class="btn-light-secondary m-0 p-2 ps-3 rounded-top text-black fs-lg">View or edit in:</p>
+          <!-- <a *ngIf="userRole==4" class="dropdown-item" [routerLink]="">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler me-1 icon-tabler-database" width="20"
+              height="20" viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <ellipse cx="12" cy="6" rx="8" ry="3"></ellipse>
+              <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
+              <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
+            </svg>
+            Database Record
+          </a> -->
+          <!-- <a *ngIf="userRole==4" class="dropdown-item">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler me-1 icon-tabler-bolt" width="20"
+              height="20" viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <polyline points="13 3 13 10 19 10 11 21 11 14 5 14 13 3" />
+            </svg>
+            Product Annotator
+          </a> -->
+          <a class="dropdown-item" (click)="openEpisodePreview(tagSummary.Scene.Show.id)">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler me-1 icon-tabler-video-plus" width="20"
+              height="20" viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z" />
+              <rect x="3" y="6" width="12" height="12" rx="2" />
+              <line x1="7" y1="12" x2="11" y2="12" />
+              <line x1="9" y1="10" x2="9" y2="14" />
+            </svg>
+            Video Preview
+          </a>
+        </ul>
+      </div>
+    </div>
+    <div class="d-flex align-items-center">
+      <div class="me-3 text-end">
+        <p class="fs-md text-gray fw-medium mb-0">Product Record ID</p>
+        <p class="fs-md text-gray mb-0">{{tagSummary?.prId}}</p>
+      </div>
+      <button type="button" class="btn btn-light me-2 btn-sm" [disabled]="!taggedIdIndex" (click)="changeScreen(1)">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+      <button type="button" class="btn btn-light me-4 btn-sm" [disabled]="taggedIdIndex===taggedIds?.length-1"
+        (click)="changeScreen(2)">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+        (click)="modalService.dismissAll('Close click')"></button>
+    </div>
+  </div>
+
+  <div class="modal-body">
+    <!-- details -->
+    <div class="card">
+      <!-- <div class="card-header d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <div class="card-title mb-0 me-2">
+            Details
+          </div>
+          <div class="dropup mr-2" ngbDropdown placement="top-start">
+            <i class="bi bi-eye text-light dropdown-toggle fs-4 cursor-pointer icon-hover" ngbDropdownToggle></i>
+            <ul class="dropdown-menu vieweditdrop p-0" ngbDropdownMenu>
+              <p class="btn-light-secondary m-0 p-2 ps-3 rounded-top text-black fs-lg">View or edit in:</p>
+              <a *ngIf="userRole==4" class="dropdown-item" [routerLink]="">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler me-1 icon-tabler-database" width="20"
+                  height="20" viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <ellipse cx="12" cy="6" rx="8" ry="3"></ellipse>
+                  <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
+                  <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
+                </svg>
+                Database Record
+              </a>
+              <a *ngIf="userRole==4" class="dropdown-item">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler me-1 icon-tabler-bolt" width="20"
+                  height="20" viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <polyline points="13 3 13 10 19 10 11 21 11 14 5 14 13 3" />
+                </svg>
+                Product Annotator
+              </a>
+              <a class="dropdown-item">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler me-1 icon-tabler-video-plus" width="20"
+                  height="20" viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z" />
+                  <rect x="3" y="6" width="12" height="12" rx="2" />
+                  <line x1="7" y1="12" x2="11" y2="12" />
+                  <line x1="9" y1="10" x2="9" y2="14" />
+                </svg>
+                Video Preview
+              </a>
+            </ul>
+          </div>
+        </div>
+        <div ngbDropdown class="btn-group scene_dropdowns">
+          <button type="button"
+            class="btn btn-light dropdown-toggle h_40 text-light d-flex justify-content-between align-items-center"
+            id="dropdownBasic1" ngbDropdownToggle>
+            <div *ngIf="taggingStatusValue" [ngClass]="taggingStatusColor">
+              {{taggingStatusValue}}
+            </div>
+            <i class="bi bi-caret-down-fill ms-2 fs-md text-gray"></i>
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <a *ngFor="let status of prTaggingStatuses; let i=index" ngbDropdownItem class={{status.class}}
+              (click)="updateTaggingStatus(3)">
+              {{status.title}}
+            </a>
+          </div>
+        </div>
+      </div> -->
+      <div class="card-body">
+        <div class="row details-tag">
+          <div class="col-auto">
+            <div class="d-flex overflow-ai">
+              <div class="me-2">
+                <div class="mb-2">
+                  <p class="mb-0 fs-md text-light text-uppercase">Series</p>
+                </div>
+                <div class="proxy-product">
+                  <div class="product-img cursor">
+                    <img src="{{tagSummary?.Scene?.Show?.Series?.thumbnail}}">
+                  </div>
+                  <div class="d-flex align-items-center cursor">
+                    <p class="fs-md text-gray">{{tagSummary?.Scene?.Show?.Series?.title}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="me-2">
+                <div class="mb-2">
+                  <p class="mb-0 fs-md text-light text-uppercase">Actor</p>
+                </div>
+                <div class="proxy-product">
+                  <div class="product-img cursor" *ngIf="tagSummary?.Actor">
+                    <img src="{{tagSummary?.Actor?.imageUrl}}" (click)="productRecordModal(3)">
+                  </div>
+                  <div class="d-flex align-items-center cursor" *ngIf="tagSummary?.Actor">
+                    <p class="fs-md text-gray"> {{tagSummary?.Actor?.name}} </p>
+                  </div>
+                  <div *ngIf="tagSummary?.Actor?.id===null" (click)="productRecordModal(3)"
+                    class="product-img assign-actor cursor">
+                    <span class="d-flex fs-sm p-1 text-center text-light">Click to
+                      Assign Actor</span>
+                  </div>
+                </div>
+              </div>
+              <div class="me-2">
+                <div class="mb-2">
+                  <p class="mb-0 fs-md text-light text-uppercase">Proxy</p>
+                </div>
+                <div class="proxy-product">
+                  <div class="product-img cursor">
+                    <img src="{{proxyImage}}">
+                  </div>
+                  <div class="d-flex align-items-center cursor">
+                    <span class="circle me-2" [style.background-color]="coordinateColor"></span>
+                    <span class="fs-sm text-gray ellipsis">#{{transform(tagSummary?.id,9)}}</span>
+                  </div>
+                  <span class="bi bi-x-lg icon-close text-light fs-md cursor" (click)="staticModal(deleteModal)"></span>
+                </div>
+              </div>
+              <div>
+                <div class="mb-2">
+                  <p class="mb-0 fs-md text-light text-uppercase">Super-Proxy</p>
+                </div>
+                <div class="proxy-product">
+                  <div class="product-img cursor" [hidden]="!superProxyImage">
+                    <img src="{{superProxyImage}}" (click)="productRecordModal(1)">
+                  </div>
+                  <div class="d-flex align-items-center cursor" [hidden]="!superProxyImage">
+                    <span class="fs-sm text-gray ellipsis" [hidden]="!superProxyImage">{{retailer}}</span>
+                  </div>
+                  <div *ngIf="!superProxyImage" (click)="productRecordModal(1)" class="product-img assign-actor cursor">
+                    <span class="d-flex fs-sm p-1 text-center text-light">Assign Super-Proxy</span>
+                  </div>
+                  <!-- <span (click)="removeSuperProxy()" class="bi bi-x-lg icon-close text-light fs-md cursor"
+                    [hidden]="!superProxyImage"></span> -->
+                  <!-- <img src="../../../assets/icons/ad-badge-ai.svg" class="badge-ad"> -->
+                  <span class="badge badge-ad border border-white text-bg-secondary"
+                    [hidden]="!superProxyImage">{{superProxyVzotScore}}</span>
+                  <span class="feather icon-lock text-primary" [hidden]="!superProxyImage"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col">
+            <div class="mb-2">
+              <p class="mb-0 fs-md text-light text-uppercase">Attributes</p>
+            </div>
+            <div class="card bg-light-ai border-0">
+              <div class="card-body">
+                <div class="d-flex flex-wrap align-items-center">
+                  <ng-container *ngFor="let tag of tags; let i = index;">
+                    <button type="button" class="align-items-center btn btn-gray btn-sm d-flex me-2 mb-2">
+                      {{tag.name}}
+                      <span (click)="onAttributeDelete(tag)"
+                        class="bi bi-x-lg icon-close text-light fs-md cursor ms-2"></span>
+                    </button>
+                  </ng-container>
+                  <ng-container *ngIf="!tags || tags.length===0">
+                    <p class="no_results mb-2 me-2">
+                      <td colspan="12"> No Attributes Found</td>
+                    </p>
+                  </ng-container>
+                  <button (click)="openAIModal()" type="button" class="btn btn-light me-2 px-2 border-dashed btn-sm mb-2">
+                    <i class="bi bi-plus-lg text-black"></i>
+                    New
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <div class="col">
+            <div class="mb-2">
+              <p class="mb-0 fs-md text-light text-uppercase">Attributes</p>
+            </div>
+            <div class="row mb-2 gx-3">
+              <div class="col-md-4">
+                <ng-select class="mb-2" placeholder="Select Gender" [items]="genders" bindValue="id"
+                  bindLabel="prettyName" [(ngModel)]="selectedGender" [closeOnSelect]="true" [clearable]="true"
+                  (clear)="resetGender()" (change)="getOptimizeAdsProducts('', false)"></ng-select>
+                  <ng-select placeholder="Select Category" [items]="categories" bindValue="id"
+                  bindLabel="name" [(ngModel)]="selectedCategory" [closeOnSelect]="true" [clearable]="false"
+                  (change)="getOptimizeAdsProducts('', false)"></ng-select>
+                  <ng-select *ngIf="isClipOn" class="mb-2" placeholder="Select Color" [items]="colors" bindValue="id"
+                    bindLabel="name" [(ngModel)]="selectedColor" [closeOnSelect]="true" [clearable]="false"
+                    (change)="getOptimizeAdsProducts('', false)"></ng-select>
+              </div>
+              <div class="col-md-8">
+                <div class="d-flex flex-wrap align-items-center attributes-tags">
+                  <ng-container *ngFor="let tag of tags; let i = index;">
+                    <button *ngIf="!tag.isTuner"
+                      [ngClass]="{'btn-primary': tag.weight >= 0, 'btn-danger': tag.weight < 0}"
+                      class="align-items-center btn btn-sm d-flex me-2 mb-2">
+                      <span class="tag-more tag-plus me-2">{{tag.weight}}</span>
+                      <input *ngIf="isClipOn" type="range" min="-1" max="1" step="0.1" [(ngModel)]="tag.weight"
+                        (change)="onTagChange($event, tag.id)">
+                      {{tag.name}}
+                      <span (click)="onAttributeDelete(tag)"
+                        class="bi bi-x-lg icon-close text-white fs-md cursor ms-2"></span>
+                    </button>
+                  </ng-container>
+                  <ng-container *ngFor="let tag of tags; let i = index;">
+                    <button *ngIf="tag.isTuner"
+                      [ngClass]="{'btn-secondary': tag.weight >= 0, 'btn-danger': tag.weight < 0}" type="button"
+                      class="align-items-center btn btn-sm d-flex me-2 mb-2" (click)="onTagClick(tag)">
+                      {{tag.name}}
+                      <span (click)="onAttributeDelete(tag)"
+                        class="bi bi-x-lg icon-close text-white fs-md cursor ms-2"></span>
+                    </button>
+                  </ng-container>
+                  <ng-container *ngIf="!tags || tags.length===0">
+                    <p class="no_results mb-2 me-2">
+                      <td colspan="12"> No Attributes Found</td>
+                    </p>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="row gx-3">
+              <div class="col">
+                <input type="text" [(ngModel)]="attributeText" class="form-control" placeholder="Type Attributes">
+              </div>
+              <div class="col-auto">
+                <button *ngIf="attributeText!='' && !isTagButtonDisabled" (click)="addTag(attributeText)" type="button"
+                  class="btn btn-primary h-100">
+                  Add
+                </button>
+                <button *ngIf="attributeText=='' || isTagButtonDisabled" disabled (click)="addTag(attributeText)"
+                  type="button" class="btn btn-outline-secondary h-100">
+                  Add
+                </button>
+              </div>
+              <div class="col-auto">
+                <button (click)="getOptimizeAdsProducts('',false)" type="button" class="btn btn-outline-secondary h-100">
+                  <i  class="bi bi-arrow-repeat"></i>
+                </button>
+              </div>
+            </div> -->
+            <div *ngIf="isClipOn" class="row gx-3">
+              <div class="col">
+                <input type="text" [(ngModel)]="tunerText" class="form-control" placeholder="Type Tuner">
+              </div>
+              <div class="col-auto">
+                <button *ngIf="tunerText!='' && !isTunerButtonDisabled" (click)="addTag(tunerText, true)" type="button"
+                  class="btn btn-primary h-100">
+                  Add
+                </button>
+                <button *ngIf="tunerText=='' || isTunerButtonDisabled" disabled type="button"
+                  class="btn btn-outline-secondary h-100">
+                  Add
+                </button>
+              </div>
+              <div class="col-auto">
+                <button type="button" (click)="getOptimizeAdsProducts()" class="btn btn-outline-secondary h-100">
+                  <i class="bi bi-arrow-repeat"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-auto indexer-score">
+            <div class="d-flex">
+              <div (click)="openAddEditTagger(tagSummary.Tagger)">
+                <div class="mb-2">
+                  <p class="mb-0 fs-md text-light text-uppercase">INDEXER</p>
+                </div>
+                <hr>
+                <div class="indexer-img-wrapper cursor-pointer">
+
+                  <img [src]="taggerData?.profilePicture??'../../../../assets/images/user/avatar-3.jpg'" class="mb-2">
+                  <p class="fs-md text-gray text-center mb-0"> {{taggerData?.fullName}} </p>
+                </div>
+              </div>
+              <div class="ms-2">
+                <div class="mb-2">
+                  <p class="mb-0 fs-md text-light text-uppercase">Vzot Score</p>
+                </div>
+                <hr>
+                <div class="score-wrapper">
+                  <span class="badge text-bg-warning fw-bold px-2 fs-lg">{{tagSummary?.topVzotScore}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- dragg -->
+    </div>
+
+    <!-- Optimize accuracy -->
+    <div class="card mb-0">
+      <div class="card-header border-0 card-header pb-0">
+        <div class="row align-items-center">
+          <div class="col-md-6 col-xl-5">
+            <div class="d-flex align-items-center flex-wrap">
+              <div class="card-title mb-0">
+                Optimize Accuracy
+              </div>
+              <div class="popover-icon">
+                <i class="bi bi-info-circle text-light fs-md tooltip-icon-mgn ms-1"></i>
+                <div class="card popover-card-search">
+                  <div class="card-body text-center">
+                    <i class="bi bi-info-circle text-primary fs-xl"></i>
+                    <p class="text-black fs-xl ">Optimize Accuracy Thresholds</p>
+                    <p class="text-muted fs-lg text-start">Adjust Accuracy Thresholds for each Advertiser if necessary
+                      to make sure ads match the product in-scene accurately. </p>
+                    <p class="text-muted fs-lg text-start">Changes to the Accuracy Thresholds on this Index Record will
+                      print an “override” to the Advertisers’ Master Accuracy Threshold and apply to this video episode
+                      only.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-7 ps-3">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center flex-wrap">
+                <div class="card-title mb-0">
+                  Ad Queue
+                </div>
+                <div class="popover-icon">
+                  <i class="bi bi-info-circle text-light fs-md tooltip-icon-mgn ms-1"></i>
+                  <div class="card popover-card-search">
+                    <div class="card-body text-center">
+                      <i class="bi bi-info-circle text-primary fs-xl"></i>
+                      <p class="text-black fs-xl ">Review and Improve Accuracy</p>
+                      <p class="text-muted fs-lg text-start">Evaluate the Ad Queue for each advertiser to ensure quality
+                        matches for each. </p>
+                      <p class="text-muted fs-lg text-start">
+                        Improve accuracy by clicking similar products in the Ad Queue to add Attribute tags to the
+                        Product
+                        Record.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <button class="text-primary border-0 me-2 bg-white filtericon" (click)="openfilterAdvertisers()"><i
+                    class="fas fa-sliders-h"></i></button>
+                <button class="btn btn-outline-secondary text-dark bg-transparent"
+                  (click)="openEpisodePreview(tagSummary.Scene.Show.id)">Preview</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row optimize-accuracy">
+          <div class="col-md-6 col-xl-5">
+            <!-- <app-tagger-canvas [data]="tagSummary" class="optimize-img-wrapper"></app-tagger-canvas> -->
+            <div id="superProxyCanvas" style="height: 265px !important" *ngIf="constructCanvasVar"
+              class="tag-scene active-scene">
+              <canvas class="canvas-img" id="tagSummaryCanvas"></canvas>
+            </div>
+          </div>
+          <!-- <div class="col-md-5 ad-queue-scroll">
+            <div class="row align-items-center" *ngFor="let item of objArray | keyvalue; let i=index">
+              <div class="col-md-4">
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                  <label class="form-check-label" for="flexCheckDefault">
+                    {{item.key}}
+                  </label>
+                </div>
+                <div class="d-flex align-items-center">
+                  <div class="progress w-100" role="progressbar" aria-label="Basic example" aria-valuenow="0"
+                    aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar w-75"></div>
+                  </div>
+                  <i class="bi bi-arrow-repeat ms-3 text-gray fs-xxl"></i>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="d-flex align-items-center overflow-ai mb-3">
+                  <div class="me-2" *ngFor="let data of item.value; let j=index">
+                    <div class="proxy-product" *ngIf="j<=2">
+                      <div class="product-img cursor">
+                        <img src="{{data.image}}" (click)="staticsModal(replaceModal)">
+                      </div>
+                      <div class="d-flex align-items-center cursor">
+                        <span class="fs-sm text-gray ellipsis">{{item.key}}</span>
+                      </div>
+                      <span class="bi bi-x-lg icon-close text-light fs-md cursor"></span>
+                      <img src="../../../assets/icons/ad-badge-ai.svg" class="badge-ad"> -->
+          <!-- <span class="badge badge-ad border border-white text-bg-secondary">88</span>
+                      <span class="icon-unlock fs-md text-light fs-lg"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <!-- <div class="col-md-5 ad-queue-scroll">
+            <ng-container *ngIf="superProxyImage">
+              <div class="row align-items-center" *ngFor="let item of retailerProductImages; let i=index">
+                <div class="col-md-4">
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                    <label class="form-check-label" for="flexCheckDefault">
+                      {{item.name}}
+                    </label>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <ngx-slider [(value)]="value[i]" [options]="options" id="slider{{i+1}}"
+                      (userChangeEnd)="vzotChange(i)"></ngx-slider>
+                    <i class="bi bi-arrow-repeat ms-3 text-gray fs-xxl" (click)="ChangeVzotScore(item)"></i>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="d-flex align-items-center overflow-ai mb-3">
+
+                    <div class="me-2" *ngFor="let detail of item.productDetails;let z=index">
+                      <div class="proxy-product">
+                        <div class="product-img cursor">
+                          <img (click)="openAddToCartModal(detail)" src={{detail.image}}>
+                        </div>
+                        <div class="d-flex align-items-center cursor">
+                          <span class="fs-sm text-gray ellipsis">{{item.name}}</span>
+                        </div>
+                        <span class="bi bi-x-lg icon-close text-light fs-md cursor"
+                          (click)="removeProxyProduct(detail)"></span>
+                        <span *ngIf="z===0" class="badge badge-ad fw-bold text-bg-warning">{{detail.score}}</span>
+                        <span *ngIf="z!==0"
+                          class="badge badge-ad border border-white text-bg-secondary">{{detail.score}}</span>
+                      </div>
+                    </div>
+                    <div *ngIf="item.productDetails.length ===0"> No Products Found </div>
+                    <div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <div *ngIf="!superProxyImage">
+              Please select super proxy first.
+            </div>
+          </div> -->
+          <div class="col-md-6 col-xl-7 ad-queue-scroll" (click)="disp()">
+            <ng-container *ngIf="superProxyImage">
+              <div *ngIf="showProductTagInfo==false && retailerProductImages.length>0 && checkShowAdQueue()">
+                <ng-container *ngFor="let item of retailerProductImages; let i=index">
+                  <div *ngIf="(!item?.hideRetailer) && (item?.filter ||(item?.productDetails?.length>0 && !(item?.productDetails.length == 1 && (item?.productDetails[0].toDisplayAd==0 || item?.productDetails[0].toDisplayAd == false))))" class="row align-items-center row-cols-2">
+                    <div class="col-md-3 brand-img">
+                      <div class="d-flex align-items-center">
+                        <img *ngIf="item?.productDetails?.[0]?.retailerImage"
+                          [src]="item?.productDetails?.[0]?.retailerImage">
+                        <img *ngIf="!item?.productDetails?.[0]?.retailerImage" [src]="item?.retailerImage">
+
+                        <span class="ms-2">{{item?.name}}</span>
+                      </div>
+                      <div class="d-flex align-items-center">
+                        <ngx-slider [(value)]="value[i]" [options]="options" id="slider{{i+1}}"
+                          (userChangeEnd)="vzotChange(i)"></ngx-slider>
+                        <i class="bi bi-arrow-repeat ms-3 text-gray fs-xxl" (click)="ChangeVzotScore(item)"></i>
+                      </div>
+                    </div>
+                    <div class="col-md-9 pe-4">
+                      <div class="d-flex align-items-center overflow-ai overflow-auto mb-2 pb-1">
+                        <p *ngIf="item?.filter && !showRow(item?.productDetails)">
+                          No Product Found</p>
+                        <ng-container *ngFor="let detail of item.productDetails;let z=index">
+                          <div [ngStyle]="!detail?.toDisplayAd && {'display':'none'}" class="me-2">
+                            <div class="proxy-product">
+                              <div class="product-img cursor">
+                                <img (click)="openAddToCartModal(detail)" src={{detail.matchedImageUrl}}>
+                              </div>
+                              <div class="d-flex align-items-center cursor">
+                                <span class="fs-sm text-gray ellipsis">{{item.name}}</span>
+                              </div>
+                              <span class="bi bi-x-lg icon-close text-light fs-md cursor"
+                                (click)="eliminateProduct(detail,i)"></span>
+                                <span *ngIf="yellowScoreIndicator(item,detail)" class="badge badge-ad fw-bold text-bg-warning">{{detail.score}}</span>
+                                <span *ngIf="!yellowScoreIndicator(item,detail)"
+                                class="badge badge-ad border border-white text-bg-secondary">{{detail.score}}</span>
+                              <span *ngIf="!isDisabled" (click)="getAttributesData(detail)"
+                                class="badge icon-code-symbol border text-bg-secondary"><i
+                                  class="bi bi-code-slash fs-sm"></i></span>
+                              <span *ngIf="isDisabled" class="badge icon-code-symbol border text-bg-secondary"><i
+                                  class="bi bi-code-slash fs-sm"></i></span>
+                            </div>
+                          </div>
+                        </ng-container>
+                        <!-- <div *ngIf="item.productDetails.length ===0"> No Products Found </div> -->
+                        <div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+              <div>
+                <div *ngIf="showProductTagInfo">
+                  <app-product-tag-info [productData]="productData" [tags]="tags"
+                    (hideAttributeSection)="hideAttributeSection($event)"
+                    (onAttributeDelete)="onAttributeDelete($event)" (addTag)="addTag($event)"></app-product-tag-info>
+                </div>
+              </div>
+            </ng-container>
+            <div *ngIf="!superProxyImage">
+              Please select super proxy first.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="border-0 d-block modal-footer w-100 pt-0">
+    <div class="card mb-0">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <a class="mb-0 text-danger" (click)="modalService.dismissAll('Close click')">Cancel</a>
+          <div class="d-flex align-items-center">
+            <a class="mb-0 text-danger me-3" (click)="staticModal(deleteModal)">Delete Record</a>
+            <button class="btn btn-primary" (click)="onUpdateAndClose()">Update and close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #deleteModal let-modal>
+  <!-- <div class="modal-header">
+    <h5 class="modal-title mt-0">Scene Submitted!</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+  </div> -->
+
+
+  <div class="modal-body text-center">
+    <i class="bi bi-check-circle-fill fs-1 text-danger"></i>
+    <h6 class="align-items-center fw-bold mt-2">Warning</h6>
+    <p class="text-muted mb-0">
+      Are you sure you want to delete this Tag Record?
+    </p>
+  </div>
+
+  <div class="modal-footer justify-content-between">
+    <button class="mb-0 text-danger btn btn-transparent border-0" data-bs-dismiss="modal"
+      (click)="modal.dismiss('close')">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="removeProxyCordinate(tagSummary)">Delete</button>
+  </div>
+</ng-template>
+
+<ngx-ui-loader [loaderId]="'loader-01'"></ngx-ui-loader>

@@ -1,0 +1,49 @@
+.tag_summary_modal {
+  background-color: #F2F2F2;
+}
+.tag_summary_modal .details-tag .indexer-score .indexer-img-wrapper img {
+  height: 64px;
+  width: 64px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.tag_summary_modal .details-tag .indexer-score .indexer-img-wrapper p {
+  max-width: 64px;
+}
+.tag_summary_modal .details-tag .indexer-score .score-wrapper {
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tag_summary_modal .details-tag .attributes-tags {
+  max-height: 93px;
+  overflow: auto;
+}
+.tag_summary_modal .optimize-accuracy .optimize-img-wrapper img {
+  height: 330px;
+  border-radius: 4px;
+}
+.tag_summary_modal .optimize-accuracy .ad-queue-scroll {
+  max-height: 275px;
+  overflow: auto;
+}
+.tag_summary_modal .optimize-accuracy .ad-queue-scroll .brand-img img {
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  border: 1px solid #ced4da;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.overflow-ai .proxy-product {
+  margin-bottom: 0px;
+}
+
+.btn-outline-secondary {
+  border-color: #ced4da;
+  color: #ced4da;
+  background-color: #F5F5F5;
+}/*# sourceMappingURL=tag-summary.component.css.map */

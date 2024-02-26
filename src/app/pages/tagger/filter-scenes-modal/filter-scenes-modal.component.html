@@ -1,0 +1,53 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLiveLabel">Filter Scenes</h5>
+  <button type="button" class="btn-close text-muted position-absolute" data-bs-dismiss="modal" aria-label="Close"
+    (click)="modalService.dismissAll('Close click')" style="top: 25px;right: 20px;">
+  </button>
+</div>
+
+<div class="modal-body">
+  <form [formGroup]="filterForm">
+    <div class="d-flex align-items-center mb-4">
+      <label for="example-text-input" class="col-form-label">Select scene number: </label>
+      <input formControlName="sceneNo" placeholder="Enter scene number" class="form-control ms-2" type="text"
+        id="example-text-input">
+    </div>
+    <div class="d-flex align-items-center mb-4">
+      <label for="example-text-input" class="col-form-label">Scene Time range between: </label>
+      <input formControlName="rangeStart" placeholder="start" class="form-control ms-2" type="text"
+        id="example-text-input">
+      <label for="example-text-input" class="col-form-label ms-2">and</label>
+      <input formControlName="rangeEnd" placeholder="end" class="form-control ms-2" type="text"
+        id="example-text-input">
+    </div>
+    <div class="d-flex align-items-center mb-4">
+      <label for="example-text-input" class="col-form-label">or by number of proxies:</label>
+      <select formControlName="proxyNo" class="form-select ms-2">
+        <option value="" disabled>Select</option>
+        <option value="1">< Less than</option>
+        <option value="2">Greater than</option>
+      </select>
+      <input formControlName="proxyInput" placeholder="Enter" class="form-control ms-2" type="text"
+        id="example-text-input">
+      <label for="example-text-input" class="col-form-label ms-2">proxies</label>
+    </div>
+    <div class="d-flex align-items-center mb-4">
+      <label for="example-text-input" class="col-form-label">or by products:</label>
+      <input formControlName="products" placeholder="Enter Keyword" class="form-control ms-2" type="text"
+      id="example-text-input">
+      <!-- <select formControlName="products" class="form-select ms-2">
+        <option value="" disabled>Select</option>
+        <option value="1">acbc</option>
+        <option value="2">assfd</option>
+      </select>
+      <input formControlName="productInput" placeholder="Enter" class="form-control ms-2" type="text" id="example-text-input">
+      <label for="example-text-input" class="col-form-label ms-2">Ads</label> -->
+    </div>
+  </form>
+
+</div>
+
+<div class="modal-footer justify-content-between">
+  <button class="mb-0 text-danger btn btn-transparent border-0" (click)="resetForm()">Reset</button>
+  <button type="button" class="btn btn-primary" (click)="submitFilter()"> Enter </button>
+</div>

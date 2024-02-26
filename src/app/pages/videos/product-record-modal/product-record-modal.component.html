@@ -1,0 +1,572 @@
+<div class="align-items-start border-0 modal-header pb-0">
+  <div class="d-flex justify-content-between py-3 w-100">
+    <div *ngFor="let stepper of steps;let i = index" class="position-relative">
+      <div class="start-{{stepper.start}} d-flex  align-items-center justify-content-center">
+        <button type="button" *ngIf="!stepper.icon"
+          [ngClass]="stepper.active? 'btn btn-sm btn-primary rounded-pill' : 'btn btn-sm btn-outline-secondary rounded-pill'"
+          style="width: 2rem; height: 2rem" (click)="setScreenFromButton(i)">
+          {{stepper.step}}
+        </button>
+        <button *ngIf="stepper.icon" class="btn btn-sm btn-outline-primary rounded-pill">
+          <i class="bi bi-check2"></i>
+        </button>
+        <p class="mb-0 ms-2" [ngClass]="stepper.active? 'text-black' : 'text-light'">{{stepper.text}}</p>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="btn-close text-muted float-end" data-bs-dismiss="modal" aria-label="Close"
+    (click)="closeModal()"></button>
+</div>
+
+<div class="modal-body pr-modal-body">
+  <div *ngIf="selectedScreen===1">
+    <div>
+      <mat-slide-toggle [checked]="isClipOn" (toggleChange)="toggleClip()" style="padding-bottom: 10px;">CLIP
+        (beta)</mat-slide-toggle>
+    </div>
+    <div class="row optimize-accuracy">
+      <div class="col-md-6 ad-queue-scroll">
+        <div *ngIf="showProductTagInfo==false">
+          <div class="d-flex overflow-ai mb-3 flex-wrap">
+            <div class="proxy-product me-2 mb-2" *ngFor="let detail of proxyImagesList; let i = index">
+              <div class="product-img cursor">
+                <img (click)="openAddToCartModal(detail)" src={{detail.matchedImageUrl}}>
+              </div>
+              <div class="d-flex align-items-center cursor">
+                <span class="fs-sm text-gray ellipsis">{{detail?.retailerName}}</span>
+              </div>
+              <span *ngIf="!detail.superProxy && superProxyImage!=undefined" class="icon-unlock fs-md text-light fs-lg"
+                (click)="openReplaceModal(replaceModal,$event)"></span>
+              <span *ngIf="!detail.superProxy && superProxyImage==undefined" class="icon-unlock fs-md text-light fs-lg"
+                (click)="lock(detail?.productImageId,proxyCordinateId,detail.id)"></span>
+              <span *ngIf="detail.superProxy" class="feather icon-lock text-primary"
+                (click)="lock(detail?.productImageId,proxyCordinateId,detail.id)"></span>
+              <span *ngIf="!isDisabled" (click)="getAttributesData(detail)"
+                class="badge icon-code-symbol border text-bg-secondary"><i class="bi bi-code-slash fs-sm"></i></span>
+              <span *ngIf="isDisabled" class="badge icon-code-symbol border text-bg-secondary"><i
+                  class="bi bi-code-slash fs-sm"></i></span>
+              <ng-template #replaceModal let-modal>
+                <div class="modal-body text-center">
+                  <i class="bi bi-lock text-primary fs-1 mb-3"></i>
+                  <p class="fw-medium">
+                    Are you sure you want to swap the current super-proxy in this product record with this new one?
+                  </p>
+                  <p class="text-muted">
+                    By doing so, the previous super-proxy will be permanently replaced with the new one. Only proceed if
+                    the new one better represents the item in-scene.
+                  </p>
+                </div>
+
+                <div class="modal-footer justify-content-between">
+                  <button class="mb-0 text-danger btn btn-transparent border-0" data-bs-dismiss="modal"
+                    (click)="modal.dismiss('close')">Cancel</button>
+                  <button type="button" class="btn btn-primary"
+                    (click)="lock(detail?.productImageId,proxyCordinateId,detail.id)">Replace Super-Proxy</button>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="proxyImagesList.length==0">
+          <p>No Record Found</p>
+        </div>
+        <div *ngIf="showProductTagInfo">
+          <app-product-tag-info [productData]="productData" [tags]="tags"
+            (hideAttributeSection)="hideAttributeSection($event)" (onAttributeDelete)="onAttributeDelete($event)"
+            (addTag)="addTag($event)"></app-product-tag-info>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div id="superProxyCanvas" style="height: 265px !important; width: 430px !important" *ngIf="constructCanvasVar"
+          class="tag-scene active-scene mx-auto">
+          <canvas class="canvas-img" id="proxyCanvas"></canvas>
+        </div>
+        <div class="row mt-3 gx-3 align-items-center">
+          <div class="col-auto mb-3">
+            <button class="text-primary border-0 bg-white filtericon fs-4" (click)="openfilterAdvertisers()"><i class="fas fa-sliders-h"></i></button>
+          </div>
+          <div class="col mb-3">
+            <ng-select placeholder="Select Gender" [items]="genders" bindValue="id" bindLabel="prettyName"
+              [(ngModel)]="selectedGender" [closeOnSelect]="true" (scrollToEnd)="onGendersScrollEnd($event)"
+              [clearable]="true" (change)="getOptimizeAdsProducts('', true)"></ng-select>
+          </div>
+
+          <div class="col mb-3">
+            <ng-select placeholder="Select Category" [items]="categories" bindValue="id" bindLabel="name"
+              [(ngModel)]="selectedCategory" [closeOnSelect]="true" [clearable]="true"
+              (change)="getOptimizeAdsProducts('', true)"></ng-select>
+          </div>
+          <div class="col mb-3">
+            <ng-select *ngIf="isClipOn" placeholder="Select Color" [items]="colors" bindValue="id" bindLabel="name"
+              [(ngModel)]="selectedColor" [closeOnSelect]="true" (scrollToEnd)="onColorsScrollEnd($event)"
+              [clearable]="true" (change)="getOptimizeAdsProducts('', true)"></ng-select>
+          </div>
+        </div>
+        <div class="row gx-3 mb-3">
+          <div class="col">
+            <input type="text" [(ngModel)]="attributeText" class="form-control" placeholder="Type Attributes">
+          </div>
+          <div class="col-auto">
+            <button *ngIf="attributeText!='' && !isTagButtonDisabled" (click)="addTag(attributeText)" type="button"
+              class="btn btn-primary h-100">
+              Add
+            </button>
+            <button *ngIf="attributeText=='' || isTagButtonDisabled" disabled type="button"
+              class="btn btn-outline-secondary h-100">
+              Add
+            </button>
+          </div>
+          <div class="col-auto">
+            <button type="button" (click)="getOptimizeAdsProducts()" class="btn btn-outline-secondary h-100">
+              <i class="bi bi-arrow-repeat"></i>
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="d-flex flex-wrap align-items-center">
+              <div class="d-flex flex-wrap attributes-tags">
+                <button *ngFor="let tag of tags" type="button"
+                  [ngClass]="{'btn-primary': tag.weight >= 0, 'btn-danger': tag.weight < 0}"
+                  class="align-items-center btn btn-sm d-flex me-2 mb-2">
+                  <span class="tag-more tag-plus me-2">{{tag.weight}}</span>
+                  <input *ngIf="isClipOn" type="range" min="-1" max="1" step="0.1" [(ngModel)]="tag.weight"
+                    (change)="onTagChange($event, tag.id)">
+                  {{tag.name}}
+                  <span (click)="onAttributeDelete(tag)"
+                    class="bi bi-x-lg icon-close text-white fs-md cursor ms-2"></span>
+                </button>
+                <span *ngIf="tags?.length===0"> No Attributes Found</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="selectedScreen===2">
+    <div>
+      <mat-slide-toggle [checked]="isClipOn" (toggleChange)="toggleClip()" style="padding-bottom: 10px;" disabled>CLIP
+        (beta)</mat-slide-toggle>
+    </div>
+    <div class="card-body">
+      <div *ngIf="actors?.length===0">
+        No Actors Found
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="row align-items-center">
+            <div class="col-md">
+              <div class="card-title mb-0">
+                Assign the actor with this product
+              </div>
+            </div>
+            <div class="col-md-auto text-end">
+              <button [disabled]="isActorsRecognized" (click)="recognizeActors()" class="btn btn-primary">
+                Recognize Actor
+              </button>
+            </div>
+          </div>
+          <hr class="mb-3">
+        </div>
+        <div class="col-lg-6">
+          <section class="actor-scroll real-actor-scroll">
+            <div *ngIf="actors?.length!==0">
+              <div class="align-items-center d-flex form-check ms-3">
+                <input *ngIf="(assignedActor?.id==null)" checked class="form-check-input mb-2" type="radio"
+                  name="flexRadioDefault" id="flexRadioDefault1">
+                <input *ngIf="(assignedActor?.id!=null)" (click)="updateActorStatus(null)" class="form-check-input mb-2"
+                  type="radio" name="flexRadioDefault1" id="flexRadioDefault1">
+                <label class="form-check-label ms-3" for="flexRadioDefault1">
+                  <div class="d-flex align-items-center mb-2">
+                    <div class="img-wrapper none me-3">
+                      <span class="d-flex fs-sm p-2 text-center text-light">None</span>
+                    </div>
+                    <p class="mb-0 ms-1">None</p>
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div *ngFor="let item of actors; let i = index">
+              <div class="align-items-center d-flex form-check ms-3">
+                <input *ngIf="(item.id===assignedActor?.id)" checked class="form-check-input mb-2" type="radio"
+                  name="{{item.id}}" id="{{item.id}}">
+                <input *ngIf="(item.id!==assignedActor?.id)" (click)="updateActorStatus(item.id)"
+                  class="form-check-input mb-2" type="radio" name="{{item.id}}" id="{{item.id}}">
+                <label class="form-check-label ms-3" for="{{item.id}}">
+                  <div class="d-flex align-items-center img-wrapper mb-2">
+                    <img src={{item.imageUrl}}>
+                    <p class="ms-1">{{item.name}}</p>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="col-lg-6">
+          <div id="superProxyCanvas" style="height: 265px !important; width: 430px !important"
+            *ngIf="constructCanvasVar" class="tag-scene active-scene mx-auto">
+            <canvas class="canvas-img" id="proxyCanvas"></canvas>
+          </div>
+          <div class="row mt-3 gx-3 align-items-center">
+            <div class="col-auto mb-3">
+              <button class="text-primary border-0 bg-white filtericon fs-4" (click)="openfilterAdvertisers()"><i class="fas fa-sliders-h"></i></button>
+            </div>
+            <div class="col mb-3">
+              <ng-select placeholder="Select Gender" [items]="genders" bindValue="id" bindLabel="prettyName"
+                [(ngModel)]="selectedGender" [closeOnSelect]="true" (scrollToEnd)="onGendersScrollEnd($event)"
+                [clearable]="true" (change)="getOptimizeAdsProducts('', true)"></ng-select>
+            </div>
+
+            <div class="col mb-3">
+              <ng-select placeholder="Select Category" [items]="categories" bindValue="id" bindLabel="name"
+                [(ngModel)]="selectedCategory" [closeOnSelect]="true" [clearable]="true"
+                (change)="getOptimizeAdsProducts('', true)"></ng-select>
+            </div>
+            <div class="col mb-3">
+              <ng-select *ngIf="isClipOn" placeholder="Select Color" [items]="colors" bindValue="id" bindLabel="name"
+                [(ngModel)]="selectedColor" [closeOnSelect]="true" (scrollToEnd)="onColorsScrollEnd($event)"
+                [clearable]="true" (change)="getOptimizeAdsProducts('', true)"></ng-select>
+            </div>
+          </div>
+          <div class="row gx-3 mb-3">
+            <div class="col">
+              <input type="text" [(ngModel)]="attributeText" class="form-control" placeholder="Type Attributes">
+            </div>
+            <div class="col-auto">
+              <button *ngIf="attributeText!='' && !isTagButtonDisabled" (click)="addTag(attributeText)" type="button"
+                class="btn btn-primary h-100">
+                Add
+              </button>
+              <button *ngIf="attributeText=='' || isTagButtonDisabled" disabled type="button"
+                class="btn btn-outline-secondary h-100">
+                Add
+              </button>
+            </div>
+            <div class="col-auto">
+              <button type="button" (click)="getOptimizeAdsProducts()" class="btn btn-outline-secondary h-100">
+                <i class="bi bi-arrow-repeat"></i>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="d-flex flex-wrap align-items-center">
+                <div class="d-flex flex-wrap attributes-tags">
+                  <button *ngFor="let tag of tags" type="button"
+                    [ngClass]="{'btn-primary': tag.weight >= 0, 'btn-danger': tag.weight < 0}"
+                    class="align-items-center btn btn-sm d-flex me-2 mb-2">
+                    <span class="tag-more tag-plus me-2">{{tag.weight}}</span>
+                    <input *ngIf="isClipOn" type="range" min="-1" max="1" step="0.1" [(ngModel)]="tag.weight"
+                      (change)="onTagChange($event, tag.id)">
+                    {{tag.name}}
+                    <span (click)="onAttributeDelete(tag)"
+                      class="bi bi-x-lg icon-close text-white fs-md cursor ms-2"></span>
+                  </button>
+                  <span *ngIf="tags?.length===0"> No Attributes Found</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="selectedScreen===3">
+    <div>
+      <mat-slide-toggle [checked]="isClipOn" (toggleChange)="toggleClip()" style="padding-bottom: 10px;" disabled>CLIP
+        (beta)</mat-slide-toggle>
+    </div>
+    <div class="card-body">
+      <div class="row optimize-accuracy">
+        <div class="col-md-6">
+          <ng-container *ngIf="superProxyImage">
+            <section class="ad-queue-scroll audit-ad">
+              <div *ngIf="!showProductTagInfo">
+                <ng-container *ngFor="let item of retailerProductImages; let i=index">
+                  <div
+                    *ngIf="(!item?.hideRetailer) && (item?.filter ||(item?.productDetails?.length>0 && showRow(item?.productDetails)))"
+                    class="row align-items-center row-cols-2">
+                    <div class="col-md-3 brand-img">
+                      <div class="d-flex align-items-center">
+                        <img *ngIf="item?.productDetails?.[0]?.retailerImage"
+                          [src]="item?.productDetails?.[0]?.retailerImage">
+                        <img *ngIf="!item?.productDetails?.[0]?.retailerImage" [src]="item?.retailerImage">
+
+                        <span class="ms-2">{{item?.name}}</span>
+                      </div>
+                      <div class="d-flex align-items-center">
+                        <ngx-slider [(value)]="value[i]" [options]="options" id="slider{{i+1}}"
+                          (userChangeEnd)="vzotChange(i)"></ngx-slider>
+                        <i class="bi bi-arrow-repeat ms-3 text-gray fs-xxl" (click)="ChangeVzotScore(item)"></i>
+                      </div>
+                    </div>
+                    <div class="col-md-9 pe-4">
+                      <div (click)="sad(item)" class="d-flex align-items-center overflow-ai overflow-auto mb-2 pb-1">
+                        <p *ngIf="item?.filter && !showRow(item?.productDetails)">
+                          No Product Found</p>
+                        <ng-container *ngFor="let detail of item.productDetails;let z=index">
+                          <div [ngStyle]="!detail?.toDisplayAd && {'display':'none'}" class="me-2">
+                            <div class="proxy-product">
+                              <div class="product-img cursor">
+                                <img (click)="openAddToCartModal(detail)" src={{detail.matchedImageUrl}}>
+                              </div>
+                              <div class="d-flex align-items-center cursor">
+                                <span class="fs-sm text-gray ellipsis">{{item.name}}</span>
+                              </div>
+                              <span class="bi bi-x-lg icon-close text-light fs-md cursor"
+                                (click)="eliminateProduct(detail,i)"></span>
+                              <span *ngIf="yellowScoreIndicator(item,detail)"
+                                class="badge badge-ad fw-bold text-bg-warning">{{detail.score}}</span>
+                              <span *ngIf="!yellowScoreIndicator(item,detail)"
+                                class="badge badge-ad border border-white text-bg-secondary">{{detail.score}}</span>
+                              <span *ngIf="!isDisabled" (click)="getAttributesData(detail)"
+                                class="badge icon-code-symbol border text-bg-secondary"><i
+                                  class="bi bi-code-slash fs-sm"></i></span>
+                              <span *ngIf="isDisabled" class="badge icon-code-symbol border text-bg-secondary"><i
+                                  class="bi bi-code-slash fs-sm"></i></span>
+                            </div>
+                          </div>
+                        </ng-container>
+                        <div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+              <div *ngIf="showProductTagInfo">
+                <app-product-tag-info [productData]="productData" [tags]="tags"
+                  (hideAttributeSection)="hideAttributeSection($event)" (onAttributeDelete)="onAttributeDelete($event)"
+                  (addTag)="addTag($event)"></app-product-tag-info>
+              </div>
+            </section>
+          </ng-container>
+          <div *ngIf="!superProxyImage">
+            Please select super proxy first.
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div id="superProxyCanvas" style="height: 265px !important; width: 430px !important;"
+            *ngIf="constructCanvasVar" class="tag-scene active-scene mx-auto">
+            <canvas class="canvas-img" id="proxyCanvas"></canvas>
+          </div>
+          <div class="row mt-3 gx-3 align-items-center">
+            <div class="col-auto mb-3">
+              <button class="text-primary border-0 bg-white filtericon fs-4" (click)="openfilterAdvertisers()"><i class="fas fa-sliders-h"></i></button>
+            </div>
+            <div class="col mb-3">
+              <ng-select placeholder="Select Gender" [items]="genders" bindValue="id" bindLabel="prettyName"
+                [(ngModel)]="selectedGender" [closeOnSelect]="true" (scrollToEnd)="onGendersScrollEnd($event)"
+                [clearable]="true" (change)="getOptimizeAdsProducts('', true)"></ng-select>
+            </div>
+            <div class="col mb-3">
+              <ng-select placeholder="Select Category" [items]="categories" bindValue="id" bindLabel="name"
+                [(ngModel)]="selectedCategory" [closeOnSelect]="true" [clearable]="true"
+                (change)="getOptimizeAdsProducts('', true)"></ng-select>
+            </div>
+            <div class="col mb-3">
+              <ng-select *ngIf="isClipOn" placeholder="Select Color" [items]="colors" bindValue="id" bindLabel="name"
+                [(ngModel)]="selectedColor" [closeOnSelect]="true" (scrollToEnd)="onColorsScrollEnd($event)"
+                [clearable]="true" (change)="getOptimizeAdsProducts('', true)"></ng-select>
+            </div>
+          </div>
+          <div class="row gx-3 mb-3">
+            <div class="col">
+              <input type="text" [(ngModel)]="attributeText" class="form-control" placeholder="Type Attributes">
+            </div>
+            <div class="col-auto">
+              <button *ngIf="attributeText!='' && !isTagButtonDisabled" (click)="addTag(attributeText)" type="button"
+                class="btn btn-primary h-100">
+                Add
+              </button>
+              <button *ngIf="attributeText=='' || isTagButtonDisabled" disabled type="button"
+                class="btn btn-outline-secondary h-100">
+                Add
+              </button>
+            </div>
+            <div class="col-auto">
+              <button type="button" (click)="getOptimizeAdsProducts()" class="btn btn-outline-secondary h-100">
+                <i class="bi bi-arrow-repeat"></i>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="d-flex flex-wrap align-items-center">
+                <div class="d-flex flex-wrap attributes-tags">
+                  <button *ngFor="let tag of tags" type="button"
+                    [ngClass]="{'btn-primary': tag.weight >= 0, 'btn-danger': tag.weight < 0}"
+                    class="align-items-center btn btn-sm d-flex me-2 mb-2">
+                    <span class="tag-more tag-plus me-2">{{tag.weight}}</span>
+                    <input *ngIf="isClipOn" type="range" min="-1" max="1" step="0.1" [(ngModel)]="tag.weight"
+                      (change)="onTagChange($event, tag.id)">
+                    {{tag.name}}
+                    <span (click)="onAttributeDelete(tag)"
+                      class="bi bi-x-lg icon-close text-white fs-md cursor ms-2"></span>
+                  </button>
+                  <span *ngIf="tags?.length===0"> No Attributes Found</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="selectedScreen===4">
+    <div class="card-body">
+      <div class="row details-tag mb-3">
+        <div class="col-auto">
+          <div class="d-flex overflow-ai">
+            <div class="me-2">
+              <div class="mb-2">
+                <p class="mb-0 fs-md text-light text-uppercase">Series</p>
+              </div>
+              <div class="proxy-product">
+                <div class="product-img cursor product-series">
+                  <img src="{{tagSummary?.Scene?.Show?.Series?.thumbnail}}">
+                </div>
+                <div class="d-flex align-items-center cursor">
+                  <p class="fs-md text-gray">{{tagSummary?.Scene?.Show?.Series?.title}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="me-2">
+              <div class="mb-2">
+                <p class="mb-0 fs-md text-light text-uppercase">Actor</p>
+              </div>
+              <div class="proxy-product">
+                <div class="product-img cursor" *ngIf="assignedActor">
+                  <img src="{{assignedActor?.imageUrl}}">
+                </div>
+                <div class="d-flex align-items-center cursor" *ngIf="assignedActor">
+                  <p class="fs-md text-gray"> {{assignedActor?.name}} </p>
+                </div>
+                <div *ngIf="assignedActor?.id===null"
+                  class="product-img assign-actor cursor">
+                  <span class="d-flex fs-sm p-1 text-center text-light">Click to
+                    Assign Actor</span>
+                </div>
+              </div>
+            </div>
+            <div class="me-2">
+              <div class="mb-2">
+                <p class="mb-0 fs-md text-light text-uppercase">Proxy</p>
+              </div>
+              <div class="proxy-product">
+                <div class="product-img cursor">
+                  <img src="{{tagSummary?.proxyImageUrl}}">
+                </div>
+                <div class="d-flex align-items-center cursor">
+                  <span class="circle me-2" [style.background-color]="coordinateColor"></span>
+                  <span class="fs-sm text-gray ellipsis">#00054698</span>
+                </div>
+                <span class="bi bi-x-lg icon-close text-light fs-md cursor"></span>
+              </div>
+            </div>
+            <div>
+              <div class="mb-2">
+                <p class="mb-0 fs-md text-light text-uppercase">Super-Proxy</p>
+              </div>
+              <div class="proxy-product">
+                <div class="product-img cursor" [hidden]="!superProxyImage">
+                  <img src="{{superProxyImage}}">
+                </div>
+                <div class="d-flex align-items-center cursor" [hidden]="!superProxyImage">
+                  <span class="fs-sm text-gray ellipsis" [hidden]="!superProxyImage">{{superProxyName? superProxyName : this.tagSummary?.superProxyProduct?.Retailer?.name}}</span>
+                </div>
+                <div *ngIf="!superProxyImage" class="product-img assign-actor cursor">
+                  <span class="d-flex fs-sm p-1 text-center text-light">Assign Super-Proxy</span>
+                </div>
+
+                <span class="badge badge-ad border border-white text-bg-secondary" [hidden]="!superProxyImage">90</span>
+                <span class="feather icon-lock text-primary" [hidden]="!superProxyImage"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="mb-2">
+            <p class="mb-0 fs-md text-light text-uppercase">Attributes</p>
+          </div>
+          <div class="row align-items-center mb-2 gx-3">
+            <div class="col-auto">
+              <button class="text-primary border-0 bg-white filtericon fs-4" (click)="openfilterAdvertisers()"><i class="fas fa-sliders-h"></i></button>
+            </div>
+            <div class="col">
+              <ng-select placeholder="Select Gender" [items]="genders" bindValue="id" bindLabel="prettyName"
+                [(ngModel)]="selectedGender" [closeOnSelect]="true" [clearable]="true"
+                (change)="getOptimizeAdsProducts('', true)"></ng-select>
+            </div>
+
+            <div class="col">
+              <ng-select placeholder="Select Category" [items]="categories" bindValue="id" bindLabel="name"
+                [(ngModel)]="selectedCategory" [closeOnSelect]="true" [clearable]="true"
+                (change)="getOptimizeAdsProducts('', true)"></ng-select>
+            </div>
+            <div class="col">
+              <ng-select *ngIf="isClipOn" placeholder="Select Color" [items]="colors" bindValue="id" bindLabel="name"
+                [(ngModel)]="selectedColor" [closeOnSelect]="true" [clearable]="true"
+                (change)="getOptimizeAdsProducts('', true)"></ng-select>
+            </div>
+          </div>
+          <div class="d-flex flex-wrap attributes-overflow">
+            <span *ngIf="tags?.length===0"> No Attributes Found</span>
+            <button *ngFor="let tag of tags" type="button"
+              [ngClass]="{'btn-primary': tag.weight >= 0, 'btn-danger': tag.weight < 0}"
+              class="align-items-center btn btn-sm d-flex me-2 mb-2">
+              <span class="tag-more tag-plus me-2">{{tag.weight}}</span>
+              <input *ngIf="isClipOn" type="range" min="-1" max="1" step="0.1" [(ngModel)]="tag.weight"
+                (change)="onTagChange($event, tag.id)">
+              {{tag.name}}
+              <span (click)="onAttributeDelete(tag)"
+                class="bi bi-x-lg icon-close text-white fs-md cursor ms-2"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row batch-shots gx-3" *ngIf="allScenes.length === 0">No scene</div>
+      <div class="row batch-shots gx-3" *ngIf="allScenes.length > 0">
+        <div class="col-md-3" *ngFor="let scene of allScenes;let i = index">
+          <div class="position-relative mb-3">
+            <app-tagger-canvas (getCoordinates)="getCoordinates($event,scene)" (removeTag)="removeTag(scene)" [index]="i" [coordinateColor]="tagSummary?.color"
+              [mainImageInCanvas]="scene.thumbnail" [showCross]="tagExist(scene)!= -1" ></app-tagger-canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<div class="justify-content-between modal-footer bg-light-ai">
+  <a class="mb-0 text-danger" data-bs-dismiss="modal" (click)="restoreHistory()">Cancel</a>
+  <div class="d-flex align-items-center">
+    <button [hidden]="selectedScreen === 1" type="button" class="btn btn-outline-primary me-2" (click)="BackScreen()">
+      Back </button>
+    <button *ngIf="selectedScreen === 1 || selectedScreen === 2 || selectedScreen === 3" class="btn btn-primary"
+      (click)="NextScreen()">
+      {{submitButton}} </button>
+    <button *ngIf="selectedScreen === 4" class="btn btn-primary" (click)="submitModal()"> Done </button>
+  </div>
+</div>
+
+<ng-template #cancelModal let-modal>
+  <div class="modal-body text-center">
+    <i class="bi bi-check-circle-fill fs-1 text-danger"></i>
+    <h6 class="align-items-center fw-bold mt-2">Warning</h6>
+    <p class="text-muted mb-0">
+      Are you sure you want to delete this Tag Record?
+    </p>
+  </div>
+
+  <div class="modal-footer justify-content-between">
+    <button class="mb-0 text-danger btn btn-transparent border-0" data-bs-dismiss="modal"
+      (click)="modal.dismiss('close')">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="removeProxyCordinate()">Delete</button>
+  </div>
+</ng-template>
+
+<ngx-ui-loader [loaderId]="'loader-02'"></ngx-ui-loader>

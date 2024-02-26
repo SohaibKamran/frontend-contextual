@@ -1,0 +1,30 @@
+.third-widget-bg {
+  background-color: #FAFAFA;
+}
+
+.third-widget-color {
+  color: #8C8C8C;
+}
+
+.third-widget-border {
+  border: #ced4da;
+}
+
+.third-widget-amount-background {
+  background-color: #FFD703;
+  display: inline-block;
+  width: 38px;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 16px;
+  height: 24px;
+  line-height: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.third-widget-header {
+  color: #27272E;
+}/*# sourceMappingURL=top-widgets.component.css.map */

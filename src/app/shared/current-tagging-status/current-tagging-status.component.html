@@ -1,0 +1,19 @@
+<div class="card bg-white text-black card-height ">
+  <div class="card-header header-bg ">
+    <h5>
+      Current Tagging Status
+    </h5>
+  </div>
+  <div class="card-body p-0" *ngIf="currentTaggingStatusChart?.series1">
+    <div class="chartwrap current_tagging_status position-relative">
+      <apx-chart class="chartbox" [series]="currentTaggingStatusChart.series1" [chart]="currentTaggingStatusChart.chart"
+        [labels]="currentTaggingStatusChart.labels" [plotOptions]="currentTaggingStatusChart.plotOptions"
+        [colors]="pie_color" [legend]="currentTaggingStatusChart.legend" [states]="currentTaggingStatusChart.states"></apx-chart>
+      <small class="text-muted data-count todo-count" (click)="routeToDatabase(0)">{{this.series[0].toLocaleString("en-US")}}</small>
+      <small class="text-muted data-count approved-count" (click)="routeToDatabase(1)">{{this.series[1].toLocaleString("en-US")}}</small>
+      <small class="text-muted data-count returned-count" (click)="routeToDatabase(2)">{{this.series[2].toLocaleString("en-US")}}</small>
+      <small class="text-muted data-count review-count" (click)="routeToDatabase(3)">{{this.series[3].toLocaleString("en-US")}}</small>
+      <small class="text-muted data-count progress-count"(click)="routeToDatabase(4)">{{this.series[4].toLocaleString("en-US")}}</small>
+    </div>
+  </div>
+</div>

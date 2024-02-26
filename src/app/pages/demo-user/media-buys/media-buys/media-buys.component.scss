@@ -1,0 +1,734 @@
+@import '../../../../../assets/scss/variables.scss';
+.row {
+  display: flex;
+  flex-wrap: wrap; /* This will allow columns to wrap on smaller screens */
+}
+
+
+.col-md-5, .col-md-7 {
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.center-aligned{
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0px;
+  //height: 45vh;
+  margin-bottom: -1px;
+  border-radius: 0px;
+  border:0px;
+  height: 500px;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem; /* Adjust padding as needed */
+  flex-grow: 1; /* Ensures the card body expands to fill the card */
+  justify-content: center;
+}
+
+.card-body-height{
+  min-height: 300px;
+}
+
+.table-title{
+  padding-top: 45px;
+  display: flex;
+  
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  padding-left: 5px;
+  padding-right: 5px;
+
+  p{
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    font-size: small;
+    padding-bottom: 0px;
+
+  }
+
+  .link{
+    color: #1890FF;
+    cursor: pointer;
+  
+  }
+}
+
+.table-title-video{
+  display: flex;
+  
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  padding-left: 5px;
+  padding-right: 5px;
+
+  p{
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    font-size: small;
+    padding-bottom: 0px;
+
+  }
+
+  .link{
+    color: #1890FF;
+    cursor: pointer;
+  }
+}
+
+
+
+.adbuys-header{
+    color: black;
+    align-items: center;
+    padding-top: 5%;
+    padding-bottom: 5%;
+  }
+
+  .white-container{
+    background-color: #EDEDED;
+    padding: 2%;
+    border-radius: 5px;
+  }
+
+  .flex-container {
+    display: flex; /* This enables Flexbox */
+    justify-content: center; /* This spreads out the child elements */
+    /* use justify-content: space-around; for equal spacing around elements */
+  }
+  
+  .h5 {
+    color: #262626;
+  }
+
+  .card-header{
+    background-color: #fafafa;
+ 
+  }
+
+  .video-table-container{
+    padding-top: 2%;
+    padding-bottom: 2%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    .series-info-container{
+      padding-left: 8%;
+      padding-right: 2%;
+      display: flex;
+      flex-direction: column;
+
+      .season-info{
+        color: #8C8C8C;
+        font-size: small;
+      }
+    }
+
+    button {
+      display: flex;
+      padding: 8px 16px;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      border-radius: 4px;
+      border: 1px solid #D9D9D9;
+      background: white;
+
+    }
+  }
+
+
+.btn{
+  display: flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  color: #1890FF;
+  padding-bottom: 20px;
+}
+
+/* Styling for inputs */
+input[type="number"] {
+  max-width: 170px;
+  padding: 8px; /* Padding inside the input */
+  margin-bottom: 16px; /* Space below the input */
+  border-radius: 2px;
+  border: 1px solid var(--day-5, #D9D9D9);
+  background: var(--day-1, #FFF);
+}
+
+
+.parameters-container{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+
+.line {
+  height: 1px;
+  background-color: #F0F0F0;;  
+  width: 90%;
+  margin: 5% auto;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.top-row .metric, .bottom-row .metric {
+  flex-basis: calc(50% - 10px);
+}
+
+.bottom-row {
+  justify-content: space-between;
+}
+
+.bottom-row .metric {
+  flex-basis: calc(33.333% - 10px);
+}
+
+.metric {
+  text-align: center;
+}
+
+.number, .cost {
+  display: block;
+  font-size: normal;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.label {
+  font-size: small;
+  color: #8C8C8C;
+}
+
+.settings {
+  text-align: right;
+}
+
+.settings a {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 14px;
+}
+
+.settings a:hover {
+  text-decoration: underline;
+}
+
+
+.table {
+  
+  thead {
+    
+    th {
+      color: #262626;
+      font-size: normal;
+      font-weight: 500;
+      text-transform: initial;  
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+  }
+
+  .imgbox {
+    i {
+      color: #A0AEC0;
+
+    }
+
+    img {
+      width: 48px;
+      height: 70px;
+      margin: 0 1rem;
+      object-fit: cover;
+    }
+  }
+
+
+}
+
+
+.no_results {
+  margin: auto;
+  text-align: center;
+  width: 100%;
+
+  td {
+    text-align: center !important;
+    padding: 2rem;
+  }
+}
+
+
+.scene-tables-container{
+  
+  display: flex;
+  flex-direction: column;
+}
+
+
+.header-media-buy{
+  display: flex;
+  padding: 20px 30px;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+}
+
+.retailer-name-logo{
+  display: flex;
+  padding: 10px 20px 10px 10px;
+  align-items: center;
+  gap: 10px;
+}
+
+.retailer-img{
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.table-row{
+  display: flex;
+  padding: 15px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+}
+
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto; /* For horizontal scrolling if needed */
+  overflow-y: auto; /* For vertical scrolling */
+  height: 730px; /* Fixed height for the scrollable area */
+  background-color: #FFF; /* Match table background */
+}
+
+.table-responsive::-webkit-scrollbar {
+  width: 2px; /* Scrollbar width */
+}
+
+
+
+.table-responsive::-webkit-scrollbar-track {
+  background: #f0f0f0; /* Scrollbar track color */
+}
+
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.header-title {
+  margin: 0;
+  font-weight: normal; /* Adjust as needed */
+}
+
+.search-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-container {
+  position: relative;
+}
+
+.search-bar {
+  padding: 5px;
+  border-radius: 0.25rem;
+  border: 1px solid #ccc;
+  max-width: 150px;
+}
+
+.center-content {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.table tbody tr td {
+  padding: 20px;
+}
+
+.selected {
+  background-color: #E6F7FF;
+ 
+}
+
+.no-padding{
+  padding-bottom: 0px !important;
+  margin: 0px !important;
+}
+
+.product-number{
+  color: #8C8C8C;
+  font-size: small;
+}
+
+
+
+.table thead th {
+  
+  background-color: #f2f2f2;
+  border-top: none;
+  position: sticky;
+  top: 0;
+  z-index: 10; /* Ensures the header is above the scrolled content */
+}
+
+.table tbody td {
+  vertical-align: middle;
+}
+
+
+.retailer-img {
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  width: 40px; /* Adjust size as needed */
+  height: 40px; /* Adjust size as needed */
+}
+
+td span {
+  vertical-align: middle;
+  display: inline-block;
+}
+
+/* Add additional CSS rules as needed to match the provided design */
+
+
+.table-header{
+  background-color: #EDEDED !important; 
+  border: 0px;
+  font-size: 12px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.retailer-logo{
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.retailer-name{
+  color: #212121;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  margin: 0px;
+}
+
+.date{
+  color: #B9B9B9;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  margin: 0px;
+}
+
+.ad-match{
+  color: #262626;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  margin:0px
+
+}
+
+.media-buy-string{
+  color: #8C8C8C;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  margin: 0px;
+}
+
+.scene-map-row{
+  display: flex;
+  padding: 0px 20px;
+  align-items: flex-start;
+  gap: 20px;
+  align-self: stretch;
+}
+
+.scene-map-dots-container{
+  display: flex;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 3px;
+  align-self: stretch;
+  flex-wrap: wrap;
+}
+
+
+.scene-map-dot{
+  width: 8px;
+  height: 8px;
+  background-color: #D0D0D0;
+  box-sizing: border-box;
+}
+
+.line-no-margin {
+  height: 1px;
+  background-color: #F0F0F0;;  
+  width: 90%;
+  margin: 15px 0px;
+}
+
+.is-active{
+  background-color: #1890FF;
+
+}
+
+.is-active:hover {
+  box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.5); /* Adds a red box-shadow simulating a 2px border on hover */
+}
+
+.selected-scene {
+  box-shadow: 0 0 0 3px #F00; /* Simulates a 2px border */
+}
+
+.metrics-ad-match-container{
+  display: flex;
+  padding: 10px 20px 20px 20px;
+  align-items: flex-start;
+  gap: 50px;
+  align-self: stretch;
+}
+
+.metric-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 5px;
+
+  .metric-label{
+    color: #8C8C8C;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    margin: 0px;
+  }
+  .scene-number{
+    margin: 0px;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    color: #262626;
+  }
+}
+
+.ad-placement-container{
+  display: flex;
+  padding: 20px 40px 0px 40px;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.ad-placement-string{
+  color: var(--day-Title, #262626);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.unique-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr; /* 1:1:2 ratio for the three columns */
+  background-color: #FAFAFA;
+  position: relative;
+  height: 750px;
+}
+
+
+.unique-ad-placements-column {
+  grid-column: 1;
+  padding: 20px;
+}
+
+.unique-table-section {
+  grid-column: 2 / 4; /* Spanning the second and third columns */
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.unique-table-header {
+  display: flex;
+  background-color: #fafafa; /* Header background color */
+  position: sticky;
+  top: 0;
+  z-index: 10; /* Ensure the header is above the scrolled content */
+  padding: 25px;
+}
+
+.unique-table-body {
+  overflow-y: auto;
+  height: 680px;
+}
+
+.unique-header-cell {
+  text-align: left;
+  color: var(--day-Title, #262626);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+
+.unique-header-cell.unique-contextual-ad {
+  display: flex;
+  flex: 2;
+  flex: 0 0 100px; /* Adjust the width as needed */
+  padding: 0px 16px 0px 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.unique-table-row {
+  display: flex;
+  border-bottom: 1px solid #f0f0f0; /* Row separator */
+  background-color: white; /* Row background color */
+}
+
+.unique-cell {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  gap:20px
+}
+
+.unique-header-cell.unique-scene,
+.unique-cell.unique-scene {
+  flex: 0 0 33%; /* Approximately half the size of the Contextual Ad column */
+}
+
+.unique-header-cell.unique-contextual-ad,
+.unique-cell.unique-contextual-ad {
+  flex: 0 0 66%; /* Double the size of the Scene column */
+}
+
+.unique-cell.unique-scene {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  color: var(--day-Primary, #262626);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+
+.unique-ad-image {
+  display: flex;
+  width: 100px;
+  height: 60px;
+  align-items: flex-start;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.unique-ad-details {
+  color: var(--day-Title, #262626);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px; /* 157.143% */
+}
+
+.unique-ad-title {
+  color: var(--day-Title, #262626);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  word-wrap: break-word; /* Older browsers */
+  overflow-wrap: break-word; /* Standard property for wrapping */
+  word-break: break-word;
+}
+
+.unique-ad-price {
+  color: var(--Character-Secondary, #8C8C8C);
+  
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 166.667% */
+}
+
+.unique-product-img{
+  object-fit: cover;
+  display: flex;
+  width: 60px;
+  height: 60px;
+  align-items: flex-start;
+  border-radius: 4px;
+}
+
+
+.retailer-container{
+  height: 400px;
+  overflow-y: auto;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.7);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(0.7);
+    opacity: 1;
+  }
+}
+
+.scene-map-dot.pulsing {
+  animation: pulse 1s infinite ease-in-out;
+}
+
+.advertiser-name{
+  max-width: 150px; /* Set maximum width */
+  white-space: nowrap; /* Prevent text from wrapping to a new line */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis;
+}

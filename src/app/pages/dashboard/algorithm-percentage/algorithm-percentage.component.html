@@ -1,0 +1,39 @@
+<div class="card user-activity-card card-height scroll">
+  <div class="card-header header-bg d-flex align-items-center justify-content-between">
+    <h5>Algorithm Percentages</h5>
+    <div *ngIf="loader">
+      <span>
+        <span class="spinner-border text-primary " role="status">
+        </span>
+      </span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row d-flex align-items-center justify-content-between mb-3">
+      <label for="customRange1" class="form-label w-35 mb-0">GCP weightage</label>
+      <div class="d-flex align-items-center w-65">
+        <input type="range" (change)="updateTotal()" [(ngModel)]="algoPercentage.data.gcp" class="form-range px-3"
+          id="customRange1">
+        <span class="ms-2">{{algoPercentage.data.gcp+"%"??0+"%"}}</span>
+      </div>
+
+    </div>
+    <div class="row d-flex align-items-center justify-content-between mb-3">
+      <label for="customRange1" class="form-label w-35 mb-0">Color weightage</label>
+      <div class="d-flex align-items-center w-65">
+        <input type="range" (change)="updateTotal()" class="form-range px-3" id="customRange1"
+          [(ngModel)]="algoPercentage.data.color">
+        <span>{{algoPercentage.data.color+"%"??0+"%"}}</span>
+      </div>
+    </div>
+    <div class="row d-flex align-items-center justify-content-between">
+      <label for="customRange1" class="form-label w-35 mb-0">Tag weightage</label>
+      <div class="d-flex align-items-center w-65">
+        <input type="range" (change)="updateTotal()" class="form-range px-3" id="customRange1"
+          [(ngModel)]="algoPercentage.data.tag">
+        <span>{{algoPercentage.data.tag+"%"??0+"%"}}</span>
+      </div>
+    </div>
+  </div>
+  <small style="color:red" class="px-3 mb-3 text-center" *ngIf="errorMsg">Sum cannot be more or less than 100</small>
+</div>

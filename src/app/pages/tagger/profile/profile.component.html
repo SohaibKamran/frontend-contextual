@@ -1,0 +1,322 @@
+<app-pagetitle title="Profile">
+  <p></p>
+</app-pagetitle>
+<section class="register-login-profile">
+    <div class="row text-dark">
+      <div class="col-12">
+        <form [formGroup]="updateProfileForm" (ngSubmit)="updateProfile()">
+          <cdk-card>
+            <div class="row gx-5 pt-4">
+              <div class="col-md-4 text-center border-end">
+                <label for="inputFile" *ngIf="profileData?.profilePicture == null" class="img-uploader">
+                  <div>
+                    <i class="bi bi-camera mb-2 text-gray"></i>
+                    <p class="fs-md text-gray mb-0">Upload</p>
+                  </div>
+                </label>
+                <label for="inputFile" *ngIf="profileData?.profilePicture != null" class="img-uploader">
+                  <div>
+                    <img src="{{profileData?.profilePicture}}" />
+                  </div>
+                </label>
+                <input style="display: none;" class="input-content-space" type="file" accept="image/*" id="inputFile"
+                  (change)="onImageChange($event)" />
+                <p class="fs-lg text-black mb-1">{{profileData?.firstName}} {{profileData?.lastName}}</p>
+                <p class="fs-lg text-light">{{profileData?.company}}</p>
+              </div>
+              <div class="col-md-8 pe-md-5">
+                <div class="row">
+                  <div class="col-12 mb-2">
+                    <h5 class="fs-xl fw-medium text-black">Update Profile</h5>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label fs-lg text-light fw-medium">First
+                        Name</label>
+                      <input type="text" formControlName="firstName" class="form-control" id="firstName"
+                        placeholder="First Name">
+                      <label *ngIf="updateProfileForm.controls['firstName'].touched &&
+                        updateProfileForm.controls['firstName'].hasError('required')" class="text-danger">
+                        first name is required.
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label fs-lg text-light fw-medium">Last
+                        Name</label>
+                      <input type="text" formControlName="lastName" class="form-control" id="lastName"
+                        placeholder="Last Name">
+                      <label *ngIf="updateProfileForm.controls['lastName'].touched &&
+                        updateProfileForm.controls['lastName'].hasError('required')" class="text-danger">
+                        last name is required.
+                      </label>
+                    </div>
+                  </div>
+                  <!-- <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label fs-lg text-light fw-medium">Bank routing
+                        number (ABA/US SWIFT)</label>
+                      <input type="text" formControlName="bankRoutingNumber" class="form-control"
+                        id="exampleFormControlInput1" placeholder="Enter Bank Routing Number">
+                      <label *ngIf="updateProfileForm.controls['bankRoutingNumber'].touched &&
+                          updateProfileForm.controls['bankRoutingNumber'].invalid" class="text-danger">
+                        Bank Routing Number is required
+                      </label>
+                    </div>
+                  </div> -->
+                  <!-- <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label fs-lg text-light fw-medium">Recipient account
+                        number</label>
+                      <input type="text" formControlName="recipientAccountNumber" class="form-control"
+                        id="exampleFormControlInput1" placeholder="Enter Recipient Account Number">
+                      <label *ngIf="updateProfileForm.controls['recipientAccountNumber'].touched &&
+                          updateProfileForm.controls['recipientAccountNumber'].invalid" class="text-danger">
+                        Recipient Account Number is required
+                      </label>
+                    </div>
+                  </div> -->
+                  <!-- <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label fs-lg text-light fw-medium">Recipient Tax ID
+                        or identification number</label>
+                      <input type="text" formControlName="recipientTaxId" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Enter Recipient Tax ID or Identification Number">
+                      <label *ngIf="updateProfileForm.controls['recipientTaxId'].touched &&
+                          updateProfileForm.controls['recipientTaxId'].invalid" class="text-danger">
+                        Recipient Tax ID or Identification number is required
+                      </label>
+                    </div>
+                  </div> -->
+                  <div class="col-lg-6">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label fs-lg text-light fw-medium">Title</label>
+                      <input type="text" formControlName="title" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Enter your Title">
+                      <label *ngIf="updateProfileForm.controls['title'].touched &&
+                          updateProfileForm.controls['title'].invalid" class="text-danger">
+                        Title is required
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1"
+                        class="form-label fs-lg text-light fw-medium">Company</label>
+                      <input type="text" formControlName="company" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Enter Company Name">
+                      <label *ngIf="updateProfileForm.controls['company'].touched &&
+                          updateProfileForm.controls['company'].invalid" class="text-danger">
+                        Company is required
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label fs-lg text-light fw-medium">Username</label>
+                      <input type="text" formControlName="email" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Enter your username">
+                      <label *ngIf="updateProfileForm.controls['email'].touched &&
+                          updateProfileForm.controls['email'].invalid" class="text-danger">
+                        email is required
+                      </label>
+                    </div>
+                  </div>
+                  <!-- <div class="col-md-3">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label fs-lg text-light fw-medium">Country
+                        Code</label>
+                      <ng-select placeholder="Select Country Code" [items]="countries" bindValue="id" bindLabel="phone"
+                        [closeOnSelect]="true" [clearable]="false" (change)="onChange($event)"
+                        formControlName="countryCode">
+                        <ng-template ng-label-tmp let-item="item">
+                          <img height="15" width="15" [src]="item.flagUrl" />
+                          <b>{{item.phone}}</b>
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-index="index">
+                          <img height="15" width="15" [src]="item.flagUrl" />
+                          <b>{{item.phone}}</b>
+                        </ng-template>
+                      </ng-select>
+                      <label *ngIf="updateProfileForm.controls['countryCode'].touched &&
+                          updateProfileForm.controls['countryCode'].invalid" class="text-danger">
+                        Country Code is required
+                      </label>
+                    </div>
+                  </div> -->
+                  <div class="col-lg-6">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label fs-lg text-light fw-medium">Phone</label>
+                      <input type="text" formControlName="phoneNo" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Enter your Phone Number">
+                      <label *ngIf="updateProfileForm.controls['phoneNo'].touched &&
+                          updateProfileForm.controls['phoneNo'].invalid" class="text-danger">
+                        Phone number is required
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1"
+                        class="form-label fs-lg text-light fw-medium">Address</label>
+                      <input type="text" formControlName="address" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Enter your Address">
+                      <label *ngIf="updateProfileForm.controls['address'].touched &&
+                          updateProfileForm.controls['address'].hasError('required')" class="text-danger">
+                        Address is required
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label fs-lg text-light fw-medium">State</label>
+                      <input type="text" formControlName="state" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Enter your State">
+                      <label *ngIf="updateProfileForm.controls['state'].touched &&
+                          updateProfileForm.controls['state'].invalid" class="text-danger">
+                        State is required
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label fs-lg text-light fw-medium">Zip</label>
+                      <input type="text" formControlName="zipCode" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Enter your Zip Code">
+                    </div>
+                  </div>
+                  <div class="col-md-6" *ngIf="role==2">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label fs-lg text-light fw-medium">Bank
+                        Country</label>
+                      <select class="form-select" (change)="selectBankCountry($event)">
+                        <option disabled="true" value="null">Select country</option>
+                        <option *ngFor="let country of countries" [selected]="bankCountryId == country.id"
+                          [value]="country.id">
+                          {{country.name}}</option>
+                      </select>
+                      <label *ngIf="updateProfileForm.controls['bankCountry'].touched &&
+                          updateProfileForm.controls['bankCountry'].invalid" class="text-danger">
+                        Country is required
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-6" *ngIf="role==2">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label fs-lg text-light fw-medium">Country</label>
+                      <select class="form-select" (change)="selectCountry($event)">
+                        <option disabled="true" value="null" selected>Select country</option>
+                        <option *ngFor="let country of countries" [selected]="countryId == country.id" [value]="country.id">
+                          {{country.name}}
+                        </option>
+                      </select>
+                      <label *ngIf="updateProfileForm.controls['country'].touched &&
+                          updateProfileForm.controls['country'].invalid" class="text-danger">
+                        Country is required
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-6" *ngIf="role==2">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1"
+                        class="form-label fs-lg text-light fw-medium">Province/Region</label>
+                      <input type="text" formControlName="province" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Enter Province/Region">
+                      <label *ngIf="updateProfileForm.controls['province'].touched &&
+                          updateProfileForm.controls['province'].invalid" class="text-danger">
+                        Province/Region is required
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-6" *ngIf="role==2">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label fs-lg text-light fw-medium">City</label>
+                      <input type="text" formControlName="city" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Enter City">
+                      <label *ngIf="updateProfileForm.controls['city'].touched &&
+                          updateProfileForm.controls['city'].invalid" class="text-danger">
+                        City is required
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-6" *ngIf="role==2">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label fs-lg text-light fw-medium">Bank Routing Number</label>
+                      <input type="text" formControlName="bankRoutingNumber" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Enter Bank Routing Number">
+                    </div>
+                  </div>
+                  <div class="col-md-6" *ngIf="role==2">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label fs-lg text-light fw-medium">Recipient Account Number</label>
+                      <input type="text" formControlName="recipientAccountNumber" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Enter Recipient Account Number">
+                    </div>
+                  </div>
+                  <div class="col-md-6" *ngIf="role==2">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label fs-lg text-light fw-medium">Recipient Tax Id</label>
+                      <input type="text" formControlName="recipientTaxId" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Enter Recipient Tax Id">
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label fs-lg text-light fw-medium">Old
+                        Password</label>
+                      <input type="password" formControlName="oldPassword" autocomplete="new-password"
+                        class="form-control" id="oldPassword" placeholder="Type your old password">
+                      <label *ngIf="updateProfileForm.controls['oldPassword'].touched &&
+                      updateProfileForm.controls['oldPassword'].hasError('required')" class="text-danger">
+                        minimum password length is 8.
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label fs-lg text-light fw-medium">New
+                        Password</label>
+                      <input type="password" formControlName="newPassword" class="form-control" id="newPassword"
+                        placeholder="Type your new password">
+                      <label *ngIf="updateProfileForm.controls['newPassword'].touched &&
+                        updateProfileForm.controls['newPassword'].hasError('required')" class="text-danger">
+                        minimum password length is 8.
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label fs-lg text-light fw-medium">Confirm
+                        Password</label>
+                      <input type="password" formControlName="confirmPassword" class="form-control" id="confirmPassword"
+                        placeholder="Confirm password">
+                      <label *ngIf="updateProfileForm.controls['confirmPassword'].touched &&
+                      updateProfileForm.get('newPassword').value !== updateProfileForm.get('confirmPassword').value"
+                        class="text-danger">
+                        New Password and Confirm Password should be same.
+                      </label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6 mx-auto text-center">
+                      <label *ngIf="isError" class="fs-xl fw-bold mb-3 text-danger"> {{errorMessage}} </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </cdk-card>
+          <div class="row">
+            <div class="col-12">
+              <div class="d-flex mb-3 justify-content-end">
+                <button type="button" class="btn btn-outline-secondary">Cancel</button>
+                <button type="submit" [disabled]="!updateProfileForm.valid" class="btn btn-primary ms-3">Update
+                  Profile</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+</section>

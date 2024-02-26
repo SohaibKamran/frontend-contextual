@@ -1,0 +1,365 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLiveLabel">Filter</h5>
+  <button type="button" class="btn-close text-muted" data-bs-dismiss="modal" aria-label="Close"
+    (click)="close()"></button>
+</div>
+<div class="modal-body filterform">
+  <form [formGroup]="filterForm" class="annotator-filter-form">
+    <div class="col-lg-12 mb-3">
+      <div class="row align-items-center">
+        <div class="col-lg-4">
+          <label for="example-text-input" class="col-form-label">Series / Movie Name</label>
+        </div>
+        <div class="col-lg-8">
+          <!-- <input formControlName="series" placeholder="Select Series" class="form-control" type="text"
+              id="example-text-input"> -->
+          <!-- <div class="btn-group w-100 position-relative" ngbDropdown id="example-text-input">
+            <input formControlName="series"
+              class="btn btn-outline-secondary d-flex dropdown-toggle justify-content-between" ngbDropdownToggle
+              type="button" id="dropdownBasic1">
+            <i class="bi bi-caret-down-fill ms-2 fs-md text-gray"></i>
+            <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic1" scrollTracker
+              (scrolled)="onSeriesScrollEnd($event)">
+              <a class="dropdown-item text-success" (click)="openAddSeriesModal()">+Add Series</a>
+              <a class="dropdown-item" *ngFor="let series of seriesNames;let i= index"
+                (click)="selectSeries(series)">{{series.title}}
+              </a>
+            </div>
+          </div> -->
+          <ng-select formControlName="series" placeholder="Select Series" [items]="seriesNames" bindLabel="title"
+            [closeOnSelect]="true" (scrollToEnd)="onSeriesScrollEnd($event)" [clearable]="false"
+            (change)="selectSeries($event)" (search)="searchSeries($event)" [loading]="seriesLoader" >
+            <ng-template ng-header-tmp>
+              <a (click)="openAddSeriesModal()"class="text-success">+ Add New Series</a>
+          </ng-template></ng-select>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12 mb-3" *ngIf="screen==='Catalog'">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <label class="col-form-label">
+            Active/Inactive
+          </label>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-check form-switch d-flex justify-content-end">
+            <input type="checkbox" [checked]="filterForm.value.checked==1?true:false"
+              class="form-check-input input-primary" id="customswitchv1-1" (change)="filterUsingStatus($event)" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12 mb-3">
+      <div class="row align-items-center gx-3">
+        <div class="col-lg-2">
+          <label for="example-text-input" class="col-form-label">Season & Episode</label>
+        </div>
+        <div class="col-lg-5">
+          <!-- <select formControlName="seasons" placeholder="Season" class="form-select" (change)="selectSeason($event.target)">
+                          <option disabled value="">Select</option>
+                          <option *ngFor="let season of seasons" [value]="season?.seasonNo">Season {{season?.seasonNo}}</option>
+                        </select>  -->
+          <!-- <ng-multiselect-dropdown formControlName="seasons" class="dropdown-select" [placeholder]="'season'"
+            [settings]="dropdownSettings" [data]="seasons" (onSelect)="selectSeason($event)"
+            (onSelectAll)="selectAllSeason($event)" (onDeSelect)="seasonDeSelect($event)"
+            (onDeSelectAll)="onUnSelectAll($event)">
+          </ng-multiselect-dropdown> -->
+          <ng-select formControlName="seasons" placeholder="Season(s)" [items]="seasons" bindLabel="text"
+            [multiple]="true" [closeOnSelect]="false" (change)="selectSeason($event)" 
+            (scrollToEnd)="onSeasonScrollEnd($event)" [searchable]="false">
+            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index" >
+              <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" />
+              {{item.text }}
+            </ng-template>
+            <ng-template ng-multi-label-tmp let-items="items">
+              <div class="ng-value" *ngFor="let item of items.slice(0,1)">
+                {{item.text}}
+              </div>
+              <div class="ng-value" *ngIf="items.length > 1">
+                <span class="ng-value-label">+{{items.length - 1}} </span>
+              </div>
+            </ng-template>
+          </ng-select>
+
+        </div>
+        <div class="col-lg-5">
+          <!-- <select formControlName="episodes" placeholder="Episode" class="form-select">
+              <option disabled value="">Select</option>
+              <option *ngFor="let episode of episodes" [value]="episode?.id">Episode {{episode?.episodeNo}}</option>
+            </select> -->
+          <!-- <ng-multiselect-dropdown formControlName="episodes" class="dropdown-select" [placeholder]="'episode'"
+            [settings]="dropdownSettings" [data]="episodes" (onSelect)="onSelect($event)"
+            (onSelectAll)="selectAll($event)" (onDeSelect)="episodeDeSelect($event)"
+            (onDeSelectAll)="unselectAllEpisodes($event)">
+          </ng-multiselect-dropdown> -->
+          <ng-select formControlName="episodes" placeholder="Episode(s)" [items]="episodes" bindLabel="text"
+            [multiple]="true" [closeOnSelect]="false" (change)="onSelect($event)"
+            (scrollToEnd)="onEpisodeScrollEnd($event)" [searchable]="false">
+            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index" let-search="searchTerm">
+              <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" />
+              {{item.text }}
+            </ng-template>
+            <ng-template ng-multi-label-tmp let-items="items">
+              <div class="ng-value" *ngFor="let item of items.slice(0,1)">
+                {{item.text}}
+              </div>
+              <div class="ng-value" *ngIf="items.length > 1">
+                <span class="ng-value-label">+{{items.length - 1}} </span>
+              </div>
+            </ng-template>
+          </ng-select>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12 mb-3" *ngIf='false'>
+      <div class="row">
+        <div class="col-lg-4">
+          <label for="example-text-input" class="col-form-label">Tag Status</label>
+        </div>
+        <div class="col-lg-8">
+          <!-- <div class="btn-group d-flex justify-content-end scene_dropdowns">
+            <div ngbDropdown class="dropdown w-100">
+              <button type="button" class="btn btn-rounded h_40 " id="dropdownBasic1" ngbDropdownToggle>
+                <div class="{{selectedTaggingStatus?.class}}">{{selectedTaggingStatus.title}}</div>
+                <i class="bi bi-caret-down-fill"></i>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <a *ngFor="let status of taggingStauses; let i=index" ngbDropdownItem class={{status.class}}
+                  (click)="selectTaggingStatus(status)">
+                  {{status.title}}
+                </a>
+              </div>
+            </div>
+          </div> -->
+          <ng-select placeholder="PR Status" [items]="PRStatuses" bindLabel="text" [closeOnSelect]="true"
+            (change)="filterUsingStatus($event)" [multiple]="false" [closeOnSelect]="false" [clearable]="false">
+            <ng-template ng-label-tmp let-item="item">
+              <span class="{{item.class}}">{{item.text}}</span>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+              <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" />
+              <span class="{{item.class}}"> {{item.text }} </span>
+            </ng-template>
+          </ng-select>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12 mb-3" *ngIf="screen=='Database'">
+      <div class="row">
+        <div class="col-lg-4">
+          <label for="example-text-input" class="col-form-label">PR Status</label>
+        </div>
+        <div class="col-lg-8">
+          <!-- <div class="btn-group scene_dropdowns w-100">
+            <div ngbDropdown class="dropdown w-100">
+              <button type="button" class="btn btn-rounded h_40 " id="dropdownBasic1" ngbDropdownToggle>
+                <div class="{{selectedPRStatus?.class}}">{{selectedPRStatus.title}}</div>
+                <i class="bi bi-caret-down-fill"></i>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <a *ngFor="let status of PRStatuses; let i=index" ngbDropdownItem class={{status.class}}
+                  (click)="selectPRStatus(status)">
+                  {{status.title}}
+                </a>
+              </div>
+            </div>
+          </div> -->
+          <ng-select placeholder="PR Status" formControlName="tagStatus" [items]="PRStatuses" bindLabel="title"
+            [closeOnSelect]="true" (change)="selectPRStatus($event)" [multiple]="false" [closeOnSelect]="true"
+            [clearable]="false">
+            <ng-template ng-label-tmp let-item="item">
+              <span class="{{item.class}}">{{item.title}}</span>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+              <span class="{{item.class}}"> {{item.title }} </span>
+            </ng-template>
+          </ng-select>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- <div class="col-lg-12 mb-3">
+        <div class="row">
+          <div class="col-xl-12 mb-3">
+            <label for="example-text-input">VZoT Score</label>
+          </div>
+          <div class="col-xl-6">
+            <label for="example-text-input">Min</label>
+          </div>
+          <div class="col-xl-6">
+            <label for="example-text-input">Max</label>
+          </div>
+          <div class="col-lg-12">
+            <div class="col-lg-6 mb-3">
+              <input type="number" formControlName="min" class="form-control"  [(ngModel)]="minValue" value={{minValue}}/>
+            </div>
+            <div class="col-lg-6 mb-3">
+              <input type="number" formControlName="max" class="form-control" [(ngModel)]="maxValue" value={{maxValue}}/>
+            </div>
+
+            </div>
+            <div class="col-lg-12">
+              <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ngx-slider>
+            </div>
+        </div>
+      </div> -->
+    <div class="col-lg-12 mb-3" *ngIf="screen!='Catalog'">
+      <div class="row">
+        <div class="col-xl-12 mb-3">
+          <label for="example-text-input">VZoT Score</label>
+        </div>
+        <div class="col-xl-6 mb-3">
+          <label for="example-text-input">Min</label>
+          <input formControlName="min" class="form-control" type="number" id="example-text-input"
+            [value]="filterForm.value.min">
+        </div>
+        <div class="col-xl-6 mb-3">
+          <label for="example-text-input">Max</label>
+          <input formControlName="max" class="form-control" type="number" id="example-text-input"
+            [value]="filterForm.value.max">
+        </div>
+        <div class="col-lg-12 custom-slider">
+          <ngx-slider [(value)]="filterForm.value.min" [(highValue)]="filterForm.value.max"
+            [options]="options"></ngx-slider>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-lg-12 mb-3" *ngIf="screen=='Database'">
+      <div class="row">
+        <div class="col-xl-12 mb-3">
+          <label for="example-text-input">Series Completeness</label>
+        </div>
+        <div class="col-xl-6 mb-3">
+          <label for="example-text-input">Min</label>
+          <input formControlName="minimum" [(ngModel)]="minValue1" class="form-control" type="number"
+            id="example-text-input" value={{minValue1}}>
+        </div>
+        <div class="col-xl-6 mb-3">
+          <label for="example-text-input">Max</label>
+          <input formControlName="maximum" [(ngModel)]="maxValue1" class="form-control" type="number"
+            id="example-text-input" value={{maxValue1}}>
+        </div>
+        <div class="col-lg-12 custom-slider">
+          <ngx-slider [(value)]="minValue1" [(highValue)]="maxValue1" [options]="options1"></ngx-slider>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="col-lg-12 mb-3" *ngIf="screen!='Catalog'">
+      <div class="row">
+        <div class="col-lg-4">
+          <label for="example-text-input" class="col-form-label">Annotator</label>
+        </div>
+        <div class="col-lg-8">
+          <!-- <select formControlName="tagger" class="form-select">
+              <option disabled selected value="">Select</option>
+              <option *ngFor="let tag of tagger" [value]="tag?.id">{{tag?.fullName}}</option>
+
+            </select> -->
+          <!-- <ng-multiselect-dropdown formControlName="tagger" class="dropdown-select" [placeholder]="'Annotator'"
+            [settings]="dropdownSettings" [data]="tagger" (onSelect)="onItemSelect($event)"
+            (onSelectAll)="onSelectAll($event)" (onDeSelect)="taggerDeSelect($event)"
+            (onDeSelectAll)="unSelectAllTaggers($event)">
+          </ng-multiselect-dropdown> -->
+          <ng-select formControlName="tagger" placeholder="Annotator(s)" [items]="tagger" bindLabel="fullName"
+            [multiple]="true" [closeOnSelect]="false" (change)="onItemSelect($event)" [clearable]="taggerLoader?false:true"
+            (scrollToEnd)="onTaggerScrollEnd($event)" (search)="searchTagger($event)"[loading]="taggerLoader" (clear)="clearSearch()">
+            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index" let-search="searchTerm">
+              <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" />
+              {{item.fullName }}
+            </ng-template>
+            <ng-template ng-multi-label-tmp let-items="items">
+              <div class="ng-value" *ngFor="let item of items.slice(0,1)">
+                {{item.fullName}}
+              </div>
+              <div class="ng-value" *ngIf="items.length > 1">
+                <span class="ng-value-label">+{{items.length - 1}} </span>
+              </div>
+            </ng-template>
+          </ng-select>
+
+        </div>
+      </div>
+    </div>
+    <div *ngIf="screen!='Annotator'" class="col-lg-12 mb-3">
+      <div class="row">
+        <div class="col-lg-4">
+          <label for="example-text-input" class="col-form-label">Actor</label>
+        </div>
+        <div class="col-lg-8">
+          <ng-select formControlName="actor" placeholder="Actors(s)" [items]="actors" bindLabel="text" [multiple]="true"
+            [closeOnSelect]="false" (change)="selectActor($event)" (scrollToEnd)="getActors(null,actorPagination.pageNo+1)" (search)="searchActor($event)" [loading]="actorLoader" (clear)="clearActor($event)">
+            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index" let-search="searchTerm">
+              <input id="item-{{index}}" type="checkbox" [checked]="item$.selected"  />
+              {{item.text}}
+            </ng-template>
+            <ng-template ng-multi-label-tmp let-items="items">
+              <div class="ng-value" *ngFor="let item of items | slice:0:1">
+                {{item['text']}}
+              </div>
+              <div class="ng-value" *ngIf="items.length > 1">
+                <span class="ng-value-label">+{{items.length - 1}} </span>
+              </div>
+            </ng-template>
+          </ng-select>
+        </div>
+        <!-- <input formControlName="series" placeholder="Select Series" class="form-control" type="text"
+              id="example-text-input"> -->
+        <!-- <select formControlName="actorId" class="form-select" (change)="selectSeries($event.target)">
+            <option disabled value="">Actor</option>
+            <option *ngFor="let actor of actors" [value]="actor?.id">{{actor?.name}}</option>
+          </select> -->
+
+      </div>
+    </div>
+    <!-- <div class="form-select">
+        <label>{{ label }}</label>
+        <div class="checkbox-select">
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle"
+              type="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              {{ selectedOptions.length }} selected
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <div class="dropdown-item">
+                <input
+                  type="checkbox"
+                  id="select-all"
+                  [checked]="isSelectAllChecked"
+                  (change)="toggleSelectAll($event)"
+                />
+                <label for="select-all">Select All</label>
+              </div>
+              <div class="dropdown-divider"></div>
+              <div
+                class="dropdown-item"
+                *ngFor="let option of optionss"
+                (click)="toggleOption(option)"
+              >
+                <input
+                  type="checkbox"
+                  [checked]="selectedOptions.indexOf(option) >= 0"
+                />
+                <label>{{ option.label }}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+  </form>
+</div>
+<div class="d-flex justify-content-between modal-footer ">
+  <button type="button" class="text-danger border-0 bg-transparent " data-bs-dismiss="modal" (click)="close()"> Cancel
+  </button>
+  <div class="mx-2">
+    <button type="button" class="btn btn-outline-primary" (click)="resetFilters()"> Reset </button>
+    <button type="button" class="btn btn-primary ms-3" (click)="submitFilter()"> Enter </button>
+  </div>
+</div>

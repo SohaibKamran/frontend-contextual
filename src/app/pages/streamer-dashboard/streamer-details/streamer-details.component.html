@@ -1,0 +1,149 @@
+<div class="modal-header align-items-center">
+  <h5 class="modal-title" id="exampleModalLiveLabel">Video Series Details</h5>
+  <!-- <button type="button" class="btn-close text-muted" data-bs-dismiss="modal" aria-label="Close"
+        (click)="modalService.dismissAll('Close click')">
+      </button> -->
+</div>
+<div *ngIf="loader" class="text-center">
+  <div class="spinner-border text-primary " role="status">
+  </div>
+</div>
+
+<div class="modal-body" *ngIf="!loader">
+  <form [formGroup]="videoDetailsForm">
+    <div class="row">
+      <div class="col-lg-4">
+        <label *ngIf="!moviePoster" for="movieposter" class="btn upload-div">
+          <i class="bi bi-plus-lg mb-2"></i>
+          <p class="text-gray mb-0">Upload</p>
+        </label>
+        <label *ngIf="moviePoster" for="movieposter" class="media-div">
+          <img [src]="moviePoster" class="img-thumbnail-tv">
+          <div class="delete-button fs-3 mt-1 text-center text-gray">
+            <i class="bi bi-x-circle-fill" (click)="removeImage('poster')"></i>
+          </div>
+        </label>
+        <input type="file" style="visibility:hidden; display: none;" accept="image/jpeg,
+        image/jpg,
+        image/png,
+        image/gif,
+        image/svg+xml,
+        image/svg,
+        image/webp" id="movieposter" (change)="showImage($event,'poster')" #video />
+        <span *ngIf="moviePoster===null" style="color:red; font-size: 10px;">Movie Poster is
+          required</span>
+      </div>
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-body">
+            <div class="col-lg-12 mb-3">
+              <div class="row mt-3">
+                <div class="col-lg-12 mb-2">
+                  <label for="example-text-input">Series Title</label>
+                </div>
+                <div class="col-lg-12">
+                  <input formControlName="title" name="seriesTitle" placeholder="Enter name" class="form-control"
+                    type="text" (keyup)="trimSpaces($event)">
+                  <div *ngIf="videoDetailsForm.get('title')?.invalid &&videoDetailsForm.get('title')?.touched">
+                    <p class="mb-0" style="color: red;font-size: 13px;"> <small>Series Title is required.*</small></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-lg-12 mb-3">
+              <div class="row">
+                <div class="col-lg-12 mb-2">
+                  <label for="example-text-input">Video Status</label>
+                </div>
+                <div class="col-lg-12 ">
+                  <select formControlName="statusDropdown" class="form-select">
+                    <option selected disabled [value]="">Series Status</option>
+                    <option [value]="1">In Review</option>
+                    <option [value]="2">Active</option>
+                    <option [value]="3">Inactive</option>
+                  </select>
+                </div>
+              </div>
+            </div> -->
+            <div class="col-lg-12 mb-3">
+              <div class="row mt-3">
+                <div class="col-lg-12 mb-3">
+                  <label for="example-text-input">Production Company(s)</label>
+                </div>
+                <div class="col-lg-12 mb-2">
+                  <input name="director" formControlName="director" placeholder="Enter company name"
+                    class="form-control" type="text" (keyup)="trimSpaces($event)">
+                  <div *ngIf="videoDetailsForm.get('director')?.invalid &&videoDetailsForm.get('director')?.touched">
+                    <p class="mb-0" style="color: red;font-size: 13px;"> <small>Field is required.*</small></p>
+                  </div>
+                </div>
+
+                <div class="col-lg-12 mb-2">
+                  <input formControlName="director1" name="director1" placeholder="Enter company name"
+                    class="form-control" type="text" (keyup)="trimSpaces($event)">
+                  <div *ngIf="videoDetailsForm.get('director1')?.invalid &&videoDetailsForm.get('director1')?.touched">
+                    <p class="mb-0" style="color: red;font-size: 13px;"> <small>Field is required.*</small></p>
+                  </div>
+                </div>
+                <div class="col-lg-12 mb-2">
+                  <input formControlName="director2" name='director2' placeholder="Enter company name"
+                    class="form-control" type="text" (keyup)="trimSpaces($event)">
+                  <div *ngIf="videoDetailsForm.get('director2')?.invalid &&videoDetailsForm.get('director2')?.touched">
+                    <p class="mb-0" style="color: red;font-size: 13px;"> <small>Field is required.*</small></p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <hr>
+            <div class="col-lg-12 mb-2 mt-3">
+              <div class="row">
+                <div class="col-lg-10 mb-2">
+                  <label for="example-text-input">Available for Viewing on Platform</label>
+                  <br>
+                  <span class="text-muted">This enables the video series' poster to appear on the Demo
+                    Users' Home screens. Deselecting this removes the video series from Demo Users'
+                    viewing</span>
+                </div>
+                <div class="col-lg-2 form-check form-switch mb-2">
+                  <div class="d-flex justify-content-end">
+                    <input type="checkbox" [checked]="checked" (change)="changeStatus($event)"
+                      class="form-check-input input-primary" id="customswitchv1-1" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- <div class="text-right justify-content-end mb-3">
+                        <button type="button" routerLink="/videos" class="btn" style="background-color: rgb(199, 196, 196);" > Cancel
+                        </button>
+                        &nbsp;
+                        <button type="button" class="btn btn-primary text-center"> Add new Movie </button>
+                    </div> -->
+  </form>
+
+</div>
+<div class="modal-footer" style="justify-content: space-between">
+    <button type="button" class="btn btn-danger ms-3" (click)="delete()">Delete</button>
+    <span class="d-flex justify-content-end">
+      <button type="button" (click)="modalService.dismissAll('Cancel Clicked')"
+        class=" text-danger btn border-0 bg-transparent">Cancel</button>
+      &nbsp;
+      <button [disabled]="!videoDetailsForm.valid || loader" type="button" class="btn btn-primary" [disabled]="submitButton"
+        (click)="submit()"> Submit
+      </button>
+    </span>
+</div>
+
+<ng-template #selectModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title h4" id="myLargeModalLabel">Large Modal</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      (click)="modal.dismiss('Close click')"></button>
+  </div>
+</ng-template>

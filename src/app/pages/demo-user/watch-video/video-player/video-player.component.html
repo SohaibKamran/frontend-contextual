@@ -1,0 +1,79 @@
+<app-pagetitle [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+<div class="alerts-top">
+  <app-ad-alert *ngIf="userRole!='1'"></app-ad-alert>
+</div>
+<main> 
+    <section class="mb-5 pb-0" [ngClass]="{
+      'wrap-video-full': isFullScreen,
+      'wrap-video-not-user': isUserDemo,
+      'wrap-video': !isFullScreen && isUserDemo
+    }"> <!--// wrap-video-full is for fullscreen view // -->
+    <div class="row">
+      <div class="col-md-auto mx-auto video-player-container">
+        <app-vjs-player *ngIf="currentEpisode?.videoUrl"
+          [options]="{autoplay: false, controls: true, sources: [{ src: currentEpisode?.videoUrl, type:currentEpisode?.videoType }],controlBar:{skipButtons:{forward:5,backward:5}},title:'My Video'}"
+          (newItemEvent)="pauseVideo($event)" (playEvent)="playVideo($event)" [showAdds]="showAdds"
+          (toggleFullScreen)="toggleFullScreen($event)"
+          [currentEpisode]="currentEpisode" [series]="currentEpisode?.Series" [sceneProductsData]="sceneProductsData" [verticalAds]="false" [poster]="posters[posterIds[videoId]]">
+
+        </app-vjs-player>
+      </div>
+    </div>
+    
+
+  </section>
+  <section style="position: relative; ">
+    <div class="container">
+      
+      <div class="left-column">
+        <h1 class="contxtual-difference roboto-regular">The Contxtual Difference</h1>
+        
+        <h3 class="subheader roboto-regular">1. No expired links, ever.</h3>
+        <p class="paragraph-text roboto-light">Unlike competitors that hard-links products to a single merchant, Contxtual offers the scalability of <b style="color: #94CCFF;">Multi-Advertiser Insertion</b>. Our advanced AI serves the most accurate product ads from hundreds of live merchant feeds, ensuring product links never expire. Try it for yourself by selecting different advertisers to the right and seeing the ads change above.</p>
+        <h3 class="subheader roboto-regular">2. The power of purchase intent.</h3>
+       <p class="paragraph-text roboto-light">Contxtual represents a quantum-leap forward for streaming video, transforming it <b style="color:#94CCFF;"> passive to interactive</b>. It enables viewers to save products to <a style="text-decoration: underline;" href="/user/shopping" target="_blank">wishlists</a> effectively capturing their purchase intent.</p>
+        <p class="paragraph-text">Contxtual’s <b style="color: #94CCFF;">built-in retargeting</b> gives your advertisers the ability respond to exactly what people want to buy. This capability elevates your advertising power to the same level as the most successful ad platforms in the industry: Meta, Google, and Amazon.</p>
+      </div>
+      
+      <div class="right-column">
+        <h4 class="roboto-regular select-advertiser-text">Select Advertisers</h4>
+        <div class="line"></div>
+        <!-- Include your content here -->
+        <!--div class="categories">
+          <div class="category">FASHION</div>
+          <div class="category">CPG</div>
+          <div class="category">HOME</div>
+          <div class="category">SPECIALTY</div>
+          
+        </div-->
+        <div class="retailer-columns" #retailerColumns>
+          <!-- Column 1 for even indices -->
+          <div class="retailer-column">
+            <label class="retailer-option" [style.visibility]="shouldBeVisible ? 'visible' : 'hidden'">
+              <input type="checkbox" [(ngModel)]="selectAll" checked (change)="toggleSelectAll($event)">
+              <span class="retailer-name">Select/Deselect All</span>
+              <span class="retailer-number"></span>
+            </label>
+            <label class="retailer-option" *ngFor="let retailer of episodeRetailers; let i = index" [hidden]="i % 2 !== 0">
+              <input type="checkbox" [(ngModel)]="retailer.checked" (change)="selectRetailers(i)">
+              <span class="retailer-name">{{ retailer.name }}</span>
+              <span class="retailer-number">{{ retailer.showAdCount }}</span>
+            </label>
+          </div>
+        
+          <!-- Column 2 for odd indices -->
+          <div class="retailer-column">
+            <label class="retailer-option" *ngFor="let retailer of episodeRetailers; let i = index" [hidden]="i % 2 === 0">
+              <input type="checkbox" checked [(ngModel)]="retailer.checked" (change)="selectRetailers(i)">
+              <span class="retailer-name">{{ retailer.name }}</span>
+              <span class="retailer-number">{{ retailer.showAdCount }}</span>
+            </label>
+          </div>
+        </div>
+        
+        
+      </div>
+    </div>
+    
+  </section>
+</main>

@@ -1,0 +1,230 @@
+<div id="exampleModal5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable me-0 modal-medium">
+      <div class="modal-content actor">
+        <div class="modal-body py-0">
+  
+  
+          <div class="row">
+            <div class="col-8">
+              <div class="row mb-3 gx-2 align-items-center pt-3">
+                <div class="col-5 col-md-3">
+                  <div class="proxy-product">
+                    <div class="product-img border-primary-bold"
+                      *ngIf="currentProxyProduct!==null || currentProxyProduct!==undefined ">
+                      <img src={{currentProxyProduct.proxyImageUrl}}>
+                    </div>
+                    <span class="icon-close text-light fs-md"></span>
+                  </div>
+                </div>
+                <div class="col-7 col-md-9">
+                  <p class="text-black fw-bold fs-lg mb-0">Match Best Product to this Proxy</p>
+                  <p class="text-light fs-lg mb-0">Select the product that best matches the Proxy Image</p>
+                </div>
+              </div>
+              <div class="proxy-scroll">
+                <div class="row gx-2">
+                  <div class="col-md-3" *ngFor="let product of allProducts">
+                    <div class="proxy-product">
+                      <div class="product-img">
+                        <img src={{product?.Colors[0]?.ProductImage?.reuploadedImages?.images[0]}}>
+                        
+                      </div>
+                      <div class="d-flex align-items-center justify-content-between mb-3 product-des">
+                        <span class="fs-sm text-gray fst-italic product-name">{{product.title}}</span>
+                        <span class="fs-sm text-gray fst-italic ms-1">99%</span>
+                      </div>
+                      <img src="../../../assets/icons/ad-badge-ai.svg" class="badge-ad">
+                      <span class="icon-close text-light fs-md"></span>
+                      <span class="icon-unlock text-light fs-lg" *ngIf="checkIfInList(product)==false" (click)="selectProduct(product)"></span>
+                      <span class="icon-unlock text-light fs-lg" style="color: blue !important;" *ngIf="checkIfInList(product)==true" (click)="removeProduct(product)"></span>
+                      
+                    </div>
+                  </div>
+      
+                </div>
+              </div>
+  
+            </div>
+            <div class="col-4">
+              <div class="row bg-light">
+                <div class="col-12 pt-4">
+                  <div class="form-check">
+                    <label class="form-check-label fs-md text-light text-uppercase" for="flexCheckChecked">
+                      GROCERRY
+                    </label>
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheck" checked>
+                    <label class="form-check-label fs-md" for="flexCheck">
+                      Amazon Food
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheck" checked>
+                    <label class="form-check-label fs-md" for="flexCheck">
+                      CVS Drugs
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheck">
+                    <label class="form-check-label fs-md" for="flexCheck">
+                      Sephora Cosmetics
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <label class="form-check-label fs-md text-light text-uppercase" for="flexCheckChecked">
+                      DEPARTMENT STORE
+                    </label>
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheck" checked>
+                    <label class="form-check-label fs-md" for="flexCheck">
+                      Bloomingdales
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheck" checked>
+                    <label class="form-check-label fs-md" for="flexCheck">
+                      Global Accuracy
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheck">
+                    <label class="form-check-label fs-md" for="flexCheck">
+                      Global Accuracy
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheck">
+                    <label class="form-check-label fs-md" for="flexCheck">
+                      Global Accuracy
+                    </label>
+                  </div>
+                </div>
+  
+  
+  
+                <div class="col-12">
+                  <div class="form-check">
+                    <label class="form-check-label fs-md text-light text-uppercase" for="flexCheck">
+                      HOUSEHOLD
+                    </label>
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                  </div>
+                </div>
+  
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheck">
+                    <label class="form-check-label fs-md" for="flexCheck">
+                      Best Buy
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheck" checked>
+                    <label class="form-check-label fs-md" for="flexCheck">
+                      Global Accuracy
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheck" checked>
+                    <label class="form-check-label fs-md" for="flexCheck">
+                      Global Accuracy
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheck" checked>
+                    <label class="form-check-label fs-md" for="flexCheck">
+                      Global Accuracy
+                    </label>
+                  </div>
+                </div>
+  
+  
+  
+                <div class="col-12">
+                  <div class="form-check">
+                    <label class="form-check-label fs-md text-light text-uppercase" for="flexCheck">
+                      SPECIALITY
+                    </label>
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                  </div>
+                </div>
+  
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheck">
+                    <label class="form-check-label fs-md" for="flexCheck">
+                      Global Accuracy
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheck" checked>
+                    <label class="form-check-label fs-md" for="flexCheck">
+                      Global Accuracy
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheck" checked>
+                    <label class="form-check-label fs-md" for="flexCheck">
+                      Global Accuracy
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheck" checked>
+                    <label class="form-check-label fs-md" for="flexCheck">
+                      Global Accuracy
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12 pb-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheck" checked>
+                    <label class="form-check-label fs-md" for="flexCheck">
+                      World of Watches
+                    </label>
+                  </div>
+                </div>
+  
+              </div>
+            </div>
+          </div>
+  
+        </div>
+        <div class="modal-footer bg-gray">
+          <button type="button" class="btn btn-dark btn-sm" (click)="refreshButton()">Refresh</button>
+          <button type="button" class="btn btn-dark btn-sm ms-2" (click)="saveSuperData()">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>

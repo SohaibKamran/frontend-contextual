@@ -1,0 +1,217 @@
+<!--DESKTOP-->
+<div *ngIf="!isMobileDevice">
+  <section class="login-container">
+    <app-offcanvas-login></app-offcanvas-login>
+    <form [formGroup]="loginForm">
+      <div class="form-container">
+        <div>
+        
+          <div class="row">
+            <video #videoElement width="100%" height="auto" autoplay>
+              <source src="assets/videos/modern_family_shopping_trailer_wide.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        
+          <div class="col-9 mx-auto">
+            
+            <div class="row">
+              <div class="col-12 text-center mb-4">
+                <h2 class="sign-in-text">Sign in</h2>
+                <p class="sign-in-sub roboto-light">Please disable ad- and pop-up blockers to experience our demo.</p>
+                <!--p routerLinkActive="router-link-active" class="not-registered">Not registered? <span routerLink="/auth/register"
+                    class="text-primary cursor">Register here.</span></p-->
+              </div>
+              <div class="col-md-6 mx-auto">
+                <div class="form-group mb-3">
+                  <label class="form-label" for="username">Username</label>
+                  <input type="text" id="username" placeholder="Type your e-mail" [(ngModel)]="usernameValue" formControlName="username"
+                    class="form-control" [ngClass]="{ 'is-invalid': submitted && f?.['username'].errors }" />
+                  <div *ngIf="submitted && f?.['username'].errors" class="invalid-feedback">
+                    <div *ngIf="f['username'].errors['required']">Username is required</div>
+                  </div>
+                </div>
+                <div class="form-group mb-3 position-relative">
+                  <label class="form-label" for="password">Password</label>
+                  <input type="password" id="password" placeholder="Enter your Password" [(ngModel)]="userPassword" id="password" formControlName="password"
+                    class="form-control" [ngClass]="{ 'is-invalid': submitted && f?.['password'].errors }"
+                    value="123456" />
+                  <i class="ti ti-eye" id="togglePassword"></i>
+                  <div *ngIf="submitted && f?.['password'].errors" class="invalid-feedback">
+                    <div *ngIf="f['password'].errors['required']">Password is required</div>
+                  </div>
+                </div>
+                <div class="d-flex mt-1 justify-content-between">
+                  <div class="form-check terms">
+                    <input *ngIf="!agreedTerms" (click)="openScrollableContent(content1)"
+                      class="form-check-input checkbox" type="checkbox" id="checkbox1" />
+                    <input *ngIf="agreedTerms" disabled="true" class="form-check-input checkbox" type="checkbox"
+                      id="checkbox2" checked />
+                    By signing in you agree to the <span (click)="openScrollableContent(content1)"
+                      class="cursor text-primary">Terms and Conditions,
+                    </span> and our <a href="https://contxtual.tv/privacy-policy/" target="_blank" class="text-primary">
+                      Privacy Policy.</a>
+                  </div>
+                </div>
+                <div *ngIf="error" class="text-danger text-center mt-3 mb-0">{{ error }}</div>
+                <div class="d-grid mt-4 mb-3">
+                  <button class="btn btn-primary" *ngIf="!agreedTerms" (click)="openScrollableContent(content1)"> Sign In
+                  </button>
+                  <button class="btn btn-primary" *ngIf="agreedTerms" (click)='onSubmit(4)'> Sign In
+                  </button>
+                  <!-- <button class="btn btn-primary mt-3" (click)='onSubmit(2)'> Login (Annotator)</button> -->
+                </div>
+                <div class="mb-3 text-center">
+                  <!--label class="fs-lg fw-medium text-center">
+                    Forgot password? <span [routerLink]="['/auth/forgot-password']" class="cursor text-primary"> Recover
+                      it
+                      here. </span>
+                  </label-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+</div>
+
+
+
+<!--MOBILE-->
+<div *ngIf="isMobileDevice" style="display: block;">
+  <section class="login-container-mobile">
+    <app-offcanvas-login></app-offcanvas-login>
+    
+      <div class="form-container-mobile">
+        <div>
+          <!--FROM MOBILE-->
+            <video #videoElement width="100%" height="auto" autoplay controls>
+              <source src="assets/videos/modern_family_shopping_trailer.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          
+          <div class="col-9 mx-auto">
+            <div class="col-12 text-center mb-4">
+              <h2 class="sign-in-text">Hey there! 👋</h2>
+              <h5 style="color: #A1ADB9;">We're thrilled to show you what we've been working on. But to get the full, immersive experience of our live demo, you'll need to switch to a desktop.
+
+                Our platform comes alive on a bigger screen, where you can explore every feature and detail in its full glory. So, grab your nearest computer, get comfy, and prepare to be amazed!
+                
+                🖥️ Sign in from your desktop to dive into the experience. We promise it's worth the switch!
+                
+                See you there! 👩‍💻🚀</h5>
+            </div>
+          
+            
+          </div>
+        </div>
+      </div>
+    
+  </section>
+</div>
+
+
+<ng-template #content1 let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLongTitle">Terms and Conditions</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      (click)="modal.close('Close click')"></button>
+  </div>
+  <div (scroll)="onScroll($event)" class="modal-body">
+    <!-- <p>
+            <object data="../../../assets/pdfs/Contxtual Disclaimer for Demo.pdf" type="application/pdf" width="100%"
+              height="325px"></object>
+          </p> -->
+    <div class="row">
+      <div class="col-12 text-center">
+        <img src="../../../assets/images/logo.svg" class="mb-3" style="width: 50%">
+        <p class="fs-md fw-bold">CONTXTUAL DISCLAIMER FOR DEMO </p>
+      </div>
+      <div class="col-12 text-justify">
+        <h6 class="fs-lg fw-medium">Disclaimer for Online Technology Demo</h6>
+        <p class="fs-md">This disclaimer governs the use of the online technology demo platform, Contxtual. By accessing
+          and using this
+          platform, you agree to be bound by the terms of this disclaimer. Please read these terms carefully before
+          accessing
+          or using the platform. If you do not agree to these terms, you must not use this platform.</p>
+        <h6 class="fs-lg fw-medium">Copyrighted Materials</h6>
+        <p class="fs-md">The platform will demonstrate its functionality using copyrighted materials, but it is only for
+          demonstration purposes
+          only. We acknowledge that all materials used in the demo are owned by their respective owners and are used
+          solely
+          for demonstration purposes. The use of these materials does not indicate any endorsement, affiliation or
+          association
+          with any third party.</p>
+        <h6 class="fs-lg fw-medium">Management of Copyrighted Data Forms</h6>
+        <p class="fs-md">The technology used in the platform is an engine for managing various copyrighted data forms,
+          including images
+          and text. It tracks the attribution of all of those assets so that appropriate licensing can be put in place
+          by the
+          operator of the technology. The use of third-party copyright licenses is not part of the license to use
+          Contxtual.</p>
+        <h6 class="fs-lg fw-medium">Tracking of Training Data</h6>
+        <p class="fs-md">The use of all training data retail training data is tracked at each ad level, such that ads
+          being served by a service
+          incorporating this engine can directly keep track of the attribution of the specific training images. This
+          feature
+          enables advertisers to easily define and quantify a compensational unit for their license. In other examples,
+          specific
+          actors are tracked to every ad in the same way, so the attribution could be compensated if necessary.</p>
+        <h6 class="fs-lg fw-medium">Implications and Responsibilities</h6>
+        <p class="fs-md">As a user of the platform, you are responsible for ensuring that you comply with all applicable
+          laws, rules and
+          regulations. You agree to indemnify and hold harmless the platform, its affiliates, and their respective
+          directors,
+          officers, employees, agents and representatives from and against any and all claims, damages, liabilities,
+          costs and
+          expenses arising out of your use of the platform.</p>
+        <h6 class="fs-lg fw-medium">Data Protection Laws</h6>
+        <p class="fs-md">Contxtual complies with Local and Worldwide Data Protection Laws, including the General Data
+          Protection
+          Regulation (GDPR) and the California Consumer Privacy Act (CCPA). We collect and process personal data in
+          accordance with these laws, and we are committed to protecting the privacy and security of your personal
+          information.</p>
+        <h6 class="fs-lg fw-medium">Limitation of Liability</h6>
+        <p class="fs-md">To the fullest extent permitted by law, the platform, its affiliates, and their respective
+          directors, officers, employees,
+          agents and representatives shall not be liable for any indirect, incidental, special, consequential, punitive
+          or
+          exemplary damages, including but not limited to, damages for loss of profits, goodwill, use, data or other
+          intangible
+          losses (even if we have been advised of the possibility of such damages), arising out of or in connection with
+          the use
+          or inability to use the platform.</p>
+        <h6 class="fs-lg fw-medium">Disclaimer of Warranties</h6>
+        <p class="fs-md">The platform is provided on an "as is" and "as available" basis without warranties of any kind,
+          either express or
+          implied, including but not limited to, warranties of merchantability, fitness for a particular purpose, or
+          noninfringement.
+          We do not warrant that the platform will meet your requirements or be available on an uninterrupted,
+          secure, or error-free basis.</p>
+        <h6 class="fs-lg fw-medium">Governing Law</h6>
+        <p class="fs-md">This disclaimer and your use of the platform shall be governed by and construed in accordance
+          with the laws of the
+          jurisdiction in which the platform is hosted. Any dispute arising out of or in connection with this disclaimer
+          or your
+          use of the platform shall be resolved through arbitration in accordance with the rules of the jurisdiction in
+          which the
+          platform is hosted.</p>
+        <h6 class="fs-lg fw-medium">Modifications to the Disclaimer</h6>
+        <p class="fs-md">We reserve the right to modify this disclaimer at any time without prior notice. Any changes to
+          this disclaimer will be
+          posted on the platform. Your continued use of the platform after any such changes will constitute your
+          acceptance
+          of such changes.</p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="modal.close('Close click')">
+      Cancel </button>
+    <button type="button" class="btn btn-primary" (click)="agreeToTerms(true)">
+      Agree
+    </button>
+  </div>
+</ng-template>

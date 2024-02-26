@@ -1,0 +1,162 @@
+@import '../../../../scss/settings/custom-variables';
+@import '../../../../assets/scss/variables.scss';
+
+.my-tasks-bg {
+  background-color: $btn-gray-color;
+}
+
+.my-tasks-border {
+  border: 1px solid $checkbox-color !important;
+
+}
+
+.selected-widget {
+
+  border: 1px solid $danger-color !important
+}
+
+.header-color-blue {
+  color: $primary-color;
+}
+
+.table {
+  td {
+    .imgbox {
+      i {
+        color: $secondary-color;
+
+        &.active {
+          transform: rotate(180deg);
+        }
+      }
+
+      img {
+        width: 120px;
+        height: 65px;
+        margin: 0 1rem;
+      }
+    }
+
+    b {
+      background-color: $warning-color !important;
+      border-radius: 4px;
+      padding: 4px 12px;
+    }
+  }
+}
+
+.third-widget-amount-background {
+  background-color: $warning-color;
+  display: inline-block;
+  width: 50px;
+  height: 20px;
+  text-align: center;
+  align-items: center;
+}
+
+.mytasks_wrap {
+  h5 {
+    font-size: 14px;
+    color: $user-gray;
+    font-weight: 500;
+  }
+}
+
+.card-body {
+  h4 {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 28px;
+    color: $text_dark;
+  }
+
+  p {
+    color: $player-gray !important;
+    font-weight: 500;
+  }
+
+  .icon-tabler {
+    font-size: 34px;
+    color: $icon-tabler;
+  }
+}
+
+.mytasks_wrap {
+  .card {
+
+
+    border-radius: 4px;
+
+    .card-body {
+      table {
+        thead {
+          height: 70px;
+
+          th {
+
+            border-right: 1px solid $table-border-color;
+            font-weight: 500;
+            text-transform: capitalize;
+            font-size: 14px !important;
+          }
+        }
+
+        tbody {
+          background-color: $white-color;
+
+          td {
+            .btn-group.scene_dropdowns {
+              .dropdown {
+                button {
+                  border: 1px solid $checkbox-color;
+                  min-width: 160px;
+                  display: flex;
+                  align-items: center;
+                  padding: 10px;
+                  justify-content: space-between;
+                }
+
+                i {
+                  color: $text-gray;
+                  font-size: 13px;
+                }
+              }
+
+              .dropdown-toggle {
+                color: inherit;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+img {
+  position: relative;
+}
+
+/* style this to fit your needs */
+/* and remove [alt] to apply to all images*/
+img[alt]:after {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $white-color;
+  font-family: 'Helvetica';
+  font-weight: 300;
+  line-height: 1;
+  text-align: center;
+  content: attr(alt);
+}
+
+.table td.text-muted.td_heading {
+  white-space: normal;
+  max-width: 120px;
+  overflow: initial;
+  text-overflow: initial;
+}

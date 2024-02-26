@@ -1,0 +1,15 @@
+@import '../../../../../assets/scss/player.scss';
+
+.card {
+  height: 305px;
+  .description-season{
+    max-height: 5.55rem;
+    overflow: auto;
+    @media (max-width: 575.98px) {
+      max-height: 3.25rem;
+    }
+    @media (max-width: 767.98px) {
+      max-height: 3.65rem;
+    }
+  }
+}

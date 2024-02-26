@@ -1,0 +1,18 @@
+p.player-gray {
+  max-height: 68px;
+  overflow: auto;
+}
+
+.relevant-attributes {
+  max-height: 300px;
+  overflow: auto;
+}
+.relevant-attributes .btn-light {
+  background-color: #fff;
+  border-color: transparent;
+  color: #8C8C8C;
+}
+
+hr {
+  color: #BFBFBF;
+}/*# sourceMappingURL=product-tag-info.component.css.map */

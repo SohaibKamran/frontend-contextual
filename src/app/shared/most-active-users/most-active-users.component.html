@@ -1,0 +1,46 @@
+<div class="card user-activity-card2 card-height scroll {{cardHeight}}" >
+    <div class="card-header header-bg d-flex align-items-center justify-content-between">
+      <h5>Most Active Users</h5>
+      <a class="link-primary" *ngIf="navigateTo"(click)="routeToUserAccounts()">View all</a>
+    </div>
+    <div class="card-body" *ngIf="activeUsers" scrollTracker (scrolled)="onScrollEnd($event)">
+      <div class="row align-items-center mb-4" *ngFor="let user of activeUsers">
+        <div class="col-auto p-r-0" (click)="fetchPageNumber(user,true)">
+          <div class="u-img">
+            <img [src]="user?.profilePicture?user?.profilePicture:'assets/images/user/avatar-3.jpg'" alt="user image" class="img-radius cover-img" />
+                <!-- <i class="fas fa-circle"></i> -->
+          </div>
+        </div>
+        <div class="col" (click)="fetchPageNumber(user,true)">
+          <div class="d-flex align-items-center justify-content-between">
+            <div>
+              <a href="javascript:!">
+                <h5 class="mb-0">{{user?.fullName}}</h5>
+              </a>
+              <p class="text-muted text-sm mb-0">{{user?.company}}</p>
+            </div>
+            <div class="text-end">
+              <p class="text-muted text-sm mb-0">{{ user?.totalImpressions }}</p>
+              <p class="text-muted text-sm m-b-0">Impressions</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- <div class="card bg-white text-black card-height scroll">
+    <div class="card-header header-bg ">Most Active Users</div>
+    <div *ngFor="let user of users" class="d-flex justify-content-between px-3 pt-3">
+        <div class="d-flex ">
+            <div class=" d-flex align-items-center">{{user.pfp}}</div>
+            <div class="mx-2">
+                <div>{{user.name}}</div>
+                <div class="text-secondary small">{{user.companyName}}</div>
+            </div>
+        </div>
+        <div class="text-muted">
+            {{user.impressions}}
+        </div>
+    </div>
+</div> -->

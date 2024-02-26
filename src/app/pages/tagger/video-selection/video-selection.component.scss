@@ -1,0 +1,28 @@
+.card {
+    overflow: hidden;
+  .card-img-top {
+    height: 250px;
+    width: 100%;
+    -o-object-fit: cover;
+    border-radius: 20px;
+    object-fit: cover;
+    padding: 8px;
+    transition: all 0.5s;
+  }
+  &:hover{
+    .card-img-top{
+        transform: scale(1.1);
+        transition: all 0.5s;
+    }
+  }
+  .card-body {
+    h5 {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      height: 40px;
+    }
+  }
+
+}

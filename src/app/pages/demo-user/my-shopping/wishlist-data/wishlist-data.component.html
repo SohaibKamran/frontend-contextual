@@ -1,0 +1,57 @@
+<div class="row wishlist-container" data-masonry='{"percentPosition": true }'>
+    <!-- <div *ngIf="loader" class="spinner-border text-primary mx-auto" role="status"></div> -->
+
+    <div *ngIf="wishlistData?.length === 0 && isWishlistLoaded" class="empty-wishlist-container">
+        <!--p class="fs-xl fw-medium text-center mt-5" style="color: white">No Favorite Actors Found</p-->
+        <h3 class="roboto-light empty-wishlist-header"> Hey your wishlist is empty!</h3>
+        <p class="roboto-light empty-wishlist-subheader">Start filling it up by watching  videos and saving products by clicking the “heart”!</p>
+        <img src="assets/images/customization/empty-wishlist.jpg" class="empty-wishlist-image">
+      </div>
+    <div class="masonry-container">
+    <ngx-masonry [ordered]="true" >
+        <div ngxMasonryItem class="masonry-item" *ngFor="let item of wishlistData">
+        <div class="card">
+                <div class="position-relative">
+                    <span *ngIf="item?.Actor?.imageUrl" class="actor cursor-pointer" (click)="routeToFavActors(item?.Actor)">
+                        <img class= "actor-circle cursor-pointer" src={{item?.Actor?.imageUrl}}>
+                    </span>
+                    <img src={{item?.matchedImageUrl}} class="card-img-top img-fluid"
+                        style="cursor:pointer" alt="..."
+                        (click)="openItemDetailsModal(item?.Product?.id,item?.ProductImage?.id,item?.Scene,item?.Retailer?.name, item?.matchedImageUrl)">
+                        <i *ngIf="!item?.heart" role="button" class="bi bi-heart" (click)="add(item)"></i>
+                        <i *ngIf="item?.heart" role="button" class="bi bi-heart-fill" (click)="remove(item)"></i>
+                        <i class="bi bi-badge-ad-fill"></i>
+                </div>
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="semi-bold retailer-name-color roboto-medium" style="cursor: pointer;"
+                            (click)="openItemDetailsModal(item?.Product?.id,item?.ProductImage?.id, item?.Scene,item?.Retailer?.name,item?.matchedImageUrl)">
+                            {{item?.Retailer?.name}}</p>
+                        <p class="price roboto-light">{{item?.ProductImage?.prices?.actualPrice || item?.ProductImage?.prices?.salePrice}}</p>
+                    </div>
+                </li>
+                <ul class="list-group">
+                    <li class="list-group-item-below">
+                        <div class="d-flex align-items-center">
+                            <div class="featured-img-container">
+                                <img (click)="setVideoData(item?.Scene, item?.Show?.id, item?.ProxyCoordinate?.id, item?.Retailer?.id, true)" src="{{item.Scene?.thumbnail}}" class="img-fluid">
+                            </div>
+                            <div class="text-container">
+                                <p class="mb-0 fs-lg semi-bold series-name-color roboto-medium">{{item?.Show?.Series?.title}}</p>
+                                <div class="series-episode-and-date">
+                                <p *ngIf="item?.Show?.seasonNo" class="paragraph-below roboto-light">
+                                    {{item?.Show?.seasonNo | modifyInt:"S"}} {{" "}} {{item?.Show?.episodeNo | modifyInt:"E"}}
+                                </p>
+                                <!--p *ngIf="item?.createdAt" class="paragraph-below roboto-light">on {{item.createdAt | date: 'MM/dd/yyyy'}}</p-->
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    
+</ngx-masonry>
+</div>
+ 
+</div>

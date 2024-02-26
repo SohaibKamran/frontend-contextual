@@ -1,0 +1,46 @@
+@import "../../../assets/scss/variables.scss";
+
+.position-relative {
+  i {
+    position: absolute;
+    right: 14px;
+    top: 8px;
+    z-index: 1;
+  }
+}
+
+.dropdown-menu {
+  max-height: 300px;
+  overflow: auto;
+}
+
+.btn-outline-secondary {
+  border-color: $border-color;
+}
+
+.btn-group.scene_dropdowns {
+  .dropdown {
+    button {
+      border: 1px solid #D9D9D9;
+      min-width: 160px;
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    i {
+      color: $text-gray;
+      font-size: 12px;
+    }
+  }
+
+  .dropdown-toggle {
+    color: $text-gray;
+  }
+}
+
+label{
+  font-weight: $font-medium;
+}

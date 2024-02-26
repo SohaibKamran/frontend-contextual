@@ -1,0 +1,23 @@
+<section class="videos-listing">
+  <!-- list videos here -->
+
+  <div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6 col-sm-4 col-md-3" *ngFor="let show of allVideos">
+          <div class="card">
+            <img src="{{show.thumbnail}}" class="card-img-top" alt="">
+            <div class="card-body">
+              <h5 class="card-title fw-bold fs-xl"> {{show.title}}</h5>
+              <button (click)="goToTagger(show.id)" class="btn btn-dark">
+                Proceed
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

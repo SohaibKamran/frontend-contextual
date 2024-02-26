@@ -1,0 +1,45 @@
+input.form-control {
+  border: none;
+  padding-left: 0;
+}
+input.form-control:focus {
+  box-shadow: none;
+}
+input.form-control:hover {
+  box-shadow: none;
+}
+
+::-moz-placeholder {
+  color: #262626 !important;
+}
+
+::placeholder {
+  color: #262626 !important;
+}
+
+.notes p {
+  white-space: normal !important;
+}
+
+.row {
+  margin-right: calc(-0.5 * var(--bs-gutter-x)) !important;
+}
+
+.edit-advertiser-circle {
+  width: 64px;
+  height: 64px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 64px;
+}
+
+.dropdown-menu {
+  max-height: 300px;
+  overflow: auto;
+}
+
+.add-edit-form {
+  max-height: 468px;
+  overflow: auto;
+  overflow-x: hidden;
+}/*# sourceMappingURL=add-edit-annotator.component.css.map */

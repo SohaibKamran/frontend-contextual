@@ -1,0 +1,36 @@
+.proxy-product {
+  padding: 0 4px;
+  position: relative;
+}
+.proxy-product .product-img {
+  border-radius: 10px;
+  border: 1px solid #E9E9E9;
+}
+.proxy-product .product-img img {
+  width: 90px;
+  height: 110px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 10px;
+}
+.proxy-product .d-flex span {
+  max-width: 90px;
+  width: 100%;
+  display: block;
+}
+.proxy-product .icon-code-symbol {
+  right: 12px;
+  bottom: 24px;
+  position: absolute;
+}
+.proxy-product .badge-ad {
+  left: 12px;
+  bottom: 24px;
+  position: absolute;
+}
+
+.form-check {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+}/*# sourceMappingURL=slider-proxy.component.css.map */

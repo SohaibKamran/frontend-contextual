@@ -1,0 +1,21 @@
+@import "../../../assets/scss/variables.scss";
+
+p.player-gray {
+  max-height: 68px;
+  overflow: auto;
+}
+
+.relevant-attributes {
+  max-height: 300px;
+  overflow: auto;
+
+  .btn-light {
+    background-color: $white-color;
+    border-color: transparent;
+    color: $wishlist-gray;
+  }
+}
+
+hr {
+  color: $bg-tooltip;
+}

@@ -1,0 +1,25 @@
+<div class="modal-body px-4">
+  <div class="text-center" *ngIf="submit">
+    <h6 class="fs-lg fw-medium">Confirm Password</h6>
+    <input [formControl]="password" class="form-control mt-3 mb-4" placeholder="Type your password" type="password" (keyup.enter)="downloadDatabase()">
+    <div class="text-danger mb-3" *ngIf="password.hasError('required') && !this.submit">
+      Password is required.
+    </div>
+    <button (click)="close()" class="btn btn-secondary">Close</button>
+    <button [disabled]="!password.valid" (click)="downloadDatabase()" class="btn btn-primary ms-3">Submit</button>
+  </div>
+  <div *ngIf="!submit">
+    <p class="fw-medium">Downloading...</p>
+    <p class="text-light mb-4">Download includes CSV file plus image folder</p>
+    <div class="d-flex align-items-center mb-2">
+      <div class="progress w-100" role="progressbar" aria-label="Example 1px high" aria-valuenow="80" aria-valuemin="0"
+        aria-valuemax="100" style="height: 8px">
+        <div class="progress-bar" [style.width.%]="downloadProgress"></div>
+      </div>
+      <div class="ms-3">
+        {{downloadProgress}}%
+      </div>
+    </div>
+  </div>
+
+</div>

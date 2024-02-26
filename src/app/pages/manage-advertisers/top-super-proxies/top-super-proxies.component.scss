@@ -1,0 +1,27 @@
+.card-height {
+  height: 300px;
+
+  .header-bg {
+
+    background-color: #FAFAFA;
+  }
+
+  .card-body {
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    h5 {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
+    }
+  }
+}
+
+.card {
+  .card-body {
+    margin: 1rem 0;
+    padding: 0 1rem !important;
+  }
+}

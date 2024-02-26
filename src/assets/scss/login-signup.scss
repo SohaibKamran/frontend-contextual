@@ -1,0 +1,7 @@
+@import "../scss/variables.scss";
+
+.form-control,
+.form-select {
+  background-color: $input-color;
+  border: none;
+}

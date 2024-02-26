@@ -1,0 +1,21 @@
+<div class="slick-wrapper" *ngIf="allScenes?.length>0">
+  <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig"
+    (afterChange)="afterChange($event)" (beforeChange)="beforeChange($event)">
+    <div *ngIf="scenesCount===0" class="product-img assign-actor cursor">
+      <span class="d-flex fs-sm p-1 text-center text-light">
+        No Scene Data
+      </span>
+    </div>
+
+    <div ngxSlickItem class="slide" *ngFor="let scene of allScenes;let i=index">
+      <img *ngIf="scene.id !== currentSceneId" src={{scene.thumbnail}} (mousedown)="onMouseDown($event)"
+        (click)="sendImg($event,scene)" class="img-fluid zoom " />
+      <img *ngIf="scene.id === currentSceneId" src={{scene.thumbnail}} (mousedown)="onMouseDown($event)"
+        (click)="sendImg($event,scene)" class="img-fluid zoom active-scene-border" />
+      <div class="d-flex justify-content-between">
+        <span class="fst-italic">Scene {{scene.relativeSceneNo}}</span>
+        <span class="fst-italic">{{scene.productRecordsCount}} Product Records</span>
+      </div>
+    </div>
+  </ngx-slick-carousel>
+</div>

@@ -1,0 +1,38 @@
+<div tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-small">
+      <div class="modal-content actor">
+        <div class="modal-header justify-content-start">
+          <h1 class="modal-title" id="exampleModalLabel">Assign Actor</h1>
+        </div>
+        <hr>
+        <div class="modal-body">
+          <div class="align-items-center d-flex">
+            <div class="img-wrapper none">
+              <span class="d-flex fs-sm p-2 text-center text-light">None</span>
+            </div>
+            <div class="w-100">
+              <div class="align-items-center d-flex justify-content-between ms-3 my-4">
+                <p class="mb-0 fst-italic fs-md">None</p>
+                <button type="button" class="btn btn-dark btn-sm"
+                  (click)="actorSelect('None','None',-1)">Assign</button>
+              </div>
+              <hr class="ms-3">
+            </div>
+          </div>
+          <div class="align-items-end d-flex" *ngFor="let actor of allActors">
+            <div class="img-wrapper">
+              <img src={{actor.imageUrl}}>
+            </div>
+            <div class="w-100">
+              <div class="align-items-center d-flex justify-content-between ms-3 my-center">
+                <p class="mb-0 fst-italic fs-md">{{actor.name}}</p>
+                <button type="button" class="btn btn-dark btn-sm"
+                  (click)="actorSelect(actor.name,actor.imageUrl,actor.id)">Assign</button>
+              </div>
+              <hr class="ms-3">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

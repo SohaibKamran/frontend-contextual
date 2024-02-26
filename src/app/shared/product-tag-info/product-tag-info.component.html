@@ -1,0 +1,58 @@
+<div class="card bg-light">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12">
+        <button (click)="hideSection($event)" type="button" class="btn-close text-muted float-end"
+          aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="row gx-3 mb-3">
+      <div class="col-md-auto">
+        <div class="overflow-ai">
+          <div class="proxy-product">
+            <div class="product-img cursor">
+              <img [src]="productData?.matchedImageUrl">
+            </div>
+            <div class="d-flex align-items-center cursor">
+              <span class="fs-sm text-gray ellipsis">{{productData?.retailerName}}</span>
+            </div>
+            <span class="icon-unlock fs-md text-light fs-lg"></span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md">
+        <h6 class="fs-md fw-medium">{{productData?.title}}</h6>
+        <h6 class="fs-md fw-medium"><i class="bi bi-tag-fill"></i> {{productData?.brand}}</h6>
+        <h6 class="fs-md fw-medium"><i class="bi bi-palette-fill"></i> {{productData?.color}}</h6>
+        <h6 class="fs-md fw-medium"><i class="bi bi-gender-ambiguous"></i> {{productData?.gender}}</h6>
+        <hr>
+        <p class="player-gray fs-11">{{productData?.description}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <h6 class="fs-md fw-medium">Add relevant attributes to the Product Record:</h6>
+        <hr>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-12">
+        <div class="d-flex flex-wrap align-items-center relevant-attributes">
+          <div *ngFor="let attribute of productData?.attributes">
+            <button *ngIf="attribute.selected" class="align-items-center btn btn-primary btn-sm d-flex me-2 mb-2">
+              {{attribute.name}}
+              <span (click)="removeAttribute(attribute.name)"
+                class="bi bi-x-lg icon-close text-white fs-md cursor ms-2"></span>
+            </button>
+            <button *ngIf="!attribute.selected" class="align-items-center btn btn-light btn-sm d-flex me-2 mb-2">
+              {{attribute.name}}
+              <span (click)="addTagMethod(attribute.name)"
+                class="bi bi-plus-lg icon-close wishlist-gray fs-md cursor ms-2"></span>
+            </button>
+          </div>
+          <!-- <span *ngIf="tags?.length===0"> No Attributes Found</span> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

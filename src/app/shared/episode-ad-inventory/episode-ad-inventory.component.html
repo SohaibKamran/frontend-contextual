@@ -1,0 +1,437 @@
+<div class="modal-header">
+  <div class="d-flex align-items-center">
+    <i class="bi bi-play-btn me-2 text-gray fs-xxl"></i>
+    <h5 class="modal-title mb-0" id="exampleModalLiveLabel">
+      Episode Ad Inventory
+    </h5>
+  </div>
+  <button (click)="close()" type="button" class="btn-close text-muted" data-bs-dismiss="modal" aria-label="Close">
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row align-items-center">
+    <div class="col-lg-5 episode-detail mb-4">
+      <div class="img-wrapper d-flex align-items-center">
+        <img [src]="episodeComp?.selectedSeries?.thumbnail">
+
+        <div>
+          <h6 class="fs-xl fw-semibold mb-1">{{episodeComp?.selectedSeries?.title??"No Series Selected"}}</h6>
+          <p class="text-muted fs-lg">{{episodeComp?.selectedSeason?.title??""+ " "}}
+            {{episodeComp?.selectedEpisode?.title??""}}</p>
+          <button [disabled]="!episodeComp.selectedEpisode && !episodeComp.showSandE" class="btn btn-primary btn-sm"
+            (click)="openEpisodePreviewModal()">Play Episode</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 ms-auto mb-4">
+      <!-- <div ngbDropdown class="btn-group w-100 mb-3">
+        <button type="button"
+          class="btn btn-light dropdown-toggle h_40 text-light d-flex justify-content-between align-items-center"
+          id="dropdownBasic" ngbDropdownToggle>
+          Last Month
+          <i class="bi bi-caret-down-fill ms-2 fs-md text-gray"></i>
+        </button>
+      </div> -->
+      <ng-select [(ngModel)]="episodeComp.selectedSeries" placeholder="Select Series" [items]="episodeComp.allSeries"
+        bindLabel="title" [closeOnSelect]="true" (scrollToEnd)="onSeriesScrollEnd($event)" [clearable]="false"
+        (change)="selectSeries($event)" [loading]="episodeComp.seriesLoader" (search)="searchSeries($event)"></ng-select>
+      <div class="row mt-3">
+        <div class="col-lg-6">
+          <!-- <div ngbDropdown class="btn-group w-100">
+            <button type="button"
+              class="btn btn-light dropdown-toggle h_40 text-light d-flex justify-content-between align-items-center"
+              id="dropdownBasic" ngbDropdownToggle>
+              Last Month
+              <i class="bi bi-caret-down-fill ms-2 fs-md text-gray"></i>
+            </button>
+          </div> -->
+          <ng-select [disabled]="episodeComp.showSandE"[(ngModel)]="episodeComp.selectedSeason" placeholder="Select Season"
+            [items]="episodeComp.allSeasons" bindLabel="title" [closeOnSelect]="true" [clearable]="false"
+            (change)="selectSeason($event)"></ng-select>
+        </div>
+        <div class="col-lg-6">
+          <!-- <div ngbDropdown class="btn-group w-100">
+            <button type="button"
+              class="btn btn-light dropdown-toggle h_40 text-light d-flex justify-content-between align-items-center"
+              id="dropdownBasic" ngbDropdownToggle>
+              Last Month
+              <i class="bi bi-caret-down-fill ms-2 fs-md text-gray"></i>
+            </button>
+
+          </div> -->
+          <ng-select [disabled]="episodeComp.showSandE" [(ngModel)]="episodeComp.selectedEpisode" placeholder="Select Episode"
+            [items]="episodeComp.allEpisodes" bindLabel="title" [closeOnSelect]="true" (change)="selectEpisode($event)"
+            [clearable]="false"></ng-select>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-body">
+        <div class="row align-items-center mb-3">
+          <div class="col-lg-5">
+            <div class="d-flex align-items-center">
+              <div class="advertiser-img-wrapper">
+                <img [src]="thumbnail">
+              </div>
+              <h6 class="fs-xl fw-bold text-black ms-2 mb-0">{{retailerName}}</h6>
+              <p class="fs-md text-light  ms-3 mb-0">AI-matched ad inventory</p>
+            </div>
+          </div>
+          <div class="col-lg-4 ms-auto">
+            <ng-select [(ngModel)]="episodeComp.selectedRetailer" placeholder="Select Advertiser"
+              [items]="episodeComp.allRetailers" bindLabel="name" [closeOnSelect]="true"
+              (change)="selectRetailer($event)" [clearable]="false"></ng-select>
+          </div>
+        </div>
+        <div class="row align-items-center bg-table-head mb-2">
+          <div class="col-lg-4">
+            <p class="fs-lg mb-0 fw-medium">Scene Number</p>
+          </div>
+          <div class="col-lg-3">
+            <div class="d-flex align-items-center justify-content-center">
+              <p class="fs-lg mb-0 fw-medium">Preview</p>
+              <i class="bi bi-play-fill text-light fs-xxl ms-2"></i>
+            </div>
+          </div>
+          <div class="col-lg-5 ad-queue-col">
+            <p class="fs-lg mb-0 fw-medium">Ad Queue</p>
+          </div>
+        </div>
+        <div *ngIf="episodeComp.loader" class="text-center">
+          <div class="spinner-border text-primary " role="status"></div>
+        </div>
+        <div *ngIf="episodeAdListing?.length===0  && !episodeComp.loader">
+          <div class="text-muted td_heading text-center" colspan="10">No Record Found</div>
+        </div>
+        <div *ngFor="let listing of episodeAdListing;let i = index">
+          <div class="row align-items-center mb-2">
+            <div class="col-lg-4">
+              <p class="fs-lg mb-0 text-light">{{listing?.prId}}</p>
+            </div>
+            <div class="col-lg-3 text-center">
+              <div class="preview-img-wrapper">
+                <img [src]="listing?.Scene?.thumbnail">
+                <i class="bi bi-play-fill text-white fs-xxl"
+                  (click)="openEpisodePreviewModal(listing?.Scene?.id, listing?.Scene?.Show?.id)"></i>
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <div class="d-flex align-items-center overflow-ai ad-queue-row">
+                <div class="me-2" *ngFor="let products of listing?.CoordinateHasProducts.slice(0, 3)">
+                  <div class="proxy-product">
+                    <div class="product-img cursor">
+                      <img (click)="openAddToCartModal(products.Product.id,products.ProductImage.id,products?.proxyCoordinateId,listing?.Scene?.id, products?.matchedImageUrl)"
+                        [src]="products?.matchedImageUrl">
+                    </div>
+                    <div class="d-flex align-items-center cursor">
+                      <span class="fs-sm text-gray ellipsis">{{products.Product.Retailer.name}}</span>
+                    </div>
+                    <!-- <span class="bi bi-x-lg icon-close text-light fs-md cursor"></span> -->
+                    <!-- <img src="../../../assets/icons/ad-badge-ai.svg" class="badge-ad"> -->
+                    <span class="badge text-bg-warning fw-bold badge-ad">{{products.vzotScore}}
+                    </span>
+                    <!-- <span
+                    [ngClass]="products.superProxy?'bi bi-lock fs-md fs-lg text-primary icon-unlock':'icon-unlock fs-md text-light fs-lg'"></span> -->
+                  </div>
+                </div>
+
+                <!-- <div class="me-2">
+                <div class="proxy-product">
+                  <div class="product-img cursor">
+                    <img src="../../../assets/images/proxy.png">
+                  </div>
+                  <div class="d-flex align-items-center cursor">
+                    <span class="fs-sm text-gray ellipsis">Nordstorm</span>
+                  </div>
+                  <span class="bi bi-x-lg icon-close text-light fs-md cursor"></span>
+                  <span class="badge text-bg-warning fw-bold badge-ad">98</span>
+                  <span class="icon-unlock fs-md text-light fs-lg"></span>
+                </div>
+              </div> -->
+                <!-- <div class="me-2">
+                <div class="proxy-product">
+                  <div class="product-img cursor">
+                    <img src="../../../assets/images/proxy.png">
+                  </div>
+                  <div class="d-flex align-items-center cursor">
+                    <span class="fs-sm text-gray ellipsis">Nordstorm</span>
+                  </div>
+                  <span class="bi bi-x-lg icon-close text-light fs-md cursor"></span>
+                  <span class="badge text-bg-warning fw-bold badge-ad">98</span>
+                  <span class="icon-unlock fs-md text-light fs-lg"></span>
+                </div>
+              </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="row align-items-center mb-2">
+        <div class="col-lg-4">
+          <p class="fs-lg mb-0 text-light">FRIENDSS06E15SC288AR1000</p>
+        </div>
+        <div class="col-lg-3 text-center">
+          <div class="preview-img-wrapper">
+            <img src="../../../assets/images/scenes.jpg">
+            <i class="bi bi-play-fill text-white fs-xxl"></i>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="d-flex align-items-center overflow-ai justify-content-end">
+            <div class="me-2">
+              <div class="proxy-product">
+                <div class="product-img cursor">
+                  <img src="../../../assets/images/proxy.png">
+                </div>
+                <div class="d-flex align-items-center cursor">
+                  <span class="fs-sm text-gray ellipsis">Nordstorm</span>
+                </div>
+                <span class="bi bi-x-lg icon-close text-light fs-md cursor"></span>
+                <span class="badge text-bg-warning fw-bold badge-ad">98</span>
+                <span class="icon-unlock fs-md text-light fs-lg"></span>
+              </div>
+            </div>
+
+            <div class="me-2">
+              <div class="proxy-product">
+                <div class="product-img cursor">
+                  <img src="../../../assets/images/proxy.png">
+                </div>
+                <div class="d-flex align-items-center cursor">
+                  <span class="fs-sm text-gray ellipsis">Nordstorm</span>
+                </div>
+                <span class="bi bi-x-lg icon-close text-light fs-md cursor"></span>
+                <span class="badge text-bg-warning fw-bold badge-ad">98</span>
+                <span class="icon-unlock fs-md text-light fs-lg"></span>
+              </div>
+            </div>
+            <div class="me-2">
+              <div class="proxy-product">
+                <div class="product-img cursor">
+                  <img src="../../../assets/images/proxy.png">
+                </div>
+                <div class="d-flex align-items-center cursor">
+                  <span class="fs-sm text-gray ellipsis">Nordstorm</span>
+                </div>
+                <span class="bi bi-x-lg icon-close text-light fs-md cursor"></span>
+                <span class="badge text-bg-warning fw-bold badge-ad">98</span>
+                <span class="icon-unlock fs-md text-light fs-lg"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+        <!-- <div class="row align-items-center mb-2">
+        <div class="col-lg-4">
+          <p class="fs-lg mb-0 text-light">FRIENDSS06E15SC288AR1000</p>
+        </div>
+        <div class="col-lg-3 text-center">
+          <div class="preview-img-wrapper">
+            <img src="../../../assets/images/scenes.jpg">
+            <i class="bi bi-play-fill text-white fs-xxl"></i>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="d-flex align-items-center overflow-ai justify-content-end">
+            <div class="me-2">
+              <div class="proxy-product">
+                <div class="product-img cursor">
+                  <img src="../../../assets/images/proxy.png">
+                </div>
+                <div class="d-flex align-items-center cursor">
+                  <span class="fs-sm text-gray ellipsis">Nordstorm</span>
+                </div>
+                <span class="bi bi-x-lg icon-close text-light fs-md cursor"></span>
+                <span class="badge text-bg-warning fw-bold badge-ad">98</span>
+                <span class="icon-unlock fs-md text-light fs-lg"></span>
+              </div>
+            </div>
+
+            <div class="me-2">
+              <div class="proxy-product">
+                <div class="product-img cursor">
+                  <img src="../../../assets/images/proxy.png">
+                </div>
+                <div class="d-flex align-items-center cursor">
+                  <span class="fs-sm text-gray ellipsis">Nordstorm</span>
+                </div>
+                <span class="bi bi-x-lg icon-close text-light fs-md cursor"></span>
+                <span class="badge text-bg-warning fw-bold badge-ad">98</span>
+                <span class="icon-unlock fs-md text-light fs-lg"></span>
+              </div>
+            </div>
+            <div class="me-2">
+              <div class="proxy-product">
+                <div class="product-img cursor">
+                  <img src="../../../assets/images/proxy.png">
+                </div>
+                <div class="d-flex align-items-center cursor">
+                  <span class="fs-sm text-gray ellipsis">Nordstorm</span>
+                </div>
+                <span class="bi bi-x-lg icon-close text-light fs-md cursor"></span>
+                <span class="badge text-bg-warning fw-bold badge-ad">98</span>
+                <span class="icon-unlock fs-md text-light fs-lg"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+        <!-- <div class="row align-items-center mb-2">
+        <div class="col-lg-4">
+          <p class="fs-lg mb-0 text-light">FRIENDSS06E15SC288AR1000</p>
+        </div>
+        <div class="col-lg-3 text-center">
+          <div class="preview-img-wrapper">
+            <img src="../../../assets/images/scenes.jpg">
+            <i class="bi bi-play-fill text-white fs-xxl"></i>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="d-flex align-items-center overflow-ai justify-content-end">
+            <div class="me-2">
+              <div class="proxy-product">
+                <div class="product-img cursor">
+                  <img src="../../../assets/images/proxy.png">
+                </div>
+                <div class="d-flex align-items-center cursor">
+                  <span class="fs-sm text-gray ellipsis">Nordstorm</span>
+                </div>
+                <span class="bi bi-x-lg icon-close text-light fs-md cursor"></span>
+                <span class="badge text-bg-warning fw-bold badge-ad">98</span>
+                <span class="icon-unlock fs-md text-light fs-lg"></span>
+              </div>
+            </div>
+
+            <div class="me-2">
+              <div class="proxy-product">
+                <div class="product-img cursor">
+                  <img src="../../../assets/images/proxy.png">
+                </div>
+                <div class="d-flex align-items-center cursor">
+                  <span class="fs-sm text-gray ellipsis">Nordstorm</span>
+                </div>
+                <span class="bi bi-x-lg icon-close text-light fs-md cursor"></span>
+                <span class="badge text-bg-warning fw-bold badge-ad">98</span>
+                <span class="icon-unlock fs-md text-light fs-lg"></span>
+              </div>
+            </div>
+            <div class="me-2">
+              <div class="proxy-product">
+                <div class="product-img cursor">
+                  <img src="../../../assets/images/proxy.png">
+                </div>
+                <div class="d-flex align-items-center cursor">
+                  <span class="fs-sm text-gray ellipsis">Nordstorm</span>
+                </div>
+                <span class="bi bi-x-lg icon-close text-light fs-md cursor"></span>
+                <span class="badge text-bg-warning fw-bold badge-ad">98</span>
+                <span class="icon-unlock fs-md text-light fs-lg"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+        <!-- <div class="row align-items-center mb-2">
+        <div class="col-lg-4">
+          <p class="fs-lg mb-0 text-light">FRIENDSS06E15SC288AR1000</p>
+        </div>
+        <div class="col-lg-3 text-center">
+          <div class="preview-img-wrapper">
+            <img src="../../../assets/images/scenes.jpg">
+            <i class="bi bi-play-fill text-white fs-xxl"></i>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="d-flex align-items-center overflow-ai justify-content-end">
+            <div class="me-2">
+              <div class="proxy-product">
+                <div class="product-img cursor">
+                  <img src="../../../assets/images/proxy.png">
+                </div>
+                <div class="d-flex align-items-center cursor">
+                  <span class="fs-sm text-gray ellipsis">Nordstorm</span>
+                </div>
+                <span class="bi bi-x-lg icon-close text-light fs-md cursor"></span>
+                <span class="badge text-bg-warning fw-bold badge-ad">98</span>
+                <span class="icon-unlock fs-md text-light fs-lg"></span>
+              </div>
+            </div>
+
+            <div class="me-2">
+              <div class="proxy-product">
+                <div class="product-img cursor">
+                  <img src="../../../assets/images/proxy.png">
+                </div>
+                <div class="d-flex align-items-center cursor">
+                  <span class="fs-sm text-gray ellipsis">Nordstorm</span>
+                </div>
+                <span class="bi bi-x-lg icon-close text-light fs-md cursor"></span>
+                <span class="badge text-bg-warning fw-bold badge-ad">98</span>
+                <span class="icon-unlock fs-md text-light fs-lg"></span>
+              </div>
+            </div>
+            <div class="me-2">
+              <div class="proxy-product">
+                <div class="product-img cursor">
+                  <img src="../../../assets/images/proxy.png">
+                </div>
+                <div class="d-flex align-items-center cursor">
+                  <span class="fs-sm text-gray ellipsis">Nordstorm</span>
+                </div>
+                <span class="bi bi-x-lg icon-close text-light fs-md cursor"></span>
+                <span class="badge text-bg-warning fw-bold badge-ad">98</span>
+                <span class="icon-unlock fs-md text-light fs-lg"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex align-items-center justify-content-center">
+          <div class="align-items-center d-flex dataTables_info" id="tickets-table_info" role="status"
+            aria-live="polite">
+            <label>
+              Row per page
+            </label>
+            <div class="dataTables_length" id="tickets-table_length">
+              <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize"
+                [(ngModel)]="episodeComp.pagination.limit" (change)="changeLimit()" class="form-control mx-2">
+                <option [ngValue]="5">5</option>
+                <option [ngValue]="10">10</option>
+                <option [ngValue]="25">25</option>
+                <option [ngValue]="50">50</option>
+                <option [ngValue]="100">100</option>
+              </select>
+            </div>
+          </div>
+          <ngb-pagination class="goto-pagination" (pageChange)="onPageChange($event)"
+            [collectionSize]="episodeComp.totalCount" [(page)]="episodeComp.pagination.pageNo"
+            [pageSize]="episodeComp.pagination.limit" [maxSize]="5" [rotate]="true">
+            <ng-template ngbPaginationPages let-page let-pages="pages">
+              <li class="ngb-custom-pages-item">
+                <div class="mb-3 d-flex flex-nowrap px-2">
+                  <label id="paginationInputLabel" for="paginationInput" class="col-form-label me-2 ms-1">Go
+                    to</label>
+                  <input #i type="text" inputmode="numeric" pattern="[0-9]*" class="form-control custom-pages-input"
+                    id="paginationInput" [disabled]="pages.length <=1" [value]="page"
+                    (keyup.enter)="selectPage(i.value)" (blur)="selectPage(i.value)"
+                    (input)="formatInput($any($event).target)"
+                    aria-labelledby="paginationInputLabel paginationDescription" style="width: 3.5rem" />
+                  <!-- <span id="paginationDescription" class="col-form-label text-nowrap px-2"> of {{pages.length}}</span> -->
+                </div>
+              </li>
+            </ng-template>
+          </ngb-pagination>
+          <ngb-pagination (pageChange)="onPageChange($event)" [collectionSize]="episodeComp.totalCount"
+            [(page)]="episodeComp.pagination.pageNo" [pageSize]="episodeComp.pagination.limit" [maxSize]="5"
+            [rotate]="true" [boundaryLinks]="true">
+          </ngb-pagination>
+
+        </div>
+      </div>
+    </div>
+    <!-- add pagination here - start -->
+    <!-- add pagination here - end -->
+  </div>

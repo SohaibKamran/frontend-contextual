@@ -1,0 +1,50 @@
+<app-pagetitle title="Database" [breadcrumbItems]="breadCrumbItems">
+    <div class="video_titlebar">
+        <div class="w-sm-100">
+            <div class="d-flex align-items-center d-flex flex-row alignment-on-mobile">
+                <button class="text-primary me-3" (click)="open()">
+                    <i class="fas fa-sliders-h"></i>
+                </button>
+                <div class="position-relative">
+                    <input [(ngModel)]="searchText" type="text" class="form-control h_40" placeholder="Search"
+                        (keyup.enter)="searchDatabase()">
+                    <i class="bi bi-search text-gray"></i>
+                </div>
+                <button (click)="openDatabaseModal()" class="btn btn-primary ms-3">Download Database</button>
+
+            </div>
+        </div>
+    </div>
+</app-pagetitle>
+
+<div class="row">
+    <div class="col-12">
+        <app-top-widgets routerLinkActive="router-link-active"></app-top-widgets>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 ">
+        <app-current-tagging-status></app-current-tagging-status>
+    </div>
+
+    <div class="col-md-6">
+        <app-progress-by-series [title]="seriesTitle" [cardHeight]="seriesClass"></app-progress-by-series>
+    </div>
+</div>
+<div class="row">
+    <div class=" col-lg-4">
+
+        <app-trending-shows></app-trending-shows>
+
+    </div>
+    <div class="col-lg-4">
+
+        <app-trending-actors></app-trending-actors>
+
+    </div>
+    <div class="col-lg-4">
+
+        <app-largest-ad-inventories [cardHeight]="advertiserClass"></app-largest-ad-inventories>
+
+    </div>
+</div>

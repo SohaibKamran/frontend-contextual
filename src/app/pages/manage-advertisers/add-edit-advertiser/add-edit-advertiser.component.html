@@ -1,0 +1,313 @@
+<!-- <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLiveLabel">Video Series Details</h5>
+    <button type="button" class="btn-close text-muted" data-bs-dismiss="modal" aria-label="Close"
+      (click)="modalService.dismissAll('Close click')">
+    </button>
+  </div> -->
+<!-- <div class="modal-body addedit_tagger_modal"> -->
+<div *ngIf="loader; else advertiserForm">
+  <div class="spinner-border text-primary d-flex mx-auto" role="status">
+  </div>
+</div>
+<ng-template #advertiserForm>
+  <form [formGroup]="advertiserDetailsForm" class="bg-white add-modal-form">
+    <div class="container">
+
+      <div class="row mt-3">
+        <div class="col-lg-5">
+          <div class="card">
+            <div class="card-body">
+              <div class="row my-5">
+                <div class="col-12 text-center mb-3">
+                  <img [src]="advertiserData?.imageUrl ? advertiserData?.imageUrl:'assets/images/user/avatar-3.jpg'"
+                    class="edit-advertiser-circle" alt="image" />
+                </div>
+                <div class="col-12 text-center mb-3">
+                  <p for="Tagger" class="fw-medium mb-2">{{advertiserData?.name}}</p>
+                  <p class="text-gray mb-1">Advertiser</p>
+                  <!-- <p class="text-muted average_score mb-0">Title, Company</p> -->
+                </div>
+                <!-- <div class="col-12">
+                <div class="d-flex align-items-center justify-content-center mb-3">
+                  <p class="text-muted average_score mb-0">Average TopVZot Score</p>
+                  <span class="badge text-bg-warning fw-bold fs-lg ms-3">88</span>
+                </div>
+              </div> -->
+              </div>
+              <hr>
+              <div class="row my-3">
+                <div class="col-12">
+                  <label class="text-gray mb-3">Status</label>
+                </div>
+                <div class="col-lg-6 mb-3 status_field">
+                  <!-- //formControlName remaining -->
+                  <div ngbDropdown class="btn-group w-100 scene_dropdowns">
+                    <button type="button"
+                      class="btn btn-light dropdown-toggle h_40 text-light d-flex justify-content-between align-items-center w-100"
+                      id="dropdownBasic1" ngbDropdownToggle>
+                      <div class="{{selectedStatus?.class}}">
+                        {{selectedStatus?.title}}
+                      </div>
+                      <i class="bi bi-caret-down-fill ms-2 fs-md text-gray"></i>
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                      <a *ngFor="let status of Statuses; let j=index" ngbDropdownItem class="{{status?.class}}"
+                        (click)="updateStatus(status,j+1)">
+                        {{status?.title}}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 mb-3 status_field">
+                  <!-- <label class="text-muted">Status</label> -->
+                  <!-- <input formControlName="lastName" placeholder="Enter last name" class="form-control no outline"
+                                          type="text" id="example-text-input"> -->
+                  <button type="button" class="btn btn-primary btn-sm h_40 w-100" (click)="routeToAdInventory()"> View
+                    Add Inventory </button>
+                </div>
+              </div>
+              <div class="row align-items-center px-3">
+                <div class="col-lg-2 mb-2">
+                  <i class="bi bi-envelope text-gray"></i>
+                </div>
+                <div class="col-lg-10 mb-2 text-end">
+                  <p *ngIf="advertiserData?.email"><a href="mailto: {{advertiserData?.email}}"
+                      [style.color]="onboardingColor"></a></p>
+                  <p *ngIf="!advertiserData?.email">-</p>
+                </div>
+                <div class="col-lg-2 mb-2">
+                  <i class="bi bi-telephone text-gray"></i>
+                </div>
+                <div class="col-lg-10 mb-2 text-end">
+                  <p *ngIf="!advertiserData?.telephoneNo">-</p>
+                  <p *ngIf="advertiserData?.telephoneNo"><a href="tel:{{'+'+this.advertiserData?.countryCode+advertiserData?.telephoneNo}}"
+                      [style.color]="onboardingColor">{{'+'+this.advertiserData?.countryCode+advertiserData?.telephoneNo}}</a>
+                  </p>
+                </div>
+                <div class="col-lg-2 mb-2">
+                  <i class="bi bi-geo-alt text-gray"></i>
+                </div>
+                <div class="col-lg-10 mb-2 text-end">
+                  <p>{{advertiserData?.city??"-"}}</p>
+                </div>
+                <div class="col-lg-2 mb-2">
+                  <i class="bi bi-link-45deg text-gray fs-xxl"></i>
+                </div>
+                <div class="col-lg-10 mb-2 text-end">
+                  <a [style.color]="onboardingColor" *ngIf="advertiserData?.websiteLink"
+                    [href]="advertiserData?.websiteLink" target="_blank">{{advertiserData?.websiteLink}}</a>
+                  <div *ngIf="!advertiserData?.websiteLink">-</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 my-2">
+                  <div class="card card-info border-0 mb-0" [hidden]="mater">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-md-5">
+                          <p class="fs-lg fw-medium white-space-normal mb-0">Master Accuracy Threshold</p>
+                        </div>
+                        <div class="col-md-7">
+                          <!-- <ngx-slider [(value)]="value" [options]="options" (userChangeEnd)="vzotChange(i)"></ngx-slider> -->
+                          <div class="row align-items-center">
+                            <div class="col-lg custom-slider">
+                              <ngx-slider formControlName="vzotThreshold" [options]="options"></ngx-slider>
+                            </div>
+                            <div class="col-lg-auto">
+                              <label class="ms-3">{{advertiserDetailsForm.value.vzotThreshold}}%</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="d-flex justify-content-end align-items-center mt-2">
+                          <p class="fs-md text-light me-3 mb-0" style="cursor: pointer;" (click)="cancel()">Cancel</p>
+                          <button type="button" class="btn btn-primary btn-sm" (click)="updateThreshold()"> Update
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-7">
+          <div class="row mt-3">
+            <div class="col-12">
+              <div class="card-title mb-0 fw-meidum fs-xl">
+                Edit Advertiser Details
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-lg-12 mt-2">
+              <label for="example-text-input" class="text-gray" class="text-gray">Company Name</label>
+              <input formControlName="firstName" name='firstName' (keyup)='trimSpaces($event)' placeholder="Enter Name"
+                class="form-control no-outline" type="text" id="example-text-input">
+              <div
+                *ngIf="advertiserDetailsForm.get('firstName')?.invalid && advertiserDetailsForm.get('firstName')?.touched ">
+                <p class="mb-0" style="color: red;font-size: 13px;"> <small>Name is required.*</small></p>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row rows-cols-3 align-items-center mb-4">
+            <div class="col-lg-6 mt-2">
+              <label for="example-text-input" class="text-gray mb-2">E-mail</label>
+              <input formControlName="email" name='email' (keyup)='trimSpaces($event)' placeholder="Enter email"
+                class="form-control no-outline form-control-sm" type="text" id="example-text-input">
+              <div *ngIf="advertiserDetailsForm.get('email')?.invalid && advertiserDetailsForm.get('email')?.touched ">
+                <p class="mb-0" style="color: red;font-size: 13px;"> <small>Email is invalid or empty.*</small></p>
+              </div>
+            </div>
+            <!-- <div class="col-lg-auto mt-2">
+              <label for="example-text-input" class="text-gray d-block mb-2">Country Code</label>
+              <ng-select placeholder="Select" (change)="selectCode($event)" [items]="countries" bindLabel="phone"
+                [closeOnSelect]="true" [clearable]="false" formControlName="country">
+                <ng-template ng-label-tmp let-item="item">
+                  <img height="15" width="15" [src]="item.flagUrl" />
+                  <b>{{item.phone}}</b>
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-index="index">
+                  <img height="15" width="15" [src]="item.flagUrl" />
+                  <b>{{item.shortCode}}</b>
+                  <b>{{item.phone}}</b>
+                </ng-template>
+              </ng-select>
+              <div *ngIf="countryInvalid && advertiserDetailsForm.value.phoneNo">
+                <p class="mb-0" style="color: red;font-size: 13px;"> <small> Country Code is required.
+                    *</small></p>
+              </div>
+            </div> -->
+            <div class="col-lg mt-2">
+
+              <label for="example-text-input" class="text-gray">Telephone</label>
+              <input formControlName="phoneNo" (keypress)="CheckNumber($event, true)" placeholder="Enter Telephone Number"
+                class="form-control no outline" type="text" id="example-text-input">
+              <!-- <div
+                *ngIf="advertiserDetailsForm.get('phoneNo')?.invalid && advertiserDetailsForm.get('phoneNo')?.touched ">
+                <div *ngIf="phoneNumberInvalid">
+                  <p class="mb-0" style="color: red;font-size: 13px;"> <small> Phone Number is required.
+                      *</small></p>
+                </div>
+              </div> -->
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-lg-6 mt-2">
+              <label for="example-text-input" class="text-gray">Address</label>
+              <input formControlName="address" name='address' (keyup)='trimSpaces($event)' placeholder="Enter Address"
+                class="form-control no-outline" type="text" id="example-text-input">
+              <div
+                *ngIf="advertiserDetailsForm.get('address')?.invalid && advertiserDetailsForm.get('address')?.touched ">
+                <p class="mb-0" style="color: red;font-size: 13px;"> <small>Address is required.*</small></p>
+              </div>
+            </div>
+            <div class="col-lg-6 mt-2">
+
+              <label for="example-text-input" class="text-gray">City</label>
+              <input formControlName="city" name='city' (keyup)='trimSpaces($event)' placeholder="Enter City"
+                class="form-control no outline" type="text" id="example-text-input">
+              <div *ngIf="advertiserDetailsForm.get('city')?.invalid && advertiserDetailsForm.get('city')?.touched ">
+                <p class="mb-0" style="color: red;font-size: 13px;"> <small>City is required.*</small></p>
+              </div>
+
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-lg-6 mt-2">
+              <label for="example-text-input" name='state' (keyup)='trimSpaces($event)' class="text-gray">State</label>
+              <input formControlName="state" placeholder="Enter State" class="form-control no-outline" type="text"
+                id="example-text-input">
+              <div *ngIf="advertiserDetailsForm.get('state')?.invalid && advertiserDetailsForm.get('state')?.touched ">
+                <p class="mb-0" style="color: red;font-size: 13px;"> <small>State is required.*</small></p>
+              </div>
+            </div>
+            <div class="col-lg-6 mt-2">
+              <label for="example-text-input" class="text-gray">Zip Code</label>
+              <input formControlName="zipCode" placeholder="Enter Zip Code"
+                class="form-control no outline" type="text" id="example-text-input">
+            </div>
+          </div>
+          <hr>
+          <div class="row align-items-center mb-4">
+
+            <div class="col-lg-6 mt-2">
+              <label for="example-text-input" class="text-gray d-block mb-2">Country</label>
+              <!-- <div class="btn-group w-100" ngbDropdown id="example-text-input">
+                <button class="btn btn-outline-secondary d-flex dropdown-toggle justify-content-between" type="button"
+                  ngbDropdownToggle>
+                  {{selectedCountry}}
+                  <i class="bi bi-caret-down-fill ms-2 fs-md"></i>
+                </button>
+                <div class="dropdown-menu w-100" ngbDropdownMenu>
+                  <a class="dropdown-item" *ngFor="let country of countries;let i= index"
+                    (click)="selectCountry(country)">{{country?.name}}
+                  </a>
+                </div>
+              </div> -->
+              <ng-select formControlName="countryId" placeholder="Select Country" [items]="countries" bindLabel="title"
+                [closeOnSelect]="true" bindLabel="name" bindValue="id" [clearable]="false"
+                (change)="selectCountry($event)"></ng-select>
+              <div
+                *ngIf="advertiserDetailsForm.get('countryId')?.invalid && advertiserDetailsForm.get('countryId')?.touched ">
+                <p class="mb-0" style="color: red;font-size: 13px;"> <small>Country is required.*</small></p>
+              </div>
+            </div>
+            <div class="col-lg-6 mt-2">
+              <label for="example-text-input" name='url' (keyup)='trimSpaces($event)' class="text-gray mb-2">URL</label>
+              <input formControlName="url" placeholder="--" class="form-control no-outline form-control-sm" type="text"
+                id="example-text-input">
+              <div *ngIf="advertiserDetailsForm.get('url')?.invalid && advertiserDetailsForm.get('url')?.touched ">
+                <p class="mb-0" style="color: red;font-size: 13px;"> <small>Url is required.*</small></p>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row align-items-center mb-4">
+            <div class="col-lg-6 mt-2">
+              <label for="example-text-input" class="text-gray">Date Started</label>
+              <input formControlName="dateStarted" class="form-control no outline" type="date" id="example-text-input">
+            </div>
+            <div class="col-lg-6 mt-2">
+
+              <label for="example-text-input" class="text-gray mb-2">Date Terminated</label>
+              <input formControlName="dateTerminated" class="form-control no outline form-control-sm" type="date"
+                id="example-text-input">
+
+
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-12">
+              <p class="fw-medium mb-0 mt-3">Notes</p>
+              <input formControlName="notes" name='notes' (keyup)='trimSpaces($event)' class="form-control no outline"
+                placeholder="Notes..">
+              <div *ngIf="advertiserDetailsForm.get('notes')?.invalid && advertiserDetailsForm.get('notes')?.touched ">
+                <p class="mb-0" style="color: red;font-size: 13px;"> <small>Notes is required.*</small></p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card-footer d-flex justify-content-end">
+            <button type="button" class="text-danger btn border-0 bg-transparent"
+              (click)="cancelEditing()">Cancel</button>
+            <button type="button" class="btn btn-primary ms-3" [disabled]="!advertiserDetailsForm.valid || formSubmitted"
+              (click)="submit()"> Update </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>

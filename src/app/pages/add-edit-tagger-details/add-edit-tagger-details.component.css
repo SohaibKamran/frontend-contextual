@@ -1,0 +1,29 @@
+input {
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+  background-color: white;
+}
+
+.no-outline:focus {
+  outline: none;
+}
+
+.addedit_tagger_modal .average_score b {
+  width: 36px;
+  height: 24px;
+  background: #FFD703;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #262626;
+}
+
+.status_field label {
+  margin-bottom: 0.5rem;
+}
+.status_field .form-select, .status_field button {
+  height: 40px;
+}/*# sourceMappingURL=add-edit-tagger-details.component.css.map */

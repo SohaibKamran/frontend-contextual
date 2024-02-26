@@ -1,0 +1,243 @@
+.nav-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  align-self: stretch;
+  --bs-nav-tabs-border-width: 0px;
+  padding: 2px;
+  /* Media query for smartphones */
+}
+.nav-tabs .nav-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.nav-tabs .nav-item .nav-link {
+  display: flex; /* Use flexbox to center content */
+  justify-content: center; /* Center text horizontally */
+  align-items: center; /* Center text vertically */
+  height: 100%;
+  width: 100%;
+  font-size: medium;
+  color: #6C707B;
+  font-weight: 400;
+  border: 0px;
+}
+.nav-tabs .nav-item .nav-link:hover {
+  color: white;
+}
+.nav-tabs .nav-item .nav-link:focus {
+  color: white;
+}
+.nav-tabs .nav-item .nav-link:focus-visible {
+  color: white;
+}
+.nav-tabs .nav-item .nav-link.active,
+.nav-tabs .nav-item .nav-item.show .nav-link {
+  background: transparent;
+  border: 0px;
+  color: white;
+}
+@media (max-width: 768px) {
+  .nav-tabs .nav-item {
+    height: 10vh;
+    padding: 0.2vh;
+    justify-content: center;
+    color: white;
+    align-items: center; /* Center vertically */
+    text-align: center;
+  }
+  .nav-tabs .nav-item .nav-link {
+    display: flex; /* Use flexbox to center content */
+    justify-content: center; /* Center text horizontally */
+    align-items: center; /* Center text vertically */
+    height: 100%;
+    width: 100%;
+    border-radius: 4px;
+    background: var(--Button-Gradient, linear-gradient(180deg, #393E4C 0%, #171A22 100%));
+    /* drop-shadow / button-primary */
+    box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.04);
+    font-size: smaller;
+  }
+  .nav-tabs .nav-item .nav-link:hover {
+    color: white;
+    border: 1px solid var(--Light-Gold, #FAAD14);
+  }
+  .nav-tabs .nav-item .nav-link:focus {
+    color: white;
+    border: 1px solid var(--Light-Gold, #FAAD14);
+  }
+  .nav-tabs .nav-item .nav-link:focus-visible {
+    outline: 0;
+    color: white;
+    border: 1px solid var(--Light-Gold, #FAAD14);
+  }
+  .nav-tabs .nav-item .nav-link.active,
+  .nav-tabs .nav-item .nav-item.show .nav-link {
+    border-radius: 4px;
+    border: 5px solid var(--Light-Gold, #FAAD14);
+    background: var(--Button-Gradient, linear-gradient(180deg, #393E4C 0%, #171A22 100%));
+    color: white;
+    /* drop-shadow / button-primary */
+    box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.04);
+  }
+}
+
+.actors-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 1vw;
+}
+
+.fav-actor-img {
+  height: 125px;
+  width: 125px;
+  min-width: 125px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+}
+
+.text-actor {
+  color: #FFF;
+  text-align: center;
+  font-family: Roboto;
+  font-size: normal;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 136%; /* 21.76px */
+  letter-spacing: -0.32px;
+}
+
+.actor-name-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.center-column-box {
+  display: flex;
+  justify-content: center;
+  padding-top: 25px;
+}
+
+.card {
+  width: 100%;
+  margin: 15px; /* Half of the total margin you want between cards */
+  background-color: #3F4450;
+  border: 0px;
+  /* Media query for medium screens (e.g., tablets): 2 items per row */
+  /* Media query for small screens (e.g., phones): 1 item per row */
+}
+.card .line {
+  height: 1px;
+  background-color: #4B4B4B;
+  width: 90%;
+  margin: 5% auto;
+}
+.card .card-header {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  text-align: center; /* Center text */
+  padding: 20px; /* Adjust padding as needed */
+  border-bottom: 1px;
+  border-bottom-color: #4B4B4B;
+}
+.card .card-header .actor-name {
+  color: #DBDBDB;
+  text-align: center;
+  font-family: Roboto;
+  font-size: medium;
+  font-style: normal;
+  font-weight: 600;
+  margin: 0px;
+}
+.card .card-header .fav-actors-images img {
+  height: 125px;
+  width: 125px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+  align-items: center;
+}
+.card .card-body {
+  max-height: -moz-fit-content;
+  max-height: fit-content;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 4px;
+}
+.card .card-body .ellipse {
+  text-wrap: nowrap;
+  text-align: center; /* Center-align the text */
+  width: 100%; /* Ensure the width spans the full container */
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Add an ellipsis if the text is too long */
+  display: block; /* Treat the paragraph as a block-level element */
+}
+.card .card-body .product-scence {
+  border-radius: 4px;
+}
+.card .card-body .product-scence .product {
+  background: white;
+  height: 95px;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+}
+.card .card-body .product-scence .scene {
+  height: 50px;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+@media (max-width: 768px) {
+  .card .card {
+    flex: 0 0 50%;
+  }
+}
+@media (max-width: 576px) {
+  .card .card {
+    flex: 0 0 100%;
+  }
+}
+
+.empty-wishlist-header {
+  font-size: 36px;
+  text-align: center;
+  color: white;
+  padding-top: 60px;
+}
+
+.empty-wishlist-subheader {
+  font-size: 20px;
+  text-align: center;
+  color: white;
+  padding-bottom: 30px;
+}
+
+.empty-wishlist-image {
+  width: 700px;
+  height: auto;
+  -o-object-fit: cover;
+     object-fit: cover;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-wishlist-container {
+  display: flex;
+  align-items: center; /* Vertically centers the child elements */
+  justify-content: center; /* Horizontally centers the child elements */
+  flex-direction: column;
+}/*# sourceMappingURL=fav-actors.component.css.map */

@@ -1,0 +1,54 @@
+:host {
+  height: 100%;
+}
+
+.toolbar-user-container {
+  height: 100%;
+  position: relative;
+}
+.toolbar-user-container .toolbar-user-btn {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  min-width: 160px;
+}
+.toolbar-user-container .toolbar-user-btn .avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.toolbar-user-container .toolbar-user-btn .name {
+  margin: 14px 8px 14px 10px;
+}
+.toolbar-user-container .toolbar-user-btn .icon {
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+  transform: rotate(0);
+  transition: transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.toolbar-user-container .toolbar-user-btn.open {
+  background: rgba(0, 0, 0, 0.05);
+}
+.toolbar-user-container .toolbar-user-btn.open .icon {
+  transform: rotate(-180deg);
+}
+.toolbar-user-container .dropdown {
+  background: white;
+  z-index: 2;
+  position: absolute;
+  width: 100%;
+  min-width: 160px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s linear, max-height 0.25s linear, opacity 0.25s linear;
+}
+@media screen and (max-width: 599px) {
+  .toolbar-user-container .dropdown {
+    min-width: 65px;
+  }
+}
+.toolbar-user-container .dropdown.open {
+  opacity: 1;
+  visibility: visible;
+}/*# sourceMappingURL=user-menu.component.css.map */

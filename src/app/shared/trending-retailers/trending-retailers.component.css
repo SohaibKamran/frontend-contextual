@@ -1,0 +1,19 @@
+.card-body {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.card-body h5 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+.card-height {
+  height: 442px;
+}
+
+.header-bg {
+  background-color: #FAFAFA;
+}/*# sourceMappingURL=trending-retailers.component.css.map */

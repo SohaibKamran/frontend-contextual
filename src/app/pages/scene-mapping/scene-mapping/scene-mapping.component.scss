@@ -1,0 +1,43 @@
+@import "../../../../assets/scss/variables.scss";
+
+.card {
+  .card-body {
+    .map-img-wrapper {
+      img {
+        width: 88px;
+        height: 115px;
+        border-radius: 4px;
+        object-fit: cover;
+      }
+    }
+
+    .compare-row {
+      overflow: auto;
+      width: 365px;
+    }
+
+    .compare-img-wrapper {
+      position: relative;
+
+      img {
+        width: 331px;
+        height: 202px;
+        border-radius: 8px;
+        border: 2px solid $input-color;
+        object-fit: cover;
+      }
+
+      .icon-wrapper {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: $base-color;
+        border-radius: 50%;
+
+        i {
+          color: $black-color;
+        }
+      }
+    }
+  }
+}

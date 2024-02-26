@@ -1,0 +1,45 @@
+<div class="card user-activity-card card-height scroll">
+  <div class="card-header header-bg d-flex align-items-center justify-content-between">
+    <h5>Trending Brands</h5>
+    <a class="link-primary" (click)="setRetailer()">View all</a>
+  </div>
+  <div class="card-body" scrollTracker (scrolled)="onScrollEnd($event)">
+    <div class="row mb-4 d-flex align-items-center justify-content-between" *ngFor="let retailer of trendingRetailers">
+      <div class="col-auto p-r-0" (click)="setRetailer(retailer)">
+        <div class="u-img">
+          <img [src]= "retailer.imageUrl??'../../../assets/images/user.png'" alt="user image" height="50px" class="img-radius cover-img" />
+        </div>
+      </div>
+      <div class="col" >
+        <div class="d-flex align-items-center justify-content-between">
+          <a href="javascript:!" (click)="setRetailer(retailer)">
+            <h5 class="mb-0">{{retailer.name}}</h5>
+          </a>
+          <div class="text-end">
+            <div class="d-flex align-items-center">
+              <p class="text-muted text-sm mb-0"> {{retailer.adMatches}}</p>
+              <!-- <i class="text-muted fa fa-heart ms-1 fs-10"></i> -->
+            </div>
+            <p class="text-muted mb-0"> Matches</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="card bg-white text-black card-height scroll">
+      <div class="card-header header-bg ">Most Active Users</div>
+      <div *ngFor="let user of users" class="d-flex justify-content-between px-3 pt-3">
+          <div class="d-flex ">
+              <div class=" d-flex align-items-center">{{user.pfp}}</div>
+              <div class="mx-2">
+                  <div>{{user.name}}</div>
+                  <div class="text-secondary small">{{user.companyName}}</div>
+              </div>
+          </div>
+          <div class="text-muted">
+              {{user.impressions}}
+          </div>
+      </div>
+  </div> -->

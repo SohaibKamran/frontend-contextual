@@ -1,0 +1,26 @@
+<div class="card bg-white text-black card-height ">
+  <div class="card-header header-bg d-flex justify-content-between">
+    <div>My Assigned Episodes</div>
+    <div class="righttext">{{totalEpisodes}} Episodes</div>
+  </div>
+  <div class="card-body">
+    <ul class="d-flex text-center">
+      <li *ngFor="let episode of episodesData" class="header-bg mx-2 p-3">
+        <img *ngIf="episode?.Show?.areScenesBroken==1" src={{episode?.Show?.thumbnail}} alt="series poster"
+          class="img-fluid poster cursor-pointer" (click)="routeToAnnotator(episode?.showId)">
+        <img *ngIf="episode?.Show?.areScenesBroken==0" src="../../../../assets/images/default-video-frame.svg"
+          alt="series poster" class="dummy-image img-fluid poster cursor-pointer" />
+        <h5 *ngIf="episode?.Show?.Series!==null">{{episode?.Show?.Series?.title}}</h5>
+        <h5 *ngIf="episode?.Show?.Series===null">{{episode?.Show?.title}}</h5>
+        <p *ngIf="episode?.Show?.Series!==null">S{{episode?.Show?.seasonNo}}E{{episode?.Show?.episodeNo}}</p>
+        <p class="align_bottom" *ngIf="episode.Show.percentage">{{episode?.Show?.percentage}}% completed</p>
+        <p class="align_bottom" *ngIf="!episode.Show.percentage">0% completed</p>
+      </li>
+    </ul>
+    <ul class="d-flex text-center justify-content-center">
+      <li *ngIf="episodesData?.length===0" class="text-light"> No Episodes Assigned </li>
+    </ul>
+  </div>
+
+
+</div>

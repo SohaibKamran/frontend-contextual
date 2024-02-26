@@ -1,0 +1,63 @@
+// .page-content-wrapper {
+//   position: relative;
+//   min-height: 100vh;
+
+//   .pc-container {
+//     padding-bottom: 59px;
+//     min-height: 100% !important;
+//   }
+
+//   .pc-footer {
+//     position: absolute;
+//     bottom: 0;
+//     width: calc(100% - 260px);
+//   }
+// }
+
+/* Base styling for the navigation bar */
+.navbar {
+    background-color: #333; /* Dark background */
+    color: #fff; /* White text color */
+    display: flex; /* Use flexbox for horizontal layout */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Space out the nav items */
+    padding: 0.5rem 1rem; /* Padding around the navbar */
+  }
+  
+  /* Styling for the navigation links */
+  .navbar a {
+    color: #fff; /* White text color for links */
+    text-decoration: none; /* No underline */
+    margin-right: 1rem; /* Margin between links */
+    font-weight: bold; /* Make the text bold */
+  }
+  
+  /* Specific style for the account section to make it stand out */
+  .navbar .account-section {
+    background-color: #555; /* Slightly lighter background for the account section */
+    border-radius: 15px; /* Rounded corners */
+    padding: 0.5rem 1rem; /* Padding inside the account section */
+    display: flex; /* Use flexbox to align icon with text */
+    align-items: center; /* Center items vertically */
+  }
+  
+  /* Style for the account icon */
+  .navbar .account-icon {
+    background-color: #fff; /* White background for the icon */
+    border-radius: 50%; /* Circle shape */
+    padding: 0.3rem; /* Padding around the icon */
+    margin-right: 0.5rem; /* Space between icon and text */
+  }
+  
+  /* Adjust the size and layout on smaller screens */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column; /* Stack items vertically on small screens */
+      padding: 1rem; /* Larger padding */
+    }
+  
+    .navbar a {
+      margin-bottom: 0.5rem; /* Space between stacked links */
+    }
+  }
+  

@@ -1,0 +1,34 @@
+<div class="modal">
+    <div class="modal-content">
+      <div class="header">
+        <h6 class="header roboto-medium">Welcome Back!</h6>
+      </div>
+      <div class="modal-body">
+        <p class="paragraph roboto-light">It looks like your account has been deactivated due to inactivity. We understand that things can get busy, but we'd love to welcome you back to experience the innovative features of Contxtual. Please fill out the form below to request reactivation of your account.</p>
+        <form (ngSubmit)="onSubmit()">
+            <div class="form-row">
+              <label for="name" class="my-label roboto-light">Name</label>
+              <input type="text" id="name" [(ngModel)]="name" name="name" placeholder="Your Full Name">
+            </div>
+            <div class="form-row">
+              <label for="email" class="my-label roboto-light">Email</label>
+              <input type="email" id="email" [(ngModel)]="email" name="email" placeholder="Your Email Address">
+            </div>
+            <div class="form-row">
+              <label for="company" class="my-label roboto-light">Company</label>
+              <input type="text" id="company" [(ngModel)]="company" name="company" placeholder="Your Company Name">
+            </div>
+            <div class="form-row">
+              <label for="title" class="my-label roboto-light">Title</label>
+              <input type="text" id="title" [(ngModel)]="title" name="title" placeholder="Your Job Title">
+            </div>
+         
+        </form>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="CloseModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+          </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,487 @@
+@import './variables.scss';
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+mat-icon:hover {
+  cursor: pointer;
+}
+
+.actor {
+  float: inline-start;
+  position: absolute;
+  left: -10px;
+  z-index: 1;
+}
+
+.actor-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 60%;
+  object-fit: cover;
+  border: 1px solid gray;
+}
+
+.horizontal-ads-section {
+  height: 100%;
+  z-index: 100;
+  position: absolute;
+  right: 0;
+  color: black;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  top: -1px;
+  opacity: 0; /* Start fully transparent */
+  align-items: center; /* Vertical alignment */
+  animation: fadeIn 0.5s cubic-bezier(0.47, 0, 0.745, 0.715) forwards;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (max-width: 575.98px) {
+    top: 10px;
+  }
+
+  h6 {
+    font-size: large;
+    letter-spacing: 1.8px;
+  }
+
+  //   .img {
+  //     height: 162px;
+  //     width: 140px;
+  //     border-radius: 10px;
+  //     border: 1px solid #8F92A1;
+  //   }
+
+  //   .ad-badge {
+  //     position: absolute;
+  //     right: 10px;
+  //     bottom: 10px;
+  //   }
+}
+
+.vertical-ads-section {
+  z-index: 100;
+  position: absolute;
+  right: 0;
+  color: black;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  top: -1px;
+  opacity: 0; /* Start fully transparent */
+  animation: fadeIn 0.5s cubic-bezier(0.47, 0, 0.745, 0.715) forwards;
+  padding-bottom: 60px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  &::after {
+    // background: linear-gradient(269deg, rgba(21, 75, 125, 0.7) 56.53%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(270deg, rgba(7, 119, 199, 0.67) 54.47%, rgba(7, 119, 199, 0.00) 84.04%);
+    // background: url(../images/fade-gradient.svg);
+    content: "";
+    top: 0;
+    position: absolute;
+    bottom: 0;
+    left: auto;
+    right: 0;
+    z-index: -1;
+    width: 200%;
+    display: block;
+    height: 100%;
+
+    
+  }
+
+  @media (max-width: 575.98px) {
+    height: 290px !important;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+
+}
+
+// .adds-section img {
+//   padding-top: 1em;
+//   object-fit: contain;
+// }
+
+.full-screen-icon {
+  position: absolute;
+  right: 10px;
+}
+
+.vol-rep-for {
+  color: white;
+  font-size: 22px;
+}
+
+.pause {
+  color: white;
+  font-size: 36px;
+}
+
+.play {
+  color: white;
+  font-size: 36px;
+}
+
+.replay {
+  color: white;
+  font-size: 36px;
+}
+
+.form-range {
+  display: none;
+  // position: absolute;
+  // left: 53px;
+  margin-left: 1rem;
+}
+
+.volume-icon {
+  transition: linear 10s;
+  position: absolute;
+  width: 8rem;
+}
+
+.full-screen-icon {
+  position: absolute;
+  right: 41px;
+}
+
+.advertisor-icon {
+  position: absolute;
+  right: 79px;
+}
+
+@media (min-width: 576px) {
+  .volume-icon {
+    &::before {
+      transition: all 1s;
+    }
+
+    &:hover {
+      .form-range {
+        display: block;
+        transition: all 1s;
+      }
+    }
+  }
+}
+
+::ng-deep vg-scrub-bar .scrubBar {
+  background-color: #ffffff96;
+
+  vg-scrub-bar-current-time {
+    .background {
+      background-color: $primary-color !important;
+    }
+
+    .slider {
+      background: $white-color !important;
+      box-shadow: none !important;
+    }
+  }
+}
+
+
+
+::ng-deep vg-scrub-bar-buffering-time .background {
+  background-color: transparent !important;
+}
+
+vg-controls {
+  position: absolute;
+  display: flex;
+  height: 50px;
+  z-index: 300;
+  bottom: 22px;
+  padding: 0 40px;
+  // left: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-transition: bottom 1s;
+  -khtml-transition: bottom 1s;
+  -moz-transition: bottom 1s;
+  -ms-transition: bottom 1s;
+  transition: bottom 1s;
+}
+
+vg-scrub-bar {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: absolute;
+  height: 5px;
+  margin-left: 40px;
+
+
+}
+
+vg-player {
+  font-family: 'inter';
+  // height: 405px;
+  border-radius: 4px;
+}
+
+// ::ng-deep mat-drawer-content .ng-scrollbar-wrapper{
+//   background-color: $bg-dark !important;
+// }
+
+.mat-icon {
+  width: auto;
+  height: 32px;
+}
+
+.img-icon {
+  height: 28px;
+}
+
+.img-icon-s {
+  height: 20px;
+}
+
+.ml-15 {
+  margin-left: -15px;
+}
+
+
+.cards-content {
+  li.player-gray {
+    list-style-type: none;
+  }
+
+  .episode-detail {
+    img {
+      width: 75px;
+      object-fit: cover;
+      height: 100px;
+      border-radius: 4px;
+    }
+  }
+}
+
+.btn-outline-secondary {
+  border-color: $checkbox-color !important;
+}
+
+
+.progress {
+  height: 24px;
+  border-radius: 2px;
+
+  .progress-bar {
+    border-radius: 2px;
+  }
+}
+
+.form-check-input {
+  width: 1.05em;
+  height: 1.05em;
+}
+
+.ad-list-wrapper {
+  display: flex; /* Use flexbox to align children */
+  align-items: center; /* Vertically center the flex items */
+  justify-content: center; /* Horizontally center the flex items */
+  width: 100%;; 
+  padding-left: 40px;
+  padding-right: 40px;
+  &::after {
+    // background: linear-gradient(269deg, rgba(21, 75, 125, 0.7) 56.53%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(270deg, rgba(7, 119, 199, 0.67) 54.47%, rgba(7, 119, 199, 0.00) 84.04%);
+    // background: url(../images/fade-gradient.svg);
+    content: "";
+    top: 0;
+    position: absolute;
+    bottom: 0;
+    left: auto;
+    right: 0;
+    z-index: -1;
+    width: 200%;
+    display: block;
+    height: 100%;
+
+    
+  }
+
+  @media (max-width: 575.98px) {
+    height: 290px !important;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ad-list {
+    //height: 378px;
+    //padding-bottom: 3rem !important;
+
+   // @media (max-width: 575.98px) {
+    //  height: 262px !important;
+    //}
+
+    padding: 0 1rem;
+    
+
+    &::after {
+      // background: linear-gradient(269deg, rgba(21, 75, 125, 0.7) 56.53%, rgba(0, 0, 0, 0) 100%);
+      background: linear-gradient(270deg, rgba(7, 119, 199, 0.67) 54.47%, rgba(7, 119, 199, 0.00) 84.04%);
+      // background: url(../images/fade-gradient.svg);
+      content: "";
+      top: 0;
+      position: absolute;
+      bottom: 0;
+      left: auto;
+      right: 0;
+      z-index: -1;
+      width: 200%;
+      display: block;
+      height: 100%;
+
+      @media (max-width: 575.98px) {
+        display: none;
+      }
+    }
+
+    .shopping {
+      width: 150px;
+      height: 250px;
+      border-radius: 13px;
+      object-fit: cover;
+      margin-bottom: 2px;
+      //border: 13px transparent;
+      background: rgba(0, 0, 0, 0.50);;
+    }
+
+    .ad-icon {
+      position: absolute;
+      bottom: 22px;
+      right: 5px;
+
+      i {
+        color: $text-gray;
+        font-size: 14px;
+      }
+    }
+
+    .heart-icon-player {
+      font-size: 14px;
+      color: $heart-color;
+      -webkit-text-stroke: 1px;
+    }
+
+    p {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 12px;
+      // letter-spacing: 2.363px;
+      max-width: 90px;
+      font-weight: $font-medium;
+      text-shadow: 0.5797037482261658px 0.5797037482261658px 0px rgba(0, 0, 0, 0.80);
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+
+
+// ::-webkit-scrollbar {
+//   width: 7px;
+//   height: 7px;
+// }
+
+// ::-webkit-scrollbar-track {
+//   background-color: transparent;
+//   border-radius: 100px;
+// }
+
+// ::-webkit-scrollbar-thumb {
+//   background-color: transparent;
+//   border-radius: 100px;
+// }
+
+// @media (max-width: 768px) {
+//   .ad-list {
+//     height: 270px !important;
+
+//     .shopping {
+//       height: 65px;
+//     }
+//   }
+// }
+
+
+// episode preview content //
+.progressbar_withicons {
+  align-items: center;
+
+  button {
+    border: solid 1px $checkbox-color;
+    background: transparent;
+    // width: 32px;
+    // height: 32px;
+    border-radius: 4px;
+    // color: gray;
+    padding: 9px 14px;
+  }
+
+  p {
+    width: 88%;
+    margin: 0;
+  }
+}
+
+
+// #wrap-video {
+//   height: 100% !important;
+// }
+
+.ad-queue-scroll {
+  max-height: 413px;
+  overflow: auto;
+}
+
+.episode-detail {
+  img {
+    width: 75px;
+    object-fit: cover;
+    height: 100px;
+    border-radius: 4px;
+  }
+}
+
+.add-section-scroll {
+  max-height: 425px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.ad-queue-ps {
+  padding-left: 4.5rem;
+}
+
+// @media (max-width: 991.98px) {
+//   .ad-list {
+//     height: 270px !important;
+
+//     .shopping {
+//       height: 65px;
+//     }
+//   }
+// }

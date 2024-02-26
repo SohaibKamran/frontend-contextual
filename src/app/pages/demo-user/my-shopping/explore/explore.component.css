@@ -1,0 +1,33 @@
+.search-container {
+  position: relative;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.search-container .bi-search {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: gray; /* or any color you prefer */
+  margin-top: -10px;
+}
+
+.search-container .form-control {
+  padding-left: 30px; /* Adjust this value based on the size of the icon */
+}
+
+.search-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.loader {
+  position: relative;
+  left: 90%;
+  bottom: 28px;
+  width: 20px;
+  height: 20px;
+}/*# sourceMappingURL=explore.component.css.map */

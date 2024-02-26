@@ -1,0 +1,32 @@
+<!-- Removed by jira task CON-1543 -->
+<app-pagetitle [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+<div>
+  <cdk-home-cover></cdk-home-cover>
+  <div class="search-position ms-2">
+    <cdk-int-autocomplete [data]="$any(videoData)" [keyword]="keyword" (changeInput)="changeInput($event)"
+      (selectMovie)="selectMovie($event)"></cdk-int-autocomplete>
+  </div>
+  <div class="main">
+    <!-- <p class="title">Trending</p> -->
+    
+    <h3 class="shoppable-videos roboto-medium">Shoppable Videos</h3>
+    <cdk-img-slider *ngIf="!trendingLoader" [videos]="trendingData"></cdk-img-slider>
+    <div *ngIf="trendingLoader" class="text-center">
+      <div class="spinner-border text-primary " role="status"></div>
+    </div>
+  </div>
+  <!-- <div class="main">
+    <p class="title">Recent Favourites</p>
+    <cdk-img-slider *ngIf="!favouritesLoader" [videos]="favData"></cdk-img-slider>
+    <div *ngIf="favouritesLoader" class="text-center">
+      <div class="spinner-border text-primary " role="status"></div>
+    </div>
+  </div> -->
+  <!-- <div class="main">
+    <p class="title">Classics</p>
+    <cdk-img-slider *ngIf="!classicsLoader" [videos]="classicData" [last]="last"></cdk-img-slider>
+    <div *ngIf="classicsLoader" class="text-center">
+      <div class="spinner-border text-primary " role="status"></div>
+    </div>
+  </div> -->
+</div>

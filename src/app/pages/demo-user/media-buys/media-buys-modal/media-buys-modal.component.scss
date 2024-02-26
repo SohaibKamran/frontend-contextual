@@ -1,0 +1,22 @@
+.select-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .select-fullwidth {
+    width: 100%; /* This will make the ng-select fill the modal width */
+  }
+  
+  .select-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* This will place the child ng-select elements with space between */
+    gap: 10px;
+    width: 100%; /* This ensures that the container takes up the full width */
+  }
+  
+  .select-halfwidth {
+    flex: 1; /* This will make each ng-select take up equal width within the flex container */
+  }
+  

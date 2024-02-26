@@ -1,0 +1,28 @@
+<div class="modal-body">
+    <h6 class="text-center">Select Video Series</h6>
+    <div class="select-container">
+        <ng-select class="select-fullwidth" placeholder="Select Video Series" [items]="titles" 
+                   (change)="onTitleSelect($event)" [closeOnSelect]="true" 
+                   [clearable]="false" [(ngModel)]="selectedTitle"></ng-select>
+      
+        <div class="select-row">
+          <ng-select class="select-halfwidth" placeholder="Select Season" [items]="seasonNumbers"
+                     (change)="onSeasonSelect($event)" [closeOnSelect]="true" 
+                     [clearable]="false" [(ngModel)]="selectedSeason"></ng-select>
+      
+          <ng-select class="select-halfwidth" placeholder="Select Episode" [items]="episodeNumbers" 
+                      [closeOnSelect]="true" 
+                     [clearable]="false" [(ngModel)]="selectedEpisode"></ng-select>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer d-flex align-items-center justify-content-between">
+    <button class="mb-0 text-danger btn btn-transparent border-0" data-bs-dismiss="modal" aria-label="Close"
+        (click)="CloseModal()">Cancel</button>
+    <button type="button" class="btn btn-primary"
+        [disabled]="!selectedTitle || !selectedSeason || !selectedEpisode"
+        (click)="changeVideo()">
+        Done
+    </button>
+</div>

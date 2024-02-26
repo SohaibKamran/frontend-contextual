@@ -1,0 +1,26 @@
+<section class="register-login mx-3">
+  <app-offcanvas-login></app-offcanvas-login>
+  <div class="container">
+    <div class="row text-dark mt-10 align-items-center gx-5">
+      <div class="col-md-6">
+        <h1 class="fw-bold text-black mb-3">Thank You!</h1>
+        <p class="fs-xl">Thank you for signing up for a demo of our product!</p>
+        <p class="fs-xl">We will be sending you a Demo link via email within the next 24 hours. Please be sure to check
+          your inbox for this email.</p>
+        <p class="fs-xl">To ensure that our emails do not end up in your spam box, please add <span
+            class="text-primary text-underline">hello@contxtual.tv</span> to your address book or safe sender list. This
+          will help to ensure that all future emails from us will be delivered to your inbox.</p>
+        <p class="fs-xl">Thank you for your interest in our product, and we look forward to demonstrating it to you
+          soon.</p>
+        <a [routerLink]="['/login']" class="fs-xl text-primary cursor text-decoration-none mb-3">Sign in here</a>
+        <p class="fs-xl mt-3">Best regards, </p>
+        <p class="fs-xl">The Contxtual Team</p>
+      </div>
+      <div class="col-md-6">
+        <div class="mockup-wrapper">
+          <img src="/src/assets/images/mockup-mobile.png" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

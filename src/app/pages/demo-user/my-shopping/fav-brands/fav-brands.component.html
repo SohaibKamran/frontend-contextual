@@ -1,0 +1,71 @@
+<div class="row wishlist-tabs">
+  <div class="col-12">
+    <ul ngbNav #nav="ngbNav" class="nav-tabs" >
+      <li [ngbNavItem]="1">
+        <a ngbNavLink class="roboto-light" (click)="switchTrending(false)">FAVORITE<span *ngIf="!favBrand">&nbsp;BRANDS</span><span *ngIf="favBrand">S</span></a>
+        <ng-template ngbNavContent>
+          
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2">
+        <a ngbNavLink class="roboto-light" (click)="switchTrending(true)">TRENDING&nbsp;<span *ngIf="!favBrand">BRANDS</span></a>
+        <ng-template ngbNavContent>
+         
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav" class="mt-3"></div>
+  </div>
+</div>
+<div *ngIf="!showWishlist"class="row brands-container">
+  <div *ngIf="loader"class="spinner-border text-primary mx-auto" role="status">
+  </div>
+ 
+  <div *ngIf="brands.length==0 && loader==false" class="empty-wishlist-container">
+    <!--p class="fs-xl fw-medium text-center mt-5" style="color: white">No Favorite Actors Found</p-->
+    <h3 class="roboto-light empty-wishlist-header"> Hey your wishlist is empty!</h3>
+    <p class="roboto-light empty-wishlist-subheader">Start filling it up by watching  videos and saving products by clicking the “heart”!</p>
+    <img src="assets/images/customization/empty-wishlist.jpg" class="empty-wishlist-image">
+  </div>
+ 
+  <div class="col-sm-6 col-lg-4 col-xxl-3" *ngFor="let brand of brands">
+    <div class="card">
+      <div class="card-header">
+      
+          <div class="fav-brand-images cursor">
+            <img [src]="brand.imageUrl??'../../../../../assets/images/user.png'" (click)="setRetailer(brand)" class="cursor">
+          </div>
+          
+            <p (click)="setRetailer(brand)"class="mb-0 cursor brand-name">{{brand?.name}}</p>
+            <p class="text-light mb-0">{{brand?.productCount?.toLocaleString()}}</p>
+          
+        
+      </div>
+      <div class="line"></div>
+      <div class="card-body py-0">
+        <div class="row gx-2">
+          <div class="col-md-6 mb-2" *ngFor="let prod of getTopFourScenes(brand)">
+            <div class="product-scence">
+              <img (click)="setRetailer(brand)" src="{{prod?.Scene?.thumbnail}}" class="scene cursor">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="showWishlist">
+  <div *ngIf="favBrand" class="center-column-box">
+    <div class="brand-name-box">
+      <img [src]="favBrand.imageUrl" class="fav-brand-img">
+      <p class="text-brand"> {{favBrand.name}}</p>
+    </div>
+  </div>
+  <div class="row gx-3">
+  <app-wishlist-data [wishlistData]="resultData" [isWishlistLoaded]="isWishlistLoaded" [isTrending]="isTrending" (refreshListing) ="refreshListing()"
+    (addProduct)="addProduct($event)" (removeProduct)="removeProduct($event)"></app-wishlist-data>
+
+
+</div>

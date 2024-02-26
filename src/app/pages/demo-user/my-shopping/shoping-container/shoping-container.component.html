@@ -1,0 +1,82 @@
+<app-pagetitle [breadcrumbItems]="breadCrumbItems">
+</app-pagetitle>
+<div class="alerts-top">
+  <app-ad-alert [link]="link"></app-ad-alert>
+</div>
+<section class="my-section">
+  
+  <div class="container-fluid">
+    <h1 class="text-center shopping-header roboto-medium">Shopping</h1>
+    <div class="row mb-3" *ngIf="activeTabId==1">
+    </div>
+    <div class="row mb-3" *ngIf="activeTabId==2 ">
+    </div>
+    <div class="row mb-3" *ngIf="activeTabId==3 ">
+    </div>
+    <div class="row mb-3" *ngIf="activeTabId==4 ">
+    </div>
+    <!-- EXPLORE TAB (hidden for now)
+    <div class="row mb-3" *ngIf="activeTabId==5 ">
+      <div class="col-12" *ngIf="brand==null">
+        <h6 class="fs-xxxl fw-bold">Explore</h6>
+        <p class="fs-lg wishlist-gray description-height">
+          Users can discover more products associated with their favorite brands across various TV shows, facilitating the exploration of new shows based on their preferred brand’s fashion styles. The system's personalized shopping discovery layer enables you to offer advertisers exclusive ad targeting based on “favorite brand style”.
+        </p>
+      </div>
+      <div class="col-12" *ngIf="brand!=null">
+        <div class="d-flex align-items-center">
+          <img [src]="brand.imageUrl??'../../../../../assets/images/user.png'" class="fav-actor-img border-radius-0">
+          <div class="ms-3">
+            <h6 class="fs-xxxl fw-bold"> {{brand.name}}</h6>
+            <p class="fs-lg wishlist-gray mb-0">
+              Users can discover more products associated with their favorite brands across various TV shows, facilitating the exploration of new shows based on their preferred brand’s fashion styles. The system's personalized shopping discovery layer enables you to offer advertisers exclusive ad targeting based on “favorite brand style”.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="row wishlist-tabs">
+      <div class="col-12">
+        <ul ngbNav #nav="ngbNav" class="nav-tabs" [activeId]="activeTabId">
+          <li [ngbNavItem]="1">
+            <a ngbNavLink class="roboto-regular" (click)="setActive(1)">My Wishlist</a>
+            <ng-template ngbNavContent>
+              <app-my-wishlist (addProductToWishlist)="addProductToWishlist($event)" (removeProductFromWishlist)="removeProductFromWishlist($event)" [wishlistData]="wishlistData" [trendingData]="trendingData" [isWishlistLoaded]="isWishlistLoaded" [isTrendingLoaded]="isTrendingLoaded"></app-my-wishlist>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="2" (click)="isWishlistLoaded && setActive(2)">
+            <a ngbNavLink class="roboto-regular" [class.disabled-link]="!isWishlistLoaded">Actors</a>
+            <ng-template ngbNavContent>
+              <app-fav-actors (addProductToWishlist)="addProductToWishlist($event)" (removeProductFromWishlist)="removeProductFromWishlist($event)" [wishlistData]="wishlistData" [trendingData]="trendingData" [isWishlistLoaded]="isWishlistLoaded" [refresh]="refresh"></app-fav-actors>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="3" (click)="isWishlistLoaded && setActive(3)">
+            <a ngbNavLink class="roboto-regular" [class.disabled-link]="!isWishlistLoaded">Shows</a>
+            <ng-template ngbNavContent>
+              <app-fav-shows (addProductToWishlist)="addProductToWishlist($event)" (removeProductFromWishlist)="removeProductFromWishlist($event)" [wishlistData]="wishlistData" [trendingData]="trendingData" [isWishlistLoaded]="isWishlistLoaded" [refresh]="refresh"></app-fav-shows>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="4" (click)="isWishlistLoaded && setActive(4)">
+            <a ngbNavLink class="roboto-regular"  [class.disabled-link]="!isWishlistLoaded">Brands</a>
+            <ng-template ngbNavContent>
+              <app-fav-brands (addProductToWishlist)="addProductToWishlist($event)" (removeProductFromWishlist)="removeProductFromWishlist($event)" [wishlistData]="wishlistData" [trendingData]="trendingData" [isWishlistLoaded]="isWishlistLoaded" [refresh]="refresh"></app-fav-brands>
+            </ng-template>
+          </li>
+          <!-- EXPLORE TAB (hidden for now)
+          <li [ngbNavItem]="5" (click)="setActive(5)">
+            <a ngbNavLink>
+              <i class="bi bi-search-heart me-2"></i>Explore</a>
+            <ng-template ngbNavContent>
+              <app-explore></app-explore>
+            </ng-template>
+          </li> -->
+        </ul>
+        <div [ngbNavOutlet]="nav" class="mt-3"></div>
+      </div>
+      <!-- <div class="col-3">
+        <app-trending-bar></app-trending-bar>
+      </div> -->
+    </div>
+  </div>
+</section>

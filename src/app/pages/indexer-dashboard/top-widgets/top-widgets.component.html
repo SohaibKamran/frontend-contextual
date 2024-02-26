@@ -1,0 +1,23 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row gx-3">
+      <!-- [ sample-page ] start -->
+      <div class="col-md-6 col-xl-4" *ngFor="let widget of widgets; let i=index">
+        <div class="card  {{ widget.background }} border {{ widget.border }} mb-1 mt-1">
+          <div class="card-body p-3">
+            <h6 class="mb-1 f-w-500 {{widget.color}}" [ngClass]="{'third-widget-header':i===2}">{{ widget.title }}</h6>
+            <h4 class="mb-2 text-black" [ngClass]="{'third-widget-amount-background':i===2}">
+
+              {{ widget.amount }}
+
+              <!-- <span class="badge {{ task.background }} border {{ task.border }} "><i class="{{ task.icon }}"></i> {{ task.percentage }}</span> -->
+            </h4>
+            <p class="mb-0 text-muted text-sm overflow" placement="bottom">
+              {{widget.content}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

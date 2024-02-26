@@ -1,0 +1,72 @@
+<div class="modal-body">
+    <h5 style="padding-bottom: 20px;">Advanced Settings</h5>
+
+    <div class="card-body table-border-style">
+        <!-- Container for the entire layout -->
+        <div class="metrics-container">
+            <!-- First column -->
+            <div class="metrics-group">
+              <label class="my-label roboto-light">Total Views</label>
+              <input type="text" [value]="formatNumber(totalViews)" (input)="parseNumber($event, 'totalViews')" placeholder="Total views in period">
+
+            
+              <label class="my-label roboto-light">Ad Impressions/Pause</label>
+              <input type="number" placeholder="Ads viewed/pause" [(ngModel)]="adImpressionPerPause">
+            
+
+              <label class="my-label roboto-light">Save Percentage</label>
+              <input type="text" [value]="formatPercentage(savePercentage)" (input)="parsePercentage($event, 'savePercentage')" placeholder="% Saves/Impression">
+
+              
+              <label class="my-label roboto-light">Wishlist CPM</label>
+              <input type="text" [value]="formatCurrency(retargetingCPM)" (input)="parseCurrency($event, 'retargetingCPM')" placeholder="Remarketing Rate">
+
+
+            
+              <label class="my-label roboto-light">CPC</label>
+              <!-- For displaying and parsing currency values such as CPC -->
+              <input type="text" [value]="formatCurrency(CPC)" (input)="parseCurrency($event, 'CPC')" placeholder="Cost per click through">
+
+
+            
+              
+            </div>
+            
+            <!-- Second column -->
+            <div class="metrics-group">
+              <label class="my-label roboto-light">Avg Pauses/View</label>
+              <input type="number" placeholder="Avg pauses/view" [(ngModel)]="avgPausesPerVideo">
+
+              <label class="my-label roboto-light">Pause CPM</label>
+              <input type="text" [value]="formatCurrency(impressionCPM)" (input)="parseCurrency($event, 'impressionCPM')" placeholder="Impression Rate">
+
+
+              <label class="my-label roboto-light">Retargeting Views</label>
+              <input type="number" placeholder="Saved item views" [(ngModel)]="retargetingViews">
+              
+            
+              <label class="my-label roboto-light">Click Percentage</label>
+              <input type="text" placeholder="% Clicks/Save" [value]="formatPercentage(clickPercentage)" (input)="parsePercentage($event, 'clickPercentage')">
+
+              <label class="my-label roboto-light">Shopping Conversion</label>
+              <input type="text" [value]="formatPercentage(shoppingConversionRate)" (input)="parsePercentage($event, 'shoppingConversionRate')" placeholder="Shopping Conversion">
+              
+              <button class="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close"
+              (click)="getDefaultSettings()">Restore Default</button>
+                <button type="button" class="btn btn-primary" (click)="computeRevenue()">
+              Submit
+             </button>
+            </div>
+          </div>
+          
+
+        </div>
+
+  <!--div class="modal-footer d-flex align-items-center justify-content-between">
+    <button class="mb-0 text-danger btn btn-transparent border-0" data-bs-dismiss="modal" aria-label="Close"
+        (click)="CloseModal()">Cancel</button>
+    <button type="button" class="btn btn-primary">
+        Done
+    </button>
+    
+</div-->

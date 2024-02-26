@@ -1,0 +1,14 @@
+.card-body {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  margin: 1rem 0;
+  padding: 0 1rem !important;
+}
+
+.card-height {
+  height: 442px;
+}
+
+.header-bg {
+  background-color: #FAFAFA;
+}/*# sourceMappingURL=trending-actors.component.css.map */

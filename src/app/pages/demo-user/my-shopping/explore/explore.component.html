@@ -1,0 +1,9 @@
+<div class="search-container">
+    <form (ngSubmit)="onSearch()" class="search-form">
+        <input name="search" type="text" placeholder="Search" class="form-control h_40" [(ngModel)]="text">
+        <span *ngIf="loader" class="spinner-border text-primary loader"></span>
+        <button class="search-button"><i class="bi bi-search text-gray"></i></button>
+    </form>
+</div>
+<app-explore-data [wishlistData]="searchResults" (refreshListing)="refreshListing()" (addProduct)="addProduct($event)" (removeProduct)="removeProduct($event)" [loader]="loader"></app-explore-data>
+

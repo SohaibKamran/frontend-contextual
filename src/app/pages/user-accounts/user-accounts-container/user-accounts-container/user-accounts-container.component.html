@@ -1,0 +1,34 @@
+<app-pagetitle title="User Accounts" [breadcrumbItems]="breadCrumbItems">
+  <button type="button" class="btn btn-primary" (click)="openAddUserModal()"> Add New User </button>
+</app-pagetitle>
+<div class="row align-items-center">
+  <div class="col-md-6 ">
+    <app-most-active-users [cardHeight]="cardHeight"></app-most-active-users>
+  </div>
+  <div class="col-md-6">
+    <app-progress-by-series [title]="titleSeries" [cardHeight]="seriesCardHeight"></app-progress-by-series>
+  </div>
+  <!-- <div class="col-md-7 mb-3">
+    <div class="position-relative">
+      <h6 class="fs-xxl fw-medium mb-0">
+        User Records
+      </h6>
+    </div>
+  </div>
+  <div class="col-md-2 mb-3">
+    <div class="position-relative">
+      <ng-multiselect-dropdown name="city" [placeholder]="'Select City'" [settings]="dropdownSettings" [data]="cities"
+        (onSelect)="onItemSelect($event)">
+      </ng-multiselect-dropdown>
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="position-relative">
+      <input type="text" class="form-control h_40" placeholder="Search">
+      <i class="bi bi-search text-gray"></i>
+    </div>
+  </div> -->
+  <div class="col-md-12">
+    <app-user-records></app-user-records>
+  </div>
+</div>

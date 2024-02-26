@@ -1,0 +1,48 @@
+<div>
+    <div class="modal-header">
+      <h5 class="modal-title">List of Actors</h5>
+    </div>
+    <div class="modal-body">
+      <div class="col-lg-6">
+        <section class="actor-scroll real-actor-scroll">
+          <!-- Actors list starts here -->
+          <div *ngFor="let actor of actors; let i = index" class="actor-item">
+            <div class="d-flex align-items-center mb-2">
+              <!-- Actor image -->
+              <div class="actor-image me-3">
+                <img src="{{actor.imageUrl}}" alt="{{actor.name}}">
+              </div>
+              <!-- Actor name -->
+              <div class="actor-name">
+                <p>{{actor.name}}</p>
+              </div>
+              <!-- Remove Actor Button -->
+              <button class="btn btn-danger ms-auto" (click)="removeActor(actor.id)">Remove</button>
+            </div>
+          </div>
+          
+          <!-- New actor input fields -->
+          <div class="new-actor-inputs d-flex align-items-center mt-3">
+            <!-- Input for Actor Name -->
+            <div class="me-2">
+              <input type="text" class="form-control" [(ngModel)]="newActorName" placeholder="Actor Name">
+            </div>
+  
+            <!-- Input for Actor Image URL -->
+            <div class="me-2">
+              <input type="text" class="form-control" [(ngModel)]="newActorImageUrl" placeholder="Image URL (optional)">
+            </div>
+  
+            <!-- Add new actor button -->
+            <button class="btn btn-primary" (click)="addActor()">Add New Actor</button>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <!-- Footer buttons -->
+      <button class="text-danger btn border-0 bg-transparent" (click)="cancel()">Cancel</button>
+      <button class="btn btn-primary ms-3" (click)="done()">Done</button>
+    </div>
+  </div>
+  

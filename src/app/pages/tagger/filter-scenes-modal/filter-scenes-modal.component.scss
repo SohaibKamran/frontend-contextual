@@ -1,0 +1,23 @@
+@import '/src/assets/scss/variables.scss';
+
+.form-select {
+  background-image: url(../../../../assets/icons/caret-down.svg);
+  background-color: $white-color;
+  width: 160px;
+  box-shadow: $form-shadow;
+  border-radius: 4px;
+  border: none;
+  color: $text-light;
+}
+
+.form-control {
+  box-shadow: $form-shadow;
+  border-radius: 4px;
+  border: none;
+  color: $text-light;
+  // width: 60px;
+}
+
+label{
+  white-space: nowrap;
+}

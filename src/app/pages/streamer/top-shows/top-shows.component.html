@@ -1,0 +1,49 @@
+<div class="card user-activity-card card-height ">
+  <div class="card-header header-bg d-flex align-items-center justify-content-between">
+    <h5>Top Shows</h5>
+    <a class="link-primary">View all</a>
+  </div>
+  <div class="card-body scroll">
+    <div class="row mb-3 align-items-center" *ngFor="let show of topShows">
+      <div class="col-auto p-r-0">
+        <div class="u-img">
+          <img [src]="show?.thumbnail" height="50px" class="cover-img" />
+          <span class="profile-img"></span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="d-flex align-items-center justify-content-between">
+          <a href="javascript:!">
+            <h5 class="mb-0">{{show?.title}}</h5>
+          </a>
+          <!-- <div class="text-end">
+              <p class="text-muted text-sm mb-0">{{show?.pauseImpressions}}</p>
+              <p class="text-muted text-sm mb-0">Impressions</p>
+            </div> -->
+          <div class="text-end">
+            <div class="d-flex align-items-center">
+              <p class="text-muted text-sm mb-0">{{show?.title}}</p>
+            </div>
+          </div>
+        </div>
+        <!-- <p class="text-muted text-sm mb-0">Company Name</p> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="card bg-white text-black card-height scroll">
+      <div class="card-header header-bg ">Most Active Users</div>
+      <div *ngFor="let user of users" class="d-flex justify-content-between px-3 pt-3">
+          <div class="d-flex ">
+              <div class=" d-flex align-items-center">{{user.pfp}}</div>
+              <div class="mx-2">
+                  <div>{{user.name}}</div>
+                  <div class="text-secondary small">{{user.companyName}}</div>
+              </div>
+          </div>
+          <div class="text-muted">
+              {{user.impressions}}
+          </div>
+      </div>
+  </div> -->

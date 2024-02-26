@@ -1,0 +1,36 @@
+<div aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-small">
+    <div class="modal-content actor">
+      <div class="modal-header justify-content-between">
+        <h1 class="modal-title" id="exampleModalLabel">{{currentShowSelected?.Series?.title}}</h1>
+        <div class="form-group mb-0">
+          <!-- <label class="form-label" for="exampleFormControlSelect1">Tag Status</label> -->
+          <select class="form-select text-primary border-0 form-select-primary" id="exampleFormControlSelect1" ngModel
+            (ngModelChange)="fetchEpisodes($event)">
+
+            <option *ngFor="let season of seasons" [value]="season.seasonNo" [selected]="season.seasonNo">Season
+              {{season?.seasonNo}}</option>
+
+          </select>
+        </div>
+      </div>
+      <hr>
+      <div class="modal-body">
+        <div *ngFor="let episode of episodes">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <p class="fs-lg text-black mb-0 fw-bold">Episode {{episode?.episodeNo}}</p>
+              <p class="fs-md text-muted mb-0">{{episode?.title}}</p>
+              <p class="fs-md text-muted mb-0">{{episode?.percentage!==null ? episode?.percentage : '0'}}% indexed</p>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" (click)="passBack(episode.id)">Go
+              <!-- <i class="bi bi-chevron-right ms-2 fs-10"></i> -->
+            </button>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-ui-loader loaderId="searchLoader"></ngx-ui-loader>
+</div>

@@ -1,0 +1,77 @@
+<div class="card">
+  <div class="card-body">
+    <div class="episode-detail mb-3">
+      <div class="img-wrapper d-flex align-items-center">
+        <img
+          [src]="videoDetails?.Series?.thumbnail?videoDetails?.Series?.thumbnail:'../../../../assets/images/default-video-frame.svg'">
+        <div>
+          <h6 class="fs-xl fw-bold mb-0">{{videoDetails?.Series?.title}}</h6>
+        </div>
+      </div>
+    </div>
+    <div class="row gx-2">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <!-- {{videoDetails?.seasonNo}} -->
+          <!-- <label for="exampleFormControlInput1" class="form-label fs-lg text-dark fw-medium">Select Season</label> -->
+          <!-- <input type="text" formControlName="bankCountry" class="form-control" id="exampleFormControlInput1"
+                    placeholder="Enter your bank country"> -->
+          <!-- <select class="form-select" [ngModel]="videoDetails?.seasonNo" (change)="getEpisodeOfSeason($event)">
+            <option disabled="true" value="null" selected>Select Season</option>
+            <option *ngFor="let season of seasonDetails | sortBy:'asc':'seasonNo'" [value]="season.seasonNo">Season
+              {{season?.seasonNo}}</option>
+          </select> -->
+          <ng-select [hidden]="showSeasonAndEpisode" [(ngModel)]="selectedSeason" placeholder="Season(s)" [items]="seasonDetails" bindLabel="text"
+            [multiple]="false" [closeOnSelect]="true" (change)="getEpisodeOfSeason($event)" [clearable]="false"
+            [searchable]="false"></ng-select>
+        </div>
+        <!-- <div class="btn-group w-100" ngbDropdown>
+            <button
+              class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center justify-content-center w-100"
+              type="button" ngbDropdownToggle> Select Season
+              <i class="bi bi-caret-down-fill ms-2 fs-10"></i>
+            </button>
+            <div class="dropdown-menu" ngbDropdownMenu>
+              <a  *ngFor="let season of seasonDetails | sortBy:'asc':'seasonNo'" class="dropdown-item" (click)="getEpisodeOfSeason(season.seasonNo)">
+                Season {{season?.seasonNo}}
+              </a>
+             
+            </div>
+          </div> -->
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <!-- {{videoDetails?.episodeNo}} -->
+          <!-- <label for="exampleFormControlInput1" class="form-label fs-lg text-dark fw-medium">Select Season</label> -->
+          <!-- <input type="text" formControlName="bankCountry" class="form-control" id="exampleFormControlInput1"
+                    placeholder="Enter your bank country"> -->
+          <!-- <select class="form-select" [ngModel]="videoDetails?.episodeNo" (change)="setEpisode($event)">
+                  <option  value="" selected>Select Season</option>
+                  <option *ngFor="let episode of allEpisodes | sortBy:'asc':'episodeNo'" [value]="episode.episodeNo">Episode {{episode?.episodeNo}}</option>
+                </select> -->
+          <ng-select [hidden]="showSeasonAndEpisode" [(ngModel)]="selectedEpisode" placeholder="Episode(s)" [items]="allEpisodes" bindLabel="text"
+            [multiple]="false" [closeOnSelect]="true" (change)="setEpisode($event)" [clearable]="false"
+            [searchable]="false"></ng-select>
+        </div>
+        <!-- <div class="btn-group w-100" ngbDropdown>
+            <button
+              class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center justify-content-center w-100"
+              type="button" ngbDropdownToggle> Select Episode
+              <i class="bi bi-caret-down-fill ms-2 fs-10"></i>
+            </button>
+            <div class="dropdown-menu" ngbDropdownMenu>
+              <a *ngFor="let episode of allEpisodes" class="dropdown-item">
+               Episode {{episode?.episodeNo}}
+              </a>
+            </div>
+          </div> -->
+      </div>
+    </div>
+    <div class="description-season">
+      <p class="text-black fw-medium mb-2">{{videoDetails?.title}}</p>
+      <p class="player-gray mb-0">
+        {{videoDetails?.description}}
+      </p>
+    </div>
+  </div>
+</div>

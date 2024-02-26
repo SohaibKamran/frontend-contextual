@@ -1,0 +1,46 @@
+@import '../../../assets/scss/variables.scss';
+
+.proxy-product {
+  padding: 0 4px;
+  position: relative;
+
+  .product-img {
+    border-radius: 10px;
+    border: 1px solid $bg-light;
+
+    img {
+      width: 90px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 10px;
+
+    }
+
+  }
+
+  .d-flex {
+    span {
+      max-width: 90px;
+      width: 100%;
+      display: block;
+    }
+  }
+
+  .icon-code-symbol {
+    right: 12px;
+    bottom: 24px;
+    position: absolute;
+  }
+
+  .badge-ad {
+    left: 12px;
+    bottom: 24px;
+    position: absolute;
+  }
+}
+
+.form-check {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+}

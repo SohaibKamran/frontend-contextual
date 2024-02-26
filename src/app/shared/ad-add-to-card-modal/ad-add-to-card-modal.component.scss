@@ -1,0 +1,110 @@
+@import "../../../assets/scss/variables.scss";
+
+.modal-body {
+  .client-feedback {
+    img {
+      height: 460px;
+      width: 360px;
+      object-fit: cover;
+      border: 1px solid $dim-color;
+      border-radius: 3px;
+    }
+
+    i {
+      font-size: 16px;
+      color: $wishlist-gray;
+      border: 1px solid $dim-color;
+      position: absolute;
+      border-radius: 3px;
+      padding: 2px;
+      line-height: 14px;
+    }
+  }
+}
+
+.client-thumbnails {
+  img {
+    height: 90px;
+    width: 90px;
+    object-fit: cover;
+    border: 1px solid $dim-color;
+    border-radius: 4px;
+    margin: 1rem 0.5rem;
+    cursor: pointer;
+  }
+
+  .slick-current {
+    img {
+      border: 2px solid $dim-color !important;
+    }
+  }
+}
+
+.zoom {
+  cursor: zoom-in;
+}
+
+.input-group {
+  .form-control {
+    border: 1px solid $dim-color !important;
+  }
+
+  .input-group-text {
+    border: 1px solid $dim-color !important;
+    background-color: transparent !important;
+    color: $wishlist-gray;
+    padding: 6px;
+    font-size: 10px;
+
+    &:hover {
+      background-color: $dim-color !important;
+    }
+  }
+}
+
+
+.bi-chevron-up.input-group-text {
+  border-radius: 0 4px 0 0;
+}
+
+.bi-chevron-down.input-group-text {
+  border-radius: 0 0 4px 0;
+}
+
+.description-scroll {
+  max-height: 150px;
+  overflow: auto;
+}
+
+.btn-outline-secondary {
+  border-color: $checkbox-color !important;
+}
+
+.bi-heart,
+.bi-heart-fill {
+  top: 20px;
+  right: 60px;
+  font-size: 22px !important;
+  padding: 2px 4px !important;
+  color: $checkbox-color !important;
+}
+
+.bi-heart-fill {
+  color: $heart-color !important;
+  border: none !important;
+}
+
+.bi-zoom-in {
+  bottom: 10px;
+  right: 110px;
+}
+
+.bi-zoom-out {
+  bottom: 10px;
+  right: 80px;
+}
+
+.bi-arrow-clockwise {
+  bottom: 10px;
+  right: 50px;
+}

@@ -1,0 +1,343 @@
+app-vjs-player {
+  position: relative;
+  display: flex;
+}
+
+.video-js {
+  font-family: "Inter";
+  width: 100vw; /* Full viewport width */
+  height: 600px; /* Full viewport height */
+}
+.video-js .vjs-control-bar {
+  background-color: #000;
+  z-index: 101;
+  padding-top: 14px !important;
+  padding-bottom: 42px !important;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+@media (max-width: 575.98px) {
+  .video-js .vjs-control-bar {
+    width: 100% !important;
+  }
+}
+.video-js .vjs-control-bar .vjs-fullscreen-control {
+  order: 3;
+  /* Change the order within the flex container */
+}
+.video-js .vjs-control-bar .vjs-skip-forward-5 {
+  display: none;
+}
+.video-js .vjs-control-bar .vjs-skip-backward-5 {
+  display: none;
+}
+.video-js .vjs-control-bar .vjs-volume-panel {
+  order: 2;
+  /* Change the order within the flex container */
+  margin-left: auto;
+  /* Push the volume panel to the right */
+}
+.video-js .vjs-control-bar .vjs-progress-control .vjs-progress-holder .vjs-play-progress {
+  background-color: #1890FF;
+  border-radius: 50px;
+}
+.video-js .vjs-control-bar .vjs-picture-in-picture-control {
+  display: none;
+}
+.video-js .vjs-control-bar .vjs-time-control {
+  display: none;
+  order: 3;
+}
+.video-js .vjs-control-bar .vjs-control {
+  position: relative;
+  text-align: center;
+  margin: 0;
+  height: 3em;
+}
+.video-js .vjs-big-play-button {
+  background-color: transparent;
+  border: none;
+}
+.video-js .vjs-control.vjs-close-button {
+  display: none;
+}
+.video-js .vjs-modal-dialog {
+  background: transparent;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+.video-js .vjs-modal-dialog:not(.vjs-hidden) {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+.video-js .vjs-title-bar {
+  background: transparent;
+  padding: 1.5em 3em 4em;
+}
+@media (max-width: 991.98px) {
+  .video-js .vjs-title-bar {
+    padding: 1.5em 4em 4em;
+  }
+}
+.video-js .vjs-title-bar .vjs-title-bar-title {
+  font-size: 23px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.652px;
+}
+.video-js .vjs-title-bar .vjs-title-bar-description {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.vjs-button > .vjs-icon-placeholder:before {
+  font-size: 2.8em;
+  line-height: normal;
+}
+
+.vjs-icon-volume-high:before,
+.video-js .vjs-mute-control .vjs-icon-placeholder:before {
+  font-size: 1.8em;
+  line-height: 1.6em;
+}
+
+.video-js .vjs-big-play-button .vjs-icon-placeholder:before {
+  content: "\f4f4";
+  font-family: "bootstrap-icons";
+}
+
+.vjs_video_3-dimensions {
+  width: 720px;
+  height: 405px;
+}
+
+.vjs-controls-disabled .vjs-control-bar,
+.vjs-using-native-controls .vjs-control-bar,
+.vjs-error .vjs-control-bar {
+  display: flex !important;
+}
+
+.video-js.vjs-fullscreen:not(.vjs-ios-native-fs),
+body.vjs-pip-window .video-js {
+  width: 100% !important;
+  height: 100% !important;
+  padding-top: 0 !important;
+  display: block;
+}
+
+@media (min-width: 1200px) {
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .ad-list-wrapper .ad-list::after,
+  body.vjs-pip-window .video-js .ad-list-wrapper .ad-list::after {
+    width: 200%;
+  }
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .ad-list-wrapper .ad-list .shopping,
+  body.vjs-pip-window .video-js .ad-list-wrapper .ad-list .shopping {
+    width: 300px !important;
+    height: 420px !important;
+  }
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .ad-list-wrapper .ad-list .ad-icon,
+  body.vjs-pip-window .video-js .ad-list-wrapper .ad-list .ad-icon {
+    position: absolute;
+    bottom: 25px !important;
+    right: 5px !important;
+  }
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .ad-list-wrapper .ad-list .ad-icon i,
+  body.vjs-pip-window .video-js .ad-list-wrapper .ad-list .ad-icon i {
+    color: #807E81;
+    font-size: 14px !important;
+  }
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .ad-list-wrapper .ad-list .actor,
+  body.vjs-pip-window .video-js .ad-list-wrapper .ad-list .actor {
+    left: -20px;
+  }
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .ad-list-wrapper .ad-list .actor-circle,
+  body.vjs-pip-window .video-js .ad-list-wrapper .ad-list .actor-circle {
+    width: 64px;
+    height: 64px;
+  }
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .ad-list-wrapper .ad-list .heart-icon-player,
+  body.vjs-pip-window .video-js .ad-list-wrapper .ad-list .heart-icon-player {
+    font-size: 30px !important;
+  }
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .ad-list-wrapper .ad-list p,
+  body.vjs-pip-window .video-js .ad-list-wrapper .ad-list p {
+    font-size: 14px !important;
+    max-width: 96px !important;
+  }
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .vjs-control-bar,
+  body.vjs-pip-window .video-js .vjs-control-bar {
+    padding: 0 25%;
+  }
+}
+@media (min-width: 1800px) {
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .ad-list-wrapper .ad-list::after,
+  body.vjs-pip-window .video-js .ad-list-wrapper .ad-list::after {
+    width: 400px;
+  }
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .ad-list-wrapper .ad-list .shopping,
+  body.vjs-pip-window .video-js .ad-list-wrapper .ad-list .shopping {
+    width: 400px !important;
+    height: 280px !important;
+  }
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .ad-list-wrapper .ad-list .ad-icon,
+  body.vjs-pip-window .video-js .ad-list-wrapper .ad-list .ad-icon {
+    position: absolute;
+    bottom: 28px !important;
+    right: 5px !important;
+  }
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .ad-list-wrapper .ad-list .ad-icon i,
+  body.vjs-pip-window .video-js .ad-list-wrapper .ad-list .ad-icon i {
+    color: #807E81 !important;
+    font-size: 16px !important;
+  }
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .ad-list-wrapper .ad-list .actor,
+  body.vjs-pip-window .video-js .ad-list-wrapper .ad-list .actor {
+    left: -20px;
+  }
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .ad-list-wrapper .ad-list .actor-circle,
+  body.vjs-pip-window .video-js .ad-list-wrapper .ad-list .actor-circle {
+    width: 64px;
+    height: 64px;
+  }
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .ad-list-wrapper .ad-list .heart-icon-player,
+  body.vjs-pip-window .video-js .ad-list-wrapper .ad-list .heart-icon-player {
+    font-size: 16px !important;
+  }
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .ad-list-wrapper .ad-list p,
+  body.vjs-pip-window .video-js .ad-list-wrapper .ad-list p {
+    font-size: 16px !important;
+    max-width: 142px !important;
+  }
+}
+@media (min-width: 2400px) {
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .ad-list-wrapper .ad-list .shopping,
+  body.vjs-pip-window .video-js .ad-list-wrapper .ad-list .shopping {
+    width: 210px !important;
+    height: 250px !important;
+  }
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .ad-list-wrapper .ad-list .ad-icon,
+  body.vjs-pip-window .video-js .ad-list-wrapper .ad-list .ad-icon {
+    position: absolute;
+    bottom: 31px !important;
+    right: 5px !important;
+  }
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .ad-list-wrapper .ad-list .ad-icon i,
+  body.vjs-pip-window .video-js .ad-list-wrapper .ad-list .ad-icon i {
+    color: #807E81 !important;
+    font-size: 18px !important;
+  }
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .ad-list-wrapper .ad-list .heart-icon-player,
+  body.vjs-pip-window .video-js .ad-list-wrapper .ad-list .heart-icon-player {
+    font-size: 18px !important;
+  }
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .ad-list-wrapper .ad-list p,
+  body.vjs-pip-window .video-js .ad-list-wrapper .ad-list p {
+    font-size: 18px !important;
+    max-width: 165px !important;
+  }
+}
+.video-js .vjs-progress-control .vjs-mouse-display {
+  display: none;
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+@media (max-width: 991.98px) {
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .ad-list-wrapper,
+  body.vjs-pip-window .video-js .ad-list-wrapper {
+    height: 100.25vh !important;
+  }
+  .video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .ad-list-wrapper .ad-list,
+  body.vjs-pip-window .video-js .ad-list-wrapper .ad-list {
+    height: 94vh !important;
+  }
+}
+.vjs-time-tooltip.scene-tooltip {
+  background-color: #1890FF !important;
+  color: #fff !important;
+  visibility: visible !important;
+  top: -3.6em !important; /* Adjust to move the tooltip above the element it is related to */
+  font-size: 14px !important;
+  border-radius: 4px;
+  padding: 9px;
+  font-weight: 500;
+  min-width: 145px;
+}
+.vjs-time-tooltip.scene-tooltip::before {
+  content: "";
+  position: absolute;
+  top: 100%; /* Position the arrow at the bottom of the tooltip box */
+  left: 50%; /* Center the arrow */
+  margin-left: -6px; /* Half the width of the arrow for centering */
+  border-width: 6px; /* Size of the arrow */
+  border-style: solid;
+  border-color: #1890FF transparent transparent transparent; /* The top border is colored */
+}
+
+i {
+  pointer-events: auto;
+}
+
+.video-js .vjs-progress-control:hover .vjs-time-tooltip.scene-tooltip,
+.video-js .vjs-progress-control:hover .vjs-progress-holder:focus .vjs-time-tooltip.scene-tooltip {
+  font-size: 14px !important;
+  font-weight: 500;
+  padding: 9px;
+  border-radius: 4px;
+}
+
+.video-js .vjs-progress-control:hover .vjs-progress-holder {
+  font-size: inherit;
+}
+
+.video-js .vjs-progress-control .vjs-progress-holder {
+  font-size: 14px !important;
+  border-radius: 50px;
+}
+
+.video-js .vjs-progress-control:hover .vjs-time-tooltip,
+.video-js .vjs-progress-control:hover .vjs-progress-holder:focus .vjs-time-tooltip {
+  padding: 6px;
+}
+
+.video-js .vjs-progress-control:hover .vjs-mouse-display .vjs-time-tooltip,
+.video-js .vjs-progress-control:hover .vjs-progress-holder:focus .vjs-mouse-display .vjs-time-tooltip {
+  min-width: 65px;
+}
+
+.video-js .vjs-slider {
+  background-color: #F5F5F5;
+}
+
+.video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .vjs-time-tooltip.scene-tooltip,
+body.vjs-pip-window .video-js .vjs-time-tooltip.scene-tooltip {
+  top: -3.4em !important;
+}
+.video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .vjs-time-tooltip.scene-tooltip::before,
+body.vjs-pip-window .video-js .vjs-time-tooltip.scene-tooltip::before {
+  border-color: #1890FF transparent transparent transparent;
+  top: 100%;
+  bottom: auto;
+}
+.video-js.vjs-fullscreen:not(.vjs-ios-native-fs) .vjs-time-tooltip,
+body.vjs-pip-window .video-js .vjs-time-tooltip {
+  top: 1.25em !important;
+}
+
+.video-js .vjs-progress-control.disabled:hover .vjs-time-tooltip {
+  font-size: 0.6em;
+}
+
+@media (max-width: 920px) {
+  .video-js {
+    height: 400px !important;
+  }
+}/*# sourceMappingURL=vjs-player.component.css.map */

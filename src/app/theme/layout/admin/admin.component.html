@@ -1,0 +1,73 @@
+<div class="page-content-wrapper">
+  <app-navigation *ngIf="!isUserDemo" class="coded-navbar pc-sidebar" [ngClass]="{
+    'navbar-collapsed': navCollapsed,
+    'theme-horizontal': this.config['layout'] === 'horizontal',
+    'theme-compact': this.config['layout'] === 'compact',
+    'mob-open': navCollapsedMob,
+    'coded-trigger': submenuCollapse
+  }" (NavCollapse)="this.navCollapsed = !this.navCollapsed" (NavCollapsedMob)="navMobClick()"
+    (SubmenuCollapse)="this.submenuCollapse = !this.submenuCollapse"></app-navigation>
+
+
+  <!-- <a *ngIf="navCollapsed" style="    width: 20px;
+    position: absolute;
+    top: 20px;
+    left: 34px;
+    z-index: 1;
+    background: white;
+    font-size: 24px;" class="pc-head-link ms-0" id="sidebar-hide" [ngClass]="{ on: navCollapsed }"
+      id="sidebar-hide mobile-collapse" (click)="this.navCollapsed = !this.navCollapsed">
+    (click)="this.NavCollapsedMob.emit()"
+    <i class="ti ti-menu-2"></i>
+  </a> -->
+  <!-- <app-nav-bar (NavCollapsedMob)="navMobClick()" (NavCollapse)="this.navCollapsed = !this.navCollapsed"></app-nav-bar> -->
+  <div *ngIf="!isUserDemo" class="pc-container">
+    <div class="coded-wrapper">
+      <div class="coded-content">
+        <div class="coded-inner-content">
+          <div class="main-body">
+            <div class="page-wrapper">
+              <app-breadcrumb></app-breadcrumb>
+              <router-outlet></router-outlet>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  
+  <div *ngIf="isUserDemo" class="pc-container-user">
+    <div class="coded-content">
+      
+              <app-breadcrumb></app-breadcrumb>
+              <router-outlet></router-outlet>
+           
+    </div>
+  </div>
+
+  <!-- <footer class="pc-footer">
+    <div class="footer-wrapper container-fluid">
+      <div class="row">
+        <div class="col my-1">
+          <p class="m-0">
+            Copyright &copy;
+            <a href="" target="_blank">Contxtual</a>
+          </p>
+        </div>
+        <div class="col-auto my-1">
+          <ul class="list-inline footer-link mb-0">
+            <li class="list-inline-item">
+              <a href="https://contxtual.tv/privacy-policy/" target="_blank">Privacy Policy</a>
+            </li>
+            <li class="list-inline-item">
+              <a href="https://contxtual.tv/contact/" target="_blank">Contact us</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer> -->
+
+<app-configuration></app-configuration>

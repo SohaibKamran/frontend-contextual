@@ -1,0 +1,21 @@
+.header-bg {
+  background-color: #FAFAFA;
+}
+
+.card-body {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.card-height {
+  height: 300px;
+}
+
+.database-card-height {
+  height: 442px;
+}
+
+.card .card-body {
+  margin: 1rem 0;
+  padding: 0 1rem !important;
+}/*# sourceMappingURL=largest-ad-inventories.component.css.map */

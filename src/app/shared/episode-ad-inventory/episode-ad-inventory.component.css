@@ -1,0 +1,92 @@
+.modal-body {
+  background-color: #F2F2F2;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+@media (min-width: 1200px) {
+  .modal-body {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+}
+.modal-body .episode-detail img {
+  width: 75px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: 100px;
+  border-radius: 4px;
+}
+.modal-body .position-relative i {
+  position: absolute;
+  right: 14px;
+  top: 8px;
+  z-index: 1;
+}
+.modal-body .card .card-body .advertiser-img-wrapper img {
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.modal-body .card .card-body .bg-table-head {
+  background-color: #F2F2F2;
+  border-bottom: 1px solid #e6ebf1;
+  margin-right: 0px;
+  margin-left: 0;
+  padding: 0.5rem;
+}
+.modal-body .card .card-body .bg-table-head .ad-queue-col {
+  padding-left: 7.5rem;
+}
+@media (min-width: 1200px) {
+  .modal-body .card .card-body .bg-table-head .ad-queue-col {
+    padding-left: 8.5rem;
+  }
+}
+.modal-body .card .card-body .ad-queue-row {
+  padding-left: 6.5rem;
+}
+@media (min-width: 1200px) {
+  .modal-body .card .card-body .ad-queue-row {
+    padding-left: 7.5rem;
+  }
+}
+.modal-body .card .card-body .preview-img-wrapper {
+  position: relative;
+}
+.modal-body .card .card-body .preview-img-wrapper img {
+  height: 100px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 4px;
+  width: 178px;
+  transition: all 0.5s;
+}
+.modal-body .card .card-body .preview-img-wrapper img:hover + i {
+  background-color: #2b333f;
+  border-radius: 4px;
+  padding: 3px 8px;
+  transition: all 0.5s;
+}
+.modal-body .card .card-body .preview-img-wrapper i {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  bottom: initial;
+  padding: 3px 8px;
+  transition: all 0.5s;
+}
+.modal-body .card .card-body .preview-img-wrapper i:hover {
+  background-color: #2b333f;
+  border-radius: 4px;
+  padding: 3px 8px;
+}
+
+.showPlayButton {
+  display: none;
+}/*# sourceMappingURL=episode-ad-inventory.component.css.map */

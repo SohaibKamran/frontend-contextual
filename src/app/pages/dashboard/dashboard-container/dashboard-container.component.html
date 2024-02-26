@@ -1,0 +1,56 @@
+<app-pagetitle title="Welcome Back, " [breadcrumbItems]="breadCrumbItems">
+  <p></p>
+</app-pagetitle>
+
+<div class="row">
+  <div class="col-12">
+    <app-top-widgets></app-top-widgets>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6 ">
+    <app-current-tagging-status></app-current-tagging-status>
+  </div>
+
+  <div class="col-md-6">
+    <app-progress-by-series [title]="seriesTitle" [cardHeight]="seriesCardHeight"></app-progress-by-series>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-4">
+    <app-top-taggers></app-top-taggers>
+  </div>
+  <div class="col-lg-8">
+    <app-average-vzot-score></app-average-vzot-score>
+  </div>
+  <div class=" col-lg-4">
+
+    <app-trending-shows></app-trending-shows>
+
+  </div>
+  <div class="col-lg-4">
+
+    <app-trending-actors></app-trending-actors>
+
+  </div>
+  <div class="col-lg-4">
+
+    <app-most-active-users [navigateTo]="navigateToUserAccounts" [cardHeight]="userCardHeight"></app-most-active-users>
+
+  </div>
+  <div class=" col-lg-8">
+
+    <app-cloud-costs></app-cloud-costs>
+
+  </div>
+  <div class="col-lg-4">
+
+    <app-api-control></app-api-control>
+
+  </div>
+  <div class="col-lg-8">
+
+    <app-algorithm-percentage></app-algorithm-percentage>
+
+  </div>
+</div>

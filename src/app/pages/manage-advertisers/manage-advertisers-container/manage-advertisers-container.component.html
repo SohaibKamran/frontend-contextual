@@ -1,0 +1,37 @@
+<app-pagetitle title="Advertisers" [breadcrumbItems]="breadCrumbItems">
+  <!-- <button type="button" class="btn btn-primary"> Add New Advertiser </button> -->
+</app-pagetitle>
+<div class="row align-items-center">
+  <div class="col-md-4 ">
+    <app-largest-ad-inventories [cardHeight]="cardHeight"></app-largest-ad-inventories>
+  </div>
+  <div class="col-md-4">
+    <app-top-super-proxies></app-top-super-proxies>
+  </div>
+  <div class="col-md-4">
+    <app-trending-ads></app-trending-ads>
+  </div>
+  <!-- <div class="col-md-6 mb-3">
+    <div class="position-relative">
+      <h6 class="fs-xxl fw-medium mb-0">
+        Advertisers Records
+      </h6>
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="position-relative">
+      <ng-multiselect-dropdown name="city" [placeholder]="'Advertiser Status'" [settings]="dropdownSettings" [data]="status"
+        (onSelect)="onItemSelect($event)">
+      </ng-multiselect-dropdown>
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="position-relative">
+      <input type="text" class="form-control h_40" placeholder="Search">
+      <i class="bi bi-search text-gray"></i>
+    </div>
+  </div> -->
+  <div class="col-md-12">
+    <app-advertiser-records></app-advertiser-records>
+  </div>
+</div>

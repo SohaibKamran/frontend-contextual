@@ -1,0 +1,90 @@
+<!-- <div *ngIf="!isPlaying && showAdds" id="add-list-scroll" class="add-list text-center">
+<p class="text-gray mb-0 text-center fs-sm">PRODUCT RADAR</p>
+<div *ngFor="let item of sceneProductsData[0]?.ProxyCoordinates" class="position-relative">
+        <ng-template *ngIf="item?.Products && item?.Products.length !== 0">
+            <img class="shopping" src={{item?.Products[0]?.Colors[0]?.ProductImage?.reuploadedImages?.images[0]}} alt="">
+            <div class="ad-icon">
+                <i class="bi bi-badge-ad fs-xl"></i>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+                <p class="mb-0">{{item?.Products[0]?.title}}</p>
+                <img *ngIf="!item?.favProduct" (click)="addToWishlist(item)" src="../../../assets/icons/heart-empty.svg">
+                <img *ngIf="item?.favProduct" (click)="removeFromWishlist(item)" src="../../../assets/icons/heart-fill.svg">
+            </div>
+        </ng-template>
+    </div>
+</div> -->
+
+
+<section *ngIf="sceneProductsData?.ProxyCoordinates && sceneProductsData?.ProxyCoordinates?.length !== 0"[class.horizontal-ads-section]="!verticalAds" [class.vertical-ads-section]="verticalAds">
+  <div *ngIf="showAdds" class="text-center" [class.ad-list-wrapper]="!verticalAds" [class.vertical-ads-wrapper]="verticalAds">
+    <div [class.fullscreen-mode]="isFullScreen">
+        <h6 [class.shop-looks-title]="!verticalAds" [class.shop-looks-title-vertical]="verticalAds">SHOP THE LOOKS</h6>
+            <!-- Carousel container -->
+        <div [class.carousel-wrapper]="!verticalAds">
+            <!-- Left Arrow -->
+            
+            <div *ngIf="!verticalAds" [class.transparent]="currentSlide == 0 ||  sceneProductsData?.ProxyCoordinates.length<=1" [class.fade-in-right]="currentSlide == 1" class="arrow left-arrow" (click)="goToPreviousSlide()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="44" viewBox="0 0 31 41" fill="none">
+              <path d="M21.7264 0.0445251L0 21.5445L21.7264 43.0445L30 34.8571L16.5473 21.5445L30 8.23195L21.7264 0.0445251Z" fill="#FAAD14"/>
+            </svg>
+            
+            </div>
+          <!-- Carousel slides -->
+          <div [class.carousel-container]="!verticalAds" [class.vertical-container]="verticalAds">
+        
+            <div *ngFor="let item of sceneProductsData?.ProxyCoordinates; let i = index" [class.slide]="!verticalAds" [class.vertical-padding]="verticalAds" [class.active]="i === currentSlide && !verticalAds"
+            [ngClass]="{
+              'fade-in-left': i === currentSlide && scrollDirection === 'right' && !verticalAds, 
+              'fade-in-right': i === currentSlide && scrollDirection === 'left' && !verticalAds,
+              'fade-out-left': i !== currentSlide && scrollDirection === 'right' && !verticalAds,
+              'fade-out-right': i !== currentSlide && scrollDirection === 'left' && !verticalAds
+            }">
+            <div *ngIf="item?.CoordinateHasProducts?.length>0" [class.ad-card]="!verticalAds" [class.mobile-ad-card]="verticalAds" >
+            <span *ngIf="item?.Actor?.imageUrl" class="actor">
+                <img class="actor-circle-ad" src="{{item?.Actor?.imageUrl}}" alt="Actor">
+              </span>
+              <img class="shopping" id="shopping-img-{{i}}" src="{{item?.CoordinateHasProducts?.[0]?.matchedImageUrl}}" alt="Product">
+              <div *ngIf="!verticalAds" class="ad-icon">
+                Ad
+              </div>
+              <div class="qr-box">
+                <div class="d-flex">
+                  <p class="retailer-name roboto-medium">{{item?.CoordinateHasProducts?.[0]?.Retailer?.name}}</p>
+                  <p class="price">
+                    {{ item?.CoordinateHasProducts?.[0]?.ProductImage?.prices.salePrice ? 
+                      item.CoordinateHasProducts[0].ProductImage.prices.salePrice : 
+                      item.CoordinateHasProducts[0].ProductImage.prices.actualPrice }}
+                  </p>
+                  <i *ngIf="!item?.CoordinateHasProducts?.[0]?.favProduct" (click)="addToWishlist(item)" class="cursor-pointer heart-icon-player"><svg xmlns="http://www.w3.org/2000/svg" class="heart-icon" viewBox="0 0 27 27" fill="none">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.11732 3.71065C7.47339 3.73888 6.8415 3.89513 6.25848 4.17028C5.67547 4.44543 5.153 4.83399 4.72147 5.31332C4.28994 5.79264 3.958 6.35315 3.745 6.96219C3.53199 7.57123 3.44216 8.21662 3.48077 8.86075C3.48077 12.8251 7.14283 16.4279 12.6888 21.881L13.2354 22.4755L13.6909 21.9738C19.3296 16.4361 23.003 12.8316 23.003 8.86075C23.0416 8.21662 22.9518 7.57123 22.7388 6.96219C22.5258 6.35315 22.1939 5.79264 21.7623 5.31332C21.3308 4.83399 20.8083 4.44543 20.2253 4.17028C19.6423 3.89513 19.0104 3.73888 18.3665 3.71065C17.6201 3.72721 16.8871 3.91145 16.2214 4.24975C15.5557 4.58804 14.9745 5.07176 14.5206 5.66515C14.3625 5.84988 14.1664 5.99817 13.9457 6.09984C13.725 6.20151 13.4849 6.25415 13.2419 6.25415C12.9989 6.25415 12.7588 6.20151 12.5381 6.09984C12.3174 5.99817 12.1213 5.84988 11.9632 5.66515C11.5092 5.07193 10.9279 4.58834 10.2622 4.25006C9.59661 3.91178 8.86361 3.72745 8.11732 3.71065ZM13.2419 26.5131C13.0168 26.5131 12.7942 26.4664 12.5881 26.3758C12.382 26.2853 12.1969 26.1529 12.0445 25.987L10.3917 24.1873C4.27793 18.1756 0.227061 14.1916 0.227061 8.86075C0.131087 7.31066 0.492786 5.76655 1.26711 4.42079C2.04142 3.07503 3.19414 1.9871 4.58163 1.29255C5.96913 0.597993 7.53008 0.327508 9.07003 0.514787C10.61 0.702067 12.0609 1.33883 13.2419 2.34576C14.423 1.33883 15.8738 0.702067 17.4138 0.514787C18.9537 0.327508 20.5147 0.597993 21.9022 1.29255C23.2897 1.9871 24.4424 3.07503 25.2167 4.42079C25.991 5.76655 26.3527 7.31066 26.2567 8.86075C26.2567 14.1998 22.1896 18.1886 16.045 24.2231L14.4441 25.9822C14.2916 26.1495 14.106 26.2831 13.899 26.3746C13.692 26.466 13.4682 26.5132 13.2419 26.5131Z" fill="#FF808B"/>
+                    </svg></i>
+                  <i *ngIf="item?.CoordinateHasProducts?.[0]?.favProduct" (click)="removeFromWishlist(item)" class="cursor-pointer heart-icon-player"><svg xmlns="http://www.w3.org/2000/svg" class="heart-icon" viewBox="0 0 16 17" fill="none">
+                    <path d="M7.59858 16.708C7.72512 16.7636 7.86181 16.7923 8 16.7923C8.13892 16.7923 8.27632 16.7634 8.40342 16.7072C8.53051 16.6511 8.64451 16.569 8.73814 16.4663L9.721 15.3863L9.7325 15.375C13.4987 11.6763 15.9907 9.22897 15.9907 5.9543C16.0496 5.00259 15.8276 4.05455 15.3521 3.2283C14.8767 2.40204 14.169 1.73409 13.3171 1.30766C12.4653 0.881224 11.5069 0.715155 10.5614 0.830138C9.61592 0.945122 8.72513 1.33608 8 1.9543C7.27487 1.33608 6.38408 0.945122 5.4386 0.830138C4.49312 0.715155 3.53475 0.881224 2.68287 1.30766C1.83099 1.73409 1.12326 2.40204 0.647854 3.2283C0.172446 4.05455 -0.0496253 5.00259 0.00929952 5.9543C0.00929952 9.2273 2.49641 11.6733 6.25004 15.3643L7.26486 16.4693C7.35842 16.5711 7.47204 16.6524 7.59858 16.708Z" fill="#FF808B"/>
+                  </svg></i>
+                </div>
+                <div *ngIf="!verticalAds" class="d-flex">
+                  <p></p>
+                  <img src="assets/images/qr-code.svg" class="qr-code" alt="qrcode">
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        <!-- Right Arrow -->
+      
+        <div *ngIf="!verticalAds" [class.transparent]="currentSlide >= sceneProductsData?.ProxyCoordinates.length -1 || sceneProductsData?.ProxyCoordinates.length<=1" [class.fade-in-left]="currentSlide < sceneProductsData?.ProxyCoordinates.length -1" class="arrow right-arrow" (click)="goToNextSlide()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="31" height="44" viewBox="0 0 31 44" fill="none">
+            <path d="M9.23945 43.0445L30.9658 21.5445L9.23945 0.0445232L0.965821 8.23195L14.4186 21.5445L0.965819 34.8571L9.23945 43.0445Z" fill="#FAAD14"/>
+          </svg>
+        
+        </div>
+        </div>
+        <div *ngIf="!verticalAds" class="dots">
+          <span *ngFor="let item of sceneProductsData?.ProxyCoordinates; let i = index" class="dot" [class.active]="i === currentSlide" (click)="goToSlide(i)"></span>
+        </div>
+      </div>
+  </div>
+
+</section>

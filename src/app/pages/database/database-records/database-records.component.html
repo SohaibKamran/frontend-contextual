@@ -1,0 +1,258 @@
+<div class="card border-top-0">
+  <!-- <div class="card">
+        <div class="card-header">
+          <h5>Zero Configuration</h5>
+        </div> -->
+  <div class="header-bg pt-0">
+    <div class="table-responsive" id="table">
+      <table datatable class="table row-border table-hover pt-10 bg-white">
+        <thead class="text-end">
+          <tr>
+            <th *ngFor="let heading of tableHeadings; let i = index">
+              <div class="d-flex align-items-center">{{heading.name}}
+                <span class='d-inline-block'>
+                  <div (click)="sort(1,i)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" [attr.fill]="heading?.order==='ASC'?'#676464': '#C9C9C9'"
+                      class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                      <path
+                        d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+                    </svg>
+                  </div>
+                  <div (click)="sort(2,i)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" [attr.fill]="heading?.order==='DESC'?'#676464': '#C9C9C9'"
+                      class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                      <path
+                        d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                    </svg>
+                  </div>
+                </span>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="loader">
+            <td colspan="7" class="text-center">
+              <div class="spinner-border text-primary " role="status">
+              </div>
+            </td>
+          </tr>
+          <ng-container *ngIf="coordinateListing && coordinateListing.length>0">
+            <ng-container *ngFor="let Coordinate of coordinateListing; let x=index">
+              <tr class="parent-tr child1">
+                <td>
+                  <div class="imgbox d-flex align-items-center">
+                    <!-- <i (click)="selectEpisode(x)" class="icon-Down"></i> -->
+                    <div class="dropup" ngbDropdown placement="top-start">
+                      <button type="button" class="btn btn-link dropdown-toggle px-0" ngbDropdownToggle>
+                        <i class="bi bi-eye"></i>
+                      </button>
+                      <ul class="dropdown-menu vieweditdrop p-0" ngbDropdownMenu>
+                        <p class="btn-light-secondary ml-2 p-2 m-0">View or edit in:</p>
+                        <!-- <div class="dropdown-divider"></div> -->
+                        <a class="dropdown-item"(click)="openTagSummaryModal(Coordinate)" >
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="20"
+                            height="20" viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <circle cx="8.5" cy="8.5" r="1" fill="currentColor" />
+                            <path
+                              d="M4 7v3.859c0 .537 .213 1.052 .593 1.432l8.116 8.116a2.025 2.025 0 0 0 2.864 0l4.834 -4.834a2.025 2.025 0 0 0 0 -2.864l-8.117 -8.116a2.025 2.025 0 0 0 -1.431 -.593h-3.859a3 3 0 0 0 -3 3z" />
+                          </svg>
+                          Tag Summary
+                        </a>
+                        <a class="dropdown-item" (click)="goToTagger(Coordinate?.Tagger?.id, Coordinate?.Scene?.Show?.id,Coordinate?.Scene?.id)">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-bolt" width="20"
+                            height="20" viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <polyline points="13 3 13 10 19 10 11 21 11 14 5 14 13 3" />
+                          </svg>
+                          Product Annotator
+                        </a>
+                        <a class="dropdown-item" (click)="openEpisodePreview(Coordinate?.Scene?.Show?.id,null,Coordinate?.Scene?.id)">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-video-plus"
+                            width="20" height="20" viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path
+                              d="M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z" />
+                            <rect x="3" y="6" width="12" height="12" rx="2" />
+                            <line x1="7" y1="12" x2="11" y2="12" />
+                            <line x1="9" y1="10" x2="9" y2="14" />
+                          </svg>
+                          Video Preview
+                        </a>
+                      </ul>
+                    </div>
+                    <img src={{Coordinate?.Scene?.Show?.Series?.thumbnail}} alt="None" (click)="openModal(Coordinate?.Scene?.Show?.Series?.id)"
+                      alt="">
+                    <a>{{Coordinate?.Scene?.Show?.Series?.title}}</a>
+                  </div>
+                </td>
+                <td>S{{Coordinate?.Scene?.Show?.seasonNo}}</td>
+                <td>E{{Coordinate?.Scene?.Show?.episodeNo}}</td>
+                <td>SC{{Coordinate?.Scene?.id}}</td>
+                <td> <img src={{Coordinate?.Scene?.thumbnail}} alt="None" width="120"></td>
+                <td> {{Coordinate?.prId}}</td>
+                <td class="btn-select-dropdown-btn-w">
+                  <div class="btn-group scene_dropdowns">
+                    <div ngbDropdown class="d-inline-block">
+                      <button type="button" class="btn btn-primary h_40" id="dropdownBasic1" ngbDropdownToggle>
+                        <div *ngIf="Coordinate.taggingStatusId==3" style="color: orange">
+                          PR In Review
+                        </div>
+                        <div *ngIf="Coordinate.taggingStatusId==4" style="color: red">
+                          PR Returned
+                        </div>
+                        <div *ngIf="Coordinate.taggingStatusId==5" style="color: green">
+                          PR Approved
+                        </div>
+                        <div *ngIf="Coordinate.taggingStatusId==1" class="todo">
+                          PR To Do
+                        </div>
+                        <div *ngIf="Coordinate.taggingStatusId==2" class="inprogress">
+                          PR In Progress
+                        </div>
+                        <i class="bi bi-caret-down-fill ms-2 fs-md text-gray"></i>
+                      </button>
+                      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                        <a *ngFor="let status of taggingStatuses; let i=index" ngbDropdownItem>
+                          <span class="{{status?.class}}">
+                            <p style="margin:0;padding:0" (click)="updateTagProductInScene(Coordinate.id,status.id,x)">
+                              {{status.title}}</p>
+                          </span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td> <div class="d-flex justify-content-center"><b>{{Coordinate?.topVzotScore}}</b></div></td>
+                <td class="text-primary">{{Coordinate?.Tagger?.fullName}}</td>
+                <td> <img src={{Coordinate?.proxyImageUrl}} alt="None" class="proxy-img"></td>
+                <td> <img [src]="Coordinate.CoordinateHasProducts[0]?.superProxy?Coordinate?.CoordinateHasProducts[0]?.matchedImageUrl:''" alt="None" class="proxy-img"></td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <span class="me-3">{{Coordinate?.Actor?.name?? ""}}</span>
+                    <span>
+                      <img *ngIf="Coordinate?.Actor?.imageUrl" src={{Coordinate?.Actor?.imageUrl}} alt="None"
+                        class="actor-img">
+                      <span *ngIf="!Coordinate?.Actor?.imageUrl">-</span>
+                    </span>
+                  </div>
+                </td>
+                <td> {{Coordinate?.CoordinateHasProducts[0]?.Product.Retailer.name ?? "_"}} </td>
+                <td> {{Coordinate?.CoordinateHasProducts[0]?.Product.Gender.name?? "_"}}</td>
+                <td><span class="line-clamp" placement="auto" ngbTooltip="{{Coordinate?.CoordinateHasProducts[0]?.Color.name?? '_'}}">{{Coordinate?.CoordinateHasProducts[0]?.Color.name?? "_"}}</span></td>
+                <td>{{Coordinate?.pattern?? "_"}}</td>
+                <td> {{Coordinate?.CoordinateHasProducts[0]?.Product.ProductHasCategories?.[0]?.ProductCategory?.name?? "_"}}</td>
+                <td> {{Coordinate?.CoordinateHasProducts[0].tag==""?null:Coordinate?.CoordinateHasProducts[0].tag?? "_"}}</td>
+                <td>
+                  <p class="mb-0">X: {{Coordinate?.xCoordinate}}%</p>
+                  <p class="mb-0">Y: {{Coordinate?.yCoordinate}}% </p>
+                </td>
+                <td> <img src={{Coordinate?.CoordinateHasProducts[1]?.matchedImageUrl}} alt="None" class="proxy-img"></td>
+                <td> {{Coordinate?.CoordinateHasProducts[1]?.Product.Retailer.name?? "_"}}</td>
+                <td>{{Coordinate?.CoordinateHasProducts[1]?.vzotScore?? "_"}}</td>
+                <td> <img src={{Coordinate?.CoordinateHasProducts[2]?.matchedImageUrl}} alt="None" class="proxy-img"></td>
+                <td> {{Coordinate?.CoordinateHasProducts[2]?.Product.Retailer.name?? "_"}}</td>
+                <td> {{Coordinate?.CoordinateHasProducts[2]?.vzotScore?? "_"}}</td>
+                <td> <img src={{Coordinate?.CoordinateHasProducts[3]?.matchedImageUrl}} alt="None" class="proxy-img"></td>
+                <td> {{Coordinate?.CoordinateHasProducts[3]?.Product.Retailer.name?? "_"}}</td>
+                <td> {{Coordinate?.CoordinateHasProducts[3]?.vzotScore?? "_"}}</td>
+                <td> {{Coordinate?.createdAt | date:'MM/dd/yyyy'}}</td>
+                <td> {{Coordinate?.Scene?.startTime | date:'HH:mm:ss'}}</td>
+                <td> {{Coordinate?.Scene?.endTime | date:'HH:mm:ss'}}</td>
+                <td> <span class="line-clamp" placement="auto" ngbTooltip="{{Coordinate?.Scene?.Show?.Series?.description?? '_'}}">{{Coordinate?.Scene?.Show?.Series?.description?? "_"}}</span></td>
+                <td> {{Coordinate?.CoordinateHasProducts[0]?.Product.Brand.name?? "_"}}</td>
+                <td> {{Coordinate?.CoordinateHasProducts[0]?.ProductImage.prices.actualPrice?? "_"}}</td>
+                <td> <span class="line-clamp" placement="auto" ngbTooltip="{{Coordinate?.proxyImageUrl.split('/').pop()?? '_'}}">{{Coordinate?.proxyImageUrl.split('/').pop()?? "_"}}</span></td>
+                <td> <span class="line-clamp" placement="auto" ngbTooltip="{{Coordinate?.proxyImageUrl.split('/').pop()?? '_'}}">{{Coordinate?.proxyImageUrl.split('/').pop()?? "_"}}</span></td>
+                <td> {{Coordinate?.CoordinateHasProducts[1]?.ProductImage?.reuploadedImages.images[0].split('/').pop()?? "_"}}</td>
+                <td> {{Coordinate?.CoordinateHasProducts[2]?.ProductImage?.reuploadedImages.images[0].split('/').pop()?? "_"}}</td>
+                <td> {{Coordinate?.CoordinateHasProducts[3]?.ProductImage?.reuploadedImages.images[0].split('/').pop()?? "_"}}</td>
+                <td> {{Coordinate?.Scene?.thumbnail?.split('/').pop()?? "_"}}</td>
+              </tr>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="coordinateListing?.length===0 && loader===false">
+            <tr class="no_results">
+              <td colspan="12"> No Result Found</td>
+            </tr>
+          </ng-container>
+
+        </tbody>
+      </table>
+    </div>
+    <!-- Pagination -->
+    <!-- <div class="row justify-content-md-between align-items-md-center mt-2">
+      <div class="col-sm-12 col-md-5">
+        <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+          <div class="dataTables_length" id="tickets-table_length"><label class="d-inline-flex align-items-center">Show
+              <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize"
+                [(ngModel)]="pagination.limit" (change)="fetchCoordinateListingForAdmin()"
+                class="form-control form-control-sm mx-2">
+                <option [ngValue]="10">10</option>
+                <option [ngValue]="25">25</option>
+                <option [ngValue]="50">50</option>
+                <option [ngValue]="100">100</option>
+              </select> entries</label></div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-5">
+        <div class="text-md-right float-md-end pagination-rounded">
+          <ngb-pagination (pageChange)="onPageChange($event)" [collectionSize]="totalCount" [(page)]="pagination.pageNo"
+            [pageSize]="pagination.limit">
+          </ngb-pagination>
+        </div>
+      </div>
+    </div> -->
+    <!-- <div class="row mb-3">
+      <div class="col-12">
+        <div class="d-flex align-items-center justify-content-center">
+          <div class="align-items-center d-flex dataTables_info" id="tickets-table_info" role="status"
+            aria-live="polite">
+            <label>
+              Row per page
+            </label>
+            <div class="dataTables_length" id="tickets-table_length">
+              <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize"
+                [(ngModel)]="pagination.limit" (change)="fetchCoordinateListingForAdmin()" class="form-control mx-2">
+                <option [ngValue]="10">10</option>
+                <option [ngValue]="25">25</option>
+                <option [ngValue]="50">50</option>
+                <option [ngValue]="100">100</option>
+              </select>
+            </div>
+          </div>
+          <ngb-pagination class="goto-pagination" (pageChange)="onPageChange($event)" [collectionSize]="totalCount"
+            [(page)]="pagination.pageNo" [pageSize]="pagination.limit" [maxSize]="5" [rotate]="true">
+            <ng-template ngbPaginationPages let-page let-pages="pages">
+              <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
+                <div class="mb-3 d-flex flex-nowrap px-2">
+                  <label id="paginationInputLabel" for="paginationInput" class="col-form-label me-2 ms-1">Go
+                    to</label>
+                  <input #i type="text" inputmode="numeric" pattern="[0-9]*" class="form-control custom-pages-input"
+                    id="paginationInput" [value]="page" (keyup.enter)="selectPage(i.value)" (blur)="selectPage(i.value)"
+                    (input)="formatInput($any($event).target)"
+                    aria-labelledby="paginationInputLabel paginationDescription" style="width: 3.5rem" />
+                </div>
+              </li>
+            </ng-template>
+          </ngb-pagination>
+          <ngb-pagination (pageChange)="onPageChange($event)" [collectionSize]="totalCount" [(page)]="pagination.pageNo"
+            [pageSize]="pagination.limit" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+          </ngb-pagination>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>
+
+<ng-template #addModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title h4" id="myLargeModalLabel">Large Modal</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      (click)="modal.dismiss('Close click')"></button>
+  </div>
+</ng-template>

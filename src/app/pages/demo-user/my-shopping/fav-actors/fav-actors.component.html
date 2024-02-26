@@ -1,0 +1,82 @@
+<div class="row wishlist-tabs">
+  <div class="col-12">
+    <ul ngbNav #nav="ngbNav" class="nav-tabs" >
+      <li [ngbNavItem]="1">
+        <a ngbNavLink class="roboto-light" (click)="switchTrending(false)">FAVORITE<span *ngIf="favActor">S</span><span *ngIf="!favActor">&nbsp;ACTORS</span></a>
+        <ng-template ngbNavContent>
+          
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2">
+        <a ngbNavLink class="roboto-light" (click)="switchTrending(true)">TRENDING<span *ngIf="!favActor">&nbsp;ACTORS</span></a>
+        <ng-template ngbNavContent>
+         
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav" class="mt-3"></div>
+  </div>
+</div>
+<div class="row actors-container" *ngIf="!showWishList">
+  <!-- <div *ngIf="loader" class="spinner-border text-primary mx-auto" role="status">
+  </div> -->
+  <div *ngIf="actors?.length==0 && isWishlistLoaded" class="empty-wishlist-container">
+    <!--p class="fs-xl fw-medium text-center mt-5" style="color: white">No Favorite Actors Found</p-->
+    <h3 class="roboto-light empty-wishlist-header"> Hey your wishlist is empty!</h3>
+    <p class="roboto-light empty-wishlist-subheader">Start filling it up by watching  videos and saving products by clicking the “heart”!</p>
+    <img src="assets/images/customization/empty-wishlist.jpg" class="empty-wishlist-image">
+  </div>
+ 
+  <div class="col-md-4" *ngFor="let actor of actors">
+    <div class="card">
+      <div class="card-header">
+        <div class="fav-actors-images cursor" (click)="setActor(actor)">
+          <img src="{{actor?.imageUrl}}" alt="{{actor?.name}}">
+        </div>
+        <p (click)="setActor(actor)" class="cursor actor-name">{{actor?.name}}</p>
+        <p class="text-light mb-0">{{actor?.likes}} Item<span *ngIf="actor?.likes > 1" class="text-light mb-0">s</span> 
+          <span *ngIf="isTrending" class="text-light mb-0"> liked</span></p>
+      </div>
+      <!--div class="d-flex align-items-center justify-content-between py-2 px-3">
+        <p class="text-light mb-0">Featuring</p>
+        <p class="text-primary mb-0 cursor" (click)="setActor(actor)">more</p>
+      </div-->
+      <div class="line"></div>
+      <div class="card-body py-0">
+        <div class="row gx-2">
+          <div class="col-md-4 mb-3" *ngFor="let prod of getTopThreeFavoriteProducts(actor)">
+            <div class="product-scence">
+              <img (click)="setActor(actor)"
+                src="{{prod?.matchedImageUrl}}" class="product cursor">
+                <img src="{{prod?.Scene?.thumbnail}}"
+                (click)="setActor(actor)" class="scene cursor">
+
+              <!--this goes to the video => BUG: the video stays on the poster-->
+              <!--img src="{{prod?.Scene?.thumbnail}}"(click)="setVideoData(prod?.Scene, prod?.Show?.id, prod?.ProxyCoordinate?.id, true)"
+                class="scene cursor"-->
+            </div>
+            <p (click)="setActor(actor)"
+              class="text-light fs-md mb-0 mt-1 text-center cursor ellipse">{{prod?.Retailer?.name}}</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+  
+
+</div>
+
+</div>
+<div *ngIf="showWishList">
+  <div *ngIf="favActor" class="center-column-box">
+    <div class="actor-name-box">
+      <img [src]="favActor.imageUrl" class="fav-actor-img">
+      <p class="text-actor"> {{favActor.name}}</p>
+    </div>
+  </div>
+  <div class="row gx-3">
+  <app-wishlist-data (refreshListing)="refreshListing()" [wishlistData]="resultData" [isTrending]="isTrending" [isWishlistLoaded]="isWishlistLoaded" (addProduct)="addProduct($event)" (removeProduct)="removeProduct($event)"></app-wishlist-data>
+
+</div>

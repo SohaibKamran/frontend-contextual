@@ -1,0 +1,163 @@
+@import "../../../../assets/scss/login-signup.scss";
+
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+.feedback {
+  width: 46vw;
+  height: 30vh;
+}
+
+.center-feedback {
+  display: flex;
+  justify-content: center;
+}
+
+.login-container {
+  background: $background-user-demo;
+  background-color: #141D35;
+  min-height: 100vh;
+  width: 100%;
+  padding-top: 100px;
+}
+
+
+.form-container{
+  margin-top:30px;
+  margin-bottom: 0px;
+  margin-left: 20%;
+  margin-right: 20%;
+  background: black;
+ height: 100vh;
+}
+
+.login-text1{
+  padding-top: 40px;
+  color: #E7E7E7;
+  text-align: center;
+  font-family: Roboto;
+  font-size: xx-large;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: -0.54px;
+}
+
+.login-text2{
+  padding-top: 20px;
+  color: #9D9D9D;
+  text-align: center;
+  font-family: Roboto;
+  font-size: large;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: -0.54px;
+}
+
+.not-registered {
+  color: #D4D4D4;
+  text-align: center;
+  font-family: Roboto;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.form-label {
+  color: #FFF;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.checkbox {
+  background-color: black;
+  border: 1px solid #FFF; /* 1px solid white border */
+  
+}
+
+.terms {
+  color: #FFF;
+  font-family: Roboto;
+  font-size: x-small;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+#preloader{
+    background: #6a6e6e;
+    opacity: 0.6;
+    z-index: 10000;
+    /* bottom: 0; */
+    /* right: 0; */
+    height: 100%;
+    /* top: 45%; */
+    /* left: 45%; */
+    text-align: center;
+    height: 100%;
+    position: absolute;
+    padding-top: 25%;
+    width: 100%;
+}
+
+.top-alert {
+    margin: 0;
+    margin-top: 15px;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    z-index: 1100;
+    display: flex;
+    justify-content: center;
+  
+    .toastr {
+      min-width: 250px;
+      // max-width: 350px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      // background-color: white;
+      border-radius: 0.3rem;
+      display: grid;
+      outline: 0;
+      padding: 6px 10px;
+      color: black;
+      background-color: white;
+    }
+  
+    .toastr-success {
+      color: #4c4c4c;
+      border: 1px solid #54a254;
+  
+      .icon-tick {
+        color: #54a254;
+      }
+    }
+  
+    .toastr-error {
+      color: #4c4c4c;
+      border: 1px solid #A51217;
+  
+      .icon-alert {
+        color: #A51217;
+      }
+    }
+  
+    .toastr-info {
+      .icon-info-outline {
+        color: #8EF6E0;
+      }
+  
+      color: #4c4c4c;
+      border: 1px solid #8EF6E0;
+    }
+  }
+  form i {
+    cursor: pointer;
+    font-size: 18px;
+    position: absolute;
+    right: 12px;
+    top: 41px;
+  }
+  

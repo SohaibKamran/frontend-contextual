@@ -1,0 +1,27 @@
+<app-pagetitle></app-pagetitle>
+<section class="login-container">
+    <form [formGroup]="feedbackForm" (ngSubmit)="submit()">
+      <div class="form-container">
+        <div>
+          <div class="col-9 mx-auto">
+            <div class="row">
+              <div class="col-12 text-center mb-4">
+                <h2 class="login-text1">Leave your feedback</h2>
+                <h3 class="login-text2">We'd love to receive your thoughts on the experience</h3>
+                <!--p routerLinkActive="router-link-active" class="not-registered">Not registered? <span routerLink="/auth/register"
+                    class="text-primary cursor">Register here.</span></p-->
+              </div>
+              <div class="col-md-6 mx-auto center-feedback">
+                <div class="form-group mb-3">
+                  <textarea type="textarea" id="feedback" placeholder="Enter your feedback" formControlName="feedback"
+                  class="feedback form-control"></textarea>
+                  </div>
+                </div>
+                <button class="btn btn-primary" type="submit" [disabled]="feedbackForm.invalid || submitted"> Send feedback </button>
+                </div>
+              </div>
+            </div>
+          </div>
+    </form>
+  </section>
+  

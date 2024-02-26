@@ -1,0 +1,27 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row gx-3">
+      <!-- [ sample-page ] start -->
+      <div class="col-md-6 col-xl-4" *ngFor="let widget of widgets">
+        <div class="card  {{ widget.background }} border {{ widget.border }} mb-1 mt-1">
+          <div class="card-body">
+            <h6 class="mb-2 f-w-400  {{widget.color}}"><b>{{ widget?.title }}</b></h6>
+            <h4 class="mb-3 text-dark">
+              {{ widget?.amount }}
+              <!-- <span class="badge {{ widget.background }} border {{ widget.border }} "><i class="{{ widget.icon }}"></i> {{ widget.percentage }}</span> -->
+            </h4>
+            <p class="mb-0 text-muted text-sm" *ngIf="widget.title === 'Clients'">
+              Total Clients
+            </p>
+            <p class="mb-0 text-muted text-sm" *ngIf="widget.title === 'Advertisers'">
+              Total Episodes synced
+            </p>
+            <p class="mb-0 text-muted text-sm" *ngIf="widget.title === 'Episodes'">
+              Total advertisers active
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

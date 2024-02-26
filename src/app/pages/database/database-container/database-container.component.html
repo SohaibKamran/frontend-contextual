@@ -1,0 +1,83 @@
+<app-pagetitle title="Database" [breadcrumbItems]="breadCrumbItems">
+  <!-- <div class="video_titlebar">
+    <div class="w-sm-100">
+      <div class="d-flex align-items-center d-flex flex-row alignment-on-mobile">
+        <button class="text-primary me-3" (click)="open()">
+          <i class="fas fa-sliders-h"></i>
+        </button>
+        <div class="position-relative">
+          <input type="text" class="form-control h_40" placeholder="Search">
+          <i class="bi bi-search text-gray"></i>
+        </div>
+        <button class="btn btn-primary ms-3">Download Database</button>
+      </div>
+    </div>
+  </div> -->
+</app-pagetitle>
+<div class="row">
+  <div *ngIf="isToggled==true" class="col-md-4">
+    <app-database-filters [$videoFilter]="$videoFilter" [isToggled]="isToggled"
+      (setIsToggled)="toggleFilter($event)"></app-database-filters>
+  </div>
+  <div [className]="!isToggled ? 'col-md-12' : 'col-md-8'">
+    <div class="card">
+      <div class="card-body">
+        <div class="row align-items-center">
+          <div class="col">
+            <button class="text-primary me-3 bg-transparent" (click)="toggleFilter(!isToggled)">
+              <i class="fas fa-sliders-h"></i>
+            </button>
+          </div>
+          <div class="col-auto">
+            <div class="position-relative">
+              <input type="text" class="form-control h_40" [(ngModel)]="nameSearch" (keyup)="timedSearch()"placeholder="Search">
+              <i class="bi bi-search text-gray"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-database-records [$videoFilter]="$videoFilter"></app-database-records>
+
+  </div>
+  <div class="row mb-3">
+    <div class="col-12">
+      <div class="d-flex align-items-center justify-content-center">
+        <div class="align-items-center d-flex dataTables_info" id="tickets-table_info" role="status"
+          aria-live="polite">
+          <label>
+            Row per page
+          </label>
+          <div class="dataTables_length" id="tickets-table_length">
+            <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize"
+              [(ngModel)]="pagination.limit" (change)="changeLimit()" class="form-control mx-2">
+              <option [ngValue]="10">10</option>
+              <option [ngValue]="25">25</option>
+              <option [ngValue]="50">50</option>
+              <option [ngValue]="100">100</option>
+            </select>
+          </div>
+        </div>
+        <ngb-pagination class="goto-pagination" (pageChange)="onPageChange($event)" [collectionSize]="totalCount"
+          [(page)]="pagination.pageNo" [pageSize]="pagination.limit" [maxSize]="5" [rotate]="true">
+          <ng-template ngbPaginationPages let-page let-pages="pages">
+            <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
+              <div class="mb-3 d-flex flex-nowrap px-2">
+                <label id="paginationInputLabel" for="paginationInput" class="col-form-label me-2 ms-1">Go
+                  to</label>
+                <input #i type="text" inputmode="numeric" pattern="[0-9]*" class="form-control custom-pages-input"
+                  id="paginationInput" [value]="page" (keyup.enter)="selectPage(i.value)" (blur)="selectPage(i.value)"
+                  (input)="formatInput($any($event).target)"
+                  aria-labelledby="paginationInputLabel paginationDescription" style="width: 3.5rem" />
+                <!-- <span id="paginationDescription" class="col-form-label text-nowrap px-2"> of {{pages.length}}</span> -->
+              </div>
+            </li>
+          </ng-template>
+        </ngb-pagination>
+        <ngb-pagination (pageChange)="onPageChange($event)" [collectionSize]="totalCount" [(page)]="pagination.pageNo"
+          [pageSize]="pagination.limit" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+        </ngb-pagination>
+      </div>
+    </div>
+  </div>
+</div>

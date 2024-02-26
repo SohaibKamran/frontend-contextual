@@ -1,0 +1,237 @@
+<div class="row justify-content-end gx-2">
+  <!-- <div class="col-md-6 mb-3">
+    <div class="position-relative">
+      <h6 class="fs-xxl fw-medium mb-0">
+        Advertisers Records
+      </h6>
+    </div>
+  </div> -->
+  <div class="col-md-2 mb-3">
+    <ng-select placeholder="Advertiser Status" [(ngModel)]="selectedFilter" [items]="statuses" bindLabel="text"
+      [closeOnSelect]="true" (change)="filterUsingStatus($event)" [multiple]="false" [closeOnSelect]="false"
+      [clearable]="false">
+      <ng-template ng-label-tmp let-item="item">
+        <span class="{{item.class}}">{{item.text}}</span>
+      </ng-template>
+      <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+        <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" />
+        <span class="{{item.class}}"> {{item.text }} </span>
+      </ng-template>
+    </ng-select>
+    <!-- <ng-multiselect-dropdown name="status" [placeholder]="'Advertiser Status'" [settings]="dropdownSettings"
+        [data]="statuses" (onSelect)="filterUsingStatus($event)" (onDeSelect)="deSelectAdvFilter($event)">
+      </ng-multiselect-dropdown> -->
+    <!-- <div ngbDropdown class="btn-group w-100 scene_dropdowns">
+      <button type="button"
+        class="btn btn-light dropdown-toggle h_40 text-light d-flex justify-content-between align-items-center"
+        id="dropdownBasic1" ngbDropdownToggle>
+        <span [ngClass]="selectedFilter?selectedFilter?.class:''">{{selectedFilter?selectedFilter?.title: 'Advertiser Status'}}</span>
+        <i class="bi bi-caret-down-fill ms-2 fs-md text-gray"></i>
+      </button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <a *ngFor="let status of Statuses; let j=index" ngbDropdownItem class="{{status?.class}}"
+          (click)="filterUsingStatus(j+1)">
+          {{status?.title}}
+        </a>
+      </div>
+    </div> -->
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="position-relative">
+      <input type="text" class="form-control h_40" placeholder="Search" [(ngModel)]="searchName"
+        (input)="filterUsingName()">
+      <i class="bi bi-search text-gray"></i>
+    </div>
+  </div>
+</div>
+<div class="card border-top-0">
+  <div class="header-bg pt-0">
+    <div class="table-responsive">
+      <table datatable class="table row-border table-hover mb-0">
+        <thead class="text-end">
+          <tr>
+            <th *ngFor="let heading of tableHeadings; let i = index">
+              <div class="d-flex align-items-center justify-content-end">{{heading.name}}
+                <span class='d-inline-block'>
+                  <div (click)="sort(1,i)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"
+                      [attr.fill]="heading?.order==='ASC'?'#676464': '#C9C9C9'" class="bi bi-caret-up-fill"
+                      viewBox="0 0 16 16">
+                      <path
+                        d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+                    </svg>
+                  </div>
+                  <div (click)="sort(2,i)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"
+                      [attr.fill]="heading?.order==='DESC'?'#676464': '#C9C9C9'" class="bi bi-caret-down-fill"
+                      viewBox="0 0 16 16">
+                      <path
+                        d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                    </svg>
+                  </div>
+
+                </span>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="loader">
+            <td colspan="10" class="text-center">
+              <div class="spinner-border text-primary " role="status">
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="advertisers.length===0 && loader===false; else tableData">
+            <td class="text-muted td_heading text-center" colspan="10">No Record Found</td>
+          </tr>
+          <ng-template #tableData>
+            <ng-container *ngFor="let advertiserListing of advertisers;let i = index">
+              <tr class="child1 cursor-pointer text-end">
+                <td class="text-muted td_heading text-start">
+                  <div class="row align-items-center" (click)="setChild(i,advertiserListing.id)">
+                    <div *ngIf="advertiserListing?.imageUrl" class="col-auto pe-0">
+                      <img [src]="advertiserListing?.imageUrl" alt="user-image" class="advertiser-circle" />
+                    </div>
+                    <div *ngIf="!advertiserListing?.imageUrl" class="col-auto pe-0">
+                      <img src="assets/images/user/avatar-3.jpg" alt="user-image" class="advertiser-circle" />
+                    </div>
+                    <div class="col">
+                      <ngb-highlight [result]="advertiserListing?.name" class="text-black fs-lg"></ngb-highlight>
+                      <ngb-highlight [result]="advertiserListing?.websiteLink" class="text-muted f-12 mb-0">
+                      </ngb-highlight>
+                    </div>
+                  </div>
+                </td>
+                <!-- <td *ngIf="showProductRecords"class="text-muted td_heading">{{scene?.product_id}}</td> -->
+
+                <td *ngIf="advertiserListing?.productCount">{{advertiserListing?.productCount.toLocaleString("en-US")}}
+                </td>
+                <td *ngIf="!advertiserListing?.productCount">0</td>
+
+                <td *ngIf="advertiserListing?.superProxyIndex">
+                  {{advertiserListing?.superProxyIndex.toLocaleString("en-US")}}</td>
+                <td *ngIf="!advertiserListing?.superProxyIndex">0</td>
+                <td *ngIf="advertiserListing?.adInventory">{{advertiserListing?.adInventory.toLocaleString("en-US")}}
+                </td>
+                <td *ngIf="!advertiserListing?.adInventory">0</td>
+                <td>
+                  <!-- <ng-multiselect-dropdown [(ngModel)]="advertiserListing.status" [placeholder]="'Advertiser Status'" [settings]="dropdownSettings"
+                    [data]="statuses" (onSelect)="onItemSelect($event, advertiserListing.id)">
+                  </ng-multiselect-dropdown> -->
+                  <!-- <div ngbDropdown class="btn-group w-100 scene_dropdowns">
+                    <button type="button"
+                      class="btn btn-light dropdown-toggle h_40 text-light d-flex justify-content-between align-items-center"
+                      id="dropdownBasic1" ngbDropdownToggle>
+                      <div class="{{selectedItems[i].class}}">
+                        {{selectedItems[i].title}}
+                      </div>
+                      <i class="bi bi-caret-down-fill ms-2 fs-md text-gray"></i>
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                      <a *ngFor="let status of Statuses; let j=index" ngbDropdownItem class="{{status.class}}"
+                        (click)="updateStatus(j+1, advertiserListing?.id, i)">
+                        {{status.title}}
+                      </a>
+                    </div>
+                  </div> -->
+                  <ng-select placeholder="Update Status" [ngModel]="advertiserListing.status" [items]="Statuses" bindLabel="title"
+                  [closeOnSelect]="true" (change)="updateStatus($event,advertiserListing.id)" [multiple]="false"
+                  [clearable]="false">
+                  <ng-template ng-label-tmp let-item="item">
+                    <span class="{{item.class}}">{{item.title}}</span>
+                  </ng-template>
+                  <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                    <span class="{{item.class}}"> {{item.title }} </span>
+                  </ng-template>
+                </ng-select>
+                </td>
+              </tr>
+              <tr class="child-form" *ngIf="selectedIndex===i">
+                <td colspan="5">
+                  <ng-container>
+                    <app-add-edit-advertiser (notifyParent)="closeModal($event)"></app-add-edit-advertiser>
+                  </ng-container>
+                </td>
+              </tr>
+            </ng-container>
+          </ng-template>
+        </tbody>
+        <!-- <tbody *ngIf="!tableListingData || tableListingData.length===0">
+                  <tr class="no_results">
+                 <td colspan="12">  No Result Found</td>
+                  </tr>
+              </tbody> -->
+      </table>
+    </div>
+
+    <div class="row justify-content-md-between align-items-md-center mt-2">
+      <div class="row mb-3">
+        <div class="col-12">
+          <div class="d-flex align-items-center justify-content-center">
+            <div class="align-items-center d-flex dataTables_info" id="tickets-table_info" role="status"
+              aria-live="polite">
+              <label>
+                Row per page
+              </label>
+              <div class="dataTables_length" id="tickets-table_length">
+                <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize"
+                  [(ngModel)]="pagination.limit" (change)="fetchAdvertisers()" class="form-control mx-2">
+                  <option [ngValue]="10">10</option>
+                  <option [ngValue]="25">25</option>
+                  <option [ngValue]="50">50</option>
+                  <option [ngValue]="100">100</option>
+                </select>
+              </div>
+            </div>
+            <ngb-pagination class="goto-pagination" (pageChange)="onPageChange($event)" [collectionSize]="totalCount"
+              [(page)]="pagination.pageNo" [pageSize]="pagination.limit" [maxSize]="5" [rotate]="true">
+              <ng-template ngbPaginationPages let-page let-pages="pages">
+                <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
+                  <div class="mb-3 d-flex flex-nowrap px-2">
+                    <label id="paginationInputLabel" for="paginationInput" class="col-form-label me-2 ms-1">Go
+                      to</label>
+                    <input #i type="text" [disabled]="pages.length <= 1" inputmode="numeric" pattern="[0-9]*"
+                      class="form-control custom-pages-input" id="paginationInput" [value]="page"
+                      (keyup.enter)="selectPage(i.value)" (blur)="selectPage(i.value)"
+                      (input)="formatInput($any($event).target)"
+                      aria-labelledby="paginationInputLabel paginationDescription" style="width: 3.5rem" />
+                    <!-- <span id="paginationDescription" class="col-form-label text-nowrap px-2"> of {{pages.length}}</span> -->
+                  </div>
+                </li>
+              </ng-template>
+            </ngb-pagination>
+            <ngb-pagination (pageChange)="onPageChange($event)" [collectionSize]="totalCount"
+              [(page)]="pagination.pageNo" [pageSize]="pagination.limit" [maxSize]="5" [rotate]="true"
+              [boundaryLinks]="true">
+            </ngb-pagination>
+          </div>
+        </div>
+      </div>
+      <!-- End Pagination -->
+    </div>
+    <!-- Pagination -->
+    <!-- <div class="align-items-center d-flex dataTables_info" id="tickets-table_info" role="status" aria-live="polite">
+        <label>
+          Row per page
+        </label>
+        <div class="dataTables_length" id="tickets-table_length">
+          <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize" [(ngModel)]="pagination.limit"
+            class="form-control mx-2">
+            <option [ngValue]="10">10</option>
+            <option [ngValue]="25">25</option>
+            <option [ngValue]="50">50</option>
+            <option [ngValue]="100">100</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-5">
+        <div class="text-md-right float-md-end pagination-rounded">
+          <ngb-pagination (pageChange)="onPageChange($event)" [collectionSize]="totalCount" [(page)]="pagination.pageNo"
+            [pageSize]="pagination.limit">
+          </ngb-pagination>
+        </div>
+      </div> -->
+    <!-- End Pagination -->
+  </div>
+</div>

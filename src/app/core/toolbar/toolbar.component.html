@@ -1,0 +1,58 @@
+<!-- <stbui-loading *ngIf="showLoading"></stbui-loading> -->
+<mat-toolbar *ngIf="sharedService.showToolbar === true" class="bg-base">
+  <div class="d-flex align-items-center" *ngIf="matDrawerShow">
+    <!-- <button mat-icon-button (click)="sidenav.toggle(); drawer.toggle()">
+      <i class="material-icons app-toolbar-menu">menu </i>
+    </button> -->
+    <div class=""></div>
+    <p class="fs-xl fw-bold text-black mb-0">{{title}}</p>
+    <i *ngIf="currentRoute === '/tagger/tag-video'" class="bi bi-chat-square-text text-primary ms-2"
+      data-bs-toggle="modal" data-bs-target="#exampleModal7"></i>
+  </div>
+
+  <button mat-icon-button (click)="sidenav.toggle()" *ngIf="!matDrawerShow">
+    <i class="material-icons app-toolbar-menu">menu </i>
+  </button>
+  <img src="../../assets/images/logo.svg" class="logo-mob" *ngIf="!matDrawerShow">
+  <div class="ms-auto" *ngIf="matDrawerShow">
+    <!-- <button type="button" class="btn btn-secondary btn-sm">Import Video</button> -->
+    <button *ngIf="!storageService.getItem('token')" [routerLink]="['/login']" routerLinkActive="router-link-active"
+      type="button" class="btn btn-secondary btn-sm ms-3">
+      Sign In
+    </button>
+    <!-- <button type="button" class="btn btn-secondary btn-sm ms-3" (click)="logout()"
+      *ngIf="storageService.getItem('token')">
+      Logout
+    </button> -->
+  </div>
+
+  <!-- <span class="spacer"></span>
+
+    <button  mat-icon-button (click)="searchOpen = !searchOpen" fxHide="true" [fxHide.gt-xs]="false">
+        <i class="material-icons">search</i>
+    </button>
+    <cdk-search-bar [open]="searchOpen"></cdk-search-bar>
+
+    <cdk-fullscreen></cdk-fullscreen>
+
+    <cdk-toolbar-notification [notifications]="toolbarHelpers?.notifications"></cdk-toolbar-notification>
+
+    <cdk-user-menu [currentUser]="toolbarHelpers?.currentUser"></cdk-user-menu>
+
+     <button mat-icon-button (click)="sidebar.toggle();">
+        <i class="material-icons app-toolbar-menu">menu </i>
+    </button> -->
+</mat-toolbar>
+<mat-toolbar *ngIf="sharedService.showToolbar === false && currentRoute==='/home' && isMobileForHome"
+  class="bg-transparent">
+  <!-- <cdk-header-mob></cdk-header-mob> -->
+  <div class="d-flex justify-content-between align-items-center header-mob d-sm-none">
+    <button mat-icon-button>
+      <i (click)="sidenav.toggle()" class="material-icons app-toolbar-menu text-white ms-2">menu </i>
+    </button>
+    <img src="../../../assets/images/logo-white.svg" class="logo-mob">
+    <img [routerLink]="['/profile']" routerLinkActive="router-link-active" src="../../../assets/icons/user-mob.svg"
+      class="me-3">
+  </div>
+
+</mat-toolbar>

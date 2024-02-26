@@ -1,0 +1,1176 @@
+<div class="col-sm-12">
+  <div class="card-body">
+    <div class="table-responsive video-table">
+      <table datatable class="table row-border table-hover pt-10 bg-white">
+        <thead>
+          <tr>
+            <th *ngFor="let heading of tableHeadings;let i = index">
+              <div class="d-flex align-items-center">
+                {{heading.name}}
+                <span class='d-inline-block'>
+                  <div (click)="sorting(1,i)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"
+                      [attr.fill]="heading?.order==='ASC'?'#676464': '#C9C9C9'" class="bi bi-caret-up-fill"
+                      viewBox="0 0 16 16">
+                      <path
+                        d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+                    </svg>
+                  </div>
+                  <div (click)="sorting(2,i)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"
+                      [attr.fill]="heading?.order==='DESC'?'#676464': '#C9C9C9'" class="bi bi-caret-down-fill"
+                      viewBox="0 0 16 16">
+                      <path
+                        d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                    </svg>
+                  </div>
+
+                </span>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody #target>
+          <tr class="child1">
+            <td colspan="10" class="py-3">
+              <div class="d-flex align-items-center">
+                <i (click)="selectTab('contxtual')" class="text-secondary" [ngClass]="tabOption !== 'contxtual'?'bi bi-chevron-right':'bi bi-chevron-down'"></i>
+                <p class="fw-medium mb-0 ms-3">Contxtual</p>
+              </div>
+            </td>
+          </tr>
+          <ng-container *ngIf="tabOption === 'contxtual'">
+            <tr *ngIf="loader">
+              <td colspan="10" class="text-center">
+                <div class="spinner-border text-primary " role="status">
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="videosListing?.length === 0 && !loader" class="child1">
+              <td class="text-muted td_heading text-center" colspan="10">No Record Found</td>
+            </tr>
+            <ng-container *ngIf="videosListing.length>0 && loader===false" [ngTemplateOutlet]="tableData"
+              [ngTemplateOutletContext]="{ data: videosListing }">
+            </ng-container>
+          </ng-container>
+            <tr *ngIf="loader">
+              <td colspan="10" class="text-center">
+                <div class="spinner-border text-primary " role="status">
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="streamers.length===0 && loader===false; else streamerTableData">
+              <td class="text-muted td_heading text-center" colspan="10">No Stremer Found</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Pagination -->
+    <div class="row justify-content-md-between align-items-md-center mt-2">
+      <div class="row mb-3">
+        <div class="col-12">
+          <div class="d-flex align-items-center justify-content-center">
+            <div class="align-items-center d-flex dataTables_info" id="tickets-table_info" role="status"
+              aria-live="polite">
+              <label>
+                Row per page
+              </label>
+              <div class="dataTables_length" id="tickets-table_length">
+                <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize"
+                  [(ngModel)]="pagination.limit" (change)="changeLimit()" class="form-control mx-2">
+                  <option [ngValue]="10">10</option>
+                  <option [ngValue]="25">25</option>
+                  <option [ngValue]="50">50</option>
+                  <option [ngValue]="100">100</option>
+                </select>
+              </div>
+            </div>
+            <ngb-pagination class="goto-pagination" (pageChange)="onPageChange($event)" [collectionSize]="totalCount"
+              [(page)]="pagination.pageNo" [pageSize]="pagination.limit" [maxSize]="5" [rotate]="true">
+              <ng-template ngbPaginationPages let-page let-pages="pages">
+                <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
+                  <div class="mb-3 d-flex flex-nowrap px-2">
+                    <label id="paginationInputLabel" for="paginationInput" class="col-form-label me-2 ms-1">Go
+                      to</label>
+                    <input #i type="text" inputmode="numeric" pattern="[0-9]*" class="form-control custom-pages-input"
+                      id="paginationInput" [value]="page" (keyup.enter)="selectPage(i.value)"
+                      (blur)="selectPage(i.value)" (input)="formatInput($any($event).target)"
+                      aria-labelledby="paginationInputLabel paginationDescription" style="width: 3.5rem" />
+                  </div>
+                </li>
+              </ng-template>
+            </ngb-pagination>
+            <ngb-pagination (pageChange)="onPageChange($event)" [collectionSize]="totalCount"
+              [(page)]="pagination.pageNo" [pageSize]="pagination.limit" [maxSize]="5" [rotate]="true"
+              [boundaryLinks]="true">
+            </ngb-pagination>
+          </div>
+        </div>
+      </div>
+      <!-- End Pagination -->
+    </div>
+  </div>
+</div>
+
+<ng-template #addModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title h4" id="myLargeModalLabel">Large Modal</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      (click)="modal.dismiss('Close click')"></button>
+  </div>
+</ng-template>
+<ng-template #streamerTableData>
+  <ng-container *ngFor="let streamersListing of streamers;let j = index">
+    <tr class="child1">
+      <td colspan="10" class="py-3">
+        <div class="d-flex align-items-center">
+          <i (click)="selectStreamer(j)" class="text-secondary" [ngClass]="selectedStreamerIndex!==j?'bi bi-chevron-right':'bi bi-chevron-down'"></i>
+          <p class="fw-medium mb-0 ms-3">{{streamersListing?.fullName}}</p>
+        </div>
+      </td>
+    </tr>
+    <ng-container *ngIf="selectedStreamerIndex===j" [ngTemplateOutlet]="tableData"
+      [ngTemplateOutletContext]="{ data: streamersListing?.Shows }">
+    </ng-container>
+  </ng-container>
+</ng-template>
+<ng-template #tableData let-data="data">
+  <ng-container *ngFor="let video of data; let x=index">
+    <tr class="parent-tr" [id]="video.id">
+      <td>
+        <div class="imgbox">
+          <i (click)="selectEpisode(x)" *ngIf="video.videoTypeId==1" class="{{video.icon}}"></i>
+          <i (click)="fetchShowScenes(video?.id, video?.videoTypeId,x)" *ngIf="video.videoTypeId==3"
+            class="{{video.icon}}"></i>
+          <img
+            [src]="video?.areScenesBroken==1?video?.thumbnail:'../../../../assets/images/default-video-frame.svg'"
+            alt="None" (click)="openModal(video.videoTypeId,video.id)">
+          <a>{{video?.title}}</a>
+        </div>
+      </td>
+      <td>
+        <div class="form-check form-switch">
+          <div class="d-flex justify-content-center align-items-center">
+            <input type="checkbox" [checked]="video?.checked" (change)="changeShowStatus($event,video?.id)"
+              class="form-check-input input-primary" id="customswitchv1-1" />
+          </div>
+        </div>
+      </td>
+      <td *ngIf="video?.videoTypeId==1"> {{video?.totalEpisodes.toLocaleString("en-US")}}</td>
+      <td *ngIf="video?.videoTypeId==3">
+        <ng-select (search)="searchTagger($event,video)" [loading]="taggerLoader"
+          [(ngModel)]='video.selectedTaggers' placeholder="Annotator(s)" [items]="video.taggers"
+          bindLabel="fullName" [multiple]="true" [closeOnSelect]="false" (close)="clearSearch(video)"
+          (change)="movieTaggerSelect($event,x)" (scrollToEnd)="onTaggerScrollEnd($event,video)"
+          (clear)="clearSearch(video)">
+          <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index"
+            let-search="searchTerm">
+            <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" />
+            {{item.fullName }}
+          </ng-template>
+          <ng-template ng-multi-label-tmp let-items="items">
+            <div class="ng-value" *ngFor="let item of items.slice(0,1)">
+              {{item.fullName}}
+            </div>
+            <div class="ng-value" *ngIf="items.length > 1">
+              <span class="ng-value-label">+{{items.length - 1}} </span>
+            </div>
+          </ng-template>
+        </ng-select>
+      </td>
+      <td *ngIf="!video.percentage">0%</td>
+      <td *ngIf="video.percentage"> {{video?.percentage | percentage}}%</td>
+      <td> {{video?.totalScenes?.toLocaleString("en-US")}}</td>
+      <td> {{video?.productRecords?.toLocaleString("en-US")}}</td>
+      <td> {{video?.sceneViews?.toLocaleString("en-US")}}</td>
+      <td> {{video?.adViews?.toLocaleString("en-US")}}</td>
+      <td> {{video?.adLikes?.toLocaleString("en-US")}}</td>
+      <td> {{video?.adClicks?.toLocaleString("en-US")}}</td>
+    </tr>
+    <ng-container *ngIf="selectedIndex===x">
+      <!-- <div> -->
+      <tr *ngIf="sceneListingLoader && videosListing[x].videoTypeId==3" class="child1 child2 cursor-pointer">
+        <td colspan="10" class="text-center space">
+          <div class="spinner-border text-primary" role="status">
+          </div>
+        </td>
+      </tr>
+      <ng-container *ngIf="videosListing[x].videoTypeId==3">
+        <tr *ngIf="selectedEpisodeScenes?.length==0 && !sceneListingLoader" class="child1">
+          <td class="text-muted td_heading" colspan="40">Video Encoding</td>
+        </tr>
+        <tr class="child1 child2 child3"
+          *ngIf="selectedEpisodeScenes?.length!=0 && this.scenePagination.pageNo>1">
+          <td class="text-center space" colspan="8"><i (click)="loaderMoreScenes(2)"
+              class="bi bi-chevron-double-up fs-xxl"></i>
+          </td>
+        </tr>
+        <ng-container *ngFor="let scene of selectedEpisodeScenes;let lastChild=index">
+          <tr class="child1 child2 child3 cursor-pointer">
+            <td colspan="3" class="space">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="dropdown mr-2" ngbDropdown>
+                  <button type="button" class="btn btn-link dropdown-toggle" ngbDropdownToggle>
+                    <i class="bi bi-eye"></i>
+                  </button>
+                  <ul class="dropdown-menu vieweditdrop p-0" ngbDropdownMenu>
+                    <p class="btn-light-secondary p-2 m-0">View or edit in:</p>
+                    <a class="dropdown-item" (click)="goToTagger(video.id,scene.id)" [routerLink]="">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-bolt"
+                        width="20" height="20" viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e"
+                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <polyline points="13 3 13 10 19 10 11 21 11 14 5 14 13 3" />
+                      </svg>
+                      Product Annotator
+                    </a>
+                    <a class="dropdown-item" (click)="openEpisodePreview(video.id)" [routerLink]="">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-video-plus"
+                        width="20" height="20" viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e"
+                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                          d="M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z" />
+                        <rect x="3" y="6" width="12" height="12" rx="2" />
+                        <line x1="7" y1="12" x2="11" y2="12" />
+                        <line x1="9" y1="10" x2="9" y2="14" />
+                      </svg>
+                      Video Preview
+                    </a>
+                  </ul>
+                </div>
+                <span (click)="selectEpisodeScene(lastChild)" class="me-5">{{scene?.sceneId}}</span>
+                <img src="{{scene?.thumbnail}}" width="120">
+                <b class="ms-5 me-5">{{scene?.topVzotScore}}</b>
+              </div>
+            </td>
+            <!-- add dropdown -->
+            <td colspan="2">
+              <ng-select placeholder="Scene Status"
+                [ngModel]="selectedEpisodeScenes[lastChild]?.taggingStatusValue" [items]="taggingStatuses"
+                bindLabel="title" [closeOnSelect]="true"
+                (change)="updateTaggingStatus(selectedEpisodeScenes[lastChild],$event,scene?.id,video.id)" [multiple]="false"
+                [clearable]="false">
+                <ng-template ng-label-tmp let-item="item">
+                  <span class="{{item.class}}">{{item.title}}</span>
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                  <span class="{{item.class}}"> {{item.title }} </span>
+                </ng-template>
+              </ng-select>
+            </td>
+            <td> {{scene?.productRecordsCount?.toLocaleString("en-US")}}</td>
+            <td> {{scene?.sceneViews?.toLocaleString("en-US")}}</td>
+            <td> {{scene?.adViews?.toLocaleString("en-US")}}</td>
+            <td> {{scene?.adLikes?.toLocaleString("en-US")}}</td>
+            <td> {{scene?.adClicks?.toLocaleString("en-US")}}</td>
+          </tr>
+          <!-- last child table -->
+          <tr class="child1 child2 child3 child4" *ngIf="selectedScene===lastChild">
+            <td colspan="12" class="space">
+              <div class="table-vertical-scroll">
+                <table class="sb_table">
+                  <ng-container>
+                    <thead>
+                      <th *ngFor="let heading of tableHeadingsPRs; let i = index">
+                        <div class="d-flex align-items-center">{{heading.name}}
+                          <span class='d-inline-block'>
+                            <div (click)="sort(1,i)">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"
+                                [attr.fill]="heading?.order==='ASC'?'#676464': '#C9C9C9'"
+                                class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                <path
+                                  d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+                              </svg>
+                            </div>
+                            <div (click)="sort(2,i)">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"
+                                [attr.fill]="heading?.order==='DESC'?'#676464': '#C9C9C9'"
+                                class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                <path
+                                  d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                              </svg>
+                            </div>
+                          </span>
+                        </div>
+                      </th>
+                    </thead>
+                    <!-- </ng-container> -->
+
+                    <!-- </tr> -->
+                    <tr *ngIf="selectedScenes?.length===0 && sceneLoader==false" class="child1">
+                      <td class="text-muted td_heading" colspan="40">No Record Found</td>
+                    </tr>
+                    <tr *ngIf="sceneLoader">
+                      <td colspan="10" class="text-center">
+                        <div class="spinner-border text-primary " role="status">
+                        </div>
+                      </td>
+                    </tr>
+                    <ng-container *ngFor="let screen of selectedScenes; let z=index">
+
+                      <tr>
+                        <td>
+                          <div class="imgbox">
+                            <div class="d-flex align-items-center justify-content-between" title="{{5}}">
+                              <div class="dropdown mr-2" ngbDropdown>
+                                <button type="button" class="btn btn-link dropdown-toggle" ngbDropdownToggle>
+                                  <i class="bi bi-eye"></i>
+                                </button>
+                                <ul class="dropdown-menu" ngbDropdownMenu>
+                                  <a class="dropdown-item" (click)="openTagSummaryModal(scene,screen, video?.id)"
+                                    [routerLink]="">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                      class="icon icon-tabler icon-tabler-tag" width="20" height="20"
+                                      viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none"
+                                      stroke-linecap="round" stroke-linejoin="round">
+                                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                      <circle cx="8.5" cy="8.5" r="1" fill="currentColor" />
+                                      <path
+                                        d="M4 7v3.859c0 .537 .213 1.052 .593 1.432l8.116 8.116a2.025 2.025 0 0 0 2.864 0l4.834 -4.834a2.025 2.025 0 0 0 0 -2.864l-8.117 -8.116a2.025 2.025 0 0 0 -1.431 -.593h-3.859a3 3 0 0 0 -3 3z" />
+                                    </svg>
+                                    PR Summary
+                                  </a>
+                                </ul>
+                              </div>
+
+                              <img src="{{video.thumbnail}}" (click)="openTagSummaryModal(scene,screen, video?.id)"
+                                alt="None">
+                              {{video?.title}}
+                            </div>
+                            <!-- <i class="fa fa-eye"></i> -->
+                          </div>
+                        </td>
+                        <!-- add dropdown -->
+                        <td> {{convertSeason("56")}}</td>
+                        <td> {{convertEpisode("99")}}</td>
+                        <td> SC{{scene?.id}}</td>
+                        <td>
+                          <img src="{{scene?.thumbnail}}" width="120">
+
+                          <!-- <div class="imgbox">
+                                <img src="{{screen.proxyImageUrl}}" alt="None">
+                                {{video?.title}}
+                              </div> -->
+                        </td>
+                        <td>
+                          {{screen.prId}}
+                        </td>
+                        <td>
+                          <div class="btn-group float-end scene_dropdowns">
+                            <!-- <div ngbDropdown class="d-inline-block">
+                              <button type="button" class="btn btn-rounded h_40 w_170" id="dropdownBasic1"
+                                ngbDropdownToggle>
+                                <div *ngIf="this.selectedScenes[z]?.taggingStatusValue"
+                                  [ngClass]="this.selectedScenes[z]?.taggingStatusColor">
+                                  {{this.selectedScenes[z]?.taggingStatusValue}}
+                                </div>
+                                <i class="bi bi-caret-down-fill ms-2 fs-md text-gray"></i>
+                              </button>
+                              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <a *ngFor="let status of prTaggingStatuses; let i=index" ngbDropdownItem
+                                  class={{status.class}}
+                                  (click)="updatePRTaggingStatus(this.selectedScenes[z].id,status.id)">
+                                  {{status.title}}
+                                </a>
+                              </div>
+                            </div> -->
+                            <ng-select placeholder="PR Status" [ngModel]="selectedScenes[z]?.PRStatusValue"
+                              [items]="prTaggingStatuses" bindLabel="title" [closeOnSelect]="true"
+                              (change)="updatePRTaggingStatus($event,selectedScenes[z].id)" [multiple]="false"
+                              [clearable]="false">
+                              <ng-template ng-label-tmp let-item="item">
+                                <span class="{{item.class}}">{{item.title}}</span>
+                              </ng-template>
+                              <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                <span class="{{item.class}}"> {{item.title }} </span>
+                              </ng-template>
+                            </ng-select>
+                          </div>
+
+                          <!-- <div class="btn-group float-end scene_dropdowns">
+                          <div ngbDropdown class="d-inline-block">
+                            <button type="button" class="btn btn-primary h_40 ms-3" id="dropdownBasic1"
+                              ngbDropdownToggle>
+                              Scene In Status
+                            </button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                              <a ngbDropdownItem class="todo">
+                                Scene To Do
+                              </a>
+                              <a ngbDropdownItem class="inprogress">
+                                Scene In Progress
+                              </a>
+                              <a ngbDropdownItem class="review">
+                                Scene In Review
+                              </a>
+
+                              <a ngbDropdownItem class="returned">
+                                Scene Returned
+                              </a>
+                              <a ngbDropdownItem class="apporved">
+                                Scene Approved
+                              </a>
+
+                            </div>
+                          </div>
+                        </div>  -->
+                        </td>
+                        <td>
+                          <b class="mx-auto">{{screen?.topVzotScore}}</b>
+                        </td>
+                        <td (click)="openTaggerModal()"> {{screen?.Tagger?.fullName}}</td>
+                        <td>
+                          <div class="imgbox">
+                            <img src="{{screen?.proxyImageUrl}}" alt="None" class="proxy-img">
+                            <!-- {{video?.title}} -->
+                          </div>
+                        </td>
+                        <td>
+                          <div class="imgbox">
+                            <img
+                              src="{{screen?.CoordinateHasProducts[0]?.ProductImage?.reuploadedImages.images[0]}}"
+                              alt="None" class="proxy-img">
+                            <!-- {{video?.title}} -->
+                          </div>
+                        </td>
+                        <td> {{screen?.Actor?.name}}
+                          <img width="50" src="{{screen?.Actor?.imageUrl}}" alt="None" class="actor-img ms-3">
+                        </td>
+                        <td>{{coordinatesSceneData[z]?.superProxySource?? "_"}}</td>
+                        <td>{{coordinatesSceneData[z]?.gender?? "_"}}</td>
+                        <td>{{coordinatesSceneData[z]?.color?? "_"}}</td>
+                        <td>{{coordinatesSceneData[z]?.pattern?? "_"}}</td>
+                        <td>{{coordinatesSceneData[z]?.subCategory?? "_"}}</td>
+                        <td>{{coordinatesSceneData[z]?.attributes?? "_"}}</td>
+                        <td>X: {{screen?.xCoordinate}}% , Y: {{screen?.yCoordinate}}% </td>
+                        <td>
+                          <div class="imgbox">
+                            <img src="{{coordinatesSceneData[z]?.adMatch1}}" alt="None" class="proxy-img">
+                            <!-- {{video?.title}} -->
+                          </div>
+                        </td>
+                        <td>{{coordinatesSceneData[z]?.adMatchAdv1?? "_"}}</td>
+                        <td>{{coordinatesSceneData[z]?.adMatchScore1?? "_"}}</td>
+                        <td>
+                          <div class="imgbox">
+                            <img src="{{coordinatesSceneData[z]?.adMatch2}}" alt="None" class="proxy-img">
+                            <!-- {{video?.title}} -->
+                          </div>
+                        </td>
+                        <td>{{coordinatesSceneData[z]?.adMatchAdv2?? "_"}}</td>
+                        <td>{{coordinatesSceneData[z]?.adMatchScore3?? "_"}}</td>
+                        <td>
+                          <div class="imgbox">
+                            <img src="{{coordinatesSceneData[z]?.adMatch3}}" alt="None" class="proxy-img">
+                            <!-- {{video?.title}} -->
+                          </div>
+                        </td>
+                        <td>{{coordinatesSceneData[z]?.adMatchAdv3?? "_"}}</td>
+                        <td>{{coordinatesSceneData[z]?.adMatchScore3?? "_"}}</td>
+
+                        <td>{{screen?.createdAt | date:'short'}}</td>
+                        <td>{{scene?.startTime?? "_"}}</td>
+                        <td>{{scene?.endTime?? "_"}}</td>
+                        <td><span class="line-clamp">{{coordinatesSceneData[z]?.description?? "_"}}</span>
+                        </td>
+                        <td>{{coordinatesSceneData[z]?.brand?? "_"}}</td>
+                        <td>{{coordinatesSceneData[z]?.price?? "_"}}</td>
+                        <td><span class="line-clamp">{{coordinatesSceneData[z]?.sceneThumbId??
+                            "_"}}</span></td>
+                        <td><span class="line-clamp">{{coordinatesSceneData[z]?.proxyId1?? "_"}}</span>
+                        </td>
+                        <td><span class="line-clamp">{{coordinatesSceneData[z]?.superProxyId1??
+                            "_"}}</span></td>
+                        <td><span class="line-clamp">{{coordinatesSceneData[z]?.superProxyId2??
+                            "_"}}</span></td>
+                        <td><span class="line-clamp">{{coordinatesSceneData[z]?.superProxyId3??
+                            "_"}}</span></td>
+                        <td><span class="line-clamp">{{coordinatesSceneData[z]?.posterImageId??
+                            "_"}}</span></td>
+                      </tr>
+                    </ng-container>
+                  </ng-container>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+        <tr *ngIf="selectedEpisodeScenes?.length!=0 && sceneLoader==false" class="child1 child2 child3">
+          <td class="text-center space" colspan="8"><i (click)="loaderMoreScenes(1)"
+              class="bi bi-chevron-double-down fs-xxl"></i>
+          </td>
+        </tr>
+      </ng-container>
+      <!-- </div> -->
+      <ng-container *ngIf="videosListing[x].videoTypeId==1">
+        <tr *ngIf="videosListing[x].Seasons?.length==0" class="child1">
+          <td class="text-muted td_heading" colspan="40">No Record Found</td>
+        </tr>
+        <ng-container *ngFor="let season of videosListing[x].Seasons | keyvalue;let y=index">
+          <!-- <tr *ngIf="season.length===0">
+          <td class="text-muted td_heading text-center" colspan="10">No Record Found</td>
+        </tr> -->
+          <tr class="child1 cursor-pointer first-child" (click)="selectSecondChild(y,season?.key)">
+            <!-- {{season?.value | json}} -->
+            <!-- Second -->
+            <td class="space" colspan="2"> {{season?.key}}</td>
+            <td> {{season?.value['seasonEpisodeCount'].toLocaleString("en-US")}}</td>
+            <td *ngIf="!season.value['percentage']">0%</td>
+            <td *ngIf="season.value['percentage']"> {{season?.value['percentage'] | percentage}}%</td>
+            <td> {{season?.value['totalScenes'].toLocaleString("en-US")}}</td>
+            <td> {{season?.value['productRecords'].toLocaleString("en-US")}}</td>
+            <td> {{season?.value['sceneViews'].toLocaleString("en-US")}}</td>
+            <td> {{season?.value['adViews'].toLocaleString("en-US")}}</td>
+            <td> {{season?.value['adLikes'].toLocaleString("en-US")}}</td>
+            <td> {{season?.value['adClicks'].toLocaleString("en-US")}}</td>
+          </tr>
+          <ng-container *ngIf="selectedSeason===y">
+            <tr *ngIf="selectedSeasonEpisodes?.length===0" class="child1">
+              <td class="text-muted td_heading text-center" colspan="9">No Record Found</td>
+            </tr>
+            <ng-container *ngFor="let episode of selectedSeasonEpisodes;let z=index">
+
+              <tr class="child1 child2 child2-menu">
+                <td colspan="3" class="space">
+                  <div class="d-flex align-items-center justify-content-between cursor-pointer"
+                    title="{{episode.title}}">
+                    <div class="d-flex align-items-center">
+                      <div class="dropdown me-2" ngbDropdown>
+                        <button type="button" class="btn btn-link dropdown-toggle" ngbDropdownToggle>
+                          <i class="bi bi-eye"></i>
+                        </button>
+                        <ul class="dropdown-menu vieweditdrop p-0" ngbDropdownMenu>
+                          <p class="btn-light-secondary ml-2 p-2 m-0">View or edit in:</p>
+                          <!-- <div class="dropdown-divider"></div> -->
+                          <a class="dropdown-item"
+                            (click)="goToDatabase(video?.title,video?.id,season?.key,episode?.episodeNo)"
+                            [routerLink]="">
+                            <!-- <i class="fal fa-tag fa-sm" style="color: #d3d4d4;"></i> -->
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                              class="icon icon-tabler icon-tabler-database" width="20" height="20"
+                              viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none"
+                              stroke-linecap="round" stroke-linejoin="round">
+                              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                              <ellipse cx="12" cy="6" rx="8" ry="3"></ellipse>
+                              <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
+                              <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
+                            </svg>
+                            Database Record
+                          </a>
+                          <!-- <a class="dropdown-item"  >
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <circle cx="8.5" cy="8.5" r="1" fill="currentColor" />
+                            <path d="M4 7v3.859c0 .537 .213 1.052 .593 1.432l8.116 8.116a2.025 2.025 0 0 0 2.864 0l4.834 -4.834a2.025 2.025 0 0 0 0 -2.864l-8.117 -8.116a2.025 2.025 0 0 0 -1.431 -.593h-3.859a3 3 0 0 0 -3 3z" />
+                          </svg>
+                          Tag Summary
+                        </a> -->
+                          <a class="dropdown-item" (click)="goToTagger(episode.id)">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-bolt"
+                              width="20" height="20" viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e"
+                              fill="none" stroke-linecap="round" stroke-linejoin="round">
+                              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                              <polyline points="13 3 13 10 19 10 11 21 11 14 5 14 13 3" />
+                            </svg>
+                            Product Annotator
+                          </a>
+                          <a class="dropdown-item" *ngIf="episode.totalScenes>0" (click)="openEpisodePreview(episode.id,null,video.id)">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                              class="icon icon-tabler icon-tabler-video-plus" width="20" height="20"
+                              viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none"
+                              stroke-linecap="round" stroke-linejoin="round">
+                              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                              <path
+                                d="M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z" />
+                              <rect x="3" y="6" width="12" height="12" rx="2" />
+                              <line x1="7" y1="12" x2="11" y2="12" />
+                              <line x1="9" y1="10" x2="9" y2="14" />
+                            </svg>
+                            Video Preview
+                          </a>
+                          <a class="dropdown-item" *ngIf="episode.totalScenes==0" (click)="showNoVideo()">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                              class="icon icon-tabler icon-tabler-video-plus" width="20" height="20"
+                              viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none"
+                              stroke-linecap="round" stroke-linejoin="round">
+                              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                              <path
+                                d="M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z" />
+                              <rect x="3" y="6" width="12" height="12" rx="2" />
+                              <line x1="7" y1="12" x2="11" y2="12" />
+                              <line x1="9" y1="10" x2="9" y2="14" />
+                            </svg>
+                            Video Preview
+                          </a>
+                          <a class="dropdown-item" (click)="approveAllScenes(episode)">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-bolt"
+                              width="10" height="10" viewBox="0 0 24 24" stroke-width="0.5" stroke="#9e9e9e"
+                              stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M12 2C6.49 2 2 6.49 2 12C2 17.51 6.49 22 12 22C17.51 22 22 17.51 22 12C22 6.49 17.51 2 12 2ZM16.78 9.7L11.11 15.37C10.97 15.51 10.78 15.59 10.58 15.59C10.38 15.59 10.19 15.51 10.05 15.37L7.22 12.54C6.93 12.25 6.93 11.77 7.22 11.48C7.51 11.19 7.99 11.19 8.28 11.48L10.58 13.78L15.72 8.64C16.01 8.35 16.49 8.35 16.78 8.64C17.07 8.93 17.07 9.4 16.78 9.7Z"/>
+                            </svg>
+                            Approve All Scenes
+                          </a>
+                          <a class="dropdown-item" (click)="deleteEpisode(episode)">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-bolt"
+                              width="10" height="10" viewBox="0 0 50 50" stroke-width="1.5" stroke="#9e9e9e"
+                              stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M 20.5 4 A 1.50015 1.50015 0 0 0 19.066406 6 L 14.640625 6 C 12.796625 6 11.086453 6.9162188 10.064453 8.4492188 L 7.6972656 12 L 7.5 12 A 1.50015 1.50015 0 1 0 7.5 15 L 40.5 15 A 1.50015 1.50015 0 1 0 40.5 12 L 40.302734 12 L 37.935547 8.4492188 C 36.913547 6.9162187 35.202375 6 33.359375 6 L 28.933594 6 A 1.50015 1.50015 0 0 0 27.5 4 L 20.5 4 z M 8.9726562 18 L 11.125 38.085938 C 11.425 40.887937 13.77575 43 16.59375 43 L 31.40625 43 C 34.22325 43 36.574 40.887938 36.875 38.085938 L 39.027344 18 L 8.9726562 18 z"></path>
+                            </svg>
+                            <span style="color: red">Delete Video</span>
+                          </a>
+
+                        </ul>
+                      </div>
+                      <span (click)="selectEpisodeChild(z)">{{(episode.title?.length>10)? (episode.title |
+                        slice:0:10)+'...':(episode.title)}}&nbsp;</span>
+                    </div>
+                    <div class="btn-group float-end scene_dropdowns">
+                      <div ngbDropdown class="d-inline-block ms-3">
+                        <!-- <button type="button" class="btn btn-primary h_40 ms-3" id="dropdownBasic1"
+                        ngbDropdownToggle>
+                        Assign Annotator(s)
+                        <i class="bi bi-caret-down-fill ms-2 fs-md text-gray"></i>
+                      </button>
+                      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                        <ng-container *ngFor="let tagger of allTaggers">
+                          <a ngbDropdownItem (click)="AssignAnnotator(tagger,episode)">
+                            <i *ngIf="tagerExist(tagger,episode)" class="fas fa-check"></i>{{tagger.fullName}}
+                          </a>
+                        </ng-container>
+                      </div> -->
+                        <!-- <ng-multiselect-dropdown
+                          class="dropdown-select mutliselect-checkbox annotator-dropdown"
+                          style="width: -webkit-fill-available;" [placeholder]="'Assign Annotator(s)'"
+                          [settings]="dropdownSettings" [data]="allTaggers"
+                          [(ngModel)]="selectedAnnotators[z]"
+                          (onSelect)="onTaggerSelect($event, episode,z,x,season?.key)"
+                          (onSelectAll)="onSelectAllTagger($event,episode,z,x,season?.key)"
+                          (onDeSelectAll)="onDeselectAllTagger($event,episode,z,x,season?.key)"
+                          (onDeSelect)="taggerDeSelect($event, episode,z)">
+                        </ng-multiselect-dropdown> -->
+                        <!-- <ng-select [(ngModel)]='selectedAnnotators[z]' placeholder="Annotator(s)" [items]="allTaggers" bindLabel="text"
+                        [multiple]="true" [closeOnSelect]="false" (change)="onTaggerSelect($event, episode,z,x,season?.key)"(scrollToEnd)="onTaggerScrollEnd($event)" >
+                        <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index" let-search="searchTerm">
+                          <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" />
+                          {{item.fullName }}
+                        </ng-template>
+                        <ng-template ng-multi-label-tmp let-items="items">
+                          <div class="ng-value" *ngFor="let item of items | slice:0:1">
+                            {{item['fullName']}}
+                          </div>
+                          <div class="ng-value" *ngIf="items.length > 1">
+                            <span class="ng-value-label">+{{items.length - 1}} </span>
+                          </div>
+                        </ng-template>
+                      </ng-select> -->
+
+                        <ng-select [(ngModel)]="selectedAnnotators[z]" placeholder="Annotator(s)"
+                          [items]="episode.taggers" bindLabel="fullName" [multiple]="true"
+                          [closeOnSelect]="false" (change)="onTaggerSelect($event, episode,z,x,season?.key)"
+                          (close)="clearSearch(episode)" (scrollToEnd)="onTaggerScrollEnd($event, episode)"
+                          (search)="searchTagger($event, episode,x)" [loading]="taggerLoader"
+                          (clear)="clearSearch(episode)">
+                          <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index"
+                            let-search="searchTerm">
+                            <input id="item-{{index}}" type="checkbox" [checked]="item$.selected" />
+                            {{item.fullName }}
+                          </ng-template>
+                          <ng-template ng-multi-label-tmp let-items="items">
+                            <div class="ng-value" *ngFor="let item of items.slice(0,1)">
+                              {{item.fullName}}
+                            </div>
+                            <div class="ng-value" *ngIf="items.length > 1">
+                              <span class="ng-value-label">+{{items.length - 1}} </span>
+                            </div>
+                          </ng-template>
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <!-- add dropdown -->
+                <!-- <td></td> -->
+                <td *ngIf="episode.percentage"> {{episode?.percentage | percentage}}%</td>
+                <td *ngIf="!episode.percentage">0%</td>
+                <td> {{episode?.totalScenes.toLocaleString("en-US")}}</td>
+                <td> {{episode?.productRecords.toLocaleString("en-US")}}</td>
+                <td> {{episode?.sceneViews.toLocaleString("en-US")}}</td>
+                <td> {{episode?.adViews.toLocaleString("en-US")}}</td>
+                <td> {{episode?.adLikes.toLocaleString("en-US")}}</td>
+                <td> {{episode?.adClicks.toLocaleString("en-US")}}</td>
+              </tr>
+
+              <ng-container *ngIf="selectedEpisode===z">
+
+                <tr *ngIf="sceneListingLoader" class="child1 child2 cursor-pointer">
+                  <td colspan="10" class="text-center space">
+                    <div class="spinner-border text-primary" role="status">
+                    </div>
+                  </td>
+                </tr>
+                <tr *ngIf="selectedEpisodeScenes?.length===0 && sceneListingLoader==false"
+                  class="child1 child2 cursor-pointer">
+                  <td class="text-muted td_heading space" colspan="40">Video Encoding</td>
+                </tr>
+
+                <tr class="child1 child2 child3"
+                  *ngIf="selectedEpisodeScenes?.length!=0 && this.scenePagination.pageNo>1">
+                  <td class="text-center space" colspan="8"><i (click)="loaderMoreScenes(2)"
+                      class="bi bi-chevron-double-up fs-xxl"></i>
+                  </td>
+                </tr>
+                <ng-container *ngFor="let scene of selectedEpisodeScenes;let lastChild=index">
+                  <tr class="child1 child2 child3 cursor-pointer">
+                    <td colspan="3" class="space">
+                      <div class="d-flex align-items-center justify-content-between">
+                        <div class="dropdown mr-2" ngbDropdown>
+                          <button type="button" class="btn btn-link dropdown-toggle" ngbDropdownToggle>
+                            <i class="bi bi-eye"></i>
+                          </button>
+                          <ul class="dropdown-menu vieweditdrop p-0" ngbDropdownMenu>
+                            <p class="btn-light-secondary p-2 m-0">View or edit in:</p>
+                            <!-- <div class="dropdown-divider"></div> -->
+                            <!-- <a class="dropdown-item" (click)="goToDatabase(video.id,season?.key,episode.id)" [routerLink]="">
+                              <svg xmlns="http://www.w3.org/2000/svg"
+                                class="icon icon-tabler icon-tabler-database" width="20" height="20"
+                                viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <ellipse cx="12" cy="6" rx="8" ry="3"></ellipse>
+                                <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
+                                <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
+                              </svg>
+                              Database Record
+                            </a> -->
+                            <!-- <a class="dropdown-item" [routerLink]="">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                              <circle cx="8.5" cy="8.5" r="1" fill="currentColor" />
+                              <path d="M4 7v3.859c0 .537 .213 1.052 .593 1.432l8.116 8.116a2.025 2.025 0 0 0 2.864 0l4.834 -4.834a2.025 2.025 0 0 0 0 -2.864l-8.117 -8.116a2.025 2.025 0 0 0 -1.431 -.593h-3.859a3 3 0 0 0 -3 3z" />
+                            </svg>
+                            Tag Summary
+                          </a> -->
+                            <a class="dropdown-item" (click)="goToTagger(episode.id,scene.id)"
+                              [routerLink]="">
+                              <svg xmlns="http://www.w3.org/2000/svg"
+                                class="icon icon-tabler icon-tabler-bolt" width="20" height="20"
+                                viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <polyline points="13 3 13 10 19 10 11 21 11 14 5 14 13 3" />
+                              </svg>
+                              Product Annotator
+                            </a>
+                            <a class="dropdown-item"
+                              (click)="openEpisodePreview(episode.id,video.id,scene.id)" [routerLink]="">
+                              <svg xmlns="http://www.w3.org/2000/svg"
+                                class="icon icon-tabler icon-tabler-video-plus" width="20" height="20"
+                                viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path
+                                  d="M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z" />
+                                <rect x="3" y="6" width="12" height="12" rx="2" />
+                                <line x1="7" y1="12" x2="11" y2="12" />
+                                <line x1="9" y1="10" x2="9" y2="14" />
+                              </svg>
+                              Video Preview
+                            </a>
+                            <a class="dropdown-item"
+                            (click)="openSceneNotesModal(scene.id)" [routerLink]="">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-video-plus" width="20" height="20"
+                            viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                              <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z"/>
+                              <path d="M9 7l6 0"/>
+                              <path d="M9 11l6 0"/>
+                              <path d="M9 15l4 0"/>
+                            </svg>
+                            Notes
+                          </a>
+                          </ul>
+                        </div>
+                        <span (click)="selectEpisodeScene(lastChild)" class="me-5">{{scene?.sceneId}}</span>
+                        <img src="{{scene?.thumbnail}}" width="120">
+                        <b class="ms-5 me-5">{{scene?.topVzotScore}}</b>
+                      </div>
+                    </td>
+                    <!-- add dropdown -->
+                    <td colspan="2">
+                      <div class="btn-group float-end scene_dropdowns">
+                        <!-- <div ngbDropdown class="d-inline-block">
+
+                          <button type="button" class="btn btn-rounded h_40 w_170" id="dropdownBasic1"
+                            ngbDropdownToggle>
+                            <div *ngIf="this.selectedEpisodeScenes[lastChild]?.taggingStatusValue"
+                              [ngClass]="this.selectedEpisodeScenes[lastChild].taggingStatusColor">
+                              {{this.selectedEpisodeScenes[lastChild].taggingStatusValue}}
+                            </div>
+                            <i class="bi bi-caret-down-fill ms-2 fs-md text-gray"></i>
+                          </button>
+                          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <a *ngFor="let status of taggingStatuses; let i=index" ngbDropdownItem
+                              class={{status.class}} (click)="updateTaggingStatus(scene?.id,i)">
+                              {{status.title}}
+                            </a>
+                          </div>
+                        </div> -->
+                        <ng-select placeholder="Scene Status"
+                          [ngModel]="selectedEpisodeScenes[lastChild]?.taggingStatusValue"
+                          [items]="taggingStatuses" bindLabel="title" [closeOnSelect]="true"
+                          (change)="updateTaggingStatus(selectedEpisodeScenes[lastChild],$event,scene?.id)" [multiple]="false"
+                          [clearable]="false">
+                          <ng-template ng-label-tmp let-item="item">
+                            <span class="{{item.class}}">{{item.title}}</span>
+                          </ng-template>
+                          <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                            <span class="{{item.class}}"> {{item.title }} </span>
+                          </ng-template>
+                        </ng-select>
+                      </div>
+                    </td>
+                    <td> {{scene?.productRecordsCount.toLocaleString("en-US")}}</td>
+                    <td> {{scene?.sceneViews.toLocaleString("en-US")}}</td>
+                    <td> {{scene?.adViews.toLocaleString("en-US")}}</td>
+                    <td> {{scene?.adLikes.toLocaleString("en-US")}}</td>
+                    <td> {{scene?.adClicks.toLocaleString("en-US")}}</td>
+                  </tr>
+
+                  <!-- last child table -->
+                  <tr class="child1 child2 child3 child4" *ngIf="selectedScene===lastChild">
+                    <td colspan="12" class="space">
+                      <div class="table-vertical-scroll" scrollTracker (scrolled)="onScrollEnd($event)">
+                        <table class="sb_table">
+                          <ng-container>
+                            <!-- <tr class="tr_head"> -->
+                            <!-- <ng-container> -->
+                            <!-- <th class="text-center">Series / Movie</th>
+                              <th>Season</th>
+                              <th>Episodes</th>
+                              <th>Scene</th>
+                              <th>Scene/Preview</th>
+                              <th>PR Record ID</th>
+                              <th>PR Status</th>
+                              <th>top VZOT Score</th>
+                              <th>Tagger</th>
+                              <th class="text-center">Proxy</th>
+                              <th class="text-center">Super Proxy</th>
+                              <th class="text-start">Actor</th>
+                              <th>Super Proxy Source</th>
+                              <th>Gender</th>
+                              <th>Color</th>
+                              <th>Pattern</th>
+                              <th>SubCategories</th>
+                              <th>Attributes</th>
+                              <th>Coordinates</th>
+                              <th>Ad Match1</th>
+                              <th>Advertiser1</th>
+                              <th>VZOT Scrore1</th>
+                              <th>Ad Match2</th>
+                              <th>Advertiser2</th>
+                              <th>VZOT Scrore2</th>
+                              <th>Ad Match3</th>
+                              <th>Advertiser3</th>
+                              <th>VZOT Scrore3</th>
+                              <th>Tag Date</th>
+                              <th>Timecode Start</th>
+                              <th>Timecode End</th>
+                              <th>Description</th>
+                              <th>Brand</th>
+                              <th>Price</th>
+                              <th>Scen Thumb Image ID</th>
+                              <th>Proxy1 Image ID</th>
+                              <th>Super-Proxy1 Image ID</th>
+                              <th>Super-Proxy2 Image ID</th>
+                              <th>Super-Proxy3 Image ID</th>
+                              <th>Poster Image ID</th> -->
+                            <thead>
+                              <th *ngFor="let heading of tableHeadingsPRs; let i = index">
+                                <div class="d-flex align-items-center">{{heading.name}}
+                                  <span class='d-inline-block'>
+                                    <div (click)="sort(1,i)">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"
+                                        [attr.fill]="heading?.order==='ASC'?'#676464': '#C9C9C9'"
+                                        class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                        <path
+                                          d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+                                      </svg>
+                                    </div>
+                                    <div (click)="sort(2,i)">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"
+                                        [attr.fill]="heading?.order==='DESC'?'#676464': '#C9C9C9'"
+                                        class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                        <path
+                                          d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                                      </svg>
+                                    </div>
+                                  </span>
+                                </div>
+                              </th>
+                            </thead>
+                            <!-- </ng-container> -->
+
+                            <!-- </tr> -->
+                            <tr *ngIf="selectedScenes?.length===0 && sceneLoader==false" class="child1">
+                              <td class="text-muted td_heading" colspan="40">No Record Found</td>
+                            </tr>
+                            <tr *ngIf="sceneLoader">
+                              <td colspan="10" class="text-center">
+                                <div class="spinner-border text-primary " role="status">
+                                </div>
+                              </td>
+                            </tr>
+                            <tbody>
+                              <ng-container *ngFor="let screen of selectedScenes; let z=index">
+                                <tr>
+                                  <td>
+                                    <div class="imgbox">
+                                      <div class="d-flex align-items-center justify-content-between"
+                                        title="{{episode.title}}">
+                                        <div class="dropdown mr-2" ngbDropdown>
+                                          <button type="button" class="btn btn-link dropdown-toggle"
+                                            ngbDropdownToggle>
+                                            <i class="bi bi-eye"></i>
+                                          </button>
+                                          <ul class="dropdown-menu" ngbDropdownMenu>
+                                            <!-- <p class="btn-light-secondary ml-2">View or edit in:</p> -->
+                                            <!-- <div class="dropdown-divider"></div> -->
+                                            <!-- <a class="dropdown-item" [routerLink]="">
+                                                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-database" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                    <ellipse cx="12" cy="6" rx="8" ry="3"></ellipse>
+                                                    <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
+                                                    <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
+                                                  </svg>
+                                                  Database Record
+                                                </a> -->
+                                            <a class="dropdown-item"
+                                              (click)="openTagSummaryModal(scene,screen,episode?.id)"
+                                              [routerLink]="">
+                                              <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-tag" width="20"
+                                                height="20" viewBox="0 0 24 24" stroke-width="1.0"
+                                                stroke="#9e9e9e" fill="none" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <circle cx="8.5" cy="8.5" r="1" fill="currentColor" />
+                                                <path
+                                                  d="M4 7v3.859c0 .537 .213 1.052 .593 1.432l8.116 8.116a2.025 2.025 0 0 0 2.864 0l4.834 -4.834a2.025 2.025 0 0 0 0 -2.864l-8.117 -8.116a2.025 2.025 0 0 0 -1.431 -.593h-3.859a3 3 0 0 0 -3 3z" />
+                                              </svg>
+                                              PR Summary
+                                            </a>
+                                            <!-- <a class="dropdown-item" (click)="goToTagger(video.id)">
+                                                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-bolt" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                    <polyline points="13 3 13 10 19 10 11 21 11 14 5 14 13 3" />
+                                                  </svg>
+                                                  Tag Engine
+                                                </a> -->
+                                            <!-- <a class="dropdown-item" (click)="openEpisodePreview(episode.id)">
+                                                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-video-plus" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.0" stroke="#9e9e9e" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                    <path d="M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z" />
+                                                    <rect x="3" y="6" width="12" height="12" rx="2" />
+                                                    <line x1="7" y1="12" x2="11" y2="12" />
+                                                    <line x1="9" y1="10" x2="9" y2="14" />
+                                                  </svg>
+                                                  Video Preview
+                                                </a> -->
+                                          </ul>
+                                        </div>
+
+                                        <img src="{{video.thumbnail}}"
+                                          (click)="openTagSummaryModal(scene,screen,episode?.id)" alt="None">
+                                        {{video?.title}}
+                                      </div>
+                                      <!-- <i class="fa fa-eye"></i> -->
+                                    </div>
+                                  </td>
+                                  <!-- add dropdown -->
+                                  <td> {{convertSeason(season?.key)}}</td>
+                                  <td> {{convertEpisode(episode?.episodeNo)}}</td>
+                                  <td> SC{{scene?.id}}</td>
+                                  <td>
+                                    <img src="{{scene?.thumbnail}}" width="120">
+
+                                    <!-- <div class="imgbox">
+                                        <img src="{{screen.proxyImageUrl}}" alt="None">
+                                        {{video?.title}}
+                                      </div> -->
+                                  </td>
+                                  <td>
+                                    {{screen.prId}}
+                                  </td>
+                                  <td>
+                                    <!-- <div class="btn-group float-end scene_dropdowns">
+                                      <div ngbDropdown class="d-inline-block">
+                                        <button type="button" class="btn btn-rounded h_40 w_170"
+                                          id="dropdownBasic1" ngbDropdownToggle>
+                                          <div *ngIf="this.selectedScenes[z]?.taggingStatusValue"
+                                            [ngClass]="this.selectedScenes[z]?.taggingStatusColor">
+                                            {{this.selectedScenes[z]?.PRStatusValue?.title}}
+                                          </div>
+                                          <i class="bi bi-caret-down-fill ms-2 fs-md text-gray"></i>
+                                        </button>
+                                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                          <a *ngFor="let status of prTaggingStatuses; let i=index"
+                                            ngbDropdownItem class={{status.class}}
+                                            (click)="updatePRTaggingStatus(this.selectedScenes[z].id,status.id)">
+                                            {{status.title}}
+                                          </a>
+                                        </div>
+                                      </div>
+                                    </div> -->
+                                    <ng-select placeholder="PR Status"
+                                      [ngModel]="selectedScenes[z]?.PRStatusValue" [items]="prTaggingStatuses"
+                                      bindLabel="title" [closeOnSelect]="true"
+                                      (change)="updatePRTaggingStatus($event,selectedScenes[z].id)"
+                                      [multiple]="false" [clearable]="false">
+                                      <ng-template ng-label-tmp let-item="item">
+                                        <span class="{{item.class}}">{{item.title}}</span>
+                                      </ng-template>
+                                      <ng-template ng-option-tmp let-item="item" let-item$="item$"
+                                        let-index="index">
+                                        <span class="{{item.class}}"> {{item.title }} </span>
+                                      </ng-template>
+                                    </ng-select>
+
+                                    <!-- <div class="btn-group float-end scene_dropdowns">
+                                  <div ngbDropdown class="d-inline-block">
+                                    <button type="button" class="btn btn-primary h_40 ms-3" id="dropdownBasic1"
+                                      ngbDropdownToggle>
+                                      Scene In Status
+                                    </button>
+                                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                      <a ngbDropdownItem class="todo">
+                                        Scene To Do
+                                      </a>
+                                      <a ngbDropdownItem class="inprogress">
+                                        Scene In Progress
+                                      </a>
+                                      <a ngbDropdownItem class="review">
+                                        Scene In Review
+                                      </a>
+
+                                      <a ngbDropdownItem class="returned">
+                                        Scene Returned
+                                      </a>
+                                      <a ngbDropdownItem class="apporved">
+                                        Scene Approved
+                                      </a>
+
+                                    </div>
+                                  </div>
+                                </div>  -->
+                                  </td>
+                                  <td>
+                                    <b class="mx-auto">{{screen?.topVzotScore}}</b>
+                                  </td>
+                                  <td (click)="openTaggerModal()"> {{screen?.Tagger?.fullName}}</td>
+                                  <td>
+                                    <div class="imgbox">
+                                      <img src="{{screen?.proxyImageUrl}}" alt="None" class="proxy-img">
+                                      <!-- {{video?.title}} -->
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="imgbox">
+                                      <img src="{{coordinatesSceneData[z]?.superProxyImage}}" alt="None"
+                                        class="proxy-img">
+                                      <!-- {{video?.title}} -->
+                                    </div>
+                                  </td>
+                                  <td> {{screen?.Actor?.name}}
+                                    <!-- <img width="50" src="{{screen?.Actor?.imageUrl}}" alt="None"
+                                    class="actor-img ms-3"> -->
+                                    <span>
+                                      <img *ngIf="screen?.Actor?.imageUrl" src={{screen?.Actor?.imageUrl}}
+                                        alt="None" class="actor-img">
+                                      <span *ngIf="!screen?.Actor?.imageUrl">-</span>
+                                    </span>
+                                  </td>
+                                  <td>{{coordinatesSceneData[z]?.superProxySource?? "_"}}</td>
+                                  <td>{{coordinatesSceneData[z]?.gender?? "_"}}</td>
+                                  <td>{{coordinatesSceneData[z]?.color?? "_"}}</td>
+                                  <td>{{coordinatesSceneData[z]?.pattern?? "_"}}</td>
+                                  <td>{{coordinatesSceneData[z]?.subCategory?? "_"}}</td>
+                                  <td>{{coordinatesSceneData[z]?.attributes?? "_"}}</td>
+                                  <td>
+                                    <p class="mb-0">X: {{screen?.xCoordinate}}%</p>
+                                    <p class="mb-0">Y: {{screen?.yCoordinate}}%</p>
+                                  </td>
+                                  <td>
+                                    <div class="imgbox">
+                                      <img src="{{coordinatesSceneData[z]?.adMatch1}}" alt="None"
+                                        class="proxy-img">
+                                      <!-- {{video?.title}} -->
+                                    </div>
+                                  </td>
+                                  <td>{{coordinatesSceneData[z]?.adMatchAdv1?? "_"}}</td>
+                                  <td>{{coordinatesSceneData[z]?.adMatchScore1?? "_"}}</td>
+                                  <td>
+                                    <div class="imgbox">
+                                      <img src="{{coordinatesSceneData[z]?.adMatch2}}" alt="None"
+                                        class="proxy-img">
+                                      <!-- {{video?.title}} -->
+                                    </div>
+                                  </td>
+                                  <td>{{coordinatesSceneData[z]?.adMatchAdv2?? "_"}}</td>
+                                  <td>{{coordinatesSceneData[z]?.adMatchScore3?? "_"}}</td>
+                                  <td>
+                                    <div class="imgbox">
+                                      <img src="{{coordinatesSceneData[z]?.adMatch3}}" alt="None"
+                                        class="proxy-img">
+                                      <!-- {{video?.title}} -->
+                                    </div>
+                                  </td>
+                                  <td>{{coordinatesSceneData[z]?.adMatchAdv3?? "_"}}</td>
+                                  <td>{{coordinatesSceneData[z]?.adMatchScore3?? "_"}}</td>
+
+                                  <td>{{screen?.createdAt | date:'short'}}</td>
+                                  <td>{{scene?.startTime?? "_"}}</td>
+                                  <td>{{scene?.endTime?? "_"}}</td>
+                                  <td><span class="line-clamp">{{coordinatesSceneData[z]?.description??
+                                      "_"}}</span></td>
+                                  <td>{{coordinatesSceneData[z]?.brand?? "_"}}</td>
+                                  <td>{{coordinatesSceneData[z]?.price?? "_"}}</td>
+                                  <td><span class="line-clamp">{{coordinatesSceneData[z]?.sceneThumbId??
+                                      "_"}}</span></td>
+                                  <td><span class="line-clamp">{{coordinatesSceneData[z]?.proxyId1??
+                                      "_"}}</span>
+                                  </td>
+                                  <td><span class="line-clamp">{{coordinatesSceneData[z]?.superProxyId1??
+                                      "_"}}</span></td>
+                                  <td><span class="line-clamp">{{coordinatesSceneData[z]?.superProxyId2??
+                                      "_"}}</span></td>
+                                  <td><span class="line-clamp">{{coordinatesSceneData[z]?.superProxyId3??
+                                      "_"}}</span></td>
+                                  <td><span class="line-clamp">{{coordinatesSceneData[z]?.posterImageId??
+                                      "_"}}</span></td>
+                                </tr>
+                              </ng-container>
+                            </tbody>
+                          </ng-container>
+                        </table>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
+                <tr *ngIf="selectedEpisodeScenes?.length!=0 && sceneLoader==false"
+                  class="child1 child2 child3">
+                  <td class="text-center space" colspan="8"><i (click)="loaderMoreScenes(1)"
+                      class="bi bi-chevron-double-down fs-xxl"></i>
+                  </td>
+                </tr>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </ng-container> <!-- level 3 -->
+
+
+  </ng-container>
+</ng-template>

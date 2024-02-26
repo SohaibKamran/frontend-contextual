@@ -1,0 +1,67 @@
+.header-bg {
+  background-color: #FAFAFA;
+}
+
+li {
+  list-style: none;
+  width: 150px;
+}
+
+ul {
+  padding: 0;
+}
+
+.poster {
+  width: 50px;
+  margin-bottom: 10px;
+  height: 72px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.card .card-header {
+  font-size: 14px;
+  color: #3C3C3C;
+}
+.card .card-header .righttext {
+  color: #8C8C8C;
+  font-weight: 400;
+}
+.card .card-body ul {
+  overflow: auto;
+  margin-bottom: 0;
+}
+.card .card-body ul li {
+  flex-shrink: 0;
+  position: relative;
+}
+.card .card-body ul li h5 {
+  font-size: 14px;
+  color: #262626;
+  font-weight: 400;
+}
+.card .card-body ul li p {
+  font-size: 12px;
+  color: #8C8C8C;
+  font-weight: 400;
+  margin-bottom: 2rem;
+}
+.card .card-body ul li p.align_bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-bottom: 1rem;
+}
+.card .card-body ul::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #fff;
+}
+.card .card-body ul::-webkit-scrollbar {
+  height: 4px;
+  background-color: #fff;
+}
+.card .card-body ul::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}/*# sourceMappingURL=my-assigned-episodes.component.css.map */

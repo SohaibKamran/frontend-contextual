@@ -1,0 +1,81 @@
+@import '../../../../assets/scss/variables.scss';
+
+.card-header,
+.card-footer {
+  border-color: $text-darkgray;
+}
+
+.card-body {
+  padding-top: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  &:last-child {
+    hr {
+      display: none;
+    }
+  }
+}
+
+// hr{
+
+//     margin: 0;
+//     border-top: 2px solid black
+
+// }
+
+
+span {
+
+  display: inline;
+}
+
+.active {
+
+  color: #52C41A;
+  background-color: #F6FFED;
+  display: inline-block;
+  width: 50px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.inactive {
+
+  color: #F5222D;
+  background-color: #FFF1F0;
+  display: inline-block;
+  width: 50px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.horizontal-line {
+
+  border-top: 1px solid !important;
+}
+
+.card-height {
+
+  height: 418px;
+}
+
+.apilistheading {
+  color: #3C3C3C;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.pricetag {
+  color: #262626;
+  font-weight: 600;
+}
+
+.border-margin {
+  margin: 0 16px !important;
+  padding: 20px 0px !important;
+}
+
+.btn-outline-secondary {
+  border-color: $checkbox-color;
+}

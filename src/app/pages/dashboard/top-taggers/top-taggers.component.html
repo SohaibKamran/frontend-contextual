@@ -1,0 +1,25 @@
+<!-- <div class="mb-4 bold">Top Taggers</div> -->
+<h5 class="mb-4">Top Annotators</h5>
+
+<div class="card bg-white text-black card-height scroll">
+  <div class="card-body bg-white text-black card-height scroll p-4" scrollTracker (scrolled)="onScrollEnd($event)">
+    <div class="row align-items-center mb-4 " *ngFor="let tagger of topTagger">
+      <div class="col-auto p-r-0 user-activity-card">
+        <div class="u-img">
+          <img src="{{ tagger.User?.profilePicture || 'assets/images/user/avatar-3.jpg' }}" alt="user image"
+            height="50px" width="50px" class="img-radius cover-img" />
+          <span class="profile-img {{ tagger?.status }}"></span>
+        </div>
+      </div>
+      <div class="col" (click)="fetchPageNumber(tagger)" style="cursor: pointer;">
+        <div class="float-end">
+          <p class="text-muted text-sm m-b-0"> {{tagger?.tagCount}} </p>
+        </div>
+        <a href="javascript:!">
+          <h5 class="m-b-5">{{tagger.User?.fullName}}</h5>
+        </a>
+        <p class="text-muted text-sm mb-0">{{tagger.User?.email}}</p>
+      </div>
+    </div>
+  </div>
+</div>

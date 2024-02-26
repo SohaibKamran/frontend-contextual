@@ -1,0 +1,200 @@
+<!-- <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLiveLabel">Scene Notes / To Do's
+    </h5>
+    <button type="button" class="btn-close text-muted" data-bs-dismiss="modal" aria-label="Close"
+        (click)="modalService.dismissAll('Close click')">
+    </button>
+    
+</div> -->
+
+<div class="modal-body chat-gpt-modal mt-3 ps-5 p4-4">
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <div class="d-flex">
+        <div class="chatgpt-wrapper me-3">
+          <img src="../../../../assets/images/cgpt.svg">
+        </div>
+        <div class="ai-content">
+          <h6>
+            Ask the AI for the right terminology.
+          </h6>
+          <p class="text-gray">
+            Describe in your own words all the distinguishing features of the product you are searching for.
+          </p>
+          <p class="text-gray">
+            For example:  “A fabric couch that is has connected parts in the shape of an L with buttons sewn into the cushions”
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="d-flex  justify-content-between">
+        <div class="video-frame-wrapper">
+          <img src="{{ sceneImage ||'../../../../assets/images/video-frame.jpg'}}">
+        </div>
+        <i class="bi bi-x-lg icon-close text-light fs-xxl cursor" data-bs-dismiss="modal" aria-label="Close"
+          (click)="this.modal.close('close')"></i>
+      </div>
+    </div>
+  </div>
+  <section>
+    <div class="row">
+      <div class="col-md-9 mx-auto chat-gpt-scroll">
+        <div class="card bg-light-ai border-0">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-auto">
+                <div class="chat-user-wrapper position-relative">
+                  <img src={{tagger?.profilePicture}} alt="No Image">
+                  <div class="online-circle position-absolute">
+                  </div>
+                </div>
+              </div>
+              <div class="col-10">
+                <p class="fw-medium">{{tagger?.firstName}} {{tagger?.lastName}} (Tagger)</p>
+                <div class="card mb-0">
+                  <div class="card-body">
+                    <div class="d-flex align-items-center">
+                      <input type="text" class="form-control border-0" id="name" required [(ngModel)]="input_query"
+                        name="input_query" placeholder="Enter your Search items here">
+                      <div *ngIf="loader" class="spinner-border text-primary ms-3" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+                    <p *ngIf="error" class="text-danger">Enter some text to search</p>
+                    <hr class="my-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div class="d-flex align-items-center flex-wrap">
+                        <p class="text-light fs-md me-2 mb-0">Suggestions:</p>
+                        <div class="d-flex" *ngFor="let filter of filters;let i = index">
+                          <input type="button" class="btn me-2 mb-2"
+                            [ngClass]="{'btn-outline-primary': filter.clicked===true, 'btn-outline-secondary text-dark':filter.clicked===false}"
+                            value={{filter.name}} (click)="selectFilter(filter,i)" />
+                        </div>
+                      </div>
+                      <button type="button" class="btn btn-success ms-3" (click)="search()">Submit</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-md-9 mx-auto">
+        <div class="row">
+          <div class="col-md-10 ms-auto">
+            <div class="card bg-light-ai border-0">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-auto">
+                    <div class="ai-response-wrapper">
+                      <img src="../../../../assets/images/cgpt.svg">
+                    </div>
+                  </div>
+                  <div class="col">
+                    <p class="fw-medium">AI Response</p>
+                    <p>The leather jacket is a classic style of outerwear that is typically made of leather and features
+                      <button type="button" class="btn btn-sm btn-outline-secondary me-2">diagonal zippers</button>and
+                      or loops on the shoulders. This style of jacket is commonly associated with can come in various
+                      designs,
+                      such as the or the</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- <div class="col-md-9 text-end mx-auto">
+        <p class="text-light">Click key terms to add them below.</p>
+      </div> 
+    </div> -->
+      <!-- <div class="row">
+      <div class="col-md-9 mx-auto">
+        <div class="card bg-light-ai border-0">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-auto">
+                <div class="chat-user-wrapper position-relative">
+                  <img src="../../../../assets/images/avatar.jpg">
+                  <div class="online-circle position-absolute">
+                  </div>
+                </div>
+              </div>
+              <div class="col-10">
+                <p class="fw-medium">John Smith (Tagger)</p>
+                <div class="card mb-0">
+                  <div class="card-body">
+                    <p>A leather jacket with diagonal zippers and loops on shoulders</p>
+                    <hr class="my-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div class="d-flex align-items-center suggestions-overflow">
+                        <p class="text-light fs-md me-2 mb-0">Suggestions:</p>
+                        <div class="d-flex">
+                          <button type="button" class="align-items-center btn btn-outline-secondary btn-sm d-flex me-2">
+                            <div class="bg-rect bg-dark me-1"></div>
+                            Brown
+                          </button>
+                          <button type="button" class="btn btn-sm btn-outline-secondary me-2">Women</button>
+                          <button type="button" class="btn btn-sm btn-outline-secondary me-2">Leather Jacket</button>
+                          <button type="button" class="btn btn-sm btn-outline-secondary">White Fleece Collar</button>
+                        </div>
+                      </div>
+                      <button type="button" class="btn btn-success ms-3">Submit</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+       <div class="col-md-9 mx-auto">
+        <div class="row">
+          <div class="col-md-10 ms-auto">
+            <div class="card bg-light-ai border-0">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-auto">
+                    <div class="ai-response-wrapper">
+                      <img src="../../../../assets/images/cgpt.svg">
+                    </div>
+                  </div>
+                  <div class="col">
+                    <p class="fw-medium">AI Response</p>
+                    <p>The leather jacket is a classic style of outerwear that is typically made of leather and features
+                      <button type="button" class="btn btn-sm btn-outline-secondary me-2">diagonal zippers</button>and
+                      or loops on the shoulders. This style of jacket is commonly associated with can come in various
+                      designs,
+                      such as the or the</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <div class="col-md-9 text-end mx-auto mt-3">
+        <p class="text-light">Click key terms to add them below.</p>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="bg-light border-0 modal-footer p-4 d-block">
+  <p class="mb-3">Collect terms you want to add to the Proxy Search here: </p>
+  <div class="align-items-end d-flex justify-content-between">
+    <div class="d-flex flex-wrap">
+      <span *ngFor="let selected of selectedTags" type="button"
+        class="text-dark bg-white btn btn-sm btn-outline-secondary me-2 mb-2">{{selected.name}}
+        <button style='border:none;background-color: white;' class="bi bi-x-lg icon-close text-light fs-md cursor"
+          (click)="removeTag(selected.name)"></button>
+      </span>
+    </div>
+    <button *ngIf="isAddCall===false" type="button" class="btn btn-primary ms-3 btn-sm mb-2"
+      (click)="addToProxySearch()"> Add to Proxy
+      Search </button>
+    <button *ngIf="isAddCall===true" type="button" class="btn btn-primary ms-3 btn-sm mb-2"
+      (click)="addAttributesMethod()"> Add Attribute </button>
+  </div>
+</div>

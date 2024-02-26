@@ -1,0 +1,18 @@
+<div class="d-flex align-items-center justify-content-between">
+  <h5 class="mb-4">Average VZoT Score</h5>
+
+  <div class="d-flex justify-content-between">
+    <ul class="average_vzot">
+      <li *ngFor="let filter of filters;" [ngClass]="{ active: filter === selectedFilter }"><a
+          (click)="filterData(filter)">{{filter}}</a></li>
+    </ul>
+  </div>
+</div>
+<div class="card bg-white text-black" *ngIf="revenueChart?.series">
+  <div class="card-body">
+    <apx-chart [series]="revenueChart.series" [chart]="revenueChart.chart"
+      [dataLabels]="revenueChart.dataLabels" [colors]="area_colors" [stroke]="revenueChart.stroke"
+      [xaxis]="revenueChart.xaxis" [tooltip]="revenueChart.tooltip"
+      [fill]="revenueChart.fill"></apx-chart>
+  </div>
+</div>

@@ -1,0 +1,220 @@
+@import '../../../../assets/scss/variables.scss';
+
+.table {
+  thead {
+    height: 70px;
+
+    th {
+      font-size: 14px;
+      font-weight: 500;
+      text-transform: capitalize;
+      border-right: 1px solid #e6ebf1;
+      white-space: normal;
+
+      &:first-child {
+        min-width: 300px;
+      }
+    }
+
+  }
+
+  .tr_head {
+    th {
+      font-size: 14px;
+      font-weight: 500;
+      text-transform: capitalize;
+    }
+  }
+
+  th,
+  td {
+    text-align: right;
+
+    &:first-child {
+      text-align: left;
+    }
+  }
+
+  .imgbox {
+    i {
+      color: #A0AEC0;
+
+      &.active {
+        transform: rotate(180deg);
+      }
+    }
+
+    img {
+      width: 48px;
+      height: 70px;
+      margin: 0 1rem;
+      object-fit: cover;
+    }
+  }
+
+  .child1 {
+    td.space {
+      padding-left: 50px;
+    }
+  }
+
+  .child2 {
+    td.space {
+      padding-left: 60px;
+    }
+  }
+
+  .child3 {
+    td.space {
+      padding-left: 100px;
+    }
+  }
+  .child4 {
+    td.space {
+      padding-left: 140px;
+    }
+  }
+}
+
+td.space {
+  // padding: 0 0 0 50px;
+  position: relative;
+
+  &::before {
+    content: "";
+    width: 30px;
+    height: 102%;
+    display: inline-block;
+    background: #f2f2f2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+  }
+
+  .dropup .dropdown-toggle::after {
+    content: none;
+  }
+}
+
+.bg_gray {
+  background: #f2f2f2;
+}
+
+.no_results {
+  margin: auto;
+  text-align: center;
+  width: 100%;
+
+  td {
+    text-align: center !important;
+    padding: 2rem;
+  }
+}
+
+.vieweditdrop {
+  border: solid 1px #d1d1d1;
+  border-radius: 4px;
+}
+
+.vieweditdrop {
+  a.dropdown-item {
+    padding: 8px 8px;
+  }
+}
+
+.child2-menu .dropdown-menu {
+  background-color: $white-color;
+}
+
+.proxy-img {
+  width: 60px !important;
+  height: 67px !important;
+  object-fit: cover;
+  border-radius: 2px;
+  border: 1px solid $bg-light;
+}
+
+.actor-img {
+  width: 67px;
+  height: 67px;
+  min-width: 67px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid $bg-light;
+}
+
+.sb_table{
+  .tr_head{
+    th{
+      min-width: 140px;
+      border-right: 1px solid #e6ebf1;
+      white-space: normal;
+      text-align: start;
+    }
+  }
+  td{
+    text-align: start;
+  }
+  .line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-width: 160px;
+    white-space: normal;
+  }
+}
+
+
+
+/* style this to fit your needs */
+/* and remove [alt] to apply to all images*/
+img {
+  position: relative;
+}
+
+img[alt]:after {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  font-family: 'Helvetica';
+  font-weight: 300;
+  // line-height: 1;
+  text-align: center;
+  content: attr(alt);
+}
+
+.annotator-dropdown {
+  min-width: 220px;
+  display: block;
+}
+
+.scenes-scroll{
+  height: 300px;
+  overflow: auto;
+}
+
+.bi-chevron-double-down:hover{
+  color: $primary-color !important;
+}
+.bi-chevron-double-up:hover{
+  color: $primary-color !important;
+}
+
+.table-vertical-scroll{
+  max-height: 30rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.advertiser-circle{
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}

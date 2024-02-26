@@ -1,0 +1,142 @@
+<!-- <div class="slick-wrapper"> -->
+<!-- <ngx-slick-carousel class="carousel proxy" #slickModal="slick-carousel" [config]="slideConfig"
+    (afterChange)="afterChange($event)" (beforeChange)="beforeChange($event)"> -->
+<div #sliderElement (mousedown)="scrollTagStart($event)" (mouseup)="scrollTagEnd($event)"
+  (mousemove)="scrollTagMove($event)" (mouseleave)="scrollTagEnd($event)" class="d-flex slider-proxy" style="overflow-x: scroll; white-space: nowrap;">
+  <div class="proxy-product" *ngFor="let recentProxy of recentProxies" (mousedown)="onProxyMouseDown($event, recentProxy); $event.stopPropagation()" (mouseup)="$event.stopPropagation()">
+    <div class="product-img">
+      <img class="cursor-pointer" draggable="allowDrag" (dragend)="proxyDragEnd($event)"
+        (dragstart)="proxyDragStart($event,recentProxy)" src={{recentProxy?.proxyImageUrl}}>
+    </div>
+    <div class="d-flex align-items-center cursor">
+      <span class="fs-sm text-gray ellipsis fst-italic" *ngIf="recentProxy?.CoordinateHasProducts.length>0">{{recentProxy?.CoordinateHasProducts[0].Retailer?.name}}</span>
+    </div>
+    <span class="badge badge-ad fw-bold text-bg-warning">{{recentProxy?.topVzotScore}}</span>
+    <span class="badge icon-code-symbol border text-bg-secondary"><i class="bi bi-code-slash fs-sm"></i></span>
+  </div>
+</div>
+<!-- <div ngxSlickItem>
+      <div class="proxy-product">
+        <div class="product-img">
+          <img src="../../../assets/images/proxy-2.jpg">
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheck">
+        </div>
+      </div>
+    </div>
+    <div ngxSlickItem>
+      <div class="proxy-product">
+        <div class="product-img">
+          <img src="../../../assets/images/proxy-3.jpg">
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheck" checked>
+        </div>
+      </div>
+    </div>
+    <div ngxSlickItem>
+      <div class="proxy-product">
+        <div class="product-img">
+          <img src="../../../assets/images/proxy-4.jpg">
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheck">
+        </div>
+      </div>
+    </div>
+
+    <div ngxSlickItem>
+      <div class="proxy-product">
+        <div class="product-img">
+          <img src="../../../assets/images/proxy-1.jpg">
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheck" checked>
+        </div>
+      </div>
+    </div>
+    <div ngxSlickItem>
+      <div class="proxy-product">
+        <div class="product-img">
+          <img src="../../../assets/images/proxy-2.jpg">
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheck">
+        </div>
+      </div>
+    </div>
+    <div ngxSlickItem>
+      <div class="proxy-product">
+        <div class="product-img">
+          <img src="../../../assets/images/proxy-3.jpg">
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheck" checked>
+        </div>
+      </div>
+    </div>
+    <div ngxSlickItem>
+      <div class="proxy-product">
+        <div class="product-img">
+          <img src="../../../assets/images/proxy-3.jpg">
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheck" checked>
+        </div>
+      </div>
+    </div>
+
+    <div ngxSlickItem>
+      <div class="proxy-product">
+        <div class="product-img">
+          <img src="../../../assets/images/proxy-4.jpg">
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheck">
+        </div>
+      </div>
+    </div>
+
+    <div ngxSlickItem>
+      <div class="proxy-product">
+        <div class="product-img">
+          <img src="../../../assets/images/proxy-4.jpg">
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheck" checked>
+        </div>
+      </div>
+    </div>
+    <div ngxSlickItem>
+      <div class="proxy-product">
+        <div class="product-img">
+          <img src="../../../assets/images/proxy-3.jpg">
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheck" checked>
+        </div>
+      </div>
+    </div>
+    <div ngxSlickItem>
+      <div class="proxy-product">
+        <div class="product-img">
+          <img src="../../../assets/images/proxy-2.jpg">
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheck">
+        </div>
+      </div>
+    </div>
+    <div ngxSlickItem>
+      <div class="proxy-product">
+        <div class="product-img">
+          <img src="../../../assets/images/proxy-3.jpg">
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheck" checked>
+        </div>
+      </div>
+    </div> -->
+<!-- </ngx-slick-carousel> -->
+<!-- </div> -->

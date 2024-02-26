@@ -1,0 +1,243 @@
+<app-pagetitle [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+<section class="white-container">
+    <div class="container-fluid">
+        <div style="padding: 20px;">
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <!-- Default Styling table start -->
+                <div class="col-md-4">
+                  <div class="row">
+                    <div class="col-12">
+                  <div class="table-title">
+                    <p class="roboto-medium">Video Ad Planner</p>
+                    <p class="roboto-medium link" (click)="changeShow(this.showId)">Change Video</p>
+                  </div>
+                  <div class="card center-aligned">
+                    
+                      <div class="card-body table-border-style ">
+                      <div class="video-table-container">
+                          <img style="max-height: 180px;" [src]="this.thumbnail">
+                          <div class="series-info-container">
+                              <h5 class="roboto-medium">{{this.title}}</h5>
+                              <h4 class="season-info roboto-light">S{{this.seasonNo}} E{{this.episodeNo}}</h4>
+                              <h4 class="season-info roboto-light">{{this.episodeTitle}}</h4>
+                              
+                          </div>
+                      </div>
+                      </div>
+                      <div class="line"></div>
+                    
+                        <div class="row ">
+                            <div class="metric">
+                                <span class="number roboto-medium">{{this.totalViews | number }}</span>
+                                <span class="label roboto-light">Video Views</span>
+                            </div>
+                            <!--div class="metric">
+                                <span class="number roboto-medium">{{this.impressions | number }}</span>
+                                <span class="label roboto-light">Impressions</span>
+                            </div-->
+                        </div>
+                        <div class="row bottom-row">
+                            <div class="metric">
+                                <span class="cost roboto-medium">${{this.impressionCPM | number:'1.2-2'}}</span>
+                                <span class="label roboto-light">Impression CPM</span>
+                            </div>
+                            <div class="metric">
+                                <span class="cost roboto-medium">${{this.CPC |number:'1.2-2'}}</span>
+                                <span class="label roboto-light">CPC</span>
+                            </div>
+                            <div class="metric">
+                                <span class="cost roboto-medium">${{retargetingCPM | number:'1.2-2'}}</span>
+                                <span class="label roboto-light">Retargeting CPM</span>
+                            </div>
+                        </div>
+                        <button type="button" class="btn" (click)="changeSettings()">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
+                              <path d="M3.25606 10.748C3.28731 10.748 3.31856 10.7449 3.34981 10.7402L5.97793 10.2793C6.00918 10.273 6.03887 10.259 6.06074 10.2355L12.6842 3.61211C12.6987 3.59765 12.7102 3.58048 12.718 3.56158C12.7258 3.54268 12.7299 3.52242 12.7299 3.50195C12.7299 3.48149 12.7258 3.46123 12.718 3.44232C12.7102 3.42342 12.6987 3.40625 12.6842 3.3918L10.0873 0.793359C10.0576 0.763672 10.0186 0.748047 9.97637 0.748047C9.93418 0.748047 9.89512 0.763672 9.86543 0.793359L3.24199 7.4168C3.21855 7.44024 3.20449 7.46836 3.19824 7.49961L2.7373 10.1277C2.7221 10.2114 2.72754 10.2976 2.75313 10.3787C2.77872 10.4599 2.8237 10.5335 2.88418 10.5934C2.9873 10.6934 3.11699 10.748 3.25606 10.748ZM4.30918 8.02305L9.97637 2.35742L11.1217 3.50273L5.45449 9.16836L4.06543 9.41367L4.30918 8.02305ZM12.9795 12.0605H1.47949C1.20293 12.0605 0.979492 12.284 0.979492 12.5605V13.123C0.979492 13.1918 1.03574 13.248 1.10449 13.248H13.3545C13.4232 13.248 13.4795 13.1918 13.4795 13.123V12.5605C13.4795 12.284 13.2561 12.0605 12.9795 12.0605Z" fill="#1890FF"/>
+                            </svg>Settings</button>
+                  
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                
+                <div class="col-12">
+                  
+                  <div class="table-responsive">
+                    <table class="table bg-white">
+                      <thead>
+                        <tr>
+                          <th style="background-color: #EDEDED !important; border: 0px; padding-left: 0px;">
+                            <div class="search-header">
+                              <p class="roboto-medium" style="margin:0px;">Select Advertiser:</p>
+                           
+                              <input type="text" class="search-bar" [(ngModel)]="searchText" placeholder="Search">
+                          
+                          </div></th>
+                          <th class="table-header">Scenes w/ <br>Ad Matches</th>
+                          <th class="table-header">Total Ad <br>Revenue</th>
+                        </tr>
+                      </thead>
+                      <tbody #target>
+
+                        <ng-container *ngFor="let advertiser of advertisers | filterAdvertiser: searchText; let i = index">
+                          <tr [class.selected]="i === selectedRowIndex" (click)="onRowClicked(i, advertiser)">
+                            
+                            <td style="display: flex; flex-direction: row; padding-right:0px;">
+                              <img class="retailer-img" src="{{advertiser.Retailer.imageUrl}}">
+                              <div style="display: flex; flex-direction: column; padding:0px;">
+                              <p class="roboto-medium no-padding advertiser-name" style="padding-right:0px !important;">{{advertiser.Retailer.name}}</p>
+                                <p class="roboto-light no-padding product-number">{{advertiser.Retailer.productCount | number}}</p>
+                            </div>
+                            </td>
+                            <td class="center-content">{{advertiser.matches}}</td>
+                            <td class="center-content roboto-medium">${{ advertiser.totalRevenue | number:'1.0-0' }}</td>
+
+                          </tr>
+                        </ng-container>
+                      </tbody>
+                      
+                    </table>
+                  </div>
+                </div>
+                
+                </div>
+              </div>
+                <!-- [ Custom-Table-Color ] end -->
+                <!-- Custom Table color with hover and stripped table start -->
+                <div class="col-md-8"  #exportableContent>
+                  <div class="table-title">
+                    <p class="roboto-medium">Proposed Media Buy</p>
+                    <p class="roboto-medium link" (click)="exportPDF()">Export PDF</p>
+                  </div>
+                    <div class="scene-table-container">
+                      <div style="height: 500px;">
+                        <div class="card" id="exportable-content">
+                          <div class="header-media-buy">
+                            <div class="retailer-name-logo">
+                              <img class="retailer-logo" [src]=retailerImg>
+                              <div style="display: flex; flex-direction: column;">
+                                <p class="retailer-name roboto-medium">{{retailerName}}</p>
+                                <p class="date roboto-light">{{today| date:'MM/dd/yyyy'}}</p>
+                              </div>
+                             
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                              <p class="ad-match roboto-medium">AdMatch</p>
+                              <p class="media-buy-string roboto-light">This media buy has been prepared based on recent inventory.</p>
+                            </div>
+                            
+                          </div>
+                        <div class="card-body card-body-height">
+                            <div class="table-title-video">
+                                <div class="scene-map-row">
+                                  
+                                  <div class="col-md-4" style="display: flex; flex-direction: column;">
+                                    <p class="roboto-medium" style="margin: 0px;">Video</p>
+                                    <div class="line-no-margin" style="width: 100%;"></div>
+                                    <div class="video-table-container">
+                                      <img style="max-height: 100px;" [src]="this.thumbnail">
+                                      <div class="series-info-container">
+                                          <h6 class="roboto-medium">{{this.title}}</h6>
+                                          <h6 class="season-info roboto-light">S{{this.seasonNo}} E{{this.episodeNo}}</h6>
+                                          <h6 class="season-info roboto-light">{{this.episodeTitle}}</h6>
+                                          
+                                      </div>
+                                  </div>
+                                  </div>
+                                  <div class="col-md-8" style="padding-left:5px">
+
+                                    <p class="roboto-medium" style="margin: 0px;">Scene Map</p>
+                                    <div class="line-no-margin" style="width: 100%;"></div>
+                                   
+                                      <div class="scene-map-dots-container" *ngIf="loading">
+                                        <div *ngFor="let dot of [].constructor(500); let i = index" class="scene-map-dot pulsing"></div>
+                                      </div>
+                                      <div class="scene-map-dots-container" *ngIf="!loading">
+                                      <div *ngFor="let scene of adMatches; let i = index">
+                                        <div class="scene-map-dot" [class.is-active]="scene.products.length > 0" [class.selected-scene]="i == selectedScene" (click)="gotoScene(i)"></div>
+                                      </div>
+                                      
+                                      
+                                    </div>
+                                    <div class="metrics-ad-match-container">
+                                      <div class="metric-container">
+                                        <div style="display: flex;
+                                        align-items: center;
+                                        gap: 10px;">
+                                          <div class="scene-map-dot"></div>
+                                          <h6 class="roboto-medium scene-number">{{this.totalScenes}}</h6>
+                                        </div>
+                                        <p class="roboto-light metric-label">Total Scenes</p>
+                                      </div>
+                                      <div class="metric-container">
+                                        <div style="display: flex;
+                                        align-items: center;
+                                        gap: 10px;">
+                                          <div class="scene-map-dot is-active"></div>
+                                          <h6 class="roboto-medium scene-number">{{this.retailerAdMatches}}</h6>
+                                        </div>
+                                        <p class="roboto-light metric-label">Scenes with Ad Matches</p>
+                                      </div>
+                                      <div class="metric-container">
+                                        <div>
+                                        
+                                          <h6 class="roboto-medium scene-number">{{ this.retailerPenetration | percent:'1.2-2' }}</h6>
+
+                                        </div>
+                                        <p class="roboto-light metric-label">Video Penetration</p>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  
+                                </div>
+                                
+                            </div>
+                            
+                            
+                        </div>
+                        </div>
+                        <div class="unique-layout">
+                          <div class="unique-ad-placements-column">
+                            <p class="ad-placement-string roboto-medium">Ad Placements</p>
+                            <!-- Add content for ad placements if needed -->
+                          </div>
+                          <div class="unique-table-section">
+                            <div class="unique-table-header">
+                              <div class="unique-header-cell unique-scene roboto-medium">Scene</div>
+                              <div class="unique-header-cell unique-contextual-ad roboto-medium">Contextual Ad</div>
+                            </div>
+                            <!-- Repeat this row for each item -->
+                            <div class="unique-table-body" (scroll)="onTableScroll($event)" #uniqueTableBody>
+                              <div *ngFor="let products of this.adMatches; let i = index">
+                                <div *ngFor="let adMatch of products.products">
+                                  <div class="unique-table-row" (click)="setVideoData(products?.Scene, adMatch?.proxyCoordinateId, true)" #adPlacement>
+                                    <div class="unique-cell unique-scene">
+                                      {{ ('0000' + products.Scene.relativeSceneNo).slice(-4) }}
+                                      <img [src]="products.thumbnail" alt="Ad Image" class="unique-ad-image" />
+                                    </div>
+                                    <div class="unique-cell unique-contextual-ad">
+                                      <img [src]="adMatch.matchedImageUrl" alt="Ad Image" class="unique-product-img" />
+                                      <div class="unique-ad-details">
+                                        <div class="unique-ad-title roboto-medium">{{adMatch.title}}</div>
+                                        <div class="unique-ad-price roboto-light">{{adMatch.actualPrice}}</div>
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                              </div>
+                          </div>
+                           
+                            <!-- End Repeat -->
+                          </div>
+                        </div>
+                  
+                        
+                    </div>
+                </div>
+            </div>
+  <!-- [ Main Content ] end -->
+</div>
+</div>
+

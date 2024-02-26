@@ -1,0 +1,353 @@
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+mat-icon:hover {
+  cursor: pointer;
+}
+
+.actor {
+  float: inline-start;
+  position: absolute;
+  left: -10px;
+  z-index: 1;
+}
+
+.actor-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 60%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 1px solid gray;
+}
+
+.horizontal-ads-section {
+  height: 100%;
+  z-index: 100;
+  position: absolute;
+  right: 0;
+  color: black;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  top: -1px;
+  opacity: 0; /* Start fully transparent */
+  align-items: center; /* Vertical alignment */
+  animation: fadeIn 0.5s cubic-bezier(0.47, 0, 0.745, 0.715) forwards;
+}
+.horizontal-ads-section::-webkit-scrollbar {
+  display: none;
+}
+@media (max-width: 575.98px) {
+  .horizontal-ads-section {
+    top: 10px;
+  }
+}
+.horizontal-ads-section h6 {
+  font-size: large;
+  letter-spacing: 1.8px;
+}
+
+.vertical-ads-section {
+  z-index: 100;
+  position: absolute;
+  right: 0;
+  color: black;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  top: -1px;
+  opacity: 0; /* Start fully transparent */
+  animation: fadeIn 0.5s cubic-bezier(0.47, 0, 0.745, 0.715) forwards;
+  padding-bottom: 60px;
+}
+.vertical-ads-section::-webkit-scrollbar {
+  display: none;
+}
+.vertical-ads-section::after {
+  background: linear-gradient(270deg, rgba(7, 119, 199, 0.67) 54.47%, rgba(7, 119, 199, 0) 84.04%);
+  content: "";
+  top: 0;
+  position: absolute;
+  bottom: 0;
+  left: auto;
+  right: 0;
+  z-index: -1;
+  width: 200%;
+  display: block;
+  height: 100%;
+}
+@media (max-width: 575.98px) {
+  .vertical-ads-section {
+    height: 290px !important;
+  }
+}
+.vertical-ads-section::-webkit-scrollbar {
+  display: none;
+}
+
+.full-screen-icon {
+  position: absolute;
+  right: 10px;
+}
+
+.vol-rep-for {
+  color: white;
+  font-size: 22px;
+}
+
+.pause {
+  color: white;
+  font-size: 36px;
+}
+
+.play {
+  color: white;
+  font-size: 36px;
+}
+
+.replay {
+  color: white;
+  font-size: 36px;
+}
+
+.form-range {
+  display: none;
+  margin-left: 1rem;
+}
+
+.volume-icon {
+  transition: linear 10s;
+  position: absolute;
+  width: 8rem;
+}
+
+.full-screen-icon {
+  position: absolute;
+  right: 41px;
+}
+
+.advertisor-icon {
+  position: absolute;
+  right: 79px;
+}
+
+@media (min-width: 576px) {
+  .volume-icon::before {
+    transition: all 1s;
+  }
+  .volume-icon:hover .form-range {
+    display: block;
+    transition: all 1s;
+  }
+}
+::ng-deep vg-scrub-bar .scrubBar {
+  background-color: rgba(255, 255, 255, 0.5882352941);
+}
+::ng-deep vg-scrub-bar .scrubBar vg-scrub-bar-current-time .background {
+  background-color: #1890FF !important;
+}
+::ng-deep vg-scrub-bar .scrubBar vg-scrub-bar-current-time .slider {
+  background: #fff !important;
+  box-shadow: none !important;
+}
+
+::ng-deep vg-scrub-bar-buffering-time .background {
+  background-color: transparent !important;
+}
+
+vg-controls {
+  position: absolute;
+  display: flex;
+  height: 50px;
+  z-index: 300;
+  bottom: 22px;
+  padding: 0 40px;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: bottom 1s;
+}
+
+vg-scrub-bar {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  position: absolute;
+  height: 5px;
+  margin-left: 40px;
+}
+
+vg-player {
+  font-family: "inter";
+  border-radius: 4px;
+}
+
+.mat-icon {
+  width: auto;
+  height: 32px;
+}
+
+.img-icon {
+  height: 28px;
+}
+
+.img-icon-s {
+  height: 20px;
+}
+
+.ml-15 {
+  margin-left: -15px;
+}
+
+.cards-content li.player-gray {
+  list-style-type: none;
+}
+.cards-content .episode-detail img {
+  width: 75px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: 100px;
+  border-radius: 4px;
+}
+
+.btn-outline-secondary {
+  border-color: #D9D9D9 !important;
+}
+
+.progress {
+  height: 24px;
+  border-radius: 2px;
+}
+.progress .progress-bar {
+  border-radius: 2px;
+}
+
+.form-check-input {
+  width: 1.05em;
+  height: 1.05em;
+}
+
+.ad-list-wrapper {
+  display: flex; /* Use flexbox to align children */
+  align-items: center; /* Vertically center the flex items */
+  justify-content: center; /* Horizontally center the flex items */
+  width: 100%;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+.ad-list-wrapper::after {
+  background: linear-gradient(270deg, rgba(7, 119, 199, 0.67) 54.47%, rgba(7, 119, 199, 0) 84.04%);
+  content: "";
+  top: 0;
+  position: absolute;
+  bottom: 0;
+  left: auto;
+  right: 0;
+  z-index: -1;
+  width: 200%;
+  display: block;
+  height: 100%;
+}
+@media (max-width: 575.98px) {
+  .ad-list-wrapper {
+    height: 290px !important;
+  }
+}
+.ad-list-wrapper::-webkit-scrollbar {
+  display: none;
+}
+.ad-list-wrapper .ad-list {
+  padding: 0 1rem;
+}
+.ad-list-wrapper .ad-list::after {
+  background: linear-gradient(270deg, rgba(7, 119, 199, 0.67) 54.47%, rgba(7, 119, 199, 0) 84.04%);
+  content: "";
+  top: 0;
+  position: absolute;
+  bottom: 0;
+  left: auto;
+  right: 0;
+  z-index: -1;
+  width: 200%;
+  display: block;
+  height: 100%;
+}
+@media (max-width: 575.98px) {
+  .ad-list-wrapper .ad-list::after {
+    display: none;
+  }
+}
+.ad-list-wrapper .ad-list .shopping {
+  width: 150px;
+  height: 250px;
+  border-radius: 13px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin-bottom: 2px;
+  background: rgba(0, 0, 0, 0.5);
+}
+.ad-list-wrapper .ad-list .ad-icon {
+  position: absolute;
+  bottom: 22px;
+  right: 5px;
+}
+.ad-list-wrapper .ad-list .ad-icon i {
+  color: #807E81;
+  font-size: 14px;
+}
+.ad-list-wrapper .ad-list .heart-icon-player {
+  font-size: 14px;
+  color: #FF808B;
+  -webkit-text-stroke: 1px;
+}
+.ad-list-wrapper .ad-list p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  max-width: 90px;
+  font-weight: 500;
+  text-shadow: 0.5797037482px 0.5797037482px 0px rgba(0, 0, 0, 0.8);
+}
+.ad-list-wrapper .ad-list::-webkit-scrollbar {
+  display: none;
+}
+
+.progressbar_withicons {
+  align-items: center;
+}
+.progressbar_withicons button {
+  border: solid 1px #D9D9D9;
+  background: transparent;
+  border-radius: 4px;
+  padding: 9px 14px;
+}
+.progressbar_withicons p {
+  width: 88%;
+  margin: 0;
+}
+
+.ad-queue-scroll {
+  max-height: 413px;
+  overflow: auto;
+}
+
+.episode-detail img {
+  width: 75px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: 100px;
+  border-radius: 4px;
+}
+
+.add-section-scroll {
+  max-height: 425px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.ad-queue-ps {
+  padding-left: 4.5rem;
+}/*# sourceMappingURL=player.css.map */

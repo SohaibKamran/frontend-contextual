@@ -1,0 +1,174 @@
+@import "../../../assets/scss/player.scss";
+
+// @import '/src/assets/scss/variables.scss';
+
+// mat-icon:hover {
+//   cursor: pointer;
+// }
+
+// .adds-section {
+//   z-index: 100;
+//   position: absolute;
+//   right: 2em;
+//   color: white;
+//   display: flex;
+//   justify-content: center;
+//   flex-direction: column;
+
+//   .img {
+//     height: 162px;
+//     width: 140px;
+//     border-radius: 10px;
+//     border: 1px solid #8F92A1;
+//   }
+
+//   .ad-badge {
+//     position: absolute;
+//     right: 10px;
+//     bottom: 10px;
+//   }
+// }
+
+// .adds-section img {
+//   padding-top: 1em;
+//   object-fit: contain;
+// }
+
+// .full-screen-icon {
+//   position: absolute;
+//   right: 55px;
+//   width: 20px !important;
+// }
+
+// .vol-rep-for {
+//   color: white;
+//   font-size: 22px;
+// }
+
+// .pause {
+//   color: white;
+//   font-size: 20px;
+// }
+
+// .play {
+//   color: white;
+//   font-size: 24px;
+// }
+
+// .replay {
+//   color: white;
+//   font-size: 36px;
+// }
+
+// .material-symbols-outlined {
+//   font-variation-settings:
+//     'FILL'1,
+//     'wght'400,
+//     'GRAD'0,
+//     'opsz'48
+// }
+
+// .form-range {
+//   display: none;
+//   position: absolute;
+//   left: 53px;
+// }
+
+// .volume-icon {
+//   transition: linear 10s;
+//   position: absolute;
+//   width: 8rem;
+// }
+
+
+// .advertisor-icon {
+//   position: absolute;
+//   right: 79px;
+// }
+
+// @media (min-width: 576px) {
+//   .volume-icon {
+//     &::before {
+//       transition: all 1s;
+//     }
+
+//     &:hover {
+//       .form-range {
+//         display: block;
+//         transition: all 1s;
+//       }
+//     }
+//   }
+// }
+
+// ::ng-deep vg-player {
+//   border-radius: 4px;
+//   font-family: 'Inter' !important;
+// }
+
+// ::ng-deep vg-scrub-bar .scrubBar {
+//   background-color: #ffffff96;
+
+//   vg-scrub-bar-current-time {
+//     .background {
+//       background-color: $primary-color !important;
+//     }
+
+//     .slider {
+//       background: $white-color !important;
+//       box-shadow: none !important;
+//     }
+//   }
+// }
+
+// .wrap-video {
+
+//   img {
+//     width: 24px;
+//   }
+
+// }
+
+// vg-scrub-bar,
+// .vg_controls {
+//   margin-left: 30px;
+// }
+
+// .progressbar_withicons {
+//   align-items: center;
+
+//   button {
+//     border: solid 1px #d5d5d5;
+//     background: transparent;
+//     width: 32px;
+//     height: 32px;
+//     border-radius: 4px;
+//     color: gray;
+//   }
+
+//   p {
+//     width: 88%;
+//     margin: 0;
+//   }
+// }
+
+
+// #wrap-video {
+//   height: 100% !important;
+// }
+
+// .ad-queue-scroll {
+//   max-height: 413px;
+//   overflow: auto;
+// }
+
+// .episode-detail {
+//   img {
+//     width: 75px;
+//     object-fit: cover;
+//     height: 100px;
+//     border-radius: 4px;
+//   }
+// }
+
+
